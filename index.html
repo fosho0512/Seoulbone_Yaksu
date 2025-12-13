@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEOUL BONE | Cozy & Minimal</title>
+    
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="intro-page">
+        <div class="intro-bg"></div>
+        <div class="intro-content">
+            <h1 class="intro-logo">SEOUL BONE <span class="loc">YAKSU</span></h1>
+            <p class="intro-slogan">Urban Wellness Boutique</p>
+            <button type="button" id="enter-btn" class="enter-btn">Enter Site</button>
+        </div>
+    </div>
+
+    <header id="global-header">
+        <div class="header-left">
+            <div class="brand" id="brand-logo">SEOUL BONE <span class="loc">YAKSU</span></div>
+            <button type="button" id="menu-toggle" class="menu-toggle-btn">
+                <div class="lines"><span></span><span></span></div>
+                <span class="label">MENU</span>
+            </button>
+        </div>
+
+        <div class="header-right">
+            <button type="button" id="btn-contact" class="util-btn">Contact Us</button>
+            <a href="https://booking.naver.com/" target="_blank" class="util-btn highlight">Reservation</a>
+        </div>
+    </header>
+
+    <main id="main-container">
+        
+        <div id="drawer-menu" class="drawer-menu">
+            <nav class="chenot-menu">
+                <ul id="menu-list">
+                    <li class="menu-item active" data-id="diagnosis" data-img="images/diagnosis.jpg">
+                        <span class="num">01</span><span class="label">Scientific Diagnosis</span><span class="arrow">→</span>
+                    </li>
+                    <li class="menu-item" data-id="philosophy" data-img="images/philosophy.jpg">
+                        <span class="num">02</span><span class="label">Our Philosophy</span><span class="arrow">→</span>
+                    </li>
+                    <li class="menu-item" data-id="facility" data-img="images/facility.jpg">
+                        <span class="num">03</span><span class="label">Advanced Facility</span><span class="arrow">→</span>
+                    </li>
+                    <li class="menu-item" data-id="treatment" data-img="images/treatment.jpg">
+                        <span class="num">04</span><span class="label">Treatments</span><span class="arrow">→</span>
+                    </li>
+                    <li class="menu-item" data-id="recovery" data-img="images/recovery.jpg">
+                        <span class="num">05</span><span class="label">Functional Recovery</span><span class="arrow">→</span>
+                    </li>
+                    <li class="menu-item" data-id="prp" data-img="images/prp.jpg">
+                        <span class="num">06</span><span class="label">Cell Therapy (PRP)</span><span class="arrow">→</span>
+                    </li>
+                </ul>
+            </nav>
+            <div class="drawer-footer">
+                <p>© 2025 Seoul Bone Rehabilitation Medicine.</p>
+            </div>
+        </div>
+
+        <div id="visual-section" class="visual-section">
+            <div class="overlay"></div>
+            <div id="visual-text" class="visual-text">
+                <h3>A Moment of Calm</h3>
+                <p>Relax, recover, and restore your balance.</p>
+            </div>
+        </div>
+        
+        <div id="promo-banner" class="promo-banner" style="display: none;">
+            <div class="banner-content">
+                <span class="badge" id="banner-badge"></span>
+                <p class="message" id="banner-msg"></p>
+                <a href="#" class="link-btn" id="banner-link"></a>
+            </div>
+            <button type="button" id="close-banner" class="close-banner-btn">✕</button>
+        </div>
+
+    </main>
+
+    <div id="contact-modal" class="simple-modal">
+        <div class="simple-modal-content">
+            <button type="button" id="close-contact" class="close-simple-btn">✕</button>
+            <h2>Contact Us</h2>
+            <div class="info-group">
+                <p class="label">Address</p>
+                <p>서울 중구 다산로 123, 약수빌딩 4층<br>(약수역 X번 출구 앞)</p>
+            </div>
+            <div class="info-group">
+                <p class="label">Phone</p>
+                <p>02-1234-5678</p>
+            </div>
+            <div class="map-area">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marker-alt"></i> NAVER MAP AREA
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="detail-modal" class="modal">
+        <button type="button" id="close-detail" class="close-btn">✕ CLOSE</button>
+        <div class="modal-content" id="modal-body">
+            </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
