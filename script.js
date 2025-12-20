@@ -1,8 +1,5 @@
-/* [SEOUL BONE REHABILITATION MEDICINE] 
-   Script - Logic Only
-*/
+/* [SEOUL BONE REHABILITATION MEDICINE] Script */
 
-// [1] Element Selectors
 const elems = {
     introPage: document.getElementById('intro-page'),
     enterBtn: document.getElementById('enter-btn'),
@@ -24,13 +21,11 @@ const elems = {
     bannerLink: document.getElementById('banner-link')
 };
 
-// [2] Initialization
 function init() {
     setupBanner(); 
     setupEventListeners(); 
 }
 
-// [3] Banner Setup Logic
 function setupBanner() {
     const config = siteData.banner; 
     if (config.show && elems.promoBanner) {
@@ -44,18 +39,13 @@ function setupBanner() {
     }
 }
 
-// [4] Event Listeners
 function setupEventListeners() {
     if(elems.enterBtn) elems.enterBtn.addEventListener('click', enterSite);
-    
-    // [수정됨] 로고 클릭 시 인트로가 아닌 메인 화면 리셋으로 변경
     if(elems.brandLogo) elems.brandLogo.addEventListener('click', resetToMain);
-    
     if(elems.menuToggle) elems.menuToggle.addEventListener('click', toggleMenu);
     if(elems.contactBtn) elems.contactBtn.addEventListener('click', () => elems.contactModal.classList.add('open'));
     if(elems.closeContactBtn) elems.closeContactBtn.addEventListener('click', () => elems.contactModal.classList.remove('open'));
     if(elems.closeDetailBtn) elems.closeDetailBtn.addEventListener('click', closeDetailModal);
-    
     if(elems.closeBannerBtn) elems.closeBannerBtn.addEventListener('click', closeBanner);
 
     if(elems.menuItems) {
@@ -68,10 +58,9 @@ function setupEventListeners() {
             });
             item.addEventListener('click', () => {
                 openDetailModal(item.dataset.id);
+                toggleMenu(); // 메뉴 클릭 시 닫기
             });
         });
-        
-        // 메인 비주얼 기본값
         elems.visualBg.style.backgroundImage = `url('images/main-visual.jpg')`;
     }
 
@@ -80,22 +69,15 @@ function setupEventListeners() {
     });
 }
 
-// [5] Logic Functions
 function enterSite() {
     elems.introPage.classList.add('hidden');
     document.body.classList.add('site-entered');
     setTimeout(showBanner, 1500);
 }
 
-// [NEW] 메인 화면 리셋 함수 (로고 클릭 시 실행)
 function resetToMain() {
-    // 1. 모든 팝업/메뉴 닫기
     closeAll(); 
-    
-    // 2. 배경 이미지를 초기 메인 이미지로 변경
     elems.visualBg.style.backgroundImage = `url('images/main-visual.jpg')`;
-
-    // 3. 메뉴 활성화 표시 제거
     if(elems.menuItems) {
         elems.menuItems.forEach(i => i.classList.remove('active'));
     }
@@ -121,32 +103,115 @@ function openDetailModal(id) {
     const data = siteData.content[id];
     if (!data) return;
 
-    const html = `
-        <div class="modal-layout-top">
-            <div class="modal-text-group">
-                <h2>${data.title}</h2>
-                <div class="divider"></div>
-                <p class="description">${data.desc}</p>
+    // Reset Content & Scroll
+    elems.detailBody.innerHTML = "";
+    if(elems.detailModal.querySelector('.modal-content')) {
+        elems.detailModal.querySelector('.modal-content').scrollTop = 0;
+    }
+
+    let html = '';
+
+    if (id === 'staff') {
+        const splitIdx = 2; 
+        const leftBio = data.bio.slice(0, splitIdx);
+        const rightBio = data.bio.slice(splitIdx);
+
+        html = `
+            <div class="staff-top-image-full">
+                <img src="${data.modalImg}" alt="${data.name}">
             </div>
-            <div class="modal-image-group">
-                <img src="${data.modalImg}" alt="${data.title}">
-            </div>
-        </div>
-        
-        <div class="modal-grid">
-            ${data.details.map(det => `
-                <div class="grid-item">
-                    <div class="grid-img-wrapper">
-                        <img src="${det.img}" alt="${det.t}">
+            <div class="staff-bio-2col-container">
+                <div class="bio-column left">
+                    <div class="staff-header-simple">
+                        <h2>${data.name} <span class="position">${data.position}</span></h2>
+                        <ul class="titles-list-simple">
+                            ${data.titles.map(t => `<li>${t}</li>`).join('')}
+                        </ul>
                     </div>
-                    <div class="grid-text-wrapper">
-                        <h4>${det.t}</h4>
-                        <p>${det.d}</p>
-                    </div>
+                    ${leftBio.map(group => `
+                        <div class="bio-group">
+                            <h4>${group.category}</h4>
+                            <ul>${group.items.map(item => `<li>${item}</li>`).join('')}</ul>
+                        </div>
+                    `).join('')}
                 </div>
-            `).join('')}
-        </div>
-    `;
+                <div class="bio-column right">
+                    <div class="staff-header-spacer"></div>
+                    ${rightBio.map(group => `
+                        <div class="bio-group">
+                            <h4>${group.category}</h4>
+                            <ul>${group.items.map(item => `<li>${item}</li>`).join('')}</ul>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            <div class="staff-bottom-quote">
+                <h3>${data.bottomQuote.main}</h3>
+                <p>${data.bottomQuote.sub}</p>
+                <div class="signature-area">
+                    <img src="${data.signatureImg}" alt="Signature" onerror="this.style.display='none';">
+                    <span class="sign-text">대표원장 장 용 준</span>
+                </div>
+            </div>
+        `;
+    } 
+    else if (id === 'diagnosis') {
+        html = `
+            <div class="modal-layout-top">
+                <div class="modal-text-group">
+                    <h2>${data.title}</h2>
+                    <div class="divider"></div>
+                    <p class="description">${data.desc}</p>
+                </div>
+            </div>
+            <div class="flip-grid">
+                ${data.details.map(det => `
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="flip-img-box"><img src="${det.img}" alt="${det.t}"></div>
+                                <div class="flip-title-box"><h4>${det.t}</h4><span class="click-hint">Click to View</span></div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="back-content">
+                                    <h4>${det.t}</h4>
+                                    <div class="divider-small"></div>
+                                    <p>${det.d}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+    else {
+        const mediaHtml = data.mapEmbed 
+            ? `<div class="map-container">${data.mapEmbed}</div>` 
+            : `<img src="${data.modalImg}" alt="${data.title}">`;
+
+        html = `
+            <div class="modal-layout-top">
+                <div class="modal-text-group">
+                    <h2>${data.title}</h2>
+                    <div class="divider"></div>
+                    <p class="description">${data.desc}</p>
+                </div>
+                <div class="modal-image-group">
+                    ${mediaHtml}
+                </div>
+            </div>
+            <div class="modal-grid">
+                ${data.details.map(det => `
+                    <div class="grid-item">
+                        <div class="grid-img-wrapper"><img src="${det.img}" alt="${det.t}"></div>
+                        <div class="grid-text-wrapper"><h4>${det.t}</h4><p>${det.d}</p></div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
     elems.detailBody.innerHTML = html;
     elems.detailModal.classList.add('open');
 }
