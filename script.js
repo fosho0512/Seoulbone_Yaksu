@@ -1,5 +1,18 @@
 /* [SEOUL BONE REHABILITATION MEDICINE] Script */
 
+// Loading Animation
+document.addEventListener('DOMContentLoaded', function() {
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+        setTimeout(() => {
+            loadingOverlay.classList.add('fade-out');
+            setTimeout(() => {
+                loadingOverlay.style.display = 'none';
+            }, 1000);
+        }, 3200);
+    }
+});
+
 const elems = {
     introPage: document.getElementById('intro-page'),
     enterBtn: document.getElementById('enter-btn'),

@@ -44,6 +44,89 @@ ul { list-style: none; }
 button { border: none; background: none; cursor: pointer; font-family: inherit; }
 a { text-decoration: none; color: inherit; }
 
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1a1917;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 1s ease;
+}
+.loading-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+.loading-content {
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+}
+.loading-logo {
+    font-family: var(--font-sans);
+    font-size: 1.6rem;
+    letter-spacing: 0.2em;
+    font-weight: 300;
+    text-transform: uppercase;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 50px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 1s ease forwards;
+    animation-delay: 0.3s;
+}
+.loading-logo .brand-name {
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    color: #fff;
+}
+.loading-logo .brand-sub {
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.85em;
+}
+.line-loader {
+    width: 200px;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 auto;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: 0.8s;
+}
+.line-loader-fill {
+    width: 0%;
+    height: 100%;
+    background-color: var(--gold-accent);
+    animation: loadLine 2s ease forwards;
+    animation-delay: 1s;
+}
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+@keyframes loadLine {
+    to {
+        width: 100%;
+    }
+}
+
 /* Intro Page */
 #intro-page { 
     position: fixed; 
