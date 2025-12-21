@@ -4,7 +4,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const introOverlay = document.getElementById('intro-overlay');
     if (introOverlay) {
-        introOverlay.classList.add('loading');
         setTimeout(() => {
             introOverlay.classList.remove('loading');
         }, 2000);

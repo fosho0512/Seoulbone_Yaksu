@@ -62,11 +62,6 @@ a { text-decoration: none; color: inherit; }
 .intro-overlay.hidden {
     transform: translateY(-100%);
 }
-.intro-overlay.loading .intro-bg,
-.intro-overlay.loading .intro-cta {
-    opacity: 0;
-    pointer-events: none;
-}
 .intro-overlay .intro-bg {
     position: absolute;
     top: 0;
@@ -79,7 +74,25 @@ a { text-decoration: none; color: inherit; }
     transition: opacity 0.8s ease;
 }
 .intro-overlay .intro-cta {
+    opacity: 1;
     transition: opacity 0.5s ease 0.3s;
+}
+.intro-overlay .intro-loader {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+/* Loading state */
+.intro-overlay.loading .intro-bg {
+    opacity: 0;
+}
+.intro-overlay.loading .intro-cta {
+    opacity: 0;
+    pointer-events: none;
+}
+.intro-overlay:not(.loading) .intro-loader {
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* Intro Shell - Flexbox Container */
