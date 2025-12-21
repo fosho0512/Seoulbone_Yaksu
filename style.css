@@ -57,11 +57,15 @@ a { text-decoration: none; color: inherit; }
     justify-content: center;
     align-items: center;
     opacity: 1;
-    transition: opacity 1s ease;
+    transition: background-color 1s ease;
 }
 .loading-overlay.fade-out {
-    opacity: 0;
+    background-color: transparent;
     pointer-events: none;
+}
+.loading-overlay.fade-out .line-loader {
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 .loading-content {
     text-align: center;

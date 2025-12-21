@@ -26,7 +26,7 @@ Configured as a static site deployment serving from the root directory.
 - Added elegant loading animation on page load
   - Dark overlay with fade-up text animation
   - Gold line loader effect
-  - Smooth transition to main intro page
+  - Text stays visible, background fades to show building photo
 - Updated background to building photo with elegant filter
 - SEOUL BONE brand name emphasized with bolder styling
 - Premium resort aesthetic with gold accent color (#B8A07E)
