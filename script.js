@@ -58,7 +58,6 @@ function setupEventListeners() {
             });
             item.addEventListener('click', () => {
                 openDetailModal(item.dataset.id);
-                toggleMenu(); // 메뉴 클릭 시 닫기
             });
         });
         elems.visualBg.style.backgroundImage = `url('images/main-visual.jpg')`;
@@ -179,6 +178,33 @@ function openDetailModal(id) {
                                     <p>${det.d}</p>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+    else if (id === 'prp') {
+        html = `
+            <div class="prp-hero">
+                <div class="prp-hero-image">
+                    <img src="${data.modalImg}" alt="${data.title}">
+                </div>
+                <div class="prp-hero-text">
+                    <h2>${data.title}</h2>
+                    <div class="divider"></div>
+                    <p class="description">${data.desc}</p>
+                </div>
+            </div>
+            <div class="prp-full-content">
+                ${data.details.map(det => `
+                    <div class="prp-section">
+                        <div class="prp-section-image">
+                            <img src="${det.img}" alt="${det.t}">
+                        </div>
+                        <div class="prp-section-text">
+                            <h3>${det.t}</h3>
+                            <p>${det.d}</p>
                         </div>
                     </div>
                 `).join('')}
