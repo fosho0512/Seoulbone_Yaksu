@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
             loadingOverlay.classList.add('fade-out');
             setTimeout(() => {
                 loadingOverlay.style.display = 'none';
-            }, 1000);
-        }, 3200);
+            }, 800);
+        }, 2000);
     }
 });
 

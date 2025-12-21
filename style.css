@@ -76,11 +76,11 @@ a { text-decoration: none; color: inherit; }
     text-transform: uppercase;
     line-height: 1.4;
     color: rgba(255, 255, 255, 0.95);
-    margin-bottom: 50px;
+    margin-bottom: 60px;
     opacity: 0;
-    transform: translateY(30px);
-    animation: fadeUp 1s ease forwards;
-    animation-delay: 0.3s;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease forwards;
+    animation-delay: 0.2s;
 }
 .loading-logo .brand-name {
     font-weight: 500;
@@ -96,19 +96,19 @@ a { text-decoration: none; color: inherit; }
 .line-loader {
     width: 200px;
     height: 1px;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.15);
     margin: 0 auto;
     overflow: hidden;
     opacity: 0;
-    animation: fadeIn 0.5s ease forwards;
-    animation-delay: 0.8s;
+    animation: fadeIn 0.3s ease forwards;
+    animation-delay: 0.5s;
 }
 .line-loader-fill {
     width: 0%;
     height: 100%;
-    background-color: var(--gold-accent);
-    animation: loadLine 2s ease forwards;
-    animation-delay: 1s;
+    background-color: #D4C5A9;
+    animation: loadLine 1.2s ease forwards;
+    animation-delay: 0.6s;
 }
 @keyframes fadeUp {
     to {
