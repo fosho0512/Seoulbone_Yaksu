@@ -2,19 +2,17 @@
 
 // Loading Animation
 document.addEventListener('DOMContentLoaded', function() {
-    const loadingOverlay = document.getElementById('loading-overlay');
-    if (loadingOverlay) {
+    const introOverlay = document.getElementById('intro-overlay');
+    if (introOverlay) {
+        introOverlay.classList.add('loading');
         setTimeout(() => {
-            loadingOverlay.classList.add('fade-out');
-            setTimeout(() => {
-                loadingOverlay.style.display = 'none';
-            }, 800);
+            introOverlay.classList.remove('loading');
         }, 2000);
     }
 });
 
 const elems = {
-    introPage: document.getElementById('intro-page'),
+    introOverlay: document.getElementById('intro-overlay'),
     enterBtn: document.getElementById('enter-btn'),
     menuToggle: document.getElementById('menu-toggle'),
     menuLabel: document.querySelector('#menu-toggle .label'),
@@ -82,7 +80,7 @@ function setupEventListeners() {
 }
 
 function enterSite() {
-    elems.introPage.classList.add('hidden');
+    elems.introOverlay.classList.add('hidden');
     document.body.classList.add('site-entered');
     setTimeout(showBanner, 1500);
 }
