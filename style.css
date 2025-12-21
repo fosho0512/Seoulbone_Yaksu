@@ -131,11 +131,14 @@ a { text-decoration: none; color: inherit; }
     filter: saturate(0.5) brightness(0.6) contrast(1.2); 
 }
 .intro-content { 
-    position: relative; 
+    position: absolute; 
     z-index: 2; 
     text-align: center; 
     color: var(--bg-color); 
     width: 90%;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
     opacity: 1;
 }
 .intro-logo { 
