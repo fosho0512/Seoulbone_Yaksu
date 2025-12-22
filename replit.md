@@ -51,7 +51,24 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
 ## Recent Changes (2025-12-22)
+- Implemented hash-based routing for menu navigation (#staff, #diagnosis, etc.)
+- Removed background image change on menu hover
 - Added premium UI effects (see Premium Effects section below)
+
+## Hash-based Routing (2025-12-22)
+Menu navigation now uses URL hashes instead of modals overlaying the page:
+
+### How it works
+- Menu click → Changes URL hash (e.g., `#staff`, `#values`)
+- Hash change triggers modal open via `hashchange` event
+- Browser back/forward buttons work correctly via `popstate` event
+- Direct URL access (e.g., `site.com/#diagnosis`) skips intro and opens modal
+- Closing modal clears hash from URL
+
+### Key Functions
+- `setupHashRouting()`: Initializes hash event listeners
+- `handleHashChange()`: Opens modal based on current hash
+- Modal close functions clear hash via `history.pushState()`
 
 ## Recent Changes (2025-12-21)
 - Refactored intro page to unified Flexbox container

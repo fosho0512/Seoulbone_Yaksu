@@ -33,7 +33,8 @@ const elems = {
 
 function init() {
     setupBanner(); 
-    setupEventListeners(); 
+    setupEventListeners();
+    setupHashRouting();
 }
 
 function setupBanner() {
@@ -60,17 +61,11 @@ function setupEventListeners() {
 
     if(elems.menuItems) {
         elems.menuItems.forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                const imgUrl = item.dataset.img;
-                elems.visualBg.style.backgroundImage = `url(${imgUrl})`;
-                elems.menuItems.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
-            });
             item.addEventListener('click', () => {
-                openDetailModal(item.dataset.id);
+                const id = item.dataset.id;
+                window.location.hash = id;
             });
         });
-        elems.visualBg.style.backgroundImage = `url('images/main-visual.jpg')`;
     }
 
     document.addEventListener('keydown', (e) => {
@@ -85,11 +80,8 @@ function enterSite() {
 }
 
 function resetToMain() {
-    closeAll(); 
-    elems.visualBg.style.backgroundImage = `url('images/main-visual.jpg')`;
-    if(elems.menuItems) {
-        elems.menuItems.forEach(i => i.classList.remove('active'));
-    }
+    history.pushState(null, '', window.location.pathname);
+    closeAll();
 }
 
 function toggleMenu() {
@@ -255,6 +247,7 @@ function openDetailModal(id) {
 function closeDetailModal() {
     elems.detailModal.classList.remove('open');
     resetScrollState();
+    history.pushState(null, '', window.location.pathname);
 }
 
 function resetScrollState() {
@@ -270,10 +263,57 @@ function resetScrollState() {
 }
 
 function closeAll() {
-    closeDetailModal();
+    elems.detailModal.classList.remove('open');
+    resetScrollState();
     if(elems.contactModal) elems.contactModal.classList.remove('open');
     if (document.body.classList.contains('menu-open')) {
         toggleMenu();
+    }
+    // Clear hash when closing all modals
+    if (window.location.hash) {
+        history.pushState(null, '', window.location.pathname);
+    }
+}
+
+// Hash-based Routing
+function setupHashRouting() {
+    // Handle hash changes (back/forward buttons, direct URL access)
+    window.addEventListener('hashchange', handleHashChange);
+    
+    // Handle browser back/forward
+    window.addEventListener('popstate', () => {
+        const hash = window.location.hash.slice(1);
+        if (hash && siteData.content[hash]) {
+            openDetailModal(hash);
+        } else {
+            elems.detailModal.classList.remove('open');
+            resetScrollState();
+        }
+    });
+    
+    // Check initial hash on page load
+    setTimeout(() => {
+        const hash = window.location.hash.slice(1);
+        if (hash && siteData.content[hash]) {
+            // Skip intro if URL has hash
+            if (elems.introOverlay) {
+                elems.introOverlay.classList.remove('loading');
+                elems.introOverlay.classList.add('hidden');
+                document.body.classList.add('site-entered');
+            }
+            openDetailModal(hash);
+        }
+    }, 100);
+}
+
+function handleHashChange() {
+    const hash = window.location.hash.slice(1);
+    if (hash && siteData.content[hash]) {
+        openDetailModal(hash);
+        // Close menu if open
+        if (document.body.classList.contains('menu-open')) {
+            toggleMenu();
+        }
     }
 }
 
