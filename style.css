@@ -330,11 +330,11 @@ body.menu-open .menu-toggle-btn .lines span:last-child { transform: rotate(-45de
     opacity: 1; 
 }
 .drawer-menu { 
-    position: absolute; 
+    position: fixed; 
     top: var(--header-height); 
     left: 0; 
     width: 420px; 
-    height: calc(100% - var(--header-height)); 
+    height: calc(100vh - var(--header-height)); 
     background: var(--bg-color); 
     z-index: var(--z-drawer); 
     padding: 80px 50px 50px; 
@@ -1087,7 +1087,7 @@ body.menu-open .visual-text { opacity: 0; }
 /* Scroll Progress Bar */
 .scroll-progress {
     position: fixed;
-    top: 0;
+    top: var(--header-height);
     left: 0;
     width: 0%;
     height: 2px;
