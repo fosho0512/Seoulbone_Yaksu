@@ -1022,6 +1022,186 @@ body.menu-open .visual-text { opacity: 0; }
     font-size: 1.05rem;
 }
 
+/* =========================================
+   PREMIUM EFFECTS
+   ========================================= */
+
+/* Scroll Progress Bar */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold-accent), var(--highlight-color));
+    z-index: 10001;
+    transition: width 0.1s linear;
+}
+
+/* Gold Gradient Text Effect */
+.gold-gradient-text {
+    background: linear-gradient(135deg, #D4C5A9, var(--gold-accent), #8B7355);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Enhanced Header Scroll Effect */
+#global-header {
+    transition: all var(--transition-medium);
+}
+#global-header.scrolled {
+    background-color: rgba(250, 250, 248, 0.98);
+    box-shadow: 0 4px 30px rgba(44, 41, 38, 0.08);
+    height: calc(var(--header-height) - 15px);
+    border-bottom-color: transparent;
+}
+#global-header.scrolled .brand {
+    font-size: 0.8rem;
+}
+
+/* Premium Button Hover Effects */
+.util-btn {
+    transform: translateY(0);
+    transition: all var(--transition-fast), transform 0.3s ease, box-shadow 0.3s ease;
+}
+.util-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(44, 41, 38, 0.12);
+}
+.enter-btn {
+    transform: scale(1);
+    transition: all var(--transition-medium), transform 0.3s ease, box-shadow 0.3s ease;
+}
+.enter-btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 35px rgba(184, 160, 126, 0.25);
+}
+
+/* Menu Item Underline Animation */
+.menu-item {
+    position: relative;
+}
+.menu-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold-accent), transparent);
+    transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.menu-item:hover::after,
+.menu-item.active::after {
+    width: 100%;
+}
+.menu-item:hover,
+.menu-item.active {
+    transform: translateX(5px);
+}
+
+/* Image Hover Zoom & Brightness */
+.modal-image-group img,
+.grid-img-wrapper img,
+.staff-top-image-full img,
+.prp-hero-image img,
+.prp-section-image img {
+    transition: transform var(--transition-slow), filter var(--transition-medium);
+}
+.modal-image-group:hover img,
+.grid-item:hover .grid-img-wrapper img,
+.staff-top-image-full:hover img,
+.prp-hero-image:hover img,
+.prp-section:hover .prp-section-image img {
+    transform: scale(1.05);
+    filter: brightness(1.05);
+}
+
+/* Scroll Fade-In Animation */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Section Divider Lines */
+.section-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-accent), transparent);
+    margin: 60px 0;
+}
+
+/* Gold Accent Line for Titles */
+.modal-text-group h2::before {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 60%;
+    background: linear-gradient(180deg, var(--gold-accent), var(--highlight-color));
+    opacity: 0.6;
+}
+.modal-text-group h2 {
+    position: relative;
+}
+
+/* Enhanced Card Shadows */
+.grid-item,
+.flip-card-inner,
+.prp-section {
+    box-shadow: 0 4px 20px rgba(44, 41, 38, 0.06);
+    transition: all var(--transition-medium), box-shadow 0.4s ease;
+}
+.grid-item:hover,
+.prp-section:hover {
+    box-shadow: 0 20px 50px rgba(44, 41, 38, 0.12);
+}
+
+/* Background Noise Texture Overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.015;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Premium Typography Enhancements */
+.modal-text-group h2,
+.staff-header-simple h2,
+.prp-hero-text h2,
+.simple-modal-content h2,
+.visual-text h3 {
+    letter-spacing: 0.04em;
+}
+.menu-item .label,
+.grid-text-wrapper h4,
+.flip-title-box h4,
+.prp-section-text h3 {
+    letter-spacing: 0.03em;
+}
+
+/* Intro Logo Gold Gradient */
+.intro-logo .brand-name {
+    background: linear-gradient(135deg, #fff, #D4C5A9, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .drawer-menu { width: 100%; }

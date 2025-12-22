@@ -264,5 +264,84 @@ function closeAll() {
     }
 }
 
+// Premium Scroll Effects
+function setupScrollEffects() {
+    const header = document.getElementById('global-header');
+    const scrollProgress = document.getElementById('scroll-progress');
+    const modalContent = document.querySelector('.modal-content');
+    
+    // Header scroll effect
+    function handleScroll(scrollTop, scrollHeight, clientHeight) {
+        // Header shrink effect
+        if (scrollTop > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+        
+        // Scroll progress bar
+        if (scrollProgress) {
+            const scrollPercent = (scrollTop / (scrollHeight - clientHeight)) * 100;
+            scrollProgress.style.width = Math.min(scrollPercent, 100) + '%';
+        }
+    }
+    
+    // Listen to window scroll (when no modal open)
+    window.addEventListener('scroll', () => {
+        handleScroll(window.scrollY, document.documentElement.scrollHeight, window.innerHeight);
+    });
+    
+    // Also listen to modal scroll
+    const detailModal = document.getElementById('detail-modal');
+    if (detailModal) {
+        const modalContentEl = detailModal.querySelector('.modal-content');
+        if (modalContentEl) {
+            modalContentEl.addEventListener('scroll', () => {
+                handleScroll(modalContentEl.scrollTop, modalContentEl.scrollHeight, modalContentEl.clientHeight);
+            });
+        }
+    }
+}
+
+// Intersection Observer for Fade-In Animation
+function setupFadeInObserver() {
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+    
+    // Observe elements when modal opens
+    const detailModal = document.getElementById('detail-modal');
+    if (detailModal) {
+        const mutationObserver = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.target.classList.contains('open')) {
+                    setTimeout(() => {
+                        const fadeElements = detailModal.querySelectorAll('.grid-item, .flip-card, .prp-section, .bio-group');
+                        fadeElements.forEach((el, index) => {
+                            el.classList.add('fade-in-up');
+                            el.style.transitionDelay = (index * 0.1) + 's';
+                            observer.observe(el);
+                        });
+                    }, 100);
+                }
+            });
+        });
+        
+        mutationObserver.observe(detailModal, { attributes: true, attributeFilter: ['class'] });
+    }
+}
+
 // Run
 init();
+setupScrollEffects();
+setupFadeInObserver();
