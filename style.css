@@ -77,7 +77,7 @@ body {
     font-family: var(--font-sans); 
     overflow: hidden;
     font-weight: 300;
-    letter-spacing: 0.01em;
+    letter-spacing: var(--ls-normal);
 }
 body.content-view-active {
     overflow: auto;
@@ -172,7 +172,7 @@ a { text-decoration: none; color: inherit; }
 }
 .intro-logo .brand-name {
     font-weight: 500;
-    letter-spacing: 0.3em;
+    letter-spacing: var(--ls-widest);
     color: #fff;
     display: block;
 }
@@ -289,16 +289,16 @@ a { text-decoration: none; color: inherit; }
     transition: all 0.5s ease; 
 }
 .menu-toggle-btn .label { 
-    font-size: 0.75rem; 
-    letter-spacing: 0.15em; 
+    font-size: var(--font-caption); 
+    letter-spacing: var(--ls-wider); 
     font-weight: 500; 
 }
 body.menu-open .menu-toggle-btn .lines span:first-child { transform: rotate(45deg) translate(5px, 5px); }
 body.menu-open .menu-toggle-btn .lines span:nth-child(2) { opacity: 0; }
 body.menu-open .menu-toggle-btn .lines span:last-child { transform: rotate(-45deg) translate(5px, -5px); }
 .util-btn { 
-    font-size: 0.8rem; 
-    letter-spacing: 0.1em; 
+    font-size: var(--font-ui); 
+    letter-spacing: var(--ls-widest); 
     padding: 14px 28px; 
     text-transform: uppercase; 
     transition: all var(--transition-fast); 
@@ -480,32 +480,32 @@ body.menu-open .visual-text { opacity: 0; }
 .promo-banner .badge { 
     background-color: var(--gold-accent); 
     color: #fff; 
-    font-size: 0.65rem; 
+    font-size: var(--font-2xs); 
     font-weight: 600; 
     padding: 5px 12px; 
-    letter-spacing: 0.1em; 
+    letter-spacing: var(--ls-widest); 
     border-radius: 0; 
 }
 .promo-banner .message { 
-    font-size: 0.95rem; 
+    font-size: var(--font-body-sm); 
     color: var(--text-color); 
     font-weight: 400;
 }
 .promo-banner .link-btn { 
-    font-size: 0.85rem; 
+    font-size: var(--font-ui); 
     font-weight: 500; 
     color: var(--gold-accent); 
     border-bottom: 1px solid var(--gold-accent); 
     padding-bottom: 3px; 
     transition: all var(--transition-fast);
-    letter-spacing: 0.05em;
+    letter-spacing: var(--ls-wider);
 }
 .promo-banner .link-btn:hover { 
     color: var(--text-color); 
     border-color: var(--text-color); 
 }
 .close-banner-btn { 
-    font-size: 1.2rem; 
+    font-size: var(--font-md); 
     color: var(--accent-color); 
     padding: 8px; 
     line-height: 1; 
@@ -548,7 +548,7 @@ body.menu-open .visual-text { opacity: 0; }
     position: absolute; 
     top: 25px; 
     right: 25px; 
-    font-size: 1.2rem; 
+    font-size: var(--font-md); 
     cursor: pointer; 
     color: var(--text-color); 
     opacity: 0.6;
@@ -557,19 +557,20 @@ body.menu-open .visual-text { opacity: 0; }
 .close-simple-btn:hover { opacity: 1; }
 .simple-modal-content h2 { 
     font-family: var(--font-serif); 
-    font-size: 2.2rem; 
+    font-size: var(--font-heading-lg); 
     margin-bottom: 40px; 
     color: var(--gold-accent); 
     font-weight: 400;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--ls-wider);
+    line-height: var(--lh-tight);
 }
 .info-group { margin-bottom: 25px; }
 .info-group .label { 
-    font-size: 0.75rem; 
+    font-size: var(--font-caption); 
     color: var(--gold-accent); 
     text-transform: uppercase; 
     margin-bottom: 8px; 
-    letter-spacing: 0.1em;
+    letter-spacing: var(--ls-widest);
 }
 .map-area { 
     margin-top: 40px; 
@@ -605,13 +606,13 @@ body.menu-open .visual-text { opacity: 0; }
     position: absolute; 
     top: 45px; 
     right: 60px; 
-    font-size: 0.85rem; 
+    font-size: var(--font-ui); 
     font-weight: 500; 
     cursor: pointer; 
     z-index: 10; 
     color: var(--text-color); 
     padding: 12px; 
-    letter-spacing: 0.1em;
+    letter-spacing: var(--ls-widest);
     opacity: 0.7;
     transition: opacity var(--transition-fast);
 }
@@ -901,15 +902,16 @@ body.menu-open .visual-text { opacity: 0; }
 }
 .flip-title-box h4 { 
     font-family: var(--font-serif); 
-    font-size: 1.35rem; 
+    font-size: var(--font-heading-sm); 
     color: var(--gold-accent); 
     margin-bottom: 8px; 
     font-weight: 400;
+    line-height: var(--lh-snug);
 }
 .click-hint { 
-    font-size: 0.7rem; 
+    font-size: var(--font-2xs); 
     color: #9A948C; 
-    letter-spacing: 0.1em; 
+    letter-spacing: var(--ls-widest); 
     text-transform: uppercase; 
 }
 
@@ -931,11 +933,12 @@ body.menu-open .visual-text { opacity: 0; }
 
 .back-content h4 { 
     font-family: var(--font-serif); 
-    font-size: 1.35rem; 
+    font-size: var(--font-heading-sm); 
     color: var(--gold-accent); 
     margin-bottom: 18px; 
     flex-shrink: 0; 
     font-weight: 400;
+    line-height: var(--lh-snug);
 }
 .divider-small { 
     width: 40px; 
@@ -945,8 +948,8 @@ body.menu-open .visual-text { opacity: 0; }
     flex-shrink: 0; 
 }
 .back-content p { 
-    font-size: 0.95rem; 
-    line-height: 1.7; 
+    font-size: var(--font-body-sm); 
+    line-height: var(--lh-relaxed); 
     color: #6B635B; 
     word-break: keep-all; 
     font-weight: 300;
@@ -956,14 +959,14 @@ body.menu-open .visual-text { opacity: 0; }
     display: block; 
     margin-bottom: 10px; 
     font-weight: 500; 
-    font-size: 1rem; 
+    font-size: var(--font-body); 
 }
 .back-content p i { 
     display: block; 
     margin-bottom: 15px; 
     color: var(--gold-accent); 
     font-family: var(--font-serif); 
-    font-size: 1.05rem; 
+    font-size: var(--font-body); 
 }
 
 /* ==========================================
@@ -989,11 +992,12 @@ body.menu-open .visual-text { opacity: 0; }
 }
 .prp-hero-text h2 {
     font-family: var(--font-serif);
-    font-size: 3.2rem;
+    font-size: var(--font-display-lg);
     color: var(--gold-accent);
     margin-bottom: 30px;
     font-weight: 400;
-    letter-spacing: 0.03em;
+    letter-spacing: var(--ls-wide);
+    line-height: var(--lh-tight);
 }
 .prp-hero-text .divider {
     width: 70px;
@@ -1002,15 +1006,15 @@ body.menu-open .visual-text { opacity: 0; }
     margin-bottom: 30px;
 }
 .prp-hero-text .description {
-    font-size: 1.1rem;
-    line-height: 2;
+    font-size: var(--font-body-lg);
+    line-height: var(--lh-loose);
     color: var(--text-color);
     font-weight: 300;
 }
 .prp-hero-text .description strong {
     font-weight: 500;
     color: var(--accent-color);
-    font-size: 1.15rem;
+    font-size: var(--font-md);
 }
 
 .prp-full-content {
@@ -1051,14 +1055,15 @@ body.menu-open .visual-text { opacity: 0; }
 }
 .prp-section-text h3 {
     font-family: var(--font-serif);
-    font-size: 1.5rem;
+    font-size: var(--font-heading-md);
     color: var(--gold-accent);
     margin-bottom: 20px;
     font-weight: 400;
+    line-height: var(--lh-snug);
 }
 .prp-section-text p {
-    font-size: 1rem;
-    line-height: 1.9;
+    font-size: var(--font-body);
+    line-height: var(--lh-relaxed);
     color: #6B635B;
     font-weight: 300;
 }
@@ -1072,7 +1077,7 @@ body.menu-open .visual-text { opacity: 0; }
     margin-bottom: 15px;
     color: var(--accent-color);
     font-family: var(--font-serif);
-    font-size: 1.05rem;
+    font-size: var(--font-body);
 }
 
 /* =========================================
@@ -1110,7 +1115,7 @@ body.menu-open .visual-text { opacity: 0; }
     border-bottom-color: transparent;
 }
 #global-header.scrolled .brand {
-    font-size: 0.8rem;
+    font-size: var(--font-xs);
 }
 
 /* Premium Button Hover Effects */
@@ -1232,20 +1237,6 @@ body::before {
     z-index: 0;
 }
 
-/* Premium Typography Enhancements */
-.modal-text-group h2,
-.staff-header-simple h2,
-.prp-hero-text h2,
-.simple-modal-content h2,
-.visual-text h3 {
-    letter-spacing: 0.04em;
-}
-.menu-item .label,
-.grid-text-wrapper h4,
-.flip-title-box h4,
-.prp-section-text h3 {
-    letter-spacing: 0.03em;
-}
 
 /* Intro Logo Gold Gradient */
 .intro-logo .brand-name {
@@ -1262,15 +1253,16 @@ body::before {
     :root { --header-height: 65px; }
     .header-right { display: none; }
     .visual-text { bottom: 60px; left: 30px; }
-    .visual-text h3 { font-size: 2.8rem; }
-    .intro-logo { font-size: 2rem; letter-spacing: 0.15em; }
-    .intro-logo .loc { font-size: 1rem; }
-    .brand { font-size: 0.75rem; }
+    .visual-text h3 { font-size: var(--font-display-md); }
+    .intro-logo { font-size: var(--font-heading-lg); letter-spacing: var(--ls-wider); }
+    .intro-logo .loc { font-size: var(--font-body); }
+    .brand { font-size: var(--font-caption); }
     .modal-content { padding: 90px 25px; }
+    .content-wrapper { padding: 40px 6% 80px; }
     
     .modal-layout-top { flex-direction: column-reverse; gap: 40px; margin-bottom: 60px; }
     .modal-image-group img, .map-container { height: 280px; }
-    .modal-text-group h2 { font-size: 2.4rem; margin-bottom: 20px; }
+    .modal-text-group h2 { font-size: var(--font-heading-lg); margin-bottom: 20px; }
     .modal-grid { grid-template-columns: 1fr; gap: 35px; }
     .grid-img-wrapper { height: 200px; }
 
@@ -1278,8 +1270,8 @@ body::before {
     .staff-bio-2col-container { grid-template-columns: 1fr; gap: 40px; } 
     .staff-header-spacer { display: none; }
     .staff-bottom-quote { padding: 50px 25px; }
-    .staff-bottom-quote h3 { font-size: 1.5rem; }
-    .staff-bottom-quote p { font-size: 1rem; }
+    .staff-bottom-quote h3 { font-size: var(--font-heading-md); }
+    .staff-bottom-quote p { font-size: var(--font-body); }
 
     .promo-banner { width: 95%; bottom: 25px; padding: 20px 25px; flex-direction: column; align-items: flex-start; }
     .close-banner-btn { position: absolute; top: 18px; right: 18px; }
@@ -1289,14 +1281,14 @@ body::before {
     .flip-grid { grid-template-columns: 1fr; gap: 35px; }
     .flip-card { height: 400px; }
     .flip-card-back { padding: 28px 22px; }
-    .back-content p { font-size: 0.9rem; }
+    .back-content p { font-size: var(--font-body-sm); }
 
     /* Mobile PRP */
     .prp-hero { flex-direction: column; gap: 40px; margin-bottom: 60px; }
     .prp-hero-image img { height: 280px; }
-    .prp-hero-text h2 { font-size: 2.2rem; }
+    .prp-hero-text h2 { font-size: var(--font-heading-lg); }
     .prp-section { flex-direction: column !important; gap: 25px; padding: 25px; }
     .prp-section-image { flex: none; }
     .prp-section-image img { height: 200px; }
-    .prp-section-text h3 { font-size: 1.3rem; }
+    .prp-section-text h3 { font-size: var(--font-heading-sm); }
 }
