@@ -242,10 +242,17 @@ function openDetailModal(id) {
 
     elems.detailBody.innerHTML = html;
     elems.detailModal.classList.add('open');
+    document.body.classList.add('page-view-active');
+    
+    // Close menu if open
+    if (document.body.classList.contains('menu-open')) {
+        document.body.classList.remove('menu-open');
+    }
 }
 
 function closeDetailModal() {
     elems.detailModal.classList.remove('open');
+    document.body.classList.remove('page-view-active');
     resetScrollState();
     history.pushState(null, '', window.location.pathname);
 }
@@ -264,6 +271,7 @@ function resetScrollState() {
 
 function closeAll() {
     elems.detailModal.classList.remove('open');
+    document.body.classList.remove('page-view-active');
     resetScrollState();
     if(elems.contactModal) elems.contactModal.classList.remove('open');
     if (document.body.classList.contains('menu-open')) {
@@ -287,6 +295,7 @@ function setupHashRouting() {
             openDetailModal(hash);
         } else {
             elems.detailModal.classList.remove('open');
+            document.body.classList.remove('page-view-active');
             resetScrollState();
         }
     });

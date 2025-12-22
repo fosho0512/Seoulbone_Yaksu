@@ -546,12 +546,25 @@ body.menu-open .visual-text { opacity: 0; }
     height: 100%; 
     background: var(--bg-color); 
     z-index: var(--z-modal); 
-    transform: translateY(100%); 
-    transition: transform var(--transition-slow); 
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease; 
     display: flex; 
     flex-direction: column; 
 }
-.modal.open { transform: translateY(0); }
+.modal.open { 
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Hide home content when page view is active */
+body.page-view-active #main-container .drawer-menu,
+body.page-view-active #main-container .visual-section,
+body.page-view-active .promo-banner {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
 .close-btn { 
     position: absolute; 
     top: 45px; 
