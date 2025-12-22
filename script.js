@@ -254,6 +254,19 @@ function openDetailModal(id) {
 
 function closeDetailModal() {
     elems.detailModal.classList.remove('open');
+    resetScrollState();
+}
+
+function resetScrollState() {
+    const header = document.getElementById('global-header');
+    const scrollProgress = document.getElementById('scroll-progress');
+    
+    if (header) {
+        header.classList.remove('scrolled');
+    }
+    if (scrollProgress) {
+        scrollProgress.style.width = '0%';
+    }
 }
 
 function closeAll() {

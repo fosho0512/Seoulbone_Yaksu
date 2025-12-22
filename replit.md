@@ -50,9 +50,41 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 3. CSS transitions reveal background and Enter button
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
+## Recent Changes (2025-12-22)
+- Added premium UI effects (see Premium Effects section below)
+
 ## Recent Changes (2025-12-21)
 - Refactored intro page to unified Flexbox container
 - Fixed PC/mobile overlap issues with clamp() responsive spacing
 - Loading class now in HTML for flicker-free initial load
 - Removed separate loading-overlay, intro-text, intro-page elements
 - Single .intro-overlay controls entire intro sequence
+
+## Premium Effects (2025-12-22)
+Applied luxury, modern, high-end visual enhancements:
+
+### Typography
+- Gold gradient text on intro logo (.intro-logo .brand-name)
+- Enhanced letter-spacing for headings (0.03em - 0.04em)
+- .gold-gradient-text utility class available
+
+### Hover & Interaction Effects
+- Buttons: scale(1.02) + translateY(-2px) + box-shadow on hover
+- Menu items: gold underline animation (left→right expand) + translateX(5px)
+- Images: scale(1.05) + brightness(1.05) on hover
+
+### Scroll Effects
+- Scroll progress bar (thin gold line at top)
+- Header shrink effect on scroll (reduced height + shadow + darker bg)
+- Fade-in on scroll (Intersection Observer) for grid items, flip cards, etc.
+
+### Visual Details
+- Subtle background noise texture overlay (opacity: 0.015)
+- Gold accent line next to modal titles (::before pseudo-element)
+- Enhanced card shadows (0 4px 20px → 0 20px 50px on hover)
+- Gold gradient section dividers (.section-divider class)
+
+### JavaScript Functions
+- `setupScrollEffects()`: Header scroll state, progress bar
+- `setupFadeInObserver()`: Intersection Observer for fade-in animations
+- `resetScrollState()`: Resets header/progress bar on modal close
