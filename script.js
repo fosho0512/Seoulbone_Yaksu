@@ -242,6 +242,7 @@ function showContentView(id) {
     // Switch views
     elems.homeView.classList.remove('active');
     elems.contentView.classList.add('active');
+    document.body.classList.add('content-view-active');
     
     // Close menu if open
     if (document.body.classList.contains('menu-open')) {
@@ -252,6 +253,7 @@ function showContentView(id) {
 function showHomeView(skipPushState = false) {
     elems.contentView.classList.remove('active');
     elems.homeView.classList.add('active');
+    document.body.classList.remove('content-view-active');
     resetScrollState();
     if (!skipPushState && window.location.hash) {
         history.pushState(null, '', window.location.pathname);
