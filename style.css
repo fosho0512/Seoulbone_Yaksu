@@ -538,32 +538,25 @@ body.menu-open .visual-text { opacity: 0; }
     color: var(--text-color); 
 }
 
-.modal { 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background: var(--bg-color); 
-    z-index: var(--z-modal); 
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease; 
-    display: flex; 
-    flex-direction: column; 
+/* Page View System */
+.page-view {
+    display: none;
+    width: 100%;
+    height: 100%;
 }
-.modal.open { 
-    opacity: 1;
-    visibility: visible;
+.page-view.active {
+    display: block;
 }
 
-/* Hide home content when page view is active */
-body.page-view-active #main-container .drawer-menu,
-body.page-view-active #main-container .visual-section,
-body.page-view-active .promo-banner {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+#content-view {
+    background: var(--bg-color);
+}
+
+.content-wrapper {
+    width: 100%;
+    min-height: 100%;
+    overflow-y: auto;
+    padding: 120px 12%;
 }
 .close-btn { 
     position: absolute; 

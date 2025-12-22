@@ -19,9 +19,9 @@ const elems = {
     contactBtn: document.getElementById('btn-contact'),
     contactModal: document.getElementById('contact-modal'),
     closeContactBtn: document.getElementById('close-contact'),
-    detailModal: document.getElementById('detail-modal'),
-    detailBody: document.getElementById('modal-body'),
-    closeDetailBtn: document.getElementById('close-detail'),
+    homeView: document.getElementById('home-view'),
+    contentView: document.getElementById('content-view'),
+    contentBody: document.getElementById('content-body'),
     visualBg: document.getElementById('visual-section'),
     menuItems: document.querySelectorAll('.menu-item'),
     promoBanner: document.getElementById('promo-banner'),
@@ -56,7 +56,6 @@ function setupEventListeners() {
     if(elems.menuToggle) elems.menuToggle.addEventListener('click', toggleMenu);
     if(elems.contactBtn) elems.contactBtn.addEventListener('click', () => elems.contactModal.classList.add('open'));
     if(elems.closeContactBtn) elems.closeContactBtn.addEventListener('click', () => elems.contactModal.classList.remove('open'));
-    if(elems.closeDetailBtn) elems.closeDetailBtn.addEventListener('click', closeDetailModal);
     if(elems.closeBannerBtn) elems.closeBannerBtn.addEventListener('click', closeBanner);
 
     if(elems.menuItems) {
@@ -100,15 +99,13 @@ function closeBanner() {
     if(elems.promoBanner) elems.promoBanner.classList.remove('show');
 }
 
-function openDetailModal(id) {
+function showContentView(id) {
     const data = siteData.content[id];
     if (!data) return;
 
     // Reset Content & Scroll
-    elems.detailBody.innerHTML = "";
-    if(elems.detailModal.querySelector('.modal-content')) {
-        elems.detailModal.querySelector('.modal-content').scrollTop = 0;
-    }
+    elems.contentBody.innerHTML = "";
+    window.scrollTo(0, 0);
 
     let html = '';
 
@@ -240,9 +237,11 @@ function openDetailModal(id) {
         `;
     }
 
-    elems.detailBody.innerHTML = html;
-    elems.detailModal.classList.add('open');
-    document.body.classList.add('page-view-active');
+    elems.contentBody.innerHTML = html;
+    
+    // Switch views
+    elems.homeView.classList.remove('active');
+    elems.contentView.classList.add('active');
     
     // Close menu if open
     if (document.body.classList.contains('menu-open')) {
@@ -250,11 +249,13 @@ function openDetailModal(id) {
     }
 }
 
-function closeDetailModal() {
-    elems.detailModal.classList.remove('open');
-    document.body.classList.remove('page-view-active');
+function showHomeView(skipPushState = false) {
+    elems.contentView.classList.remove('active');
+    elems.homeView.classList.add('active');
     resetScrollState();
-    history.pushState(null, '', window.location.pathname);
+    if (!skipPushState && window.location.hash) {
+        history.pushState(null, '', window.location.pathname);
+    }
 }
 
 function resetScrollState() {
@@ -270,16 +271,10 @@ function resetScrollState() {
 }
 
 function closeAll() {
-    elems.detailModal.classList.remove('open');
-    document.body.classList.remove('page-view-active');
-    resetScrollState();
+    showHomeView();
     if(elems.contactModal) elems.contactModal.classList.remove('open');
     if (document.body.classList.contains('menu-open')) {
         toggleMenu();
-    }
-    // Clear hash when closing all modals
-    if (window.location.hash) {
-        history.pushState(null, '', window.location.pathname);
     }
 }
 
@@ -292,11 +287,9 @@ function setupHashRouting() {
     window.addEventListener('popstate', () => {
         const hash = window.location.hash.slice(1);
         if (hash && siteData.content[hash]) {
-            openDetailModal(hash);
+            showContentView(hash);
         } else {
-            elems.detailModal.classList.remove('open');
-            document.body.classList.remove('page-view-active');
-            resetScrollState();
+            showHomeView(true);
         }
     });
     
@@ -310,7 +303,7 @@ function setupHashRouting() {
                 elems.introOverlay.classList.add('hidden');
                 document.body.classList.add('site-entered');
             }
-            openDetailModal(hash);
+            showContentView(hash);
         }
     }, 100);
 }
@@ -318,7 +311,7 @@ function setupHashRouting() {
 function handleHashChange() {
     const hash = window.location.hash.slice(1);
     if (hash && siteData.content[hash]) {
-        openDetailModal(hash);
+        showContentView(hash);
         // Close menu if open
         if (document.body.classList.contains('menu-open')) {
             toggleMenu();
@@ -330,7 +323,6 @@ function handleHashChange() {
 function setupScrollEffects() {
     const header = document.getElementById('global-header');
     const scrollProgress = document.getElementById('scroll-progress');
-    const modalContent = document.querySelector('.modal-content');
     
     // Header scroll effect
     function handleScroll(scrollTop, scrollHeight, clientHeight) {
@@ -348,21 +340,10 @@ function setupScrollEffects() {
         }
     }
     
-    // Listen to window scroll (when no modal open)
+    // Listen to window scroll
     window.addEventListener('scroll', () => {
         handleScroll(window.scrollY, document.documentElement.scrollHeight, window.innerHeight);
     });
-    
-    // Also listen to modal scroll
-    const detailModal = document.getElementById('detail-modal');
-    if (detailModal) {
-        const modalContentEl = detailModal.querySelector('.modal-content');
-        if (modalContentEl) {
-            modalContentEl.addEventListener('scroll', () => {
-                handleScroll(modalContentEl.scrollTop, modalContentEl.scrollHeight, modalContentEl.clientHeight);
-            });
-        }
-    }
 }
 
 // Intersection Observer for Fade-In Animation
@@ -381,14 +362,14 @@ function setupFadeInObserver() {
         });
     }, observerOptions);
     
-    // Observe elements when modal opens
-    const detailModal = document.getElementById('detail-modal');
-    if (detailModal) {
+    // Observe elements when content view becomes active
+    const contentView = document.getElementById('content-view');
+    if (contentView) {
         const mutationObserver = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
-                if (mutation.target.classList.contains('open')) {
+                if (mutation.target.classList.contains('active')) {
                     setTimeout(() => {
-                        const fadeElements = detailModal.querySelectorAll('.grid-item, .flip-card, .prp-section, .bio-group');
+                        const fadeElements = contentView.querySelectorAll('.grid-item, .flip-card, .prp-section, .bio-group');
                         fadeElements.forEach((el, index) => {
                             el.classList.add('fade-in-up');
                             el.style.transitionDelay = (index * 0.1) + 's';
@@ -399,7 +380,7 @@ function setupFadeInObserver() {
             });
         });
         
-        mutationObserver.observe(detailModal, { attributes: true, attributeFilter: ['class'] });
+        mutationObserver.observe(contentView, { attributes: true, attributeFilter: ['class'] });
     }
 }
 
