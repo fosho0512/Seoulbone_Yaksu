@@ -220,7 +220,7 @@ a { text-decoration: none; color: inherit; }
     border-bottom: 1px solid var(--sub-color); 
 }
 .header-left, .header-right { display: flex; align-items: center; }
-.header-left { gap: 50px; }
+.header-left { gap: 20px; }
 .header-right { gap: 20px; }
 .brand { 
     font-size: 0.85rem; 
@@ -238,23 +238,22 @@ a { text-decoration: none; color: inherit; }
     gap: 25px; 
     color: var(--text-color); 
 }
-.menu-toggle-btn .lines { position: relative; width: 32px; height: 12px; }
+.menu-toggle-btn .lines { position: relative; width: 24px; height: 16px; display: flex; flex-direction: column; justify-content: space-between; }
 .menu-toggle-btn .lines span { 
-    position: absolute; 
+    display: block;
     width: 100%; 
     height: 1px; 
     background-color: var(--text-color); 
     transition: all 0.5s ease; 
 }
-.menu-toggle-btn .lines span:first-child { top: 0; }
-.menu-toggle-btn .lines span:last-child { bottom: 0; }
 .menu-toggle-btn .label { 
     font-size: 0.75rem; 
     letter-spacing: 0.15em; 
     font-weight: 500; 
 }
-body.menu-open .menu-toggle-btn .lines span:first-child { top: 5px; transform: rotate(45deg); }
-body.menu-open .menu-toggle-btn .lines span:last-child { bottom: 5px; transform: rotate(-45deg); }
+body.menu-open .menu-toggle-btn .lines span:first-child { transform: rotate(45deg) translate(5px, 5px); }
+body.menu-open .menu-toggle-btn .lines span:nth-child(2) { opacity: 0; }
+body.menu-open .menu-toggle-btn .lines span:last-child { transform: rotate(-45deg) translate(5px, -5px); }
 .util-btn { 
     font-size: 0.8rem; 
     letter-spacing: 0.1em; 
