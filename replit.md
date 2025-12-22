@@ -92,6 +92,56 @@ Navigation uses content view switching instead of modal overlays:
 - Removed separate loading-overlay, intro-text, intro-page elements
 - Single .intro-overlay controls entire intro sequence
 
+## Typography System (2025-12-22)
+A modular typography scale system for consistent, premium typography across the site:
+
+### CSS Variables (:root)
+```css
+/* Size Scale (1.2 modular ratio) */
+--font-2xs: 0.694rem;    /* 11px - Fine print */
+--font-xs: 0.833rem;     /* 13px - Captions */
+--font-sm: 1rem;         /* 16px - Base */
+--font-md: 1.2rem;       /* 19px - Body emphasis */
+--font-lg: 1.44rem;      /* 23px - Subheadings */
+--font-xl: 1.728rem;     /* 28px - Headings */
+--font-2xl: 2.074rem;    /* 33px - Section titles */
+--font-3xl: 2.488rem;    /* 40px - Page titles */
+--font-4xl: 2.986rem;    /* 48px - Hero headlines */
+--font-5xl: 3.583rem;    /* 57px - Display text */
+
+/* Semantic Tokens (role-based with clamp() for responsiveness) */
+--font-display-xl: clamp(2.5rem, 5vw, 3.583rem);   /* Hero/Intro */
+--font-display-lg: clamp(2rem, 4vw, 2.986rem);     /* Section Hero */
+--font-display-md: clamp(1.5rem, 3vw, 2.488rem);   /* Page Title */
+--font-heading-lg: clamp(1.4rem, 2.5vw, 2.074rem); /* Content H2 */
+--font-heading-md: clamp(1.2rem, 2vw, 1.728rem);   /* Content H3 */
+--font-heading-sm: clamp(1rem, 1.5vw, 1.44rem);    /* Content H4 */
+--font-body-lg: 1.2rem;     /* Body emphasis */
+--font-body: 1rem;          /* Body text */
+--font-body-sm: 0.875rem;   /* Secondary text */
+--font-ui: 0.833rem;        /* UI elements */
+--font-caption: 0.75rem;    /* Captions/labels */
+
+/* Line Heights */
+--lh-tight: 1.2;     /* Headlines */
+--lh-snug: 1.4;      /* Subheadings */
+--lh-normal: 1.6;    /* Body text */
+--lh-relaxed: 1.8;   /* Long-form text */
+--lh-loose: 2;       /* Spacious reading */
+
+/* Letter Spacing */
+--ls-tight: -0.02em;   /* Large headlines */
+--ls-normal: 0;        /* Body text */
+--ls-wide: 0.02em;     /* Subheadings */
+--ls-wider: 0.05em;    /* Labels */
+--ls-widest: 0.1em;    /* All caps */
+```
+
+### Usage Guidelines
+- All font-size and letter-spacing values use CSS variables
+- No hard-coded rem/em values in component styles
+- Responsive scaling via clamp() for display and heading tokens
+
 ## Premium Effects (2025-12-22)
 Applied luxury, modern, high-end visual enhancements:
 
