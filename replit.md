@@ -55,20 +55,35 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 - Removed background image change on menu hover
 - Added premium UI effects (see Premium Effects section below)
 
-## Hash-based Routing (2025-12-22)
-Menu navigation now uses URL hashes instead of modals overlaying the page:
+## Page View System (2025-12-22)
+Navigation uses content view switching instead of modal overlays:
+
+### HTML Structure
+```html
+<main id="main-container">
+    <section id="home-view" class="page-view active">
+        <!-- Menu + Visual Section -->
+    </section>
+    <section id="content-view" class="page-view">
+        <div class="content-wrapper" id="content-body">
+            <!-- Dynamic content -->
+        </div>
+    </section>
+</main>
+```
 
 ### How it works
 - Menu click → Changes URL hash (e.g., `#staff`, `#values`)
-- Hash change triggers modal open via `hashchange` event
+- Hash change triggers `showContentView(id)` which swaps `.active` class
+- Only one `.page-view` is visible at a time
 - Browser back/forward buttons work correctly via `popstate` event
-- Direct URL access (e.g., `site.com/#diagnosis`) skips intro and opens modal
-- Closing modal clears hash from URL
+- Direct URL access (e.g., `site.com/#diagnosis`) skips intro and shows content
 
 ### Key Functions
+- `showContentView(id)`: Renders content and switches to content-view
+- `showHomeView(skipPushState)`: Returns to home-view, optionally skips history push
 - `setupHashRouting()`: Initializes hash event listeners
-- `handleHashChange()`: Opens modal based on current hash
-- Modal close functions clear hash via `history.pushState()`
+- `handleHashChange()`: Calls showContentView based on current hash
 
 ## Recent Changes (2025-12-21)
 - Refactored intro page to unified Flexbox container
