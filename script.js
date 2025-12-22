@@ -331,8 +331,10 @@ function setupScrollEffects() {
         // Header shrink effect
         if (scrollTop > 50) {
             header.classList.add('scrolled');
+            document.body.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
+            document.body.classList.remove('scrolled');
         }
         
         // Scroll progress bar

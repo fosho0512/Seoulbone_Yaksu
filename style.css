@@ -1093,7 +1093,11 @@ body.menu-open .visual-text { opacity: 0; }
     height: 2px;
     background: linear-gradient(90deg, var(--gold-accent), var(--highlight-color));
     z-index: 10001;
-    transition: width 0.1s linear;
+    transition: width 0.1s linear, top var(--transition-medium);
+}
+#global-header.scrolled ~ .scroll-progress,
+body.scrolled .scroll-progress {
+    top: calc(var(--header-height) - 15px);
 }
 
 /* Gold Gradient Text Effect */
