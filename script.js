@@ -128,14 +128,6 @@ function showContentView(id) {
     elems.contentBody.innerHTML = "";
     window.scrollTo(0, 0);
 
-    // Check if this page has sub-hero
-    const hasSubHero = (id === 'staff');
-    if (hasSubHero) {
-        elems.contentBody.classList.add('has-sub-hero');
-    } else {
-        elems.contentBody.classList.remove('has-sub-hero');
-    }
-
     let html = '';
 
     if (id === 'staff') {
@@ -283,10 +275,28 @@ function showContentView(id) {
     elems.contentView.classList.add('active');
     document.body.classList.add('content-view-active');
     
+    // Setup sub-hero scroll effect
+    setupSubHeroScrollEffect();
+    
     // Close menu if open
     if (document.body.classList.contains('menu-open')) {
         document.body.classList.remove('menu-open');
     }
+}
+
+function setupSubHeroScrollEffect() {
+    const subHero = document.querySelector('.sub-hero');
+    if (!subHero) return;
+    
+    const handleSubHeroScroll = () => {
+        if (window.scrollY > 100) {
+            subHero.classList.add('scrolled');
+        } else {
+            subHero.classList.remove('scrolled');
+        }
+    };
+    
+    window.addEventListener('scroll', handleSubHeroScroll);
 }
 
 function showHomeView(skipPushState = false) {
@@ -380,16 +390,6 @@ function setupScrollEffects() {
         if (scrollProgress) {
             const scrollPercent = (scrollTop / (scrollHeight - clientHeight)) * 100;
             scrollProgress.style.width = Math.min(scrollPercent, 100) + '%';
-        }
-        
-        // Sub-hero scroll effect (for staff page)
-        const subHero = document.querySelector('.sub-hero');
-        if (subHero) {
-            if (scrollTop > 100) {
-                subHero.classList.add('scrolled');
-            } else {
-                subHero.classList.remove('scrolled');
-            }
         }
     }
     
