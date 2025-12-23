@@ -268,16 +268,26 @@ function showContentView(id) {
         `;
     }
 
+    // 이전 서브히어로 상태 초기화
+    document.body.classList.remove('has-sub-hero');
+    document.body.classList.remove('sub-hero-passed');
+    
+    // 서브히어로가 있는 페이지인지 먼저 확인하고 클래스 추가 (렌더링 전에)
+    if (id === 'staff') {
+        document.body.classList.add('has-sub-hero');
+    }
+    
+    // content-view-active 클래스 추가 (has-sub-hero 이후에)
+    document.body.classList.add('content-view-active');
+    
     elems.contentBody.innerHTML = html;
     
     // Switch views
     elems.homeView.classList.remove('active');
     elems.contentView.classList.add('active');
-    document.body.classList.add('content-view-active');
     
-    // 서브히어로가 있는 페이지인지 확인
+    // 서브히어로 스크롤 효과 설정
     if (id === 'staff') {
-        document.body.classList.add('has-sub-hero');
         setupSubHeroScrollEffect();
     }
     

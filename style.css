@@ -1253,8 +1253,11 @@ body.content-view-active.has-sub-hero #global-header .menu-toggle-btn .lines spa
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
 }
 
-/* 서브히어로 페이지에서 main-container 패딩 제거 */
+/* 서브히어로 페이지에서 모든 상단 패딩 제거 */
 body.content-view-active.has-sub-hero #main-container {
+    padding-top: 0;
+}
+body.content-view-active.has-sub-hero #content-view {
     padding-top: 0;
 }
 body.content-view-active.has-sub-hero .content-wrapper {
@@ -1426,6 +1429,10 @@ body::before {
     .brand { font-size: var(--font-caption); }
     .modal-content { padding: 90px 25px; }
     .content-wrapper { padding: 40px 6% 80px; }
+    
+    /* 모바일에서도 서브히어로 페이지 패딩 제거 */
+    body.content-view-active.has-sub-hero #content-view { padding-top: 0; }
+    body.content-view-active.has-sub-hero .content-wrapper { padding-top: 0; }
     
     .modal-layout-top { flex-direction: column-reverse; gap: 40px; margin-bottom: 60px; }
     .modal-image-group img, .map-container { height: 280px; }
