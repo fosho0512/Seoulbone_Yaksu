@@ -136,6 +136,16 @@ function showContentView(id) {
         const rightBio = data.bio.slice(splitIdx);
 
         html = `
+            <div class="sub-hero" id="staff-sub-hero">
+                <div class="sub-hero-image">
+                    <img src="images/staff-hero.png" alt="Medical Staff Hero">
+                </div>
+                <div class="sub-hero-overlay"></div>
+                <div class="sub-hero-text">
+                    <h2>${data.title}</h2>
+                </div>
+                <div class="sub-hero-curve"></div>
+            </div>
             <div class="staff-top-image-full">
                 <img src="${data.modalImg}" alt="${data.name}">
             </div>
@@ -265,10 +275,28 @@ function showContentView(id) {
     elems.contentView.classList.add('active');
     document.body.classList.add('content-view-active');
     
+    // Setup sub-hero scroll effect
+    setupSubHeroScrollEffect();
+    
     // Close menu if open
     if (document.body.classList.contains('menu-open')) {
         document.body.classList.remove('menu-open');
     }
+}
+
+function setupSubHeroScrollEffect() {
+    const subHero = document.querySelector('.sub-hero');
+    if (!subHero) return;
+    
+    const handleSubHeroScroll = () => {
+        if (window.scrollY > 100) {
+            subHero.classList.add('scrolled');
+        } else {
+            subHero.classList.remove('scrolled');
+        }
+    };
+    
+    window.addEventListener('scroll', handleSubHeroScroll);
 }
 
 function showHomeView(skipPushState = false) {
