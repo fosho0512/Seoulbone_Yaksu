@@ -632,12 +632,7 @@ body.menu-open .visual-text { opacity: 0; }
 #content-view {
     background: var(--bg-color);
     min-height: 100vh;
-}
-#content-view:has(.sub-hero) {
-    padding-top: 0;
-}
-#content-view:not(:has(.sub-hero)) {
-    padding-top: var(--header-height);
+    padding-top: 80px;
 }
 
 .content-wrapper {
@@ -771,10 +766,9 @@ body.menu-open .visual-text { opacity: 0; }
 .sub-hero {
     position: relative;
     width: 100%;
-    height: calc(70vh + var(--header-height));
-    min-height: calc(450px + var(--header-height));
-    max-height: calc(650px + var(--header-height));
-    margin-top: calc(-1 * var(--header-height));
+    height: 70vh;
+    min-height: 450px;
+    max-height: 650px;
     overflow: hidden;
     margin-bottom: 0;
 }
@@ -1391,7 +1385,7 @@ body::before {
     .modal-grid { grid-template-columns: 1fr; gap: 35px; }
     .grid-img-wrapper { height: 200px; }
 
-    .sub-hero { height: calc(50vh + var(--header-height)); min-height: calc(300px + var(--header-height)); max-height: calc(450px + var(--header-height)); }
+    .sub-hero { height: 50vh; min-height: 300px; max-height: 450px; }
     .sub-hero-text { bottom: 60px; left: 25px; }
     .sub-hero-text h2 { font-size: var(--font-heading-lg); }
     .sub-hero-curve { height: 50px; }

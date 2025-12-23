@@ -126,19 +126,16 @@ function showContentView(id) {
 
     // Reset Content & Scroll
     elems.contentBody.innerHTML = "";
-    const subHeroContainer = document.getElementById('sub-hero-container');
-    if (subHeroContainer) subHeroContainer.innerHTML = "";
     window.scrollTo(0, 0);
 
     let html = '';
-    let subHeroHtml = '';
 
     if (id === 'staff') {
         const splitIdx = 2; 
         const leftBio = data.bio.slice(0, splitIdx);
         const rightBio = data.bio.slice(splitIdx);
 
-        subHeroHtml = `
+        html = `
             <div class="sub-hero" id="staff-sub-hero">
                 <div class="sub-hero-image">
                     <img src="images/staff-hero.png" alt="Medical Staff Hero">
@@ -149,9 +146,6 @@ function showContentView(id) {
                 </div>
                 <div class="sub-hero-curve"></div>
             </div>
-        `;
-
-        html = `
             <div class="staff-top-image-full">
                 <img src="${data.modalImg}" alt="${data.name}">
             </div>
@@ -189,8 +183,6 @@ function showContentView(id) {
                 </div>
             </div>
         `;
-
-        if (subHeroContainer) subHeroContainer.innerHTML = subHeroHtml;
     } 
     else if (id === 'diagnosis') {
         html = `
