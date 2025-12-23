@@ -779,7 +779,7 @@ body.menu-open .visual-text { opacity: 0; }
     margin-bottom: 0;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
-    margin-top: calc(-40px - var(--header-height));
+    margin-top: 0;
 }
 .sub-hero-image {
     position: absolute;
@@ -1253,6 +1253,14 @@ body.content-view-active.has-sub-hero #global-header .menu-toggle-btn .lines spa
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
 }
 
+/* 서브히어로 페이지에서 main-container 패딩 제거 */
+body.content-view-active.has-sub-hero #main-container {
+    padding-top: 0;
+}
+body.content-view-active.has-sub-hero .content-wrapper {
+    padding-top: 0;
+}
+
 /* Sub Hero 영역을 벗어난 후 헤더 스타일 */
 body.content-view-active.has-sub-hero.sub-hero-passed #global-header {
     background-color: rgba(250, 250, 248, 0.98) !important;
@@ -1433,7 +1441,7 @@ body::before {
         max-height: calc(450px + var(--header-height)); 
         margin-left: calc(50% - 50vw);
         margin-right: calc(50% - 50vw);
-        margin-top: calc(-40px - var(--header-height));
+        margin-top: 0;
     }
     .sub-hero-text { bottom: 60px; left: 25px; }
     .sub-hero-text h2 { font-size: var(--font-heading-lg); }
