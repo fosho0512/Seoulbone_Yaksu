@@ -765,12 +765,16 @@ body.menu-open .visual-text { opacity: 0; }
 /* Sub Hero Section */
 .sub-hero {
     position: relative;
-    width: 100%;
+    width: 100vw;
     height: 70vh;
     min-height: 450px;
     max-height: 650px;
     overflow: hidden;
     margin-bottom: 0;
+    margin-left: calc(-12vw - 0px);
+    margin-right: calc(-12vw - 0px);
+    margin-top: calc(-40px - var(--header-height));
+    padding-top: var(--header-height);
 }
 .sub-hero-image {
     position: absolute;
@@ -1385,7 +1389,14 @@ body::before {
     .modal-grid { grid-template-columns: 1fr; gap: 35px; }
     .grid-img-wrapper { height: 200px; }
 
-    .sub-hero { height: 50vh; min-height: 300px; max-height: 450px; }
+    .sub-hero { 
+        height: 50vh; 
+        min-height: 300px; 
+        max-height: 450px; 
+        margin-left: calc(-6vw);
+        margin-right: calc(-6vw);
+        margin-top: calc(-40px - var(--header-height));
+    }
     .sub-hero-text { bottom: 60px; left: 25px; }
     .sub-hero-text h2 { font-size: var(--font-heading-lg); }
     .sub-hero-curve { height: 50px; }
