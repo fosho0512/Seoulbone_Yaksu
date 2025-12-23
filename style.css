@@ -780,6 +780,7 @@ body.menu-open .visual-text { opacity: 0; }
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
     margin-top: 0;
+    background-color: var(--bg-color);
 }
 .sub-hero-image {
     position: absolute;
@@ -811,12 +812,12 @@ body.menu-open .visual-text { opacity: 0; }
 }
 .sub-hero-text {
     position: absolute;
-    bottom: 80px;
+    top: 50%;
     left: 60px;
+    transform: translateY(-50%) translateY(30px);
     z-index: 10;
     opacity: 0;
-    transform: translateY(30px);
-    animation: slideUpFade 0.8s ease-out 1.8s forwards;
+    animation: slideUpFadeCenter 0.8s ease-out 1.05s forwards;
 }
 .sub-hero-text h2 {
     font-family: var(--font-serif);
@@ -832,8 +833,27 @@ body.menu-open .visual-text { opacity: 0; }
     left: 0;
     width: 100%;
     height: 80px;
+    overflow: hidden;
+}
+.sub-hero-curve::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -5%;
+    width: 55%;
+    height: 100%;
     background: var(--bg-color);
-    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    border-radius: 0 100% 0 0 / 0 100% 0 0;
+}
+.sub-hero-curve::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: -5%;
+    width: 55%;
+    height: 100%;
+    background: var(--bg-color);
+    border-radius: 100% 0 0 0 / 100% 0 0 0;
 }
 
 @keyframes wipeReveal {
@@ -843,6 +863,10 @@ body.menu-open .visual-text { opacity: 0; }
 @keyframes slideUpFade {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUpFadeCenter {
+    from { opacity: 0; transform: translateY(-50%) translateY(30px); }
+    to { opacity: 1; transform: translateY(-50%) translateY(0); }
 }
 
 /* Staff Page Special Layout */
@@ -1450,7 +1474,7 @@ body::before {
         margin-right: calc(50% - 50vw);
         margin-top: 0;
     }
-    .sub-hero-text { bottom: 60px; left: 25px; }
+    .sub-hero-text { top: 50%; left: 25px; }
     .sub-hero-text h2 { font-size: var(--font-heading-lg); }
     .sub-hero-curve { height: 50px; }
     .staff-top-image-full { height: 320px; margin-bottom: 50px; }
