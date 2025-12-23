@@ -771,10 +771,9 @@ body.menu-open .visual-text { opacity: 0; }
     max-height: 650px;
     overflow: hidden;
     margin-bottom: 0;
-    margin-left: calc(-12vw - 0px);
-    margin-right: calc(-12vw - 0px);
-    margin-top: calc(-40px - var(--header-height));
-    padding-top: var(--header-height);
+    margin-left: calc(-12vw);
+    margin-right: calc(-12vw);
+    margin-top: calc(-40px - 80px);
 }
 .sub-hero-image {
     position: absolute;
@@ -1395,7 +1394,7 @@ body::before {
         max-height: 450px; 
         margin-left: calc(-6vw);
         margin-right: calc(-6vw);
-        margin-top: calc(-40px - var(--header-height));
+        margin-top: calc(-40px - 80px);
     }
     .sub-hero-text { bottom: 60px; left: 25px; }
     .sub-hero-text h2 { font-size: var(--font-heading-lg); }
