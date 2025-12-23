@@ -82,7 +82,7 @@ function enterSite() {
     
     setTimeout(() => {
         if (header) header.classList.add('visible');
-    }, 300);
+    }, 1300);
     
     setTimeout(() => {
         if (visualH3) visualH3.classList.add('typing');
