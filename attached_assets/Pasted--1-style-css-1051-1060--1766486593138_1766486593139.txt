@@ -1,0 +1,259 @@
+## 문제 분석
+
+현재 코드를 면밀히 검토한 결과, 여러 충돌이 발견되었습니다.
+
+### 1. **헤더 투명도 문제의 원인**
+
+**style.css 1051-1060줄:**
+```css
+#global-header.scrolled {
+    background-color: rgba(250, 250, 248, 0.98);
+    box-shadow: 0 4px 30px rgba(44, 41, 38, 0.08);
+    /* ... */
+}
+```
+
+**script.js 262-275줄:**
+```javascript
+function handleScroll(scrollTop, scrollHeight, clientHeight) {
+    if (scrollTop > 50) {
+        header.classList.add('scrolled');  // 항상 불투명 배경 적용
+    } else {
+        header.classList.remove('scrolled');
+    }
+}
+```
+
+**문제점:**
+- `setupScrollEffects()`가 **모든 페이지에서** 동작함
+- Staff 페이지에서도 스크롤 시 `.scrolled` 클래스가 추가되어 불투명 배경이 강제 적용됨
+- 제가 제안한 `body.content-view-active` 선택자는 `.scrolled`보다 **우선순위가 낮음**
+
+### 2. **깜빡임 문제의 원인**
+
+**style.css 196-205줄:**
+```css
+#global-header {
+    /* ... */
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 1.8s ease, transform 1.8s ease, 
+                background-color var(--transition-medium), /* 0.5s */
+                height var(--transition-medium), 
+                box-shadow var(--transition-medium), 
+                border-bottom-color var(--transition-medium);
+}
+```
+
+**문제점:**
+- `opacity`와 `transform`은 1.8초 긴 트랜지션
+- `background-color`는 0.5초 짧은 트랜지션
+- 스크롤 시 배경색만 빠르게 변하고 다른 속성은 느리게 변해서 **시각적 불일치** 발생
+
+---
+
+## 해결 방법
+
+### 수정 1: CSS - 헤더 투명도 제어 (style.css)
+
+**기존 코드 수정:**
+```css
+/* 1051줄 근처 - 기본 scrolled 스타일 */
+#global-header.scrolled {
+    background-color: rgba(250, 250, 248, 0.98);
+    box-shadow: 0 4px 30px rgba(44, 41, 38, 0.08);
+    height: calc(var(--header-height) - 15px);
+    border-bottom-color: transparent;
+}
+
+/* 추가: Staff 페이지에서 서브히어로가 있을 때 */
+body.content-view-active.has-sub-hero #global-header {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+body.content-view-active.has-sub-hero #global-header.scrolled {
+    background-color: rgba(250, 250, 248, 0.95) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(44, 41, 38, 0.08) !important;
+}
+
+/* 서브히어로 스크롤 임계값 이후 */
+body.content-view-active.has-sub-hero.sub-hero-passed #global-header {
+    background-color: rgba(250, 250, 248, 0.98);
+    box-shadow: 0 4px 30px rgba(44, 41, 38, 0.08);
+}
+```
+
+**기존 헤더 트랜지션 수정 (196줄):**
+```css
+#global-header {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: var(--header-height); 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 0 60px; 
+    z-index: var(--z-header);
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    opacity: 0;
+    transform: translateY(-20px);
+    /* 트랜지션 통일 */
+    transition: opacity 1.8s ease, 
+                transform 1.8s ease, 
+                background-color 0.3s ease,  /* 빠르게 변경 */
+                height 0.3s ease,
+                box-shadow 0.3s ease,
+                border-bottom-color 0.3s ease;
+}
+
+/* visible 상태일 때만 긴 트랜지션 적용 */
+#global-header.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+```
+
+### 수정 2: JavaScript - 서브히어로 감지 및 스크롤 처리
+
+**script.js의 `showContentView()` 함수 수정 (81줄 이후):**
+```javascript
+function showContentView(id) {
+    const data = siteData.content[id];
+    if (!data) return;
+
+    // Reset Content & Scroll
+    elems.contentBody.innerHTML = "";
+    window.scrollTo(0, 0);
+
+    let html = '';
+
+    if (id === 'staff') {
+        // ... 기존 staff HTML 생성 코드 ...
+        
+        // 서브히어로 있음을 표시
+        document.body.classList.add('has-sub-hero');
+    } 
+    // ... 나머지 페이지들 ...
+
+    elems.contentBody.innerHTML = html;
+    
+    // Switch views
+    elems.homeView.classList.remove('active');
+    elems.contentView.classList.add('active');
+    document.body.classList.add('content-view-active');
+    
+    // Setup sub-hero scroll effect (Staff 페이지인 경우)
+    if (id === 'staff') {
+        setupSubHeroScrollEffect();
+    }
+    
+    // Close menu if open
+    if (document.body.classList.contains('menu-open')) {
+        document.body.classList.remove('menu-open');
+    }
+}
+```
+
+**`setupSubHeroScrollEffect()` 함수 수정 (182줄):**
+```javascript
+function setupSubHeroScrollEffect() {
+    const subHero = document.querySelector('.sub-hero');
+    if (!subHero) return;
+    
+    const subHeroHeight = subHero.offsetHeight;
+    const headerHeight = 90; // var(--header-height)
+    
+    // 기존 리스너 제거 방지를 위해 named function 사용
+    const handleSubHeroScroll = () => {
+        const scrollY = window.scrollY;
+        
+        // 서브히어로 영역을 벗어났는지 확인
+        if (scrollY > subHeroHeight - headerHeight) {
+            document.body.classList.add('sub-hero-passed');
+            if (scrollY > subHeroHeight - headerHeight + 50) {
+                document.getElementById('global-header')?.classList.add('scrolled');
+            }
+        } else {
+            document.body.classList.remove('sub-hero-passed');
+            document.getElementById('global-header')?.classList.remove('scrolled');
+        }
+    };
+    
+    // 기존 리스너 제거
+    window.removeEventListener('scroll', handleSubHeroScroll);
+    // 새 리스너 추가
+    window.addEventListener('scroll', handleSubHeroScroll);
+    
+    // 초기 상태 설정
+    handleSubHeroScroll();
+}
+```
+
+**`showHomeView()` 함수 수정 (193줄):**
+```javascript
+function showHomeView(skipPushState = false) {
+    elems.contentView.classList.remove('active');
+    elems.homeView.classList.add('active');
+    document.body.classList.remove('content-view-active');
+    document.body.classList.remove('has-sub-hero');  // 추가
+    document.body.classList.remove('sub-hero-passed');  // 추가
+    resetScrollState();
+    if (!skipPushState && window.location.hash) {
+        history.pushState(null, '', window.location.pathname);
+    }
+}
+```
+
+**`setupScrollEffects()` 함수 수정 (239줄):**
+```javascript
+function setupScrollEffects() {
+    const header = document.getElementById('global-header');
+    const scrollProgress = document.getElementById('scroll-progress');
+    
+    function handleScroll(scrollTop, scrollHeight, clientHeight) {
+        // 서브히어로가 있는 페이지는 별도 처리
+        if (document.body.classList.contains('has-sub-hero')) {
+            // setupSubHeroScrollEffect()에서 처리
+            // Scroll progress bar만 업데이트
+            if (scrollProgress) {
+                const scrollPercent = (scrollTop / (scrollHeight - clientHeight)) * 100;
+                scrollProgress.style.width = Math.min(scrollPercent, 100) + '%';
+            }
+            return;
+        }
+        
+        // 일반 페이지 헤더 스크롤 효과
+        if (scrollTop > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+        
+        // Scroll progress bar
+        if (scrollProgress) {
+            const scrollPercent = (scrollTop / (scrollHeight - clientHeight)) * 100;
+            scrollProgress.style.width = Math.min(scrollPercent, 100) + '%';
+        }
+    }
+    
+    window.addEventListener('scroll', () => {
+        handleScroll(window.scrollY, document.documentElement.scrollHeight, window.innerHeight);
+    });
+}
+```
+
+---
+
+## 개선 효과
+
+✅ **투명도 제어**: Staff 페이지에서 헤더가 처음에 투명, 서브히어로를 지나면 불투명  
+✅ **깜빡임 제거**: 트랜지션 시간 통일 및 조건부 적용으로 부드러운 전환  
+✅ **충돌 방지**: `has-sub-hero` 클래스로 일반 스크롤 효과와 분리  
+✅ **성능**: 불필요한 스크롤 이벤트 중복 제거  
+
+이제 Staff 페이지에서 헤더가 투명하게 시작하고, 스크롤 시 부드럽게 불투명해질 것입니다.

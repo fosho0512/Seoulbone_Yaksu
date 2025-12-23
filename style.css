@@ -263,7 +263,12 @@ a { text-decoration: none; color: inherit; }
     border-bottom: 1px solid transparent;
     opacity: 0;
     transform: translateY(-20px);
-    transition: opacity 1.8s ease, transform 1.8s ease, background-color var(--transition-medium), height var(--transition-medium), box-shadow var(--transition-medium), border-bottom-color var(--transition-medium);
+    transition: opacity 1.8s ease, 
+                transform 1.8s ease, 
+                background-color 0.3s ease,
+                height 0.3s ease,
+                box-shadow 0.3s ease,
+                border-bottom-color 0.3s ease;
 }
 #global-header.visible {
     opacity: 1;
@@ -1233,30 +1238,32 @@ body.menu-open .visual-text { opacity: 0; }
 }
 
 /* Content View Header - Transparent over Sub Hero */
-body.content-view-active #global-header {
-    background: transparent;
-    box-shadow: none;
+body.content-view-active.has-sub-hero #global-header {
+    background-color: transparent !important;
+    box-shadow: none !important;
 }
-body.content-view-active #global-header .brand,
-body.content-view-active #global-header .menu-toggle-btn {
+body.content-view-active.has-sub-hero #global-header .brand,
+body.content-view-active.has-sub-hero #global-header .menu-toggle-btn {
     color: #fff;
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
 }
-body.content-view-active #global-header .menu-toggle-btn .lines span {
+body.content-view-active.has-sub-hero #global-header .menu-toggle-btn .lines span {
     background-color: #fff;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
 }
-body.content-view-active #global-header.scrolled {
-    background-color: rgba(250, 250, 248, 0.98);
-    box-shadow: 0 4px 30px rgba(44, 41, 38, 0.08);
+
+/* Sub Hero 영역을 벗어난 후 헤더 스타일 */
+body.content-view-active.has-sub-hero.sub-hero-passed #global-header {
+    background-color: rgba(250, 250, 248, 0.98) !important;
+    box-shadow: 0 4px 30px rgba(44, 41, 38, 0.08) !important;
     backdrop-filter: blur(10px);
 }
-body.content-view-active #global-header.scrolled .brand,
-body.content-view-active #global-header.scrolled .menu-toggle-btn {
+body.content-view-active.has-sub-hero.sub-hero-passed #global-header .brand,
+body.content-view-active.has-sub-hero.sub-hero-passed #global-header .menu-toggle-btn {
     color: var(--text-color);
     text-shadow: none;
 }
-body.content-view-active #global-header.scrolled .menu-toggle-btn .lines span {
+body.content-view-active.has-sub-hero.sub-hero-passed #global-header .menu-toggle-btn .lines span {
     background-color: var(--text-color);
     box-shadow: none;
 }

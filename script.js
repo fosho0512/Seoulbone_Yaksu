@@ -275,8 +275,11 @@ function showContentView(id) {
     elems.contentView.classList.add('active');
     document.body.classList.add('content-view-active');
     
-    // Setup sub-hero scroll effect
-    setupSubHeroScrollEffect();
+    // 서브히어로가 있는 페이지인지 확인
+    if (id === 'staff') {
+        document.body.classList.add('has-sub-hero');
+        setupSubHeroScrollEffect();
+    }
     
     // Close menu if open
     if (document.body.classList.contains('menu-open')) {
@@ -288,21 +291,39 @@ function setupSubHeroScrollEffect() {
     const subHero = document.querySelector('.sub-hero');
     if (!subHero) return;
     
+    const subHeroHeight = subHero.offsetHeight;
+    const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 90;
+    
     const handleSubHeroScroll = () => {
-        if (window.scrollY > 100) {
+        const scrollY = window.scrollY;
+        
+        // 서브히어로 오버레이 어두워짐 효과
+        if (scrollY > 100) {
             subHero.classList.add('scrolled');
         } else {
             subHero.classList.remove('scrolled');
         }
+        
+        // 서브히어로 영역을 벗어났는지 확인
+        if (scrollY > subHeroHeight - headerHeight - 50) {
+            document.body.classList.add('sub-hero-passed');
+        } else {
+            document.body.classList.remove('sub-hero-passed');
+        }
     };
     
     window.addEventListener('scroll', handleSubHeroScroll);
+    
+    // 초기 상태 설정
+    handleSubHeroScroll();
 }
 
 function showHomeView(skipPushState = false) {
     elems.contentView.classList.remove('active');
     elems.homeView.classList.add('active');
     document.body.classList.remove('content-view-active');
+    document.body.classList.remove('has-sub-hero');
+    document.body.classList.remove('sub-hero-passed');
     resetScrollState();
     if (!skipPushState && window.location.hash) {
         history.pushState(null, '', window.location.pathname);
@@ -379,7 +400,17 @@ function setupScrollEffects() {
     
     // Header scroll effect
     function handleScroll(scrollTop, scrollHeight, clientHeight) {
-        // Header shrink effect
+        // 서브히어로가 있는 페이지는 별도 처리 (setupSubHeroScrollEffect에서 처리)
+        if (document.body.classList.contains('has-sub-hero')) {
+            // Scroll progress bar만 업데이트
+            if (scrollProgress) {
+                const scrollPercent = (scrollTop / (scrollHeight - clientHeight)) * 100;
+                scrollProgress.style.width = Math.min(scrollPercent, 100) + '%';
+            }
+            return;
+        }
+        
+        // 일반 페이지 헤더 스크롤 효과
         if (scrollTop > 50) {
             header.classList.add('scrolled');
         } else {
