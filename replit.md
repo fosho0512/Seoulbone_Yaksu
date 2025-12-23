@@ -50,7 +50,12 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 3. CSS transitions reveal background and Enter button
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
-## Recent Changes (2025-12-22)
+## Recent Changes (2025-12-23)
+- Sub-hero full-width extension using negative margins (-12% left/right, header height offset on top)
+- Header transparency in content-view with white text/icons, solid background on scroll
+- Mobile responsive sub-hero with 6% margin calculations
+
+## Previous Changes (2025-12-22)
 - Implemented hash-based routing for menu navigation (#staff, #diagnosis, etc.)
 - Removed background image change on menu hover
 - Added premium UI effects (see Premium Effects section below)
