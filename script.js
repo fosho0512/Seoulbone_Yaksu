@@ -515,7 +515,32 @@ function setupFadeInObserver() {
     }
 }
 
+// Smooth Scroll Inertia (PC Only)
+function setupSmoothScroll() {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+        || window.innerWidth < 1024
+        || ('ontouchstart' in window);
+    
+    if (isMobile || typeof Lenis === 'undefined') return;
+    
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        smoothWheel: true
+    });
+    
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+    
+    window.lenis = lenis;
+}
+
 // Run
 init();
 setupScrollEffects();
 setupFadeInObserver();
+setupSmoothScroll();

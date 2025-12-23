@@ -51,6 +51,8 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
 ## Recent Changes (2025-12-23)
+- All menu pages now have unified sub-hero sections with wipe reveal animation
+- Added Smooth Scroll Inertia using Lenis library (PC only, disabled on mobile)
 - Sub-hero full-width extension using negative margins (-12% left/right, header height offset on top)
 - Header transparency in content-view with white text/icons, solid background on scroll
 - Mobile responsive sub-hero with 6% margin calculations
