@@ -128,6 +128,14 @@ function showContentView(id) {
     elems.contentBody.innerHTML = "";
     window.scrollTo(0, 0);
 
+    // Check if this page has sub-hero
+    const hasSubHero = (id === 'staff');
+    if (hasSubHero) {
+        elems.contentBody.classList.add('has-sub-hero');
+    } else {
+        elems.contentBody.classList.remove('has-sub-hero');
+    }
+
     let html = '';
 
     if (id === 'staff') {
