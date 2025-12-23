@@ -75,7 +75,28 @@ function setupEventListeners() {
 function enterSite() {
     elems.introOverlay.classList.add('hidden');
     document.body.classList.add('site-entered');
-    setTimeout(showBanner, 1500);
+    
+    const header = document.getElementById('global-header');
+    const visualH3 = document.querySelector('.visual-text h3');
+    const visualP = document.querySelector('.visual-text p');
+    
+    setTimeout(() => {
+        if (header) header.classList.add('visible');
+    }, 300);
+    
+    setTimeout(() => {
+        if (visualH3) visualH3.classList.add('typing');
+    }, 600);
+    
+    setTimeout(() => {
+        if (visualH3) {
+            visualH3.classList.remove('typing');
+            visualH3.classList.add('typing-done');
+        }
+        if (visualP) visualP.classList.add('fade-up');
+    }, 2800);
+    
+    setTimeout(showBanner, 3500);
 }
 
 function resetToMain() {
@@ -305,6 +326,8 @@ function setupHashRouting() {
                 elems.introOverlay.classList.add('hidden');
                 document.body.classList.add('site-entered');
             }
+            const header = document.getElementById('global-header');
+            if (header) header.classList.add('visible');
             showContentView(hash);
         }
     }, 100);
