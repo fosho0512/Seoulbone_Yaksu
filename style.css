@@ -632,7 +632,12 @@ body.menu-open .visual-text { opacity: 0; }
 #content-view {
     background: var(--bg-color);
     min-height: 100vh;
-    padding-top: 80px;
+}
+#content-view:has(.sub-hero) {
+    padding-top: 0;
+}
+#content-view:not(:has(.sub-hero)) {
+    padding-top: var(--header-height);
 }
 
 .content-wrapper {
