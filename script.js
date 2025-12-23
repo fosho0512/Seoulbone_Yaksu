@@ -190,58 +190,81 @@ function showContentView(id) {
     } 
     else if (id === 'diagnosis') {
         html = `
-            <div class="modal-layout-top">
-                <div class="modal-text-group">
+            <div class="sub-hero" id="diagnosis-sub-hero">
+                <div class="sub-hero-image">
+                    <img src="images/staff-hero.png" alt="${data.title} Hero">
+                </div>
+                <div class="sub-hero-overlay"></div>
+                <div class="sub-hero-text">
                     <h2>${data.title}</h2>
-                    <div class="divider"></div>
-                    <p class="description">${data.desc}</p>
+                </div>
+                <div class="sub-hero-curve">
+                    <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                        <path d="M0,100 L0,40 Q360,100 720,50 Q1080,0 1440,60 L1440,100 Z"></path>
+                    </svg>
                 </div>
             </div>
-            <div class="flip-grid">
-                ${data.details.map(det => `
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
-                                <div class="flip-img-box"><img src="${det.img}" alt="${det.t}"></div>
-                                <div class="flip-title-box"><h4>${det.t}</h4><span class="click-hint">Click to View</span></div>
-                            </div>
-                            <div class="flip-card-back">
-                                <div class="back-content">
-                                    <h4>${det.t}</h4>
-                                    <div class="divider-small"></div>
-                                    <p>${det.d}</p>
+            <div class="sub-hero-content">
+                <div class="content-intro">
+                    <p class="description">${data.desc}</p>
+                    <div class="divider"></div>
+                </div>
+                <div class="flip-grid">
+                    ${data.details.map(det => `
+                        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <div class="flip-img-box"><img src="${det.img}" alt="${det.t}"></div>
+                                    <div class="flip-title-box"><h4>${det.t}</h4><span class="click-hint">Click to View</span></div>
+                                </div>
+                                <div class="flip-card-back">
+                                    <div class="back-content">
+                                        <h4>${det.t}</h4>
+                                        <div class="divider-small"></div>
+                                        <p>${det.d}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                `).join('')}
+                    `).join('')}
+                </div>
             </div>
         `;
     }
     else if (id === 'prp') {
         html = `
-            <div class="prp-hero">
-                <div class="prp-hero-image">
-                    <img src="${data.modalImg}" alt="${data.title}">
+            <div class="sub-hero" id="prp-sub-hero">
+                <div class="sub-hero-image">
+                    <img src="images/staff-hero.png" alt="${data.title} Hero">
                 </div>
-                <div class="prp-hero-text">
+                <div class="sub-hero-overlay"></div>
+                <div class="sub-hero-text">
                     <h2>${data.title}</h2>
-                    <div class="divider"></div>
-                    <p class="description">${data.desc}</p>
+                </div>
+                <div class="sub-hero-curve">
+                    <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                        <path d="M0,100 L0,40 Q360,100 720,50 Q1080,0 1440,60 L1440,100 Z"></path>
+                    </svg>
                 </div>
             </div>
-            <div class="prp-full-content">
-                ${data.details.map(det => `
-                    <div class="prp-section">
-                        <div class="prp-section-image">
-                            <img src="${det.img}" alt="${det.t}">
+            <div class="sub-hero-content">
+                <div class="content-intro">
+                    <p class="description">${data.desc}</p>
+                    <div class="divider"></div>
+                </div>
+                <div class="prp-full-content">
+                    ${data.details.map(det => `
+                        <div class="prp-section">
+                            <div class="prp-section-image">
+                                <img src="${det.img}" alt="${det.t}">
+                            </div>
+                            <div class="prp-section-text">
+                                <h3>${det.t}</h3>
+                                <p>${det.d}</p>
+                            </div>
                         </div>
-                        <div class="prp-section-text">
-                            <h3>${det.t}</h3>
-                            <p>${det.d}</p>
-                        </div>
-                    </div>
-                `).join('')}
+                    `).join('')}
+                </div>
             </div>
         `;
     }
@@ -251,23 +274,37 @@ function showContentView(id) {
             : `<img src="${data.modalImg}" alt="${data.title}">`;
 
         html = `
-            <div class="modal-layout-top">
-                <div class="modal-text-group">
-                    <h2>${data.title}</h2>
-                    <div class="divider"></div>
-                    <p class="description">${data.desc}</p>
+            <div class="sub-hero" id="${id}-sub-hero">
+                <div class="sub-hero-image">
+                    <img src="images/staff-hero.png" alt="${data.title} Hero">
                 </div>
-                <div class="modal-image-group">
-                    ${mediaHtml}
+                <div class="sub-hero-overlay"></div>
+                <div class="sub-hero-text">
+                    <h2>${data.title}</h2>
+                </div>
+                <div class="sub-hero-curve">
+                    <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                        <path d="M0,100 L0,40 Q360,100 720,50 Q1080,0 1440,60 L1440,100 Z"></path>
+                    </svg>
                 </div>
             </div>
-            <div class="modal-grid">
-                ${data.details.map(det => `
-                    <div class="grid-item">
-                        <div class="grid-img-wrapper"><img src="${det.img}" alt="${det.t}"></div>
-                        <div class="grid-text-wrapper"><h4>${det.t}</h4><p>${det.d}</p></div>
+            <div class="sub-hero-content">
+                <div class="modal-layout-top">
+                    <div class="modal-text-group">
+                        <p class="description">${data.desc}</p>
                     </div>
-                `).join('')}
+                    <div class="modal-image-group">
+                        ${mediaHtml}
+                    </div>
+                </div>
+                <div class="modal-grid">
+                    ${data.details.map(det => `
+                        <div class="grid-item">
+                            <div class="grid-img-wrapper"><img src="${det.img}" alt="${det.t}"></div>
+                            <div class="grid-text-wrapper"><h4>${det.t}</h4><p>${det.d}</p></div>
+                        </div>
+                    `).join('')}
+                </div>
             </div>
         `;
     }
@@ -276,10 +313,8 @@ function showContentView(id) {
     document.body.classList.remove('has-sub-hero');
     document.body.classList.remove('sub-hero-passed');
     
-    // 서브히어로가 있는 페이지인지 먼저 확인하고 클래스 추가 (렌더링 전에)
-    if (id === 'staff') {
-        document.body.classList.add('has-sub-hero');
-    }
+    // 모든 페이지에 서브히어로 클래스 추가 (렌더링 전에)
+    document.body.classList.add('has-sub-hero');
     
     // content-view-active 클래스 추가 (has-sub-hero 이후에)
     document.body.classList.add('content-view-active');
@@ -290,10 +325,8 @@ function showContentView(id) {
     elems.homeView.classList.remove('active');
     elems.contentView.classList.add('active');
     
-    // 서브히어로 스크롤 효과 설정
-    if (id === 'staff') {
-        setupSubHeroScrollEffect();
-    }
+    // 서브히어로 스크롤 효과 설정 (모든 페이지)
+    setupSubHeroScrollEffect();
     
     // Close menu if open
     if (document.body.classList.contains('menu-open')) {

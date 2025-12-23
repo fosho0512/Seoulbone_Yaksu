@@ -861,6 +861,27 @@ body.menu-open .visual-text { opacity: 0; }
     fill: var(--bg-color);
 }
 
+/* Sub Hero Content Wrapper */
+.sub-hero-content {
+    padding: 60px 0;
+}
+.sub-hero-content .content-intro {
+    text-align: center;
+    margin-bottom: 60px;
+}
+.sub-hero-content .content-intro .description {
+    font-size: var(--font-body-lg);
+    color: #6B635B;
+    line-height: var(--lh-relaxed);
+    margin-bottom: 30px;
+}
+.sub-hero-content .content-intro .divider {
+    width: 60px;
+    height: 1px;
+    background: var(--gold-accent);
+    margin: 0 auto;
+}
+
 @keyframes wipeReveal {
     from { clip-path: inset(0 100% 0 0); }
     to { clip-path: inset(0 0 0 0); }
