@@ -861,6 +861,35 @@ body.menu-open .visual-text { opacity: 0; }
     fill: var(--bg-color);
 }
 
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    animation: floatBounce 3s ease-in-out infinite;
+}
+.scroll-indicator-circle {
+    width: 48px;
+    height: 48px;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.scroll-indicator-circle svg {
+    width: 20px;
+    height: 20px;
+    color: #fff;
+}
+@keyframes floatBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(12px); }
+}
+
 /* Sub Hero Content Wrapper */
 .sub-hero-content {
     padding: 60px 0;
