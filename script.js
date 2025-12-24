@@ -163,7 +163,7 @@ function showContentView(id) {
             <div class="staff-profile-layout">
                 <div class="profile-sticky-wrapper">
                     <div class="profile-image-wrapper">
-                        <img src="images/staff-profile.png" alt="Medical Staff Profile">
+                        <img src="images/staff-profile.jpg" alt="Medical Staff Profile">
                     </div>
                 </div>
                 <div class="profile-info-scroll">
