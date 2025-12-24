@@ -57,6 +57,9 @@ function setupEventListeners() {
     if(elems.contactBtn) elems.contactBtn.addEventListener('click', () => elems.contactModal.classList.add('open'));
     if(elems.closeContactBtn) elems.closeContactBtn.addEventListener('click', () => elems.contactModal.classList.remove('open'));
     if(elems.closeBannerBtn) elems.closeBannerBtn.addEventListener('click', closeBanner);
+    
+    const closeDrawerBtn = document.getElementById('close-drawer');
+    if(closeDrawerBtn) closeDrawerBtn.addEventListener('click', toggleMenu);
 
     if(elems.menuItems) {
         elems.menuItems.forEach(item => {

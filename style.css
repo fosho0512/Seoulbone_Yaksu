@@ -352,11 +352,33 @@ body.menu-open .menu-toggle-btn .lines span:last-child { transform: rotate(-45de
     z-index: calc(var(--z-header) + 1); 
     padding: 40px 50px 50px; 
     transform: translateX(-100%); 
-    transition: transform var(--transition-slow); 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: space-between; 
-    border-right: 1px solid var(--sub-color); 
+    transition: transform var(--transition-slow);
+}
+.close-drawer-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: 1px solid var(--sub-color);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+.close-drawer-btn svg {
+    width: 18px;
+    height: 18px;
+    color: var(--text-color);
+}
+.close-drawer-btn:hover {
+    background: var(--text-color);
+}
+.close-drawer-btn:hover svg {
+    color: var(--bg-color);
 }
 body.menu-open .drawer-menu { transform: translateX(0); }
 
