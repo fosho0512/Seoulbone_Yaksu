@@ -160,29 +160,18 @@ function showContentView(id) {
                     </svg>
                 </div>
             </div>
-            <div class="staff-profile-showcase">
-                <div class="profile-image-wrapper">
-                    <img src="images/staff-profile.png" alt="Medical Staff Profile">
-                </div>
-            </div>
-            <div class="staff-bio-2col-container">
-                <div class="bio-column left">
-                    <div class="staff-header-simple">
-                        <h2>${data.name} <span class="position">${data.position}</span></h2>
-                        <ul class="titles-list-simple">
-                            ${data.titles.map(t => `<li>${t}</li>`).join('')}
-                        </ul>
+            <div class="staff-profile-layout">
+                <div class="profile-sticky-wrapper">
+                    <div class="profile-image-wrapper">
+                        <img src="images/staff-profile.png" alt="Medical Staff Profile">
                     </div>
-                    ${leftBio.map(group => `
-                        <div class="bio-group">
-                            <h4>${group.category}</h4>
-                            <ul>${group.items.map(item => `<li>${item}</li>`).join('')}</ul>
-                        </div>
-                    `).join('')}
                 </div>
-                <div class="bio-column right">
-                    <div class="staff-header-spacer"></div>
-                    ${rightBio.map(group => `
+                <div class="profile-info-scroll">
+                    <div class="profile-header">
+                        <h2 class="profile-name">장 용 준 <span class="title-badge">대표원장</span></h2>
+                        <p class="profile-subtitle">재활의학과 전문의 · 의학박사<br>가톨릭대학교 재활의학교실 외래교수</p>
+                    </div>
+                    ${data.bio.map(group => `
                         <div class="bio-group">
                             <h4>${group.category}</h4>
                             <ul>${group.items.map(item => `<li>${item}</li>`).join('')}</ul>
