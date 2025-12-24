@@ -973,7 +973,7 @@ body.menu-open .visual-text { opacity: 0; }
     height: auto;
     display: block;
     background: #7A7672;
-    animation: gentleZoom 8s ease-in-out infinite;
+    animation: gentleZoom 5s ease-in-out infinite;
 }
 @keyframes gentleZoom {
     0%, 100% { transform: scale(1); }
