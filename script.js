@@ -160,6 +160,11 @@ function showContentView(id) {
                     </svg>
                 </div>
             </div>
+            <div class="staff-profile-showcase">
+                <div class="profile-image-wrapper">
+                    <img src="images/staff-profile.png" alt="Medical Staff Profile">
+                </div>
+            </div>
             <div class="staff-bio-2col-container">
                 <div class="bio-column left">
                     <div class="staff-header-simple">
