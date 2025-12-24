@@ -179,12 +179,21 @@ function showContentView(id) {
                     `).join('')}
                 </div>
             </div>
-            <div class="staff-bottom-quote">
-                <h3>${data.bottomQuote.main}</h3>
-                <p>${data.bottomQuote.sub}</p>
-                <div class="signature-area">
-                    <img src="${data.signatureImg}" alt="Signature" onerror="this.style.display='none';">
-                    <span class="sign-text">대표원장 장 용 준</span>
+            <div class="brand-philosophy-section">
+                <div class="brand-philosophy-inner">
+                    <span class="brand-caption">SEOUL BONE REHAB CLINIC</span>
+                    <div class="philosophy-card">
+                        <p class="philosophy-main">"몸은 결코 거짓을 말하지 않습니다."</p>
+                        <p class="philosophy-sub">통증은 그 진실을 전하는<br>가장 정직한 신호입니다.</p>
+                    </div>
+                    <div class="philosophy-desc">
+                        <p>우리는 보이는 증상 너머,</p>
+                        <p>숨겨진 원인을 깊이 읽어냅니다.</p>
+                        <p>현재의 신체 기능과 앞으로의 변화까지</p>
+                        <p>세심하게 고려하여</p>
+                        <p>가장 온전한 회복을 위해</p>
+                        <p>정성을 다해 진료하겠습니다.</p>
+                    </div>
                 </div>
             </div>
         `;
@@ -507,6 +516,20 @@ function setupFadeInObserver() {
                             el.style.transitionDelay = (index * 0.1) + 's';
                             observer.observe(el);
                         });
+                        
+                        // Brand Philosophy Section animation
+                        const philosophySection = contentView.querySelector('.brand-philosophy-section');
+                        if (philosophySection) {
+                            const philosophyObserver = new IntersectionObserver((entries) => {
+                                entries.forEach(entry => {
+                                    if (entry.isIntersecting) {
+                                        entry.target.classList.add('animate');
+                                        philosophyObserver.unobserve(entry.target);
+                                    }
+                                });
+                            }, { threshold: 0.2 });
+                            philosophyObserver.observe(philosophySection);
+                        }
                     }, 100);
                 }
             });

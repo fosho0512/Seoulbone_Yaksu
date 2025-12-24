@@ -1093,30 +1093,82 @@ body.menu-open .visual-text { opacity: 0; }
     border-radius: 50%;
 }
 
-.staff-bottom-quote { 
-    text-align: center; 
-    margin-top: 80px; 
-    padding: 80px 40px; 
-    background-color: #fff; 
-    border: 1px solid var(--sub-color); 
-    box-shadow: 0 10px 30px rgba(44, 41, 38, 0.05);
+/* Brand Philosophy Section */
+.brand-philosophy-section {
+    background: linear-gradient(180deg, #F8F6F3 0%, #F2EFE9 100%);
+    padding: 120px 40px;
+    margin-top: 80px;
+    margin-left: calc(-12% - 40px);
+    margin-right: calc(-12% - 40px);
 }
-.staff-bottom-quote h3 { 
-    font-family: var(--font-serif); 
-    font-size: var(--font-heading-lg); 
-    color: var(--text-color); 
-    margin-bottom: 25px; 
-    font-style: italic; 
+.brand-philosophy-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+.brand-caption {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    color: #9A948D;
+    margin-bottom: 50px;
     font-weight: 400;
-    line-height: var(--lh-normal);
+    opacity: 0;
+    transform: translateY(20px);
 }
-.staff-bottom-quote p { 
-    font-size: var(--font-body-lg); 
-    color: #6B635B; 
-    line-height: var(--lh-loose); 
-    margin-bottom: 50px; 
+.brand-philosophy-section.animate .brand-caption {
+    animation: philosophyFadeUp 0.7s ease-out forwards;
+}
+.philosophy-card {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 20px;
+    padding: 60px 50px;
+    box-shadow: 0 8px 40px rgba(44, 41, 38, 0.06);
+    margin-bottom: 50px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+.brand-philosophy-section.animate .philosophy-card {
+    animation: philosophyFadeUp 0.8s ease-out 0.15s forwards;
+}
+.philosophy-main {
+    font-family: var(--font-serif);
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    color: var(--text-color);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+.philosophy-sub {
+    font-family: var(--font-serif);
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    color: #5A554F;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+}
+.philosophy-desc {
+    opacity: 0;
+    transform: translateY(20px);
+}
+.brand-philosophy-section.animate .philosophy-desc {
+    animation: philosophyFadeUp 0.8s ease-out 0.3s forwards;
+}
+.philosophy-desc p {
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    color: #6B635B;
+    line-height: 2.2;
+    letter-spacing: 0.04em;
     font-weight: 300;
+    margin: 0;
 }
+@keyframes philosophyFadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Legacy signature styles kept for other uses */
 .signature-area { 
     display: flex; 
     flex-direction: column; 
@@ -1624,9 +1676,15 @@ body::before {
     .staff-top-image-full { height: 320px; margin-bottom: 50px; }
     .staff-bio-2col-container { grid-template-columns: 1fr; gap: 40px; } 
     .staff-header-spacer { display: none; }
-    .staff-bottom-quote { padding: 50px 25px; }
-    .staff-bottom-quote h3 { font-size: var(--font-heading-md); }
-    .staff-bottom-quote p { font-size: var(--font-body); }
+    .brand-philosophy-section { 
+        padding: 80px 25px; 
+        margin-left: calc(-6% - 25px);
+        margin-right: calc(-6% - 25px);
+    }
+    .philosophy-card { padding: 40px 30px; }
+    .philosophy-main { font-size: 1.4rem; }
+    .philosophy-sub { font-size: 1.1rem; }
+    .philosophy-desc p { font-size: 0.95rem; line-height: 2; }
 
     .promo-banner { width: 95%; bottom: 25px; padding: 20px 25px; flex-direction: column; align-items: flex-start; }
     .close-banner-btn { position: absolute; top: 18px; right: 18px; }
