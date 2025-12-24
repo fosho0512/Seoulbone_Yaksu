@@ -282,11 +282,13 @@ function showContentView(id) {
         const mediaHtml = data.mapEmbed 
             ? `<div class="map-container">${data.mapEmbed}</div>` 
             : `<img src="${data.modalImg}" alt="${data.title}">`;
+        
+        const heroImagePath = id === 'values' ? 'images/values-hero.png' : 'images/staff-hero.png';
 
         html = `
             <div class="sub-hero" id="${id}-sub-hero">
                 <div class="sub-hero-image">
-                    <img src="images/staff-hero.png" alt="${data.title} Hero">
+                    <img src="${heroImagePath}" alt="${data.title} Hero">
                 </div>
                 <div class="sub-hero-overlay"></div>
                 <div class="sub-hero-text">
