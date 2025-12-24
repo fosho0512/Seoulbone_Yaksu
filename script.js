@@ -160,9 +160,6 @@ function showContentView(id) {
                     </svg>
                 </div>
             </div>
-            <div class="staff-top-image-full">
-                <img src="${data.modalImg}" alt="${data.name}">
-            </div>
             <div class="staff-bio-2col-container">
                 <div class="bio-column left">
                     <div class="staff-header-simple">
