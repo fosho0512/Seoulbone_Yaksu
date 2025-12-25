@@ -618,11 +618,16 @@ function setupPhilosophyScrollExpand() {
         const widthEndTrigger = windowHeight * 0.5;
         
         let widthProgress = 0;
-        if (trackRect.top < widthStartTrigger) {
+        
+        // Once pinned or width completed, keep at 100%
+        if (isPinned || philosophyComplete) {
+            card.style.width = maxWidth + '%';
+            widthProgress = 1;
+        } else if (trackRect.top < widthStartTrigger) {
+            // Linear progress (no easing) for uniform expansion
             widthProgress = Math.min(1, Math.max(0, 
                 (widthStartTrigger - trackRect.top) / (widthStartTrigger - widthEndTrigger)
             ));
-            widthProgress = 1 - Math.pow(1 - widthProgress, 3);
             
             const currentWidth = minWidth + (maxWidth - minWidth) * widthProgress;
             card.style.width = currentWidth + '%';
