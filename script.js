@@ -563,6 +563,7 @@ function setupFadeInObserver() {
 // Philosophy Card Scroll Expand Effect
 let philosophyRafId = null;
 let philosophyComplete = false;
+let lastLenisResizeTime = 0;
 
 function setupPhilosophyScrollExpand() {
     const card = document.getElementById('philosophy-expand-card');
@@ -571,6 +572,7 @@ function setupPhilosophyScrollExpand() {
     const lines = card.querySelectorAll('.expand-line');
     const totalLines = lines.length;
     philosophyComplete = false;
+    lastLenisResizeTime = 0;
     
     // Expansion values
     const minHeight = 180;
@@ -590,9 +592,9 @@ function setupPhilosophyScrollExpand() {
         const cardRect = card.getBoundingClientRect();
         const windowHeight = window.innerHeight;
         
-        // ===== Phase 1: Width expansion (card visible ~ 60vh) =====
-        const widthStartTrigger = windowHeight;      // Card enters viewport (100vh)
-        const widthEndTrigger = windowHeight * 0.6;  // Complete at 60vh
+        // ===== Phase 1: Width expansion (80vh ~ 50vh) =====
+        const widthStartTrigger = windowHeight * 0.8;  // Start at 80vh
+        const widthEndTrigger = windowHeight * 0.5;    // Complete at 50vh
         
         let widthProgress = 0;
         if (cardRect.top < widthStartTrigger) {
@@ -606,9 +608,10 @@ function setupPhilosophyScrollExpand() {
             card.style.width = currentWidth + '%';
         }
         
-        // ===== Phase 2: Height expansion (60vh ~ 15vh) =====
-        const heightStartTrigger = windowHeight * 0.6;
-        const heightEndTrigger = windowHeight * 0.15;
+        // ===== Phase 2: Height expansion (50vh ~ 15vh) =====
+        // Height expands from bottom, keeping top fixed
+        const heightStartTrigger = windowHeight * 0.5;  // Start at 50vh
+        const heightEndTrigger = windowHeight * 0.15;   // Complete at 15vh
         
         let heightProgress = 0;
         if (cardRect.top < heightStartTrigger) {
@@ -620,8 +623,18 @@ function setupPhilosophyScrollExpand() {
             
             const currentHeight = minHeight + (maxHeight - minHeight) * heightProgress;
             card.style.maxHeight = currentHeight + 'px';
+        }
+        
+        // ===== Phase 3: Text line fade-up (starts at 70vh, independent of height) =====
+        const textStartTrigger = windowHeight * 0.7;  // Text fade starts at 70vh
+        const textEndTrigger = windowHeight * 0.1;    // Complete near top
+        
+        let textProgress = 0;
+        if (cardRect.top < textStartTrigger) {
+            textProgress = Math.min(1, Math.max(0, 
+                (textStartTrigger - cardRect.top) / (textStartTrigger - textEndTrigger)
+            ));
             
-            // ===== Phase 3: Text line fade-up (synced with height) =====
             lines.forEach((line, index) => {
                 if (index === 0) {
                     // First line always visible
@@ -631,13 +644,13 @@ function setupPhilosophyScrollExpand() {
                     return;
                 }
                 
-                // Each line appears sequentially based on height progress
-                const lineStartProgress = 0.15 + (index - 1) * (0.7 / (totalLines - 1));
-                const lineEndProgress = lineStartProgress + 0.2;
+                // Each line appears sequentially based on text progress
+                const lineStartProgress = (index - 1) * (0.7 / (totalLines - 1));
+                const lineEndProgress = lineStartProgress + 0.25;
                 
-                if (heightProgress >= lineStartProgress) {
+                if (textProgress >= lineStartProgress) {
                     const lineProgress = Math.min(1, 
-                        (heightProgress - lineStartProgress) / (lineEndProgress - lineStartProgress)
+                        (textProgress - lineStartProgress) / (lineEndProgress - lineStartProgress)
                     );
                     // Ease out for smooth line appearance
                     const easedLineProgress = 1 - Math.pow(1 - lineProgress, 2);
@@ -649,8 +662,15 @@ function setupPhilosophyScrollExpand() {
             });
         }
         
-        // Mark complete when both width and height fully expanded
-        if (widthProgress >= 0.99 && heightProgress >= 0.99) {
+        // Notify Lenis about content size change during height expansion (throttled to every 200ms)
+        const now = Date.now();
+        if (heightProgress > 0 && heightProgress < 1 && window.lenis && (now - lastLenisResizeTime > 200)) {
+            window.lenis.resize();
+            lastLenisResizeTime = now;
+        }
+        
+        // Mark complete when all animations done
+        if (widthProgress >= 0.99 && heightProgress >= 0.99 && textProgress >= 0.95) {
             card.style.width = maxWidth + '%';
             card.style.maxHeight = maxHeight + 'px';
             lines.forEach(line => {
@@ -659,6 +679,11 @@ function setupPhilosophyScrollExpand() {
                 line.style.transform = 'translateY(0)';
             });
             philosophyComplete = true;
+            
+            // Final resize for Lenis to know the final content height
+            if (window.lenis) {
+                window.lenis.resize();
+            }
         }
     };
     
