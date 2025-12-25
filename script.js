@@ -182,30 +182,33 @@ function showContentView(id) {
             <div class="brand-philosophy-section">
                 <div class="brand-philosophy-inner">
                     <span class="brand-caption">SEOUL BONE REHAB CLINIC</span>
-                    <div class="philosophy-card-expand" id="philosophy-expand-card">
-                        <div class="expand-line" data-line="1">
-                            <p class="philosophy-main">"몸은 결코 거짓을 말하지 않습니다."</p>
-                        </div>
-                        <div class="expand-line" data-line="2">
-                            <p class="philosophy-sub">통증은 그 진실을 전하는<br>가장 정직한 신호입니다.</p>
-                        </div>
-                        <div class="expand-line" data-line="3">
-                            <p class="philosophy-desc-line">우리는 보이는 증상 너머,</p>
-                        </div>
-                        <div class="expand-line" data-line="4">
-                            <p class="philosophy-desc-line">숨겨진 원인을 깊이 읽어냅니다.</p>
-                        </div>
-                        <div class="expand-line" data-line="5">
-                            <p class="philosophy-desc-line">현재의 신체 기능과 앞으로의 변화까지</p>
-                        </div>
-                        <div class="expand-line" data-line="6">
-                            <p class="philosophy-desc-line">세심하게 고려하여</p>
-                        </div>
-                        <div class="expand-line" data-line="7">
-                            <p class="philosophy-desc-line">가장 온전한 회복을 위해</p>
-                        </div>
-                        <div class="expand-line" data-line="8">
-                            <p class="philosophy-desc-line">정성을 다해 진료하겠습니다.</p>
+                    <div class="philosophy-card-track" id="philosophy-card-track">
+                        <div class="philosophy-card-placeholder" id="philosophy-placeholder"></div>
+                        <div class="philosophy-card-expand" id="philosophy-expand-card">
+                            <div class="expand-line" data-line="1">
+                                <p class="philosophy-main">"몸은 결코 거짓을 말하지 않습니다."</p>
+                            </div>
+                            <div class="expand-line" data-line="2">
+                                <p class="philosophy-sub">통증은 그 진실을 전하는<br>가장 정직한 신호입니다.</p>
+                            </div>
+                            <div class="expand-line" data-line="3">
+                                <p class="philosophy-desc-line">우리는 보이는 증상 너머,</p>
+                            </div>
+                            <div class="expand-line" data-line="4">
+                                <p class="philosophy-desc-line">숨겨진 원인을 깊이 읽어냅니다.</p>
+                            </div>
+                            <div class="expand-line" data-line="5">
+                                <p class="philosophy-desc-line">현재의 신체 기능과 앞으로의 변화까지</p>
+                            </div>
+                            <div class="expand-line" data-line="6">
+                                <p class="philosophy-desc-line">세심하게 고려하여</p>
+                            </div>
+                            <div class="expand-line" data-line="7">
+                                <p class="philosophy-desc-line">가장 온전한 회복을 위해</p>
+                            </div>
+                            <div class="expand-line" data-line="8">
+                                <p class="philosophy-desc-line">정성을 다해 진료하겠습니다.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -565,86 +568,110 @@ let philosophyRafId = null;
 let philosophyComplete = false;
 let lastLenisResizeTime = 0;
 
+// Pin state machine
+let isPinned = false;
+let pinScrollY = 0;
+let originalCardTop = 0;
+
 function setupPhilosophyScrollExpand() {
     const card = document.getElementById('philosophy-expand-card');
-    if (!card) return;
+    const track = document.getElementById('philosophy-card-track');
+    const placeholder = document.getElementById('philosophy-placeholder');
+    if (!card || !track || !placeholder) return;
     
     const lines = card.querySelectorAll('.expand-line');
     const totalLines = lines.length;
     philosophyComplete = false;
     lastLenisResizeTime = 0;
+    isPinned = false;
+    pinScrollY = 0;
+    originalCardTop = 0;
     
     // Expansion values
     const minHeight = 180;
     const maxHeight = 650;
     const minWidth = 70;
     const maxWidth = 100;
+    const bottomOffset = 80; // Fixed distance from viewport bottom when pinned
+    const expansionDistance = maxHeight - minHeight; // How much scroll needed to fully expand
     
     // Set initial state
     card.style.width = minWidth + '%';
-    card.style.maxHeight = minHeight + 'px';
-    card.style.marginLeft = 'auto';
-    card.style.marginRight = 'auto';
+    card.style.height = minHeight + 'px';
+    card.classList.remove('is-pinned', 'is-released');
+    placeholder.style.display = 'none';
+    placeholder.style.height = '0px';
     
     const updateCardExpansion = () => {
         if (philosophyComplete) return;
         
-        const cardRect = card.getBoundingClientRect();
         const windowHeight = window.innerHeight;
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+        
+        // Get track position (where card originally sits in document flow)
+        const trackRect = track.getBoundingClientRect();
         
         // ===== Phase 1: Width expansion (80vh ~ 50vh) =====
-        const widthStartTrigger = windowHeight * 0.8;  // Start at 80vh
-        const widthEndTrigger = windowHeight * 0.5;    // Complete at 50vh
+        const widthStartTrigger = windowHeight * 0.8;
+        const widthEndTrigger = windowHeight * 0.5;
         
         let widthProgress = 0;
-        if (cardRect.top < widthStartTrigger) {
+        if (trackRect.top < widthStartTrigger) {
             widthProgress = Math.min(1, Math.max(0, 
-                (widthStartTrigger - cardRect.top) / (widthStartTrigger - widthEndTrigger)
+                (widthStartTrigger - trackRect.top) / (widthStartTrigger - widthEndTrigger)
             ));
-            // Ease out cubic for smooth width expansion
             widthProgress = 1 - Math.pow(1 - widthProgress, 3);
             
             const currentWidth = minWidth + (maxWidth - minWidth) * widthProgress;
             card.style.width = currentWidth + '%';
         }
         
-        // ===== Phase 2: Height expansion (50vh ~ 15vh) =====
-        // Height expands from bottom, keeping top fixed
-        const heightStartTrigger = windowHeight * 0.5;  // Start at 50vh
-        const heightEndTrigger = windowHeight * 0.15;   // Complete at 15vh
+        // ===== Phase 2: Pin and Height expansion (when card bottom would reach viewport bottom - offset) =====
+        // Calculate when card bottom should pin to viewport bottom
+        const pinTrigger = windowHeight - bottomOffset - minHeight; // Card top position when pinning starts
         
-        let heightProgress = 0;
-        if (cardRect.top < heightStartTrigger) {
-            heightProgress = Math.min(1, Math.max(0, 
-                (heightStartTrigger - cardRect.top) / (heightStartTrigger - heightEndTrigger)
-            ));
-            // Ease out cubic for smooth height expansion
-            heightProgress = 1 - Math.pow(1 - heightProgress, 3);
+        if (!isPinned && trackRect.top <= pinTrigger) {
+            // Enter pinned state
+            isPinned = true;
+            pinScrollY = scrollY;
+            originalCardTop = trackRect.top + scrollY; // Card's absolute position in document
             
-            const currentHeight = minHeight + (maxHeight - minHeight) * heightProgress;
-            card.style.maxHeight = currentHeight + 'px';
+            // Show placeholder to maintain document flow
+            placeholder.style.display = 'block';
+            placeholder.style.height = minHeight + 'px';
+            
+            // Add pinned class
+            card.classList.add('is-pinned');
+            card.classList.remove('is-released');
+            
+            // Notify Lenis about layout change
+            if (window.lenis) {
+                window.lenis.resize();
+            }
         }
         
-        // ===== Phase 3: Text line fade-up (starts at 70vh, independent of height) =====
-        const textStartTrigger = windowHeight * 0.7;  // Text fade starts at 70vh
-        const textEndTrigger = windowHeight * 0.1;    // Complete near top
-        
-        let textProgress = 0;
-        if (cardRect.top < textStartTrigger) {
-            textProgress = Math.min(1, Math.max(0, 
-                (textStartTrigger - cardRect.top) / (textStartTrigger - textEndTrigger)
-            ));
+        if (isPinned && !philosophyComplete) {
+            // Calculate height based on scroll delta since pinning
+            const scrollDelta = scrollY - pinScrollY;
+            const heightProgress = Math.min(1, Math.max(0, scrollDelta / expansionDistance));
+            
+            const currentHeight = minHeight + (maxHeight - minHeight) * heightProgress;
+            card.style.height = currentHeight + 'px';
+            
+            // Update placeholder to match card height
+            placeholder.style.height = currentHeight + 'px';
+            
+            // ===== Phase 3: Text line fade-up (starts at 70vh, based on scroll progress) =====
+            const textProgress = heightProgress; // Sync with height expansion
             
             lines.forEach((line, index) => {
                 if (index === 0) {
-                    // First line always visible
                     line.classList.add('visible');
                     line.style.opacity = '1';
                     line.style.transform = 'translateY(0)';
                     return;
                 }
                 
-                // Each line appears sequentially based on text progress
                 const lineStartProgress = (index - 1) * (0.7 / (totalLines - 1));
                 const lineEndProgress = lineStartProgress + 0.25;
                 
@@ -652,7 +679,6 @@ function setupPhilosophyScrollExpand() {
                     const lineProgress = Math.min(1, 
                         (textProgress - lineStartProgress) / (lineEndProgress - lineStartProgress)
                     );
-                    // Ease out for smooth line appearance
                     const easedLineProgress = 1 - Math.pow(1 - lineProgress, 2);
                     
                     line.classList.add('visible');
@@ -660,34 +686,67 @@ function setupPhilosophyScrollExpand() {
                     line.style.transform = `translateY(${(1 - easedLineProgress) * 30}px)`;
                 }
             });
-        }
-        
-        // Notify Lenis about content size change during height expansion (throttled to every 200ms)
-        const now = Date.now();
-        if (heightProgress > 0 && heightProgress < 1 && window.lenis && (now - lastLenisResizeTime > 200)) {
-            window.lenis.resize();
-            lastLenisResizeTime = now;
-        }
-        
-        // Mark complete when all animations done
-        if (widthProgress >= 0.99 && heightProgress >= 0.99 && textProgress >= 0.95) {
-            card.style.width = maxWidth + '%';
-            card.style.maxHeight = maxHeight + 'px';
-            lines.forEach(line => {
-                line.classList.add('visible');
-                line.style.opacity = '1';
-                line.style.transform = 'translateY(0)';
-            });
-            philosophyComplete = true;
             
-            // Final resize for Lenis to know the final content height
-            if (window.lenis) {
+            // Throttled Lenis resize during expansion
+            const now = Date.now();
+            if (heightProgress > 0 && heightProgress < 1 && window.lenis && (now - lastLenisResizeTime > 200)) {
                 window.lenis.resize();
+                lastLenisResizeTime = now;
+            }
+            
+            // Check if fully expanded
+            if (heightProgress >= 0.99) {
+                // Release from pinned state
+                card.style.height = maxHeight + 'px';
+                card.style.width = maxWidth + '%';
+                card.classList.remove('is-pinned');
+                card.classList.add('is-released');
+                
+                // Update placeholder to final height
+                placeholder.style.height = maxHeight + 'px';
+                
+                lines.forEach(line => {
+                    line.classList.add('visible');
+                    line.style.opacity = '1';
+                    line.style.transform = 'translateY(0)';
+                });
+                
+                philosophyComplete = true;
+                
+                if (window.lenis) {
+                    window.lenis.resize();
+                }
+            }
+        }
+        
+        // Handle scrolling back up before completion
+        if (isPinned && !philosophyComplete) {
+            const scrollDelta = scrollY - pinScrollY;
+            if (scrollDelta < 0) {
+                // User scrolled back up, unpin
+                isPinned = false;
+                card.classList.remove('is-pinned');
+                card.style.height = minHeight + 'px';
+                placeholder.style.display = 'none';
+                placeholder.style.height = '0px';
+                
+                // Reset text lines
+                lines.forEach((line, index) => {
+                    if (index > 0) {
+                        line.classList.remove('visible');
+                        line.style.opacity = '0';
+                        line.style.transform = 'translateY(30px)';
+                    }
+                });
+                
+                if (window.lenis) {
+                    window.lenis.resize();
+                }
             }
         }
     };
     
-    // Use RAF loop for Lenis compatibility (scroll events don't fire reliably with Lenis)
+    // Use RAF loop for Lenis compatibility
     const rafLoop = () => {
         if (philosophyComplete) {
             if (philosophyRafId) {
@@ -754,12 +813,15 @@ function reinitLenis() {
         window.lenis = null;
     }
     
-    // Clean up philosophy RAF loop
+    // Clean up philosophy RAF loop and state
     if (philosophyRafId) {
         cancelAnimationFrame(philosophyRafId);
         philosophyRafId = null;
     }
     philosophyComplete = false;
+    isPinned = false;
+    pinScrollY = 0;
+    originalCardTop = 0;
     
     // Small delay to let DOM settle
     setTimeout(() => {
