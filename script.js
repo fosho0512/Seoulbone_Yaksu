@@ -569,8 +569,11 @@ function setupPhilosophyScrollExpand() {
     
     const lines = card.querySelectorAll('.expand-line');
     const totalLines = lines.length;
-    let revealedLines = new Set([0]); // First line always visible
     let ticking = false;
+    
+    // Height values for progressive expansion
+    const minHeight = 180;  // Initial collapsed height
+    const maxHeight = 650;  // Fully expanded height
     
     const handleScroll = () => {
         if (ticking) return;
@@ -580,26 +583,32 @@ function setupPhilosophyScrollExpand() {
             const cardRect = card.getBoundingClientRect();
             const windowHeight = window.innerHeight;
             
-            // Delayed trigger: card must be closer to center before expanding
-            const startTrigger = windowHeight * 0.4; // Changed from 0.7 - starts later
-            const endTrigger = windowHeight * 0.1;   // Changed from 0.2
+            // Trigger points: start when card is 40% from top, complete at 10%
+            const startTrigger = windowHeight * 0.4;
+            const endTrigger = windowHeight * 0.1;
             
             if (cardRect.top < startTrigger) {
-                const scrollProgress = Math.min(1, (startTrigger - cardRect.top) / (startTrigger - endTrigger));
+                // Calculate scroll progress (0 to 1)
+                const scrollProgress = Math.min(1, Math.max(0, (startTrigger - cardRect.top) / (startTrigger - endTrigger)));
                 
-                card.classList.add('expanded');
+                // Progressive height expansion synchronized with scroll
+                const currentHeight = minHeight + (maxHeight - minHeight) * scrollProgress;
+                card.style.maxHeight = currentHeight + 'px';
                 
-                const linesToShow = Math.floor(scrollProgress * totalLines) + 1;
+                // Calculate which lines should be visible based on scroll progress
+                // First line always visible, others appear progressively
+                const linesToShow = Math.floor(scrollProgress * (totalLines - 1)) + 1;
                 
                 lines.forEach((line, index) => {
-                    if (index < linesToShow && !revealedLines.has(index)) {
-                        revealedLines.add(index);
+                    if (index < linesToShow) {
                         line.classList.add('visible');
                     }
                 });
                 
-                // Clean up when all lines revealed
-                if (revealedLines.size >= totalLines && philosophyScrollHandler) {
+                // Clean up when fully expanded
+                if (scrollProgress >= 1 && philosophyScrollHandler) {
+                    card.style.maxHeight = maxHeight + 'px';
+                    lines.forEach(line => line.classList.add('visible'));
                     window.removeEventListener('scroll', philosophyScrollHandler);
                     philosophyScrollHandler = null;
                 }
