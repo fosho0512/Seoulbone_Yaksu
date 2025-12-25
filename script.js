@@ -572,6 +572,7 @@ let lastLenisResizeTime = 0;
 let isPinned = false;
 let pinScrollY = 0;
 let originalCardTop = 0;
+let initialBottomOffset = 0; // Bottom offset at pin moment
 
 function setupPhilosophyScrollExpand() {
     const card = document.getElementById('philosophy-expand-card');
@@ -586,6 +587,7 @@ function setupPhilosophyScrollExpand() {
     isPinned = false;
     pinScrollY = 0;
     originalCardTop = 0;
+    initialBottomOffset = 0;
     
     // Expansion values
     const minHeight = 180;
@@ -626,23 +628,31 @@ function setupPhilosophyScrollExpand() {
             card.style.width = currentWidth + '%';
         }
         
-        // ===== Phase 2: Pin and Height expansion (when card bottom would reach viewport bottom - offset) =====
-        // Calculate when card bottom should pin to viewport bottom
-        const pinTrigger = windowHeight - bottomOffset - minHeight; // Card top position when pinning starts
+        // ===== Phase 2: Pin and Height expansion =====
+        // Get card's current actual position
+        const cardRect = card.getBoundingClientRect();
+        const cardBottom = cardRect.bottom;
+        const cardCurrentHeight = cardRect.height || minHeight;
         
-        if (!isPinned && trackRect.top <= pinTrigger) {
+        // Pin when width expansion is nearly complete (0.95+)
+        // This ensures width animation finishes before pin, avoiding premature lock
+        if (!isPinned && widthProgress >= 0.95) {
             // Enter pinned state
             isPinned = true;
             pinScrollY = scrollY;
-            originalCardTop = trackRect.top + scrollY; // Card's absolute position in document
+            originalCardTop = trackRect.top + scrollY;
+            
+            // Capture current bottom distance (no jump - start from exact current position)
+            initialBottomOffset = windowHeight - cardBottom;
             
             // Show placeholder to maintain document flow
             placeholder.style.display = 'block';
             placeholder.style.height = minHeight + 'px';
             
-            // Add pinned class
+            // Add pinned class and set initial bottom position
             card.classList.add('is-pinned');
             card.classList.remove('is-released');
+            card.style.bottom = initialBottomOffset + 'px';
             
             // Notify Lenis about layout change
             if (window.lenis) {
@@ -654,6 +664,10 @@ function setupPhilosophyScrollExpand() {
             // Calculate height based on scroll delta since pinning
             const scrollDelta = scrollY - pinScrollY;
             const heightProgress = Math.min(1, Math.max(0, scrollDelta / expansionDistance));
+            
+            // Interpolate bottom offset from initial to target (80px)
+            const currentBottom = initialBottomOffset + (bottomOffset - initialBottomOffset) * heightProgress;
+            card.style.bottom = currentBottom + 'px';
             
             const currentHeight = minHeight + (maxHeight - minHeight) * heightProgress;
             card.style.height = currentHeight + 'px';
@@ -702,8 +716,9 @@ function setupPhilosophyScrollExpand() {
                 card.classList.remove('is-pinned');
                 card.classList.add('is-released');
                 
-                // Update placeholder to final height
-                placeholder.style.height = maxHeight + 'px';
+                // Hide placeholder - card returns to normal flow
+                placeholder.style.display = 'none';
+                placeholder.style.height = '0px';
                 
                 lines.forEach(line => {
                     line.classList.add('visible');
@@ -822,6 +837,7 @@ function reinitLenis() {
     isPinned = false;
     pinScrollY = 0;
     originalCardTop = 0;
+    initialBottomOffset = 0;
     
     // Small delay to let DOM settle
     setTimeout(() => {
