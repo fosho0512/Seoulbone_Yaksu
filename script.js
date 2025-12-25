@@ -562,7 +562,8 @@ function setupFadeInObserver() {
 
 // Philosophy Card Scroll Expand Effect
 let philosophyScrollHandler = null;
-let lenisScrollHandler = null;
+let philosophyRafId = null;
+let philosophyComplete = false;
 
 function setupPhilosophyScrollExpand() {
     const card = document.getElementById('philosophy-expand-card');
@@ -570,7 +571,7 @@ function setupPhilosophyScrollExpand() {
     
     const lines = card.querySelectorAll('.expand-line');
     const totalLines = lines.length;
-    let ticking = false;
+    philosophyComplete = false;
     
     // Height and width values for progressive expansion
     const minHeight = 180;
@@ -578,109 +579,99 @@ function setupPhilosophyScrollExpand() {
     const minWidth = 70;  // Starting width (%)
     const maxWidth = 100; // End width (%)
     
-    const handleScroll = () => {
-        if (ticking) return;
-        ticking = true;
+    const updateCardExpansion = () => {
+        if (philosophyComplete) return;
         
-        requestAnimationFrame(() => {
-            const cardRect = card.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
+        const cardRect = card.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        // Wider trigger range for slower progression
+        const startTrigger = windowHeight * 0.6;  // Start at 60%
+        const endTrigger = windowHeight * 0.15;   // Complete at 15%
+        
+        if (cardRect.top < startTrigger) {
+            // Calculate scroll progress (0 to 1)
+            let scrollProgress = Math.min(1, Math.max(0, 
+                (startTrigger - cardRect.top) / (startTrigger - endTrigger)
+            ));
             
-            // Wider trigger range for slower progression
-            const startTrigger = windowHeight * 0.6;  // Start at 60%
-            const endTrigger = windowHeight * 0.15;   // Complete at 15%
+            // Ease out cubic for smoother animation
+            scrollProgress = 1 - Math.pow(1 - scrollProgress, 3);
             
-            if (cardRect.top < startTrigger) {
-                // Calculate scroll progress (0 to 1)
-                let scrollProgress = Math.min(1, Math.max(0, 
-                    (startTrigger - cardRect.top) / (startTrigger - endTrigger)
-                ));
-                
-                // Ease out cubic for smoother animation
-                scrollProgress = 1 - Math.pow(1 - scrollProgress, 3);
-                
-                // Width expansion (complete in first 30% of progress)
-                const widthProgress = Math.min(1, scrollProgress / 0.3);
-                const currentWidth = minWidth + (maxWidth - minWidth) * widthProgress;
-                card.style.width = currentWidth + '%';
-                card.style.marginLeft = 'auto';
-                card.style.marginRight = 'auto';
-                
-                // Height expansion (throughout entire progress)
-                const currentHeight = minHeight + (maxHeight - minHeight) * scrollProgress;
-                card.style.maxHeight = currentHeight + 'px';
-                
-                // Individual line timing calculation (slower reveal)
-                lines.forEach((line, index) => {
-                    if (index === 0) {
-                        // First line always visible
-                        line.classList.add('visible');
-                        line.style.opacity = '1';
-                        line.style.transform = 'translateY(0)';
-                        return;
-                    }
-                    
-                    // Calculate start point for each line
-                    // Start from 0.15 and distribute evenly
-                    const lineStartProgress = 0.15 + (index - 1) * (0.85 / (totalLines - 1));
-                    const lineEndProgress = lineStartProgress + 0.15;
-                    
-                    if (scrollProgress >= lineStartProgress) {
-                        const lineProgress = Math.min(1, 
-                            (scrollProgress - lineStartProgress) / (lineEndProgress - lineStartProgress)
-                        );
-                        
-                        line.classList.add('visible');
-                        // Individual line opacity and position adjustment
-                        line.style.opacity = lineProgress;
-                        line.style.transform = `translateY(${(1 - lineProgress) * 30}px)`;
-                    }
-                });
-                
-                // Clean up when fully expanded
-                if (scrollProgress >= 0.98) {
-                    card.style.width = maxWidth + '%';
-                    card.style.maxHeight = maxHeight + 'px';
-                    lines.forEach(line => {
-                        line.classList.add('visible');
-                        line.style.opacity = '1';
-                        line.style.transform = 'translateY(0)';
-                    });
-                    
-                    // Remove listeners
-                    if (philosophyScrollHandler) {
-                        window.removeEventListener('scroll', philosophyScrollHandler);
-                        philosophyScrollHandler = null;
-                    }
-                    if (lenisScrollHandler && window.lenis) {
-                        window.lenis.off('scroll', lenisScrollHandler);
-                        lenisScrollHandler = null;
-                    }
+            // Width expansion (complete in first 30% of progress)
+            const widthProgress = Math.min(1, scrollProgress / 0.3);
+            const currentWidth = minWidth + (maxWidth - minWidth) * widthProgress;
+            card.style.width = currentWidth + '%';
+            card.style.marginLeft = 'auto';
+            card.style.marginRight = 'auto';
+            
+            // Height expansion (throughout entire progress)
+            const currentHeight = minHeight + (maxHeight - minHeight) * scrollProgress;
+            card.style.maxHeight = currentHeight + 'px';
+            
+            // Individual line timing calculation (slower reveal)
+            lines.forEach((line, index) => {
+                if (index === 0) {
+                    // First line always visible
+                    line.classList.add('visible');
+                    line.style.opacity = '1';
+                    line.style.transform = 'translateY(0)';
+                    return;
                 }
+                
+                // Calculate start point for each line
+                // Start from 0.15 and distribute evenly
+                const lineStartProgress = 0.15 + (index - 1) * (0.85 / (totalLines - 1));
+                const lineEndProgress = lineStartProgress + 0.15;
+                
+                if (scrollProgress >= lineStartProgress) {
+                    const lineProgress = Math.min(1, 
+                        (scrollProgress - lineStartProgress) / (lineEndProgress - lineStartProgress)
+                    );
+                    
+                    line.classList.add('visible');
+                    // Individual line opacity and position adjustment
+                    line.style.opacity = lineProgress;
+                    line.style.transform = `translateY(${(1 - lineProgress) * 30}px)`;
+                }
+            });
+            
+            // Mark complete when fully expanded
+            if (scrollProgress >= 0.98) {
+                card.style.width = maxWidth + '%';
+                card.style.maxHeight = maxHeight + 'px';
+                lines.forEach(line => {
+                    line.classList.add('visible');
+                    line.style.opacity = '1';
+                    line.style.transform = 'translateY(0)';
+                });
+                philosophyComplete = true;
             }
-            ticking = false;
-        });
+        }
     };
     
-    // Clean up previous handlers
-    if (philosophyScrollHandler) {
-        window.removeEventListener('scroll', philosophyScrollHandler);
-    }
-    if (lenisScrollHandler && window.lenis) {
-        window.lenis.off('scroll', lenisScrollHandler);
+    // Use RAF loop instead of scroll events for Lenis compatibility
+    const rafLoop = () => {
+        if (philosophyComplete) {
+            // Stop the loop when complete
+            if (philosophyRafId) {
+                cancelAnimationFrame(philosophyRafId);
+                philosophyRafId = null;
+            }
+            return;
+        }
+        
+        updateCardExpansion();
+        philosophyRafId = requestAnimationFrame(rafLoop);
+    };
+    
+    // Clean up previous RAF loop
+    if (philosophyRafId) {
+        cancelAnimationFrame(philosophyRafId);
     }
     
-    // Connect both regular scroll and Lenis scroll
-    philosophyScrollHandler = handleScroll;
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    if (window.lenis) {
-        lenisScrollHandler = handleScroll;
-        window.lenis.on('scroll', handleScroll);
-    }
-    
-    // Initial state
-    handleScroll();
+    // Start RAF loop
+    philosophyRafId = requestAnimationFrame(rafLoop);
 }
 
 // Smooth Scroll Inertia (PC Only)
@@ -727,14 +718,16 @@ function reinitLenis() {
         window.lenis = null;
     }
     
+    // Clean up philosophy RAF loop
+    if (philosophyRafId) {
+        cancelAnimationFrame(philosophyRafId);
+        philosophyRafId = null;
+    }
+    philosophyComplete = false;
+    
     // Small delay to let DOM settle
     setTimeout(() => {
         setupSmoothScroll();
-        // Re-attach philosophy handler to new Lenis instance
-        if (window.lenis && philosophyScrollHandler) {
-            lenisScrollHandler = philosophyScrollHandler;
-            window.lenis.on('scroll', lenisScrollHandler);
-        }
     }, 100);
 }
 
