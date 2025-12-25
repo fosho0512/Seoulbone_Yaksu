@@ -1136,9 +1136,30 @@ body.menu-open .visual-text { opacity: 0; }
     transition: width 0.3s ease-out, border-radius 0.3s ease-out;
     overflow: hidden;
 }
+.expanding-card.pinned {
+    position: fixed;
+    top: 60vh;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
 .expanding-card.expanded-full {
     border-radius: 0;
     padding: 60px 80px;
+}
+.expanding-card.pinned.expanded-full {
+    left: 0;
+    transform: none;
+}
+.expanding-card.unpinned {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.expanding-card.unpinned.expanded-full {
+    left: 0;
+    transform: none;
 }
 
 .card-line {
@@ -1710,6 +1731,10 @@ body::before {
     .expanding-card { 
         padding: 30px 25px; 
         width: 90% !important;
+    }
+    .expanding-card.pinned {
+        top: auto;
+        bottom: 20px;
     }
     .expanding-card.expanded-full {
         padding: 40px 25px;

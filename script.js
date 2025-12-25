@@ -569,27 +569,30 @@ function setupExpandingCard() {
     if (!card || !section) return;
     
     const lines = card.querySelectorAll('.card-line');
+    const inner = section.querySelector('.brand-philosophy-inner');
     
-    // Store initial card position before any transforms
+    // Store initial card position
     const cardOriginalTop = card.offsetTop + section.offsetTop;
+    const cardHeight = card.offsetHeight;
+    let isPinned = false;
     
     function handleScroll() {
         const scrollY = window.scrollY;
         const viewportHeight = window.innerHeight;
         
-        // Calculate where the card would be naturally (without fixed positioning)
+        // Calculate where the card top would be naturally
         const cardNaturalTop = cardOriginalTop - scrollY;
-        const cardNaturalBottom = cardNaturalTop + card.offsetHeight;
         
-        // Viewport position thresholds for width expansion
-        const startExpand = viewportHeight * 0.70;
-        const endExpand = viewportHeight * 0.45;
+        // Viewport position thresholds (from top of viewport)
+        const startExpand = viewportHeight * 0.90; // 90vh
+        const endExpand = viewportHeight * 0.60;   // 60vh
+        const pinPoint = viewportHeight * 0.60;    // 60vh - pin here
         
-        // Calculate expansion progress based on natural card bottom position
+        // Calculate expansion progress based on card top position
         let expandProgress = 0;
-        if (cardNaturalBottom <= startExpand && cardNaturalBottom > endExpand) {
-            expandProgress = (startExpand - cardNaturalBottom) / (startExpand - endExpand);
-        } else if (cardNaturalBottom <= endExpand) {
+        if (cardNaturalTop <= startExpand && cardNaturalTop > endExpand) {
+            expandProgress = (startExpand - cardNaturalTop) / (startExpand - endExpand);
+        } else if (cardNaturalTop <= endExpand) {
             expandProgress = 1;
         }
         
@@ -603,7 +606,28 @@ function setupExpandingCard() {
             card.classList.remove('expanded-full');
         }
         
-        // Calculate scroll progress for text reveal (based on section scroll)
+        // Pin card when it reaches 60vh
+        const sectionBottom = section.offsetTop + section.offsetHeight;
+        const unpinPoint = sectionBottom - viewportHeight + (viewportHeight - pinPoint) + cardHeight;
+        
+        if (cardNaturalTop <= pinPoint && scrollY < unpinPoint) {
+            if (!isPinned) {
+                isPinned = true;
+                card.classList.add('pinned');
+                card.classList.remove('unpinned');
+            }
+        } else if (scrollY >= unpinPoint) {
+            // Unpin at section end
+            card.classList.remove('pinned');
+            card.classList.add('unpinned');
+            isPinned = false;
+        } else {
+            card.classList.remove('pinned');
+            card.classList.remove('unpinned');
+            isPinned = false;
+        }
+        
+        // Calculate scroll progress for text reveal
         const sectionScrollStart = section.offsetTop;
         const sectionScrollEnd = sectionScrollStart + section.offsetHeight - viewportHeight;
         const scrollProgress = Math.max(0, Math.min(1, (scrollY - sectionScrollStart) / (sectionScrollEnd - sectionScrollStart)));
