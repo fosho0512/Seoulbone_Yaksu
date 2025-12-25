@@ -1133,12 +1133,12 @@ body.menu-open .visual-text { opacity: 0; }
     width: 70%;
     max-width: 100%;
     text-align: center;
-    transition: width 0.3s ease-out, border-radius 0.3s ease-out;
+    transition: width 0.4s ease-out, border-radius 0.4s ease-out, padding 0.4s ease-out;
     overflow: hidden;
 }
 .expanding-card.pinned {
     position: fixed;
-    top: 60vh;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;
@@ -1146,20 +1146,16 @@ body.menu-open .visual-text { opacity: 0; }
 .expanding-card.expanded-full {
     border-radius: 0;
     padding: 60px 80px;
-}
-.expanding-card.pinned.expanded-full {
     left: 0;
     transform: none;
 }
 .expanding-card.unpinned {
     position: absolute;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-}
-.expanding-card.unpinned.expanded-full {
     left: 0;
     transform: none;
+    width: 100% !important;
+    border-radius: 0;
 }
 
 .card-line {
@@ -1733,12 +1729,14 @@ body::before {
         width: 90% !important;
     }
     .expanding-card.pinned {
-        top: auto;
-        bottom: 20px;
+        bottom: 0;
     }
     .expanding-card.expanded-full {
         padding: 40px 25px;
         width: 100% !important;
+    }
+    .expanding-card.unpinned {
+        padding: 40px 25px;
     }
     .card-line-1 { font-size: 1.3rem; }
     .card-line-2 { font-size: 1rem; }
