@@ -354,6 +354,9 @@ function showContentView(id) {
     // 서브히어로 스크롤 효과 설정 (모든 페이지)
     setupSubHeroScrollEffect();
     
+    // Reinitialize Lenis for new content
+    reinitLenis();
+    
     // Close menu if open
     if (document.body.classList.contains('menu-open')) {
         document.body.classList.remove('menu-open');
@@ -398,6 +401,7 @@ function showHomeView(skipPushState = false) {
     document.body.classList.remove('has-sub-hero');
     document.body.classList.remove('sub-hero-passed');
     resetScrollState();
+    reinitLenis();
     if (!skipPushState && window.location.hash) {
         history.pushState(null, '', window.location.pathname);
     }
@@ -576,8 +580,9 @@ function setupPhilosophyScrollExpand() {
             const cardRect = card.getBoundingClientRect();
             const windowHeight = window.innerHeight;
             
-            const startTrigger = windowHeight * 0.7;
-            const endTrigger = windowHeight * 0.2;
+            // Delayed trigger: card must be closer to center before expanding
+            const startTrigger = windowHeight * 0.4; // Changed from 0.7 - starts later
+            const endTrigger = windowHeight * 0.1;   // Changed from 0.2
             
             if (cardRect.top < startTrigger) {
                 const scrollProgress = Math.min(1, (startTrigger - cardRect.top) / (startTrigger - endTrigger));
@@ -621,20 +626,46 @@ function setupSmoothScroll() {
     
     if (isMobile || typeof Lenis === 'undefined') return;
     
+    // Destroy existing instance if any
+    if (window.lenis) {
+        window.lenis.destroy();
+        window.lenis = null;
+    }
+    
     const lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: 'vertical',
-        smoothWheel: true
+        smoothWheel: true,
+        wrapper: window,
+        content: document.documentElement
     });
     
+    let rafId;
     function raf(time) {
         lenis.raf(time);
-        requestAnimationFrame(raf);
+        rafId = requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
     
     window.lenis = lenis;
+    window.lenisRafId = rafId;
+}
+
+// Reinitialize Lenis when view changes
+function reinitLenis() {
+    if (window.lenisRafId) {
+        cancelAnimationFrame(window.lenisRafId);
+    }
+    if (window.lenis) {
+        window.lenis.destroy();
+        window.lenis = null;
+    }
+    
+    // Small delay to let DOM settle
+    setTimeout(() => {
+        setupSmoothScroll();
+    }, 100);
 }
 
 // Run
