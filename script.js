@@ -569,44 +569,32 @@ function setupExpandingCard() {
     if (!card || !section) return;
     
     const lines = card.querySelectorAll('.card-line');
-    let isSetup = false;
-    let sectionRect, cardInitialTop, sectionBottom;
-    let isPinned = false;
-    let isFullyExpanded = false;
     
-    function updateMeasurements() {
-        sectionRect = section.getBoundingClientRect();
-        const sectionTop = section.offsetTop;
-        sectionBottom = sectionTop + section.offsetHeight;
-    }
+    // Store initial card position before any transforms
+    const cardOriginalTop = card.offsetTop + section.offsetTop;
     
     function handleScroll() {
-        if (!isSetup) {
-            updateMeasurements();
-            isSetup = true;
-        }
-        
+        const scrollY = window.scrollY;
         const viewportHeight = window.innerHeight;
-        const cardRect = card.getBoundingClientRect();
-        const cardBottomInViewport = cardRect.bottom;
         
-        // Viewport position thresholds
-        const startExpand = viewportHeight * 0.70; // 70vh from top = 30vh from bottom
-        const endExpand = viewportHeight * 0.45;   // 45vh from top = 55vh from bottom
+        // Calculate where the card would be naturally (without fixed positioning)
+        const cardNaturalTop = cardOriginalTop - scrollY;
+        const cardNaturalBottom = cardNaturalTop + card.offsetHeight;
         
-        // Calculate expansion progress based on card bottom position
-        // When card bottom is at 70vh -> start (0%), at 45vh -> end (100%)
+        // Viewport position thresholds for width expansion
+        const startExpand = viewportHeight * 0.70;
+        const endExpand = viewportHeight * 0.45;
+        
+        // Calculate expansion progress based on natural card bottom position
         let expandProgress = 0;
-        if (cardBottomInViewport <= startExpand && cardBottomInViewport > endExpand) {
-            expandProgress = (startExpand - cardBottomInViewport) / (startExpand - endExpand);
-        } else if (cardBottomInViewport <= endExpand) {
+        if (cardNaturalBottom <= startExpand && cardNaturalBottom > endExpand) {
+            expandProgress = (startExpand - cardNaturalBottom) / (startExpand - endExpand);
+        } else if (cardNaturalBottom <= endExpand) {
             expandProgress = 1;
         }
         
         // Width expansion: 70% -> 100%
-        const minWidthPercent = 70;
-        const maxWidthPercent = 100;
-        const currentWidth = minWidthPercent + (maxWidthPercent - minWidthPercent) * expandProgress;
+        const currentWidth = 70 + (30 * expandProgress);
         card.style.width = currentWidth + '%';
         
         if (expandProgress >= 1) {
@@ -615,31 +603,10 @@ function setupExpandingCard() {
             card.classList.remove('expanded-full');
         }
         
-        // Calculate scroll progress for text reveal
-        const scrollY = window.scrollY;
+        // Calculate scroll progress for text reveal (based on section scroll)
         const sectionScrollStart = section.offsetTop;
         const sectionScrollEnd = sectionScrollStart + section.offsetHeight - viewportHeight;
         const scrollProgress = Math.max(0, Math.min(1, (scrollY - sectionScrollStart) / (sectionScrollEnd - sectionScrollStart)));
-        
-        // Pin card when it reaches 40% of viewport
-        const cardTopInViewport = cardRect.top;
-        const viewportTriggerPoint = viewportHeight * 0.4;
-        
-        if (cardTopInViewport <= viewportTriggerPoint && scrollProgress < 0.9) {
-            if (!isPinned) {
-                isPinned = true;
-                card.classList.add('pinned');
-                card.classList.remove('unpinned');
-            }
-        } else if (scrollProgress >= 0.9) {
-            card.classList.remove('pinned');
-            card.classList.add('unpinned');
-            isPinned = false;
-        } else {
-            card.classList.remove('pinned');
-            card.classList.remove('unpinned');
-            isPinned = false;
-        }
         
         // Reveal lines based on scroll progress
         const lineThresholds = [0, 0.2, 0.4, 0.6, 0.75];
@@ -648,11 +615,6 @@ function setupExpandingCard() {
                 line.classList.add('visible');
             }
         });
-        
-        // Check if fully expanded
-        if (scrollProgress >= 0.75 && !isFullyExpanded) {
-            isFullyExpanded = true;
-        }
     }
     
     // Attach scroll listener

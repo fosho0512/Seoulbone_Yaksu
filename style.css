@@ -1136,29 +1136,8 @@ body.menu-open .visual-text { opacity: 0; }
     transition: width 0.3s ease-out, border-radius 0.3s ease-out;
     overflow: hidden;
 }
-.expanding-card.pinned {
-    position: fixed;
-    bottom: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
-}
 .expanding-card.expanded-full {
-    width: 100%;
     border-radius: 0;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    transform: none;
-    padding: 60px 80px;
-}
-.expanding-card.unpinned {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    border-radius: 0;
-    transform: none;
     padding: 60px 80px;
 }
 
@@ -1730,11 +1709,11 @@ body::before {
     }
     .expanding-card { 
         padding: 30px 25px; 
-        min-width: 280px;
+        width: 90% !important;
     }
-    .expanding-card.expanded-full,
-    .expanding-card.unpinned {
+    .expanding-card.expanded-full {
         padding: 40px 25px;
+        width: 100% !important;
     }
     .card-line-1 { font-size: 1.3rem; }
     .card-line-2 { font-size: 1rem; }
