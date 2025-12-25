@@ -557,42 +557,60 @@ function setupFadeInObserver() {
 }
 
 // Philosophy Card Scroll Expand Effect
+let philosophyScrollHandler = null;
+
 function setupPhilosophyScrollExpand() {
     const card = document.getElementById('philosophy-expand-card');
     if (!card) return;
     
     const lines = card.querySelectorAll('.expand-line');
     const totalLines = lines.length;
+    let revealedLines = new Set([0]); // First line always visible
+    let ticking = false;
     
     const handleScroll = () => {
-        const cardRect = card.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
+        if (ticking) return;
+        ticking = true;
         
-        // Calculate scroll progress (0 to 1) based on card position
-        const startTrigger = windowHeight * 0.7;
-        const endTrigger = windowHeight * 0.2;
-        
-        if (cardRect.top < startTrigger) {
-            const scrollProgress = Math.min(1, (startTrigger - cardRect.top) / (startTrigger - endTrigger));
+        requestAnimationFrame(() => {
+            const cardRect = card.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
             
-            // Expand card
-            card.classList.add('expanded');
+            const startTrigger = windowHeight * 0.7;
+            const endTrigger = windowHeight * 0.2;
             
-            // Reveal lines based on progress
-            const linesToShow = Math.floor(scrollProgress * totalLines) + 1;
-            
-            lines.forEach((line, index) => {
-                if (index < linesToShow) {
-                    setTimeout(() => {
+            if (cardRect.top < startTrigger) {
+                const scrollProgress = Math.min(1, (startTrigger - cardRect.top) / (startTrigger - endTrigger));
+                
+                card.classList.add('expanded');
+                
+                const linesToShow = Math.floor(scrollProgress * totalLines) + 1;
+                
+                lines.forEach((line, index) => {
+                    if (index < linesToShow && !revealedLines.has(index)) {
+                        revealedLines.add(index);
                         line.classList.add('visible');
-                    }, index * 80);
+                    }
+                });
+                
+                // Clean up when all lines revealed
+                if (revealedLines.size >= totalLines && philosophyScrollHandler) {
+                    window.removeEventListener('scroll', philosophyScrollHandler);
+                    philosophyScrollHandler = null;
                 }
-            });
-        }
+            }
+            ticking = false;
+        });
     };
     
+    // Clean up previous handler if exists
+    if (philosophyScrollHandler) {
+        window.removeEventListener('scroll', philosophyScrollHandler);
+    }
+    
+    philosophyScrollHandler = handleScroll;
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
+    handleScroll();
 }
 
 // Smooth Scroll Inertia (PC Only)
