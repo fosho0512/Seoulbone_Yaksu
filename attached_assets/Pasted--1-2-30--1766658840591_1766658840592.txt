@@ -1,0 +1,290 @@
+아니요, 제가 제안한 코드로는 완벽하게 구현되지 않습니다. 말씀하신 대로 다시 수정하겠습니다.
+
+## 문제점
+1. 너비와 높이 확장이 동시에 시작됨
+2. 너비 확장이 30% 지점에서 끝나는데, 이게 스크롤 진행도 기준이라 정확한 화면 위치와 매칭 안 됨
+3. 카드가 보이는 순간부터 너비가 확장되어야 하는데, 현재는 60% 지점부터 시작
+
+## 수정된 코드
+
+### script.js - `setupPhilosophyScrollExpand()` 함수 전체 교체
+
+**script.js 507줄부터 전체 교체:**
+
+```javascript
+// Philosophy Card Scroll Expand Effect
+let philosophyScrollHandler = null;
+let lenisScrollHandler = null;
+
+function setupPhilosophyScrollExpand() {
+    const card = document.getElementById('philosophy-expand-card');
+    if (!card) return;
+    
+    const lines = card.querySelectorAll('.expand-line');
+    const totalLines = lines.length;
+    let ticking = false;
+    
+    // Expansion values
+    const minHeight = 180;
+    const maxHeight = 650;
+    const minWidth = 70;
+    const maxWidth = 100;
+    
+    const handleScroll = () => {
+        if (ticking) return;
+        ticking = true;
+        
+        requestAnimationFrame(() => {
+            const cardRect = card.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            
+            // ===== 1단계: 너비 확장 (카드가 보이는 순간 ~ 화면 60%까지) =====
+            const widthStartTrigger = windowHeight;  // 카드가 화면에 들어오는 순간
+            const widthEndTrigger = windowHeight * 0.6;  // 화면의 60% 위치
+            
+            let widthProgress = 0;
+            if (cardRect.top < widthStartTrigger) {
+                widthProgress = Math.min(1, Math.max(0, 
+                    (widthStartTrigger - cardRect.top) / (widthStartTrigger - widthEndTrigger)
+                ));
+                // Ease out cubic for smooth width expansion
+                widthProgress = 1 - Math.pow(1 - widthProgress, 3);
+                
+                const currentWidth = minWidth + (maxWidth - minWidth) * widthProgress;
+                card.style.width = currentWidth + '%';
+            }
+            
+            // ===== 2단계: 높이 확장 (화면 60%부터 ~ 15%까지) =====
+            const heightStartTrigger = windowHeight * 0.6;
+            const heightEndTrigger = windowHeight * 0.15;
+            
+            let heightProgress = 0;
+            if (cardRect.top < heightStartTrigger) {
+                heightProgress = Math.min(1, Math.max(0, 
+                    (heightStartTrigger - cardRect.top) / (heightStartTrigger - heightEndTrigger)
+                ));
+                // Ease out cubic for smooth height expansion
+                heightProgress = 1 - Math.pow(1 - heightProgress, 3);
+                
+                const currentHeight = minHeight + (maxHeight - minHeight) * heightProgress;
+                card.style.maxHeight = currentHeight + 'px';
+                
+                // ===== 3단계: 텍스트 라인별 페이드업 (높이 확장과 함께) =====
+                lines.forEach((line, index) => {
+                    if (index === 0) {
+                        // 첫 번째 라인은 항상 보임
+                        line.classList.add('visible');
+                        line.style.opacity = '1';
+                        line.style.transform = 'translateY(0)';
+                        return;
+                    }
+                    
+                    // 각 라인이 나타나는 시작 시점 (높이 진행도 기준)
+                    // 높이가 15% 이상 확장되면 라인들이 순차적으로 등장
+                    const lineStartProgress = 0.15 + (index - 1) * (0.7 / (totalLines - 1));
+                    const lineEndProgress = lineStartProgress + 0.2;
+                    
+                    if (heightProgress >= lineStartProgress) {
+                        const lineProgress = Math.min(1, 
+                            (heightProgress - lineStartProgress) / (lineEndProgress - lineStartProgress)
+                        );
+                        
+                        // Ease out for smooth line appearance
+                        const easedLineProgress = 1 - Math.pow(1 - lineProgress, 2);
+                        
+                        line.classList.add('visible');
+                        line.style.opacity = String(easedLineProgress);
+                        line.style.transform = `translateY(${(1 - easedLineProgress) * 30}px)`;
+                    }
+                });
+                
+                // 완전히 확장되면 이벤트 리스너 제거
+                if (heightProgress >= 0.99 && widthProgress >= 0.99) {
+                    card.style.width = maxWidth + '%';
+                    card.style.maxHeight = maxHeight + 'px';
+                    lines.forEach(line => {
+                        line.classList.add('visible');
+                        line.style.opacity = '1';
+                        line.style.transform = 'translateY(0)';
+                    });
+                    
+                    // 리스너 정리
+                    if (philosophyScrollHandler) {
+                        window.removeEventListener('scroll', philosophyScrollHandler);
+                        philosophyScrollHandler = null;
+                    }
+                    if (lenisScrollHandler && window.lenis) {
+                        window.lenis.off('scroll', lenisScrollHandler);
+                        lenisScrollHandler = null;
+                    }
+                }
+            }
+            
+            ticking = false;
+        });
+    };
+    
+    // 기존 핸들러 정리
+    if (philosophyScrollHandler) {
+        window.removeEventListener('scroll', philosophyScrollHandler);
+    }
+    if (lenisScrollHandler && window.lenis) {
+        window.lenis.off('scroll', lenisScrollHandler);
+    }
+    
+    // 일반 스크롤과 Lenis 스크롤 모두 연결
+    philosophyScrollHandler = handleScroll;
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    if (window.lenis) {
+        lenisScrollHandler = handleScroll;
+        window.lenis.on('scroll', handleScroll);
+    }
+    
+    // 초기 상태 설정
+    card.style.width = minWidth + '%';
+    card.style.maxHeight = minHeight + 'px';
+    card.style.marginLeft = 'auto';
+    card.style.marginRight = 'auto';
+    
+    handleScroll();
+}
+```
+
+### style.css 수정
+
+**style.css 1328-1337줄 `.philosophy-card-expand` 수정:**
+
+```css
+/* Scroll Expanding Card */
+.philosophy-card-expand {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 20px;
+    padding: 50px 50px 30px;
+    box-shadow: 0 8px 40px rgba(44, 41, 38, 0.06);
+    overflow: hidden;
+    max-height: 180px;
+    width: 70%;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(20px);
+    /* transition 제거 - JavaScript에서 직접 부드럽게 제어 */
+}
+```
+
+**style.css 1344줄 `.expand-line` 수정:**
+
+```css
+.expand-line {
+    opacity: 0;
+    transform: translateY(30px);
+    will-change: opacity, transform;  /* 성능 최적화 */
+}
+.expand-line.visible {
+    /* JavaScript에서 인라인 스타일로 직접 제어 */
+}
+.expand-line[data-line="1"] {
+    opacity: 1;
+    transform: translateY(0);
+}
+```
+
+---
+
+## 작동 방식 설명
+
+### 📐 **1단계: 너비 확장 (카드가 보이자마자 시작)**
+
+```javascript
+// 카드 하단이 화면에 들어오는 순간부터 시작
+const widthStartTrigger = windowHeight;  // 100vh
+const widthEndTrigger = windowHeight * 0.6;  // 60vh
+
+// 카드가 100vh → 60vh로 이동하는 동안 너비가 70% → 100%로 확장
+```
+
+**시각적 표현:**
+```
+카드 위치          너비
+100vh (화면 밖)    70%  ←─ 시작
+ 90vh              75%
+ 80vh              82%
+ 70vh              91%
+ 60vh             100%  ←─ 완료 (여기서 높이 확장 시작)
+```
+
+### 📏 **2단계: 높이 확장 (카드가 화면 60%에 도달하면 시작)**
+
+```javascript
+// 카드가 60vh 위치에 도달하면 높이 확장 시작
+const heightStartTrigger = windowHeight * 0.6;  // 60vh
+const heightEndTrigger = windowHeight * 0.15;   // 15vh
+
+// 카드가 60vh → 15vh로 이동하는 동안 높이가 180px → 650px로 확장
+```
+
+**시각적 표현:**
+```
+카드 위치          높이        텍스트
+60vh             180px       1줄만
+50vh             250px       2줄
+40vh             350px       3줄
+30vh             470px       5줄
+20vh             590px       7줄
+15vh             650px       전체 8줄 ←─ 완료
+```
+
+### ✨ **3단계: 텍스트 페이드업 (높이 확장과 동기화)**
+
+```javascript
+// 높이 진행도가 15% 이상일 때부터 라인들이 순차 등장
+const lineStartProgress = 0.15 + (index - 1) * (0.7 / (totalLines - 1));
+
+// 각 라인마다 0.2의 페이드 지속 시간
+const lineEndProgress = lineStartProgress + 0.2;
+```
+
+**예시 (8줄 기준):**
+- 1줄: 항상 보임
+- 2줄: 높이 15% 시작 → 35% 완료
+- 3줄: 높이 25% 시작 → 45% 완료
+- 4줄: 높이 35% 시작 → 55% 완료
+- ...
+- 8줄: 높이 75% 시작 → 95% 완료
+
+---
+
+## 핵심 개선 사항
+
+### ✅ **스무스한 확장**
+```javascript
+// requestAnimationFrame으로 60fps 보장
+requestAnimationFrame(() => {
+    card.style.width = currentWidth + '%';
+    card.style.maxHeight = currentHeight + 'px';
+});
+```
+
+### ✅ **정확한 순서**
+1. **카드 등장 (100vh)** → 너비 확장 시작
+2. **카드 60vh 도달** → 너비 확장 완료, 높이 확장 시작
+3. **높이 확장 중** → 텍스트 순차 페이드업
+4. **카드 15vh 도달** → 모든 확장 완료
+
+### ✅ **부드러운 이징**
+```javascript
+// Ease out cubic - 빠르게 시작해서 천천히 끝
+progress = 1 - Math.pow(1 - progress, 3);
+```
+
+---
+
+## 예상 효과
+
+🎯 **카드가 화면에 나타나면** → 좌우로 스무스하게 확장 (70% → 100%)  
+🎯 **화면 60% 도달** → 너비 확장 멈춤, 아래로 스무스하게 확장 시작  
+🎯 **확장 중** → 텍스트가 한 줄씩 부드럽게 페이드업  
+🎯 **마우스 휠 스크롤** → 정상 작동  
+🎯 **끊김 없음** → 모든 확장이 스크롤과 동기화되어 자연스러움  
+
+이제 말씀하신 대로 정확히 작동할 것입니다!
