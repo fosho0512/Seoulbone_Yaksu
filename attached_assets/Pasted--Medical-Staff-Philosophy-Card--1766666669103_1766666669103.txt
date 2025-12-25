@@ -1,0 +1,244 @@
+사용자님의 요청 사항을 분석하여 Medical Staff 페이지의 브랜드 철학 카드(Philosophy Card) 애니메이션을 자연스럽게 수정하는 방안을 제시합니다.
+
+수정 목표
+
+너비 확장 점프 현상 해결: 80vh에서 50vh까지 스크롤하는 동안 95% 쯤에서 100%로 '툭' 하고 커지는 현상을 없애고, 완전히 100%가 된 직후에 높이 확장이 시작되도록 변경합니다.
+
+하단 스크롤 시 줄어듦 방지: 애니메이션이 완료된 후 혹은 스크롤이 끝까지 내려갔을 때 카드가 다시 줄어들거나 불안정한 현상을 방지하고 확장된 상태(100%)를 견고하게 유지하도록 합니다.
+
+수정 가이드 (script.js)
+
+script.js 파일 내의 setupPhilosophyScrollExpand 함수에 있는 updateCardExpansion 내부 로직을 전면 수정합니다. 기존의 복잡한 조건문을 **[너비 확장 단계]**와 **[높이 확장 단계]**로 명확히 분리하여 부드럽게 이어지도록 변경합니다.
+
+수정된 코드 적용 방법
+
+script.js 파일에서 setupPhilosophyScrollExpand 함수 전체를 찾아 아래 코드로 교체해 주세요.
+
+code
+JavaScript
+download
+content_copy
+expand_less
+/* script.js 파일의 setupPhilosophyScrollExpand 함수 전체를 교체 */
+
+function setupPhilosophyScrollExpand() {
+    const card = document.getElementById('philosophy-expand-card');
+    const track = document.getElementById('philosophy-card-track');
+    const placeholder = document.getElementById('philosophy-placeholder');
+    if (!card || !track || !placeholder) return;
+    
+    const lines = card.querySelectorAll('.expand-line');
+    const totalLines = lines.length;
+    philosophyComplete = false;
+    lastLenisResizeTime = 0;
+    isPinned = false;
+    pinScrollY = 0;
+    originalCardTop = 0;
+    initialBottomOffset = 0;
+    
+    // Expansion values
+    const minHeight = 180;
+    const maxHeight = 650;
+    const minWidth = 70;
+    const maxWidth = 100;
+    const bottomOffset = 80; // Fixed distance from viewport bottom when pinned
+    const expansionDistance = maxHeight - minHeight; 
+    
+    // 초기화
+    card.style.width = minWidth + '%';
+    card.style.height = minHeight + 'px';
+    card.classList.remove('is-pinned', 'is-released');
+    placeholder.style.display = 'none';
+    placeholder.style.height = '0px';
+    
+    const updateCardExpansion = () => {
+        // 이미 완료되었다면 너비를 100%로 강제하고 종료 (줄어듦 방지)
+        if (philosophyComplete) {
+            card.style.width = maxWidth + '%';
+            return;
+        }
+        
+        const windowHeight = window.innerHeight;
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+        const trackRect = track.getBoundingClientRect();
+        
+        // ============================================================
+        // [Phase 1] 너비 확장 로직 (Width Expansion)
+        // 80vh 지점에서 시작해서 45vh 지점에서 100% 완료
+        // ============================================================
+        const widthStartTrigger = windowHeight * 0.8; 
+        const widthEndTrigger = windowHeight * 0.45; // 핀 고정 지점 (조절 가능)
+        
+        let widthProgress = 0;
+        
+        // 스크롤 위치에 따른 너비 진행률 계산 (0.0 ~ 1.0)
+        if (trackRect.top < widthStartTrigger) {
+            widthProgress = (widthStartTrigger - trackRect.top) / (widthStartTrigger - widthEndTrigger);
+        }
+        
+        // 진행률을 0과 1 사이로 제한
+        widthProgress = Math.min(1, Math.max(0, widthProgress));
+        
+        // 핀 상태가 아닐 때(Phase 1)는 계산된 너비 적용
+        if (!isPinned) {
+            const currentWidth = minWidth + (maxWidth - minWidth) * widthProgress;
+            card.style.width = currentWidth + '%';
+        } else {
+            // 핀 상태(Phase 2)에서는 무조건 100% 유지
+            card.style.width = maxWidth + '%';
+        }
+
+        // ============================================================
+        // [Phase 2] 핀 고정 및 높이 확장 (Pinning & Height Expansion)
+        // 너비가 100%(progress >= 1)가 된 순간 핀 고정 시작
+        // ============================================================
+        
+        // 1. 핀 고정 시작 조건 (너비 확장이 끝났고, 아직 핀 안됨)
+        if (!isPinned && widthProgress >= 1) {
+            isPinned = true;
+            pinScrollY = scrollY; // 현재 스크롤 위치 저장
+            
+            // 현재 화면 하단에서의 거리 계산 (자연스러운 고정을 위해)
+            const cardRect = card.getBoundingClientRect();
+            initialBottomOffset = windowHeight - cardRect.bottom;
+            
+            // Placeholder 활성화 (공간 차지)
+            placeholder.style.display = 'block';
+            placeholder.style.height = minHeight + 'px';
+            
+            // Fixed 상태로 변경
+            card.classList.add('is-pinned');
+            card.classList.remove('is-released');
+            card.style.bottom = initialBottomOffset + 'px';
+            
+            // Lenis 리사이즈 (레이아웃 변경 알림)
+            if (window.lenis) window.lenis.resize();
+        }
+        
+        // 2. 핀 고정 상태에서의 동작 (높이 확장 및 텍스트 표시)
+        if (isPinned) {
+            const scrollDelta = scrollY - pinScrollY;
+            
+            // 뒤로 스크롤 했을 때 (Unpin)
+            if (scrollDelta < 0) {
+                isPinned = false;
+                card.classList.remove('is-pinned');
+                card.style.bottom = ''; // bottom 초기화
+                card.style.height = minHeight + 'px'; // 높이 초기화
+                
+                placeholder.style.display = 'none';
+                placeholder.style.height = '0px';
+                
+                // 텍스트 숨김
+                lines.forEach((line, index) => {
+                    if (index > 0) {
+                        line.classList.remove('visible');
+                        line.style.opacity = '0';
+                        line.style.transform = 'translateY(30px)';
+                    }
+                });
+                return; // 이번 프레임 종료 (다음 프레임에 너비 로직이 다시 적용됨)
+            }
+
+            // 높이 확장 진행률 계산
+            const heightProgress = Math.min(1, Math.max(0, scrollDelta / expansionDistance));
+            
+            // 높이 및 위치 업데이트
+            const currentHeight = minHeight + (maxHeight - minHeight) * heightProgress;
+            const currentBottom = initialBottomOffset + (bottomOffset - initialBottomOffset) * heightProgress;
+            
+            card.style.height = currentHeight + 'px';
+            card.style.bottom = currentBottom + 'px';
+            placeholder.style.height = currentHeight + 'px'; // Placeholder도 같이 커져야 스크롤 영역 확보됨
+
+            // 텍스트 애니메이션 (높이 확장에 맞춰 순차 등장)
+            const textProgress = heightProgress;
+            lines.forEach((line, index) => {
+                if (index === 0) { // 첫 줄은 항상 표시
+                    line.classList.add('visible');
+                    line.style.opacity = '1';
+                    line.style.transform = 'translateY(0)';
+                    return;
+                }
+                
+                // 순차적 등장 로직
+                const lineStartProgress = (index - 1) * (0.7 / (totalLines - 1));
+                const lineEndProgress = lineStartProgress + 0.25;
+                
+                if (textProgress >= lineStartProgress) {
+                    const lineProgress = Math.min(1, 
+                        (textProgress - lineStartProgress) / (lineEndProgress - lineStartProgress)
+                    );
+                    const easedLineProgress = 1 - Math.pow(1 - lineProgress, 2); // Easing
+                    
+                    line.classList.add('visible');
+                    line.style.opacity = String(easedLineProgress);
+                    line.style.transform = `translateY(${(1 - easedLineProgress) * 30}px)`;
+                }
+            });
+
+            // 3. 완료 처리 (높이 확장 끝)
+            if (heightProgress >= 0.995) {
+                // 상태 확정
+                philosophyComplete = true;
+                
+                card.style.height = maxHeight + 'px';
+                card.style.width = maxWidth + '%'; // 너비 100% 확정
+                card.style.bottom = '';
+                
+                card.classList.remove('is-pinned');
+                card.classList.add('is-released'); // 다시 문서 흐름으로 복귀
+                
+                placeholder.style.display = 'none'; // Placeholder 제거
+                placeholder.style.height = '0px';
+                
+                // 모든 텍스트 강제 표시
+                lines.forEach(line => {
+                    line.classList.add('visible');
+                    line.style.opacity = '1';
+                    line.style.transform = 'translateY(0)';
+                });
+                
+                if (window.lenis) window.lenis.resize();
+            }
+        }
+    };
+    
+    // RAF Loop
+    const rafLoop = () => {
+        if (philosophyComplete) {
+            // 완료 후에도 너비가 줄어들지 않도록 안전장치
+            card.style.width = maxWidth + '%';
+            if (philosophyRafId) {
+                cancelAnimationFrame(philosophyRafId);
+                philosophyRafId = null;
+            }
+            return;
+        }
+        
+        updateCardExpansion();
+        philosophyRafId = requestAnimationFrame(rafLoop);
+    };
+    
+    if (philosophyRafId) cancelAnimationFrame(philosophyRafId);
+    philosophyRafId = requestAnimationFrame(rafLoop);
+}
+수정된 내용 설명
+
+너비 점프 해결 (95% → 100% 스냅 제거)
+
+이전: widthProgress >= 0.95일 때 강제로 핀을 고정하고 너비를 100%로 설정하여 애니메이션이 끊겼습니다.
+
+수정: widthEndTrigger 지점까지 도달하여 widthProgress >= 1이 될 때까지 부드럽게 너비가 늘어나게 두고, 정확히 100%가 된 시점에만 핀 고정(Height 확장) 단계로 넘어가도록 변경했습니다.
+
+하단 스크롤 시 줄어듦 방지
+
+이전: 애니메이션 완료 후 루프가 멈추거나 조건이 풀리면 CSS 기본값(70%)이나 계산 오류로 인해 카드가 줄어들 수 있었습니다.
+
+수정: philosophyComplete 상태가 true이거나 핀이 고정(isPinned)된 상태에서는 무조건 width: 100%를 강제하도록 로직을 강화했습니다. 특히 rafLoop 종료 시점과 updateCardExpansion 시작 부분에 안전장치를 추가했습니다.
+
+애니메이션 연결성 강화
+
+너비 확장 구간(widthEndTrigger)을 windowHeight * 0.45로 설정하여, 핀 고정 전에 너비 확장이 완료될 충분한 스크롤 구간을 확보했습니다.
+
+이제 Medical Staff 페이지에서 스크롤을 내리면 카드가 끊김 없이 100%까지 넓어진 후 자연스럽게 위로 올라오며 펼쳐지고, 맨 아래까지 스크롤해도 너비가 줄어들지 않고 유지됩니다.
