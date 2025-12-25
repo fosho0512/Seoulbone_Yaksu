@@ -182,17 +182,31 @@ function showContentView(id) {
             <div class="brand-philosophy-section">
                 <div class="brand-philosophy-inner">
                     <span class="brand-caption">SEOUL BONE REHAB CLINIC</span>
-                    <div class="philosophy-card">
-                        <p class="philosophy-main">"몸은 결코 거짓을 말하지 않습니다."</p>
-                        <p class="philosophy-sub">통증은 그 진실을 전하는<br>가장 정직한 신호입니다.</p>
-                    </div>
-                    <div class="philosophy-desc">
-                        <p>우리는 보이는 증상 너머,</p>
-                        <p>숨겨진 원인을 깊이 읽어냅니다.</p>
-                        <p>현재의 신체 기능과 앞으로의 변화까지</p>
-                        <p>세심하게 고려하여</p>
-                        <p>가장 온전한 회복을 위해</p>
-                        <p>정성을 다해 진료하겠습니다.</p>
+                    <div class="philosophy-card-expand" id="philosophy-expand-card">
+                        <div class="expand-line" data-line="1">
+                            <p class="philosophy-main">"몸은 결코 거짓을 말하지 않습니다."</p>
+                        </div>
+                        <div class="expand-line" data-line="2">
+                            <p class="philosophy-sub">통증은 그 진실을 전하는<br>가장 정직한 신호입니다.</p>
+                        </div>
+                        <div class="expand-line" data-line="3">
+                            <p class="philosophy-desc-line">우리는 보이는 증상 너머,</p>
+                        </div>
+                        <div class="expand-line" data-line="4">
+                            <p class="philosophy-desc-line">숨겨진 원인을 깊이 읽어냅니다.</p>
+                        </div>
+                        <div class="expand-line" data-line="5">
+                            <p class="philosophy-desc-line">현재의 신체 기능과 앞으로의 변화까지</p>
+                        </div>
+                        <div class="expand-line" data-line="6">
+                            <p class="philosophy-desc-line">세심하게 고려하여</p>
+                        </div>
+                        <div class="expand-line" data-line="7">
+                            <p class="philosophy-desc-line">가장 온전한 회복을 위해</p>
+                        </div>
+                        <div class="expand-line" data-line="8">
+                            <p class="philosophy-desc-line">정성을 다해 진료하겠습니다.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -526,6 +540,7 @@ function setupFadeInObserver() {
                                 entries.forEach(entry => {
                                     if (entry.isIntersecting) {
                                         entry.target.classList.add('animate');
+                                        setupPhilosophyScrollExpand();
                                         philosophyObserver.unobserve(entry.target);
                                     }
                                 });
@@ -539,6 +554,45 @@ function setupFadeInObserver() {
         
         mutationObserver.observe(contentView, { attributes: true, attributeFilter: ['class'] });
     }
+}
+
+// Philosophy Card Scroll Expand Effect
+function setupPhilosophyScrollExpand() {
+    const card = document.getElementById('philosophy-expand-card');
+    if (!card) return;
+    
+    const lines = card.querySelectorAll('.expand-line');
+    const totalLines = lines.length;
+    
+    const handleScroll = () => {
+        const cardRect = card.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        // Calculate scroll progress (0 to 1) based on card position
+        const startTrigger = windowHeight * 0.7;
+        const endTrigger = windowHeight * 0.2;
+        
+        if (cardRect.top < startTrigger) {
+            const scrollProgress = Math.min(1, (startTrigger - cardRect.top) / (startTrigger - endTrigger));
+            
+            // Expand card
+            card.classList.add('expanded');
+            
+            // Reveal lines based on progress
+            const linesToShow = Math.floor(scrollProgress * totalLines) + 1;
+            
+            lines.forEach((line, index) => {
+                if (index < linesToShow) {
+                    setTimeout(() => {
+                        line.classList.add('visible');
+                    }, index * 80);
+                }
+            });
+        }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
 }
 
 // Smooth Scroll Inertia (PC Only)
