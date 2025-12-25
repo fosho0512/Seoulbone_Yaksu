@@ -182,17 +182,12 @@ function showContentView(id) {
             <div class="brand-philosophy-section">
                 <div class="brand-philosophy-inner">
                     <span class="brand-caption">SEOUL BONE REHAB CLINIC</span>
-                    <div class="philosophy-card">
-                        <p class="philosophy-main">"몸은 결코 거짓을 말하지 않습니다."</p>
-                        <p class="philosophy-sub">통증은 그 진실을 전하는<br>가장 정직한 신호입니다.</p>
-                    </div>
-                    <div class="philosophy-desc">
-                        <p>우리는 보이는 증상 너머,</p>
-                        <p>숨겨진 원인을 깊이 읽어냅니다.</p>
-                        <p>현재의 신체 기능과 앞으로의 변화까지</p>
-                        <p>세심하게 고려하여</p>
-                        <p>가장 온전한 회복을 위해</p>
-                        <p>정성을 다해 진료하겠습니다.</p>
+                    <div class="expanding-card" id="expanding-card">
+                        <div class="card-line card-line-1">"몸은 결코 거짓을 말하지 않습니다."</div>
+                        <div class="card-line card-line-2">통증은 그 진실을 전하는 가장 정직한 신호입니다.</div>
+                        <div class="card-line card-line-3">우리는 보이는 증상 너머, 숨겨진 원인을 깊이 읽어냅니다.</div>
+                        <div class="card-line card-line-4">현재의 신체 기능과 앞으로의 변화까지 세심하게 고려하여</div>
+                        <div class="card-line card-line-5">가장 온전한 회복을 위해 정성을 다해 진료하겠습니다.</div>
                     </div>
                 </div>
             </div>
@@ -527,9 +522,11 @@ function setupFadeInObserver() {
                                     if (entry.isIntersecting) {
                                         entry.target.classList.add('animate');
                                         philosophyObserver.unobserve(entry.target);
+                                        // Initialize expanding card
+                                        setupExpandingCard();
                                     }
                                 });
-                            }, { threshold: 0.2 });
+                            }, { threshold: 0.1 });
                             philosophyObserver.observe(philosophySection);
                         }
                     }, 100);
@@ -563,6 +560,97 @@ function setupSmoothScroll() {
     requestAnimationFrame(raf);
     
     window.lenis = lenis;
+}
+
+// Expanding Card Scroll Animation
+function setupExpandingCard() {
+    const card = document.getElementById('expanding-card');
+    const section = document.querySelector('.brand-philosophy-section');
+    if (!card || !section) return;
+    
+    const lines = card.querySelectorAll('.card-line');
+    let isSetup = false;
+    let sectionRect, cardInitialTop, sectionBottom;
+    let isPinned = false;
+    let isFullyExpanded = false;
+    
+    function updateMeasurements() {
+        sectionRect = section.getBoundingClientRect();
+        const sectionTop = section.offsetTop;
+        sectionBottom = sectionTop + section.offsetHeight;
+    }
+    
+    function handleScroll() {
+        if (!isSetup) {
+            updateMeasurements();
+            isSetup = true;
+        }
+        
+        const scrollY = window.scrollY;
+        const viewportHeight = window.innerHeight;
+        const cardRect = card.getBoundingClientRect();
+        
+        // Calculate card position relative to viewport
+        const cardTopInViewport = cardRect.top;
+        const viewportTriggerPoint = viewportHeight * 0.4;
+        
+        // Calculate scroll progress within section
+        const sectionScrollStart = section.offsetTop;
+        const sectionScrollEnd = sectionScrollStart + section.offsetHeight - viewportHeight;
+        const scrollProgress = Math.max(0, Math.min(1, (scrollY - sectionScrollStart) / (sectionScrollEnd - sectionScrollStart)));
+        
+        // Width expansion: 45% of section scroll -> full width
+        if (scrollProgress >= 0.45) {
+            card.style.width = '100%';
+            card.classList.add('expanded-full');
+        } else if (scrollProgress > 0.1) {
+            const widthProgress = (scrollProgress - 0.1) / 0.35;
+            const minWidth = 320;
+            const maxWidth = section.offsetWidth;
+            card.style.width = (minWidth + (maxWidth - minWidth) * widthProgress) + 'px';
+            card.classList.remove('expanded-full');
+        } else {
+            card.style.width = 'fit-content';
+            card.classList.remove('expanded-full');
+        }
+        
+        // Pin card when it reaches 40% of viewport
+        if (cardTopInViewport <= viewportTriggerPoint && scrollProgress < 0.9) {
+            if (!isPinned) {
+                isPinned = true;
+                card.classList.add('pinned');
+                card.classList.remove('unpinned');
+            }
+        } else if (scrollProgress >= 0.9) {
+            // Unpin at the end
+            card.classList.remove('pinned');
+            card.classList.add('unpinned');
+            isPinned = false;
+        } else {
+            card.classList.remove('pinned');
+            card.classList.remove('unpinned');
+            isPinned = false;
+        }
+        
+        // Reveal lines based on scroll progress
+        const lineThresholds = [0, 0.2, 0.4, 0.6, 0.75];
+        lines.forEach((line, index) => {
+            if (scrollProgress >= lineThresholds[index]) {
+                line.classList.add('visible');
+            }
+        });
+        
+        // Check if fully expanded
+        if (scrollProgress >= 0.75 && !isFullyExpanded) {
+            isFullyExpanded = true;
+        }
+    }
+    
+    // Attach scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Initial check
+    setTimeout(handleScroll, 100);
 }
 
 // Run
