@@ -627,54 +627,16 @@ function setupPhilosophyScrollExpand() {
     handleScroll();
 }
 
-// Smooth Scroll Inertia (PC Only)
+// Smooth Scroll - Disabled due to compatibility issues
+// Using native scroll instead for better reliability
 function setupSmoothScroll() {
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
-        || window.innerWidth < 1024
-        || ('ontouchstart' in window);
-    
-    if (isMobile || typeof Lenis === 'undefined') return;
-    
-    // Destroy existing instance if any
-    if (window.lenis) {
-        window.lenis.destroy();
-        window.lenis = null;
-    }
-    
-    const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: 'vertical',
-        smoothWheel: true,
-        wrapper: window,
-        content: document.documentElement
-    });
-    
-    let rafId;
-    function raf(time) {
-        lenis.raf(time);
-        rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
-    
-    window.lenis = lenis;
-    window.lenisRafId = rafId;
+    // Lenis disabled - native scroll provides better compatibility
+    return;
 }
 
-// Reinitialize Lenis when view changes
 function reinitLenis() {
-    if (window.lenisRafId) {
-        cancelAnimationFrame(window.lenisRafId);
-    }
-    if (window.lenis) {
-        window.lenis.destroy();
-        window.lenis = null;
-    }
-    
-    // Small delay to let DOM settle
-    setTimeout(() => {
-        setupSmoothScroll();
-    }, 100);
+    // No-op since Lenis is disabled
+    return;
 }
 
 // Run
