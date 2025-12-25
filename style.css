@@ -1096,7 +1096,7 @@ body.menu-open .visual-text { opacity: 0; }
 /* Brand Philosophy Section */
 .brand-philosophy-section {
     background: linear-gradient(180deg, #F8F6F3 0%, #F2EFE9 100%);
-    padding: 80px 40px 120px;
+    padding: 120px 40px;
     margin-top: 80px;
     margin-left: calc(-12% - 40px);
     margin-right: calc(-12% - 40px);
@@ -1111,7 +1111,7 @@ body.menu-open .visual-text { opacity: 0; }
     font-size: 0.75rem;
     letter-spacing: 0.25em;
     color: #9A948D;
-    margin-bottom: 28px;
+    margin-bottom: 50px;
     font-weight: 400;
     opacity: 0;
     transform: translateY(20px);
@@ -1119,64 +1119,17 @@ body.menu-open .visual-text { opacity: 0; }
 .brand-philosophy-section.animate .brand-caption {
     animation: philosophyFadeUp 0.7s ease-out forwards;
 }
-/* Scroll Expanding Card Track */
-.philosophy-card-track {
-    position: relative;
-    min-height: 180px;
-}
-.philosophy-card-placeholder {
-    display: none;
-    width: 100%;
-}
-/* Scroll Expanding Card */
-.philosophy-card-expand {
-    background: rgba(255, 255, 255, 0.92);
+.philosophy-card {
+    background: rgba(255, 255, 255, 0.85);
     border-radius: 20px;
-    padding: 50px 50px 30px;
+    padding: 60px 50px;
     box-shadow: 0 8px 40px rgba(44, 41, 38, 0.06);
-    overflow: hidden;
-    height: 180px;
-    width: 70%;
-    margin: 0 auto;
+    margin-bottom: 50px;
     opacity: 0;
     transform: translateY(20px);
-    will-change: width, height, transform;
 }
-.philosophy-card-expand.is-pinned {
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 80px;
-    z-index: 100;
-}
-.philosophy-card-expand.is-released {
-    position: relative;
-}
-.brand-philosophy-section.animate .philosophy-card-expand {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.6s ease-out;
-}
-.brand-philosophy-section.animate .philosophy-card-expand.is-pinned {
-    transform: translateX(-50%);
-}
-.expand-line {
-    opacity: 0;
-    transform: translateY(30px);
-    will-change: opacity, transform;
-}
-.expand-line.visible {
-    /* Controlled by JavaScript */
-}
-.expand-line[data-line="1"] {
-    opacity: 1;
-    transform: translateY(0);
-}
-/* Fully expanded state */
-.philosophy-card-expand.fully-expanded {
-    width: 100%;
-    max-height: 650px;
-    box-shadow: 0 12px 50px rgba(44, 41, 38, 0.1);
+.brand-philosophy-section.animate .philosophy-card {
+    animation: philosophyFadeUp 0.8s ease-out 0.15s forwards;
 }
 .philosophy-main {
     font-family: var(--font-serif);
@@ -1185,7 +1138,7 @@ body.menu-open .visual-text { opacity: 0; }
     font-weight: 500;
     letter-spacing: 0.03em;
     line-height: 1.5;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 .philosophy-sub {
     font-family: var(--font-serif);
@@ -1194,9 +1147,15 @@ body.menu-open .visual-text { opacity: 0; }
     font-weight: 400;
     letter-spacing: 0.02em;
     line-height: 1.7;
-    margin-bottom: 35px;
 }
-.philosophy-desc-line {
+.philosophy-desc {
+    opacity: 0;
+    transform: translateY(20px);
+}
+.brand-philosophy-section.animate .philosophy-desc {
+    animation: philosophyFadeUp 0.8s ease-out 0.3s forwards;
+}
+.philosophy-desc p {
     font-size: clamp(1rem, 1.8vw, 1.15rem);
     color: #6B635B;
     line-height: 2.2;
@@ -1718,17 +1677,14 @@ body::before {
     .staff-bio-2col-container { grid-template-columns: 1fr; gap: 40px; } 
     .staff-header-spacer { display: none; }
     .brand-philosophy-section { 
-        padding: 60px 25px 80px; 
+        padding: 80px 25px; 
         margin-left: calc(-6% - 25px);
         margin-right: calc(-6% - 25px);
     }
-    .philosophy-card-expand { 
-        padding: 35px 25px 25px; 
-        max-height: 140px;
-    }
-    .philosophy-main { font-size: 1.3rem; margin-bottom: 20px; }
-    .philosophy-sub { font-size: 1rem; margin-bottom: 25px; }
-    .philosophy-desc-line { font-size: 0.9rem; line-height: 2; }
+    .philosophy-card { padding: 40px 30px; }
+    .philosophy-main { font-size: 1.4rem; }
+    .philosophy-sub { font-size: 1.1rem; }
+    .philosophy-desc p { font-size: 0.95rem; line-height: 2; }
 
     .promo-banner { width: 95%; bottom: 25px; padding: 20px 25px; flex-direction: column; align-items: flex-start; }
     .close-banner-btn { position: absolute; top: 18px; right: 18px; }

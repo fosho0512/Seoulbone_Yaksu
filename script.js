@@ -182,34 +182,17 @@ function showContentView(id) {
             <div class="brand-philosophy-section">
                 <div class="brand-philosophy-inner">
                     <span class="brand-caption">SEOUL BONE REHAB CLINIC</span>
-                    <div class="philosophy-card-track" id="philosophy-card-track">
-                        <div class="philosophy-card-placeholder" id="philosophy-placeholder"></div>
-                        <div class="philosophy-card-expand" id="philosophy-expand-card">
-                            <div class="expand-line" data-line="1">
-                                <p class="philosophy-main">"몸은 결코 거짓을 말하지 않습니다."</p>
-                            </div>
-                            <div class="expand-line" data-line="2">
-                                <p class="philosophy-sub">통증은 그 진실을 전하는<br>가장 정직한 신호입니다.</p>
-                            </div>
-                            <div class="expand-line" data-line="3">
-                                <p class="philosophy-desc-line">우리는 보이는 증상 너머,</p>
-                            </div>
-                            <div class="expand-line" data-line="4">
-                                <p class="philosophy-desc-line">숨겨진 원인을 깊이 읽어냅니다.</p>
-                            </div>
-                            <div class="expand-line" data-line="5">
-                                <p class="philosophy-desc-line">현재의 신체 기능과 앞으로의 변화까지</p>
-                            </div>
-                            <div class="expand-line" data-line="6">
-                                <p class="philosophy-desc-line">세심하게 고려하여</p>
-                            </div>
-                            <div class="expand-line" data-line="7">
-                                <p class="philosophy-desc-line">가장 온전한 회복을 위해</p>
-                            </div>
-                            <div class="expand-line" data-line="8">
-                                <p class="philosophy-desc-line">정성을 다해 진료하겠습니다.</p>
-                            </div>
-                        </div>
+                    <div class="philosophy-card">
+                        <p class="philosophy-main">"몸은 결코 거짓을 말하지 않습니다."</p>
+                        <p class="philosophy-sub">통증은 그 진실을 전하는<br>가장 정직한 신호입니다.</p>
+                    </div>
+                    <div class="philosophy-desc">
+                        <p>우리는 보이는 증상 너머,</p>
+                        <p>숨겨진 원인을 깊이 읽어냅니다.</p>
+                        <p>현재의 신체 기능과 앞으로의 변화까지</p>
+                        <p>세심하게 고려하여</p>
+                        <p>가장 온전한 회복을 위해</p>
+                        <p>정성을 다해 진료하겠습니다.</p>
                     </div>
                 </div>
             </div>
@@ -357,9 +340,6 @@ function showContentView(id) {
     // 서브히어로 스크롤 효과 설정 (모든 페이지)
     setupSubHeroScrollEffect();
     
-    // Reinitialize Lenis for new content
-    reinitLenis();
-    
     // Close menu if open
     if (document.body.classList.contains('menu-open')) {
         document.body.classList.remove('menu-open');
@@ -404,7 +384,6 @@ function showHomeView(skipPushState = false) {
     document.body.classList.remove('has-sub-hero');
     document.body.classList.remove('sub-hero-passed');
     resetScrollState();
-    reinitLenis();
     if (!skipPushState && window.location.hash) {
         history.pushState(null, '', window.location.pathname);
     }
@@ -547,7 +526,6 @@ function setupFadeInObserver() {
                                 entries.forEach(entry => {
                                     if (entry.isIntersecting) {
                                         entry.target.classList.add('animate');
-                                        setupPhilosophyScrollExpand();
                                         philosophyObserver.unobserve(entry.target);
                                     }
                                 });
@@ -563,220 +541,6 @@ function setupFadeInObserver() {
     }
 }
 
-// Philosophy Card Scroll Expand Effect
-let philosophyRafId = null;
-let philosophyComplete = false;
-let lastLenisResizeTime = 0;
-
-// Pin state machine
-let isPinned = false;
-let pinScrollY = 0;
-let originalCardTop = 0;
-let initialBottomOffset = 0; // Bottom offset at pin moment
-
-function setupPhilosophyScrollExpand() {
-    const card = document.getElementById('philosophy-expand-card');
-    const track = document.getElementById('philosophy-card-track');
-    const placeholder = document.getElementById('philosophy-placeholder');
-    if (!card || !track || !placeholder) return;
-    
-    const lines = card.querySelectorAll('.expand-line');
-    const totalLines = lines.length;
-    philosophyComplete = false;
-    lastLenisResizeTime = 0;
-    isPinned = false;
-    pinScrollY = 0;
-    originalCardTop = 0;
-    initialBottomOffset = 0;
-    
-    // Expansion values
-    const minHeight = 180;
-    const maxHeight = 650;
-    const minWidth = 70;
-    const maxWidth = 100;
-    const bottomOffset = 80; // Fixed distance from viewport bottom when pinned
-    const expansionDistance = maxHeight - minHeight; 
-    
-    // 초기화
-    card.style.width = minWidth + '%';
-    card.style.height = minHeight + 'px';
-    card.classList.remove('is-pinned', 'is-released');
-    placeholder.style.display = 'none';
-    placeholder.style.height = '0px';
-    
-    const updateCardExpansion = () => {
-        // 이미 완료되었다면 너비를 100%로 강제하고 종료 (줄어듦 방지)
-        if (philosophyComplete) {
-            card.style.width = maxWidth + '%';
-            return;
-        }
-        
-        const windowHeight = window.innerHeight;
-        const scrollY = window.scrollY || document.documentElement.scrollTop;
-        const trackRect = track.getBoundingClientRect();
-        
-        // ============================================================
-        // [Phase 1] 너비 확장 로직 (Width Expansion)
-        // 80vh 지점에서 시작해서 45vh 지점에서 100% 완료
-        // ============================================================
-        const widthStartTrigger = windowHeight * 0.8; 
-        const widthEndTrigger = windowHeight * 0.45; // 핀 고정 지점 (조절 가능)
-        
-        let widthProgress = 0;
-        
-        // 스크롤 위치에 따른 너비 진행률 계산 (0.0 ~ 1.0)
-        if (trackRect.top < widthStartTrigger) {
-            widthProgress = (widthStartTrigger - trackRect.top) / (widthStartTrigger - widthEndTrigger);
-        }
-        
-        // 진행률을 0과 1 사이로 제한
-        widthProgress = Math.min(1, Math.max(0, widthProgress));
-        
-        // 핀 상태가 아닐 때(Phase 1)는 계산된 너비 적용
-        if (!isPinned) {
-            const currentWidth = minWidth + (maxWidth - minWidth) * widthProgress;
-            card.style.width = currentWidth + '%';
-        } else {
-            // 핀 상태(Phase 2)에서는 무조건 100% 유지
-            card.style.width = maxWidth + '%';
-        }
-
-        // ============================================================
-        // [Phase 2] 핀 고정 및 높이 확장 (Pinning & Height Expansion)
-        // 너비가 100%(progress >= 1)가 된 순간 핀 고정 시작
-        // ============================================================
-        
-        // 1. 핀 고정 시작 조건 (너비 확장이 끝났고, 아직 핀 안됨)
-        if (!isPinned && widthProgress >= 1) {
-            isPinned = true;
-            pinScrollY = scrollY; // 현재 스크롤 위치 저장
-            
-            // 현재 화면 하단에서의 거리 계산 (자연스러운 고정을 위해)
-            const cardRect = card.getBoundingClientRect();
-            initialBottomOffset = windowHeight - cardRect.bottom;
-            
-            // Placeholder 활성화 (공간 차지)
-            placeholder.style.display = 'block';
-            placeholder.style.height = minHeight + 'px';
-            
-            // Fixed 상태로 변경
-            card.classList.add('is-pinned');
-            card.classList.remove('is-released');
-            card.style.bottom = initialBottomOffset + 'px';
-            
-            // Lenis 리사이즈 (레이아웃 변경 알림)
-            if (window.lenis) window.lenis.resize();
-        }
-        
-        // 2. 핀 고정 상태에서의 동작 (높이 확장 및 텍스트 표시)
-        if (isPinned) {
-            const scrollDelta = scrollY - pinScrollY;
-            
-            // 뒤로 스크롤 했을 때 (Unpin)
-            if (scrollDelta < 0) {
-                isPinned = false;
-                card.classList.remove('is-pinned');
-                card.style.bottom = ''; // bottom 초기화
-                card.style.height = minHeight + 'px'; // 높이 초기화
-                
-                placeholder.style.display = 'none';
-                placeholder.style.height = '0px';
-                
-                // 텍스트 숨김
-                lines.forEach((line, index) => {
-                    if (index > 0) {
-                        line.classList.remove('visible');
-                        line.style.opacity = '0';
-                        line.style.transform = 'translateY(30px)';
-                    }
-                });
-                return; // 이번 프레임 종료 (다음 프레임에 너비 로직이 다시 적용됨)
-            }
-
-            // 높이 확장 진행률 계산
-            const heightProgress = Math.min(1, Math.max(0, scrollDelta / expansionDistance));
-            
-            // 높이 및 위치 업데이트
-            const currentHeight = minHeight + (maxHeight - minHeight) * heightProgress;
-            const currentBottom = initialBottomOffset + (bottomOffset - initialBottomOffset) * heightProgress;
-            
-            card.style.height = currentHeight + 'px';
-            card.style.bottom = currentBottom + 'px';
-            placeholder.style.height = currentHeight + 'px'; // Placeholder도 같이 커져야 스크롤 영역 확보됨
-
-            // 텍스트 애니메이션 (높이 확장에 맞춰 순차 등장)
-            const textProgress = heightProgress;
-            lines.forEach((line, index) => {
-                if (index === 0) { // 첫 줄은 항상 표시
-                    line.classList.add('visible');
-                    line.style.opacity = '1';
-                    line.style.transform = 'translateY(0)';
-                    return;
-                }
-                
-                // 순차적 등장 로직
-                const lineStartProgress = (index - 1) * (0.7 / (totalLines - 1));
-                const lineEndProgress = lineStartProgress + 0.25;
-                
-                if (textProgress >= lineStartProgress) {
-                    const lineProgress = Math.min(1, 
-                        (textProgress - lineStartProgress) / (lineEndProgress - lineStartProgress)
-                    );
-                    const easedLineProgress = 1 - Math.pow(1 - lineProgress, 2); // Easing
-                    
-                    line.classList.add('visible');
-                    line.style.opacity = String(easedLineProgress);
-                    line.style.transform = `translateY(${(1 - easedLineProgress) * 30}px)`;
-                }
-            });
-
-            // 3. 완료 처리 (높이 확장 끝)
-            if (heightProgress >= 0.995) {
-                // 상태 확정
-                philosophyComplete = true;
-                
-                card.style.height = maxHeight + 'px';
-                card.style.width = maxWidth + '%'; // 너비 100% 확정
-                card.style.bottom = '';
-                
-                card.classList.remove('is-pinned');
-                card.classList.add('is-released'); // 다시 문서 흐름으로 복귀
-                
-                placeholder.style.display = 'none'; // Placeholder 제거
-                placeholder.style.height = '0px';
-                
-                // 모든 텍스트 강제 표시
-                lines.forEach(line => {
-                    line.classList.add('visible');
-                    line.style.opacity = '1';
-                    line.style.transform = 'translateY(0)';
-                });
-                
-                if (window.lenis) window.lenis.resize();
-            }
-        }
-    };
-    
-    // RAF Loop
-    const rafLoop = () => {
-        if (philosophyComplete) {
-            // 완료 후에도 너비가 줄어들지 않도록 안전장치
-            card.style.width = maxWidth + '%';
-            if (philosophyRafId) {
-                cancelAnimationFrame(philosophyRafId);
-                philosophyRafId = null;
-            }
-            return;
-        }
-        
-        updateCardExpansion();
-        philosophyRafId = requestAnimationFrame(rafLoop);
-    };
-    
-    if (philosophyRafId) cancelAnimationFrame(philosophyRafId);
-    philosophyRafId = requestAnimationFrame(rafLoop);
-}
-
 // Smooth Scroll Inertia (PC Only)
 function setupSmoothScroll() {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
@@ -785,57 +549,20 @@ function setupSmoothScroll() {
     
     if (isMobile || typeof Lenis === 'undefined') return;
     
-    // Destroy existing instance if any
-    if (window.lenis) {
-        window.lenis.destroy();
-        window.lenis = null;
-    }
-    
     const lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: 'vertical',
-        smoothWheel: true,
-        wrapper: window,
-        content: document.documentElement
+        smoothWheel: true
     });
     
-    let rafId;
     function raf(time) {
         lenis.raf(time);
-        rafId = requestAnimationFrame(raf);
+        requestAnimationFrame(raf);
     }
-    rafId = requestAnimationFrame(raf);
+    requestAnimationFrame(raf);
     
     window.lenis = lenis;
-    window.lenisRafId = rafId;
-}
-
-// Reinitialize Lenis when view changes
-function reinitLenis() {
-    if (window.lenisRafId) {
-        cancelAnimationFrame(window.lenisRafId);
-    }
-    if (window.lenis) {
-        window.lenis.destroy();
-        window.lenis = null;
-    }
-    
-    // Clean up philosophy RAF loop and state
-    if (philosophyRafId) {
-        cancelAnimationFrame(philosophyRafId);
-        philosophyRafId = null;
-    }
-    philosophyComplete = false;
-    isPinned = false;
-    pinScrollY = 0;
-    originalCardTop = 0;
-    initialBottomOffset = 0;
-    
-    // Small delay to let DOM settle
-    setTimeout(() => {
-        setupSmoothScroll();
-    }, 100);
 }
 
 // Run
