@@ -586,35 +586,45 @@ function setupExpandingCard() {
             isSetup = true;
         }
         
-        const scrollY = window.scrollY;
         const viewportHeight = window.innerHeight;
         const cardRect = card.getBoundingClientRect();
+        const cardBottomInViewport = cardRect.bottom;
         
-        // Calculate card position relative to viewport
-        const cardTopInViewport = cardRect.top;
-        const viewportTriggerPoint = viewportHeight * 0.4;
+        // Viewport position thresholds
+        const startExpand = viewportHeight * 0.70; // 70vh from top = 30vh from bottom
+        const endExpand = viewportHeight * 0.45;   // 45vh from top = 55vh from bottom
         
-        // Calculate scroll progress within section
+        // Calculate expansion progress based on card bottom position
+        // When card bottom is at 70vh -> start (0%), at 45vh -> end (100%)
+        let expandProgress = 0;
+        if (cardBottomInViewport <= startExpand && cardBottomInViewport > endExpand) {
+            expandProgress = (startExpand - cardBottomInViewport) / (startExpand - endExpand);
+        } else if (cardBottomInViewport <= endExpand) {
+            expandProgress = 1;
+        }
+        
+        // Width expansion: 70% -> 100%
+        const minWidthPercent = 70;
+        const maxWidthPercent = 100;
+        const currentWidth = minWidthPercent + (maxWidthPercent - minWidthPercent) * expandProgress;
+        card.style.width = currentWidth + '%';
+        
+        if (expandProgress >= 1) {
+            card.classList.add('expanded-full');
+        } else {
+            card.classList.remove('expanded-full');
+        }
+        
+        // Calculate scroll progress for text reveal
+        const scrollY = window.scrollY;
         const sectionScrollStart = section.offsetTop;
         const sectionScrollEnd = sectionScrollStart + section.offsetHeight - viewportHeight;
         const scrollProgress = Math.max(0, Math.min(1, (scrollY - sectionScrollStart) / (sectionScrollEnd - sectionScrollStart)));
         
-        // Width expansion: 45% of section scroll -> full width
-        if (scrollProgress >= 0.45) {
-            card.style.width = '100%';
-            card.classList.add('expanded-full');
-        } else if (scrollProgress > 0.1) {
-            const widthProgress = (scrollProgress - 0.1) / 0.35;
-            const minWidth = 320;
-            const maxWidth = section.offsetWidth;
-            card.style.width = (minWidth + (maxWidth - minWidth) * widthProgress) + 'px';
-            card.classList.remove('expanded-full');
-        } else {
-            card.style.width = 'fit-content';
-            card.classList.remove('expanded-full');
-        }
-        
         // Pin card when it reaches 40% of viewport
+        const cardTopInViewport = cardRect.top;
+        const viewportTriggerPoint = viewportHeight * 0.4;
+        
         if (cardTopInViewport <= viewportTriggerPoint && scrollProgress < 0.9) {
             if (!isPinned) {
                 isPinned = true;
@@ -622,7 +632,6 @@ function setupExpandingCard() {
                 card.classList.remove('unpinned');
             }
         } else if (scrollProgress >= 0.9) {
-            // Unpin at the end
             card.classList.remove('pinned');
             card.classList.add('unpinned');
             isPinned = false;
