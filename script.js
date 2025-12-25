@@ -595,9 +595,9 @@ function setupPhilosophyScrollExpand() {
     const minWidth = 70;
     const maxWidth = 100;
     const bottomOffset = 80; // Fixed distance from viewport bottom when pinned
-    const expansionDistance = maxHeight - minHeight; // How much scroll needed to fully expand
+    const expansionDistance = maxHeight - minHeight; 
     
-    // Set initial state
+    // 초기화
     card.style.width = minWidth + '%';
     card.style.height = minHeight + 'px';
     card.classList.remove('is-pinned', 'is-released');
@@ -605,152 +605,84 @@ function setupPhilosophyScrollExpand() {
     placeholder.style.height = '0px';
     
     const updateCardExpansion = () => {
-        if (philosophyComplete) return;
+        // 이미 완료되었다면 너비를 100%로 강제하고 종료 (줄어듦 방지)
+        if (philosophyComplete) {
+            card.style.width = maxWidth + '%';
+            return;
+        }
         
         const windowHeight = window.innerHeight;
         const scrollY = window.scrollY || document.documentElement.scrollTop;
-        
-        // Get track position (where card originally sits in document flow)
         const trackRect = track.getBoundingClientRect();
         
-        // ===== Phase 1: Width expansion (80vh ~ 50vh) =====
-        const widthStartTrigger = windowHeight * 0.8;
-        const widthEndTrigger = windowHeight * 0.5;
+        // ============================================================
+        // [Phase 1] 너비 확장 로직 (Width Expansion)
+        // 80vh 지점에서 시작해서 45vh 지점에서 100% 완료
+        // ============================================================
+        const widthStartTrigger = windowHeight * 0.8; 
+        const widthEndTrigger = windowHeight * 0.45; // 핀 고정 지점 (조절 가능)
         
         let widthProgress = 0;
         
-        // Once pinned or width completed, keep at 100%
-        if (isPinned || philosophyComplete) {
-            card.style.width = maxWidth + '%';
-            widthProgress = 1;
-        } else if (trackRect.top < widthStartTrigger) {
-            // Linear progress (no easing) for uniform expansion
-            widthProgress = Math.min(1, Math.max(0, 
-                (widthStartTrigger - trackRect.top) / (widthStartTrigger - widthEndTrigger)
-            ));
-            
-            const currentWidth = minWidth + (maxWidth - minWidth) * widthProgress;
-            card.style.width = currentWidth + '%';
+        // 스크롤 위치에 따른 너비 진행률 계산 (0.0 ~ 1.0)
+        if (trackRect.top < widthStartTrigger) {
+            widthProgress = (widthStartTrigger - trackRect.top) / (widthStartTrigger - widthEndTrigger);
         }
         
-        // ===== Phase 2: Pin and Height expansion =====
-        // Get card's current actual position
-        const cardRect = card.getBoundingClientRect();
-        const cardBottom = cardRect.bottom;
-        const cardCurrentHeight = cardRect.height || minHeight;
+        // 진행률을 0과 1 사이로 제한
+        widthProgress = Math.min(1, Math.max(0, widthProgress));
         
-        // Pin when width expansion is nearly complete (0.95+)
-        // This ensures width animation finishes before pin, avoiding premature lock
-        if (!isPinned && widthProgress >= 0.95) {
-            // Enter pinned state
+        // 핀 상태가 아닐 때(Phase 1)는 계산된 너비 적용
+        if (!isPinned) {
+            const currentWidth = minWidth + (maxWidth - minWidth) * widthProgress;
+            card.style.width = currentWidth + '%';
+        } else {
+            // 핀 상태(Phase 2)에서는 무조건 100% 유지
+            card.style.width = maxWidth + '%';
+        }
+
+        // ============================================================
+        // [Phase 2] 핀 고정 및 높이 확장 (Pinning & Height Expansion)
+        // 너비가 100%(progress >= 1)가 된 순간 핀 고정 시작
+        // ============================================================
+        
+        // 1. 핀 고정 시작 조건 (너비 확장이 끝났고, 아직 핀 안됨)
+        if (!isPinned && widthProgress >= 1) {
             isPinned = true;
-            pinScrollY = scrollY;
-            originalCardTop = trackRect.top + scrollY;
+            pinScrollY = scrollY; // 현재 스크롤 위치 저장
             
-            // Capture current bottom distance (no jump - start from exact current position)
-            initialBottomOffset = windowHeight - cardBottom;
+            // 현재 화면 하단에서의 거리 계산 (자연스러운 고정을 위해)
+            const cardRect = card.getBoundingClientRect();
+            initialBottomOffset = windowHeight - cardRect.bottom;
             
-            // Show placeholder to maintain document flow
+            // Placeholder 활성화 (공간 차지)
             placeholder.style.display = 'block';
             placeholder.style.height = minHeight + 'px';
             
-            // Add pinned class and set initial bottom position
+            // Fixed 상태로 변경
             card.classList.add('is-pinned');
             card.classList.remove('is-released');
             card.style.bottom = initialBottomOffset + 'px';
             
-            // Notify Lenis about layout change
-            if (window.lenis) {
-                window.lenis.resize();
-            }
+            // Lenis 리사이즈 (레이아웃 변경 알림)
+            if (window.lenis) window.lenis.resize();
         }
         
-        if (isPinned && !philosophyComplete) {
-            // Calculate height based on scroll delta since pinning
+        // 2. 핀 고정 상태에서의 동작 (높이 확장 및 텍스트 표시)
+        if (isPinned) {
             const scrollDelta = scrollY - pinScrollY;
-            const heightProgress = Math.min(1, Math.max(0, scrollDelta / expansionDistance));
             
-            // Interpolate bottom offset from initial to target (80px)
-            const currentBottom = initialBottomOffset + (bottomOffset - initialBottomOffset) * heightProgress;
-            card.style.bottom = currentBottom + 'px';
-            
-            const currentHeight = minHeight + (maxHeight - minHeight) * heightProgress;
-            card.style.height = currentHeight + 'px';
-            
-            // Update placeholder to match card height
-            placeholder.style.height = currentHeight + 'px';
-            
-            // ===== Phase 3: Text line fade-up (starts at 70vh, based on scroll progress) =====
-            const textProgress = heightProgress; // Sync with height expansion
-            
-            lines.forEach((line, index) => {
-                if (index === 0) {
-                    line.classList.add('visible');
-                    line.style.opacity = '1';
-                    line.style.transform = 'translateY(0)';
-                    return;
-                }
-                
-                const lineStartProgress = (index - 1) * (0.7 / (totalLines - 1));
-                const lineEndProgress = lineStartProgress + 0.25;
-                
-                if (textProgress >= lineStartProgress) {
-                    const lineProgress = Math.min(1, 
-                        (textProgress - lineStartProgress) / (lineEndProgress - lineStartProgress)
-                    );
-                    const easedLineProgress = 1 - Math.pow(1 - lineProgress, 2);
-                    
-                    line.classList.add('visible');
-                    line.style.opacity = String(easedLineProgress);
-                    line.style.transform = `translateY(${(1 - easedLineProgress) * 30}px)`;
-                }
-            });
-            
-            // Throttled Lenis resize during expansion
-            const now = Date.now();
-            if (heightProgress > 0 && heightProgress < 1 && window.lenis && (now - lastLenisResizeTime > 200)) {
-                window.lenis.resize();
-                lastLenisResizeTime = now;
-            }
-            
-            // Check if fully expanded
-            if (heightProgress >= 0.99) {
-                // Release from pinned state
-                card.style.height = maxHeight + 'px';
-                card.style.width = maxWidth + '%';
-                card.classList.remove('is-pinned');
-                card.classList.add('is-released');
-                
-                // Hide placeholder - card returns to normal flow
-                placeholder.style.display = 'none';
-                placeholder.style.height = '0px';
-                
-                lines.forEach(line => {
-                    line.classList.add('visible');
-                    line.style.opacity = '1';
-                    line.style.transform = 'translateY(0)';
-                });
-                
-                philosophyComplete = true;
-                
-                if (window.lenis) {
-                    window.lenis.resize();
-                }
-            }
-        }
-        
-        // Handle scrolling back up before completion
-        if (isPinned && !philosophyComplete) {
-            const scrollDelta = scrollY - pinScrollY;
+            // 뒤로 스크롤 했을 때 (Unpin)
             if (scrollDelta < 0) {
-                // User scrolled back up, unpin
                 isPinned = false;
                 card.classList.remove('is-pinned');
-                card.style.height = minHeight + 'px';
+                card.style.bottom = ''; // bottom 초기화
+                card.style.height = minHeight + 'px'; // 높이 초기화
+                
                 placeholder.style.display = 'none';
                 placeholder.style.height = '0px';
                 
-                // Reset text lines
+                // 텍스트 숨김
                 lines.forEach((line, index) => {
                     if (index > 0) {
                         line.classList.remove('visible');
@@ -758,17 +690,78 @@ function setupPhilosophyScrollExpand() {
                         line.style.transform = 'translateY(30px)';
                     }
                 });
-                
-                if (window.lenis) {
-                    window.lenis.resize();
+                return; // 이번 프레임 종료 (다음 프레임에 너비 로직이 다시 적용됨)
+            }
+
+            // 높이 확장 진행률 계산
+            const heightProgress = Math.min(1, Math.max(0, scrollDelta / expansionDistance));
+            
+            // 높이 및 위치 업데이트
+            const currentHeight = minHeight + (maxHeight - minHeight) * heightProgress;
+            const currentBottom = initialBottomOffset + (bottomOffset - initialBottomOffset) * heightProgress;
+            
+            card.style.height = currentHeight + 'px';
+            card.style.bottom = currentBottom + 'px';
+            placeholder.style.height = currentHeight + 'px'; // Placeholder도 같이 커져야 스크롤 영역 확보됨
+
+            // 텍스트 애니메이션 (높이 확장에 맞춰 순차 등장)
+            const textProgress = heightProgress;
+            lines.forEach((line, index) => {
+                if (index === 0) { // 첫 줄은 항상 표시
+                    line.classList.add('visible');
+                    line.style.opacity = '1';
+                    line.style.transform = 'translateY(0)';
+                    return;
                 }
+                
+                // 순차적 등장 로직
+                const lineStartProgress = (index - 1) * (0.7 / (totalLines - 1));
+                const lineEndProgress = lineStartProgress + 0.25;
+                
+                if (textProgress >= lineStartProgress) {
+                    const lineProgress = Math.min(1, 
+                        (textProgress - lineStartProgress) / (lineEndProgress - lineStartProgress)
+                    );
+                    const easedLineProgress = 1 - Math.pow(1 - lineProgress, 2); // Easing
+                    
+                    line.classList.add('visible');
+                    line.style.opacity = String(easedLineProgress);
+                    line.style.transform = `translateY(${(1 - easedLineProgress) * 30}px)`;
+                }
+            });
+
+            // 3. 완료 처리 (높이 확장 끝)
+            if (heightProgress >= 0.995) {
+                // 상태 확정
+                philosophyComplete = true;
+                
+                card.style.height = maxHeight + 'px';
+                card.style.width = maxWidth + '%'; // 너비 100% 확정
+                card.style.bottom = '';
+                
+                card.classList.remove('is-pinned');
+                card.classList.add('is-released'); // 다시 문서 흐름으로 복귀
+                
+                placeholder.style.display = 'none'; // Placeholder 제거
+                placeholder.style.height = '0px';
+                
+                // 모든 텍스트 강제 표시
+                lines.forEach(line => {
+                    line.classList.add('visible');
+                    line.style.opacity = '1';
+                    line.style.transform = 'translateY(0)';
+                });
+                
+                if (window.lenis) window.lenis.resize();
             }
         }
     };
     
-    // Use RAF loop for Lenis compatibility
+    // RAF Loop
     const rafLoop = () => {
         if (philosophyComplete) {
+            // 완료 후에도 너비가 줄어들지 않도록 안전장치
+            card.style.width = maxWidth + '%';
             if (philosophyRafId) {
                 cancelAnimationFrame(philosophyRafId);
                 philosophyRafId = null;
@@ -780,12 +773,7 @@ function setupPhilosophyScrollExpand() {
         philosophyRafId = requestAnimationFrame(rafLoop);
     };
     
-    // Clean up previous RAF loop
-    if (philosophyRafId) {
-        cancelAnimationFrame(philosophyRafId);
-    }
-    
-    // Start RAF loop
+    if (philosophyRafId) cancelAnimationFrame(philosophyRafId);
     philosophyRafId = requestAnimationFrame(rafLoop);
 }
 
