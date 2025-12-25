@@ -624,6 +624,12 @@ function setupPhilosophyScrollExpand() {
     
     philosophyScrollHandler = handleScroll;
     window.addEventListener('scroll', handleScroll);
+    
+    // Also listen to Lenis scroll if available
+    if (window.lenis) {
+        window.lenis.on('scroll', handleScroll);
+    }
+    
     handleScroll();
 }
 
@@ -674,6 +680,10 @@ function reinitLenis() {
     // Small delay to let DOM settle
     setTimeout(() => {
         setupSmoothScroll();
+        // Re-attach philosophy handler to new Lenis instance
+        if (window.lenis && philosophyScrollHandler) {
+            window.lenis.on('scroll', philosophyScrollHandler);
+        }
     }, 100);
 }
 
