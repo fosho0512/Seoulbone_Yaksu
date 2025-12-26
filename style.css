@@ -1096,72 +1096,84 @@ body.menu-open .visual-text { opacity: 0; }
 /* Brand Philosophy Section */
 .brand-philosophy-section {
     background: linear-gradient(180deg, #F8F6F3 0%, #F2EFE9 100%);
-    padding: 120px 40px;
+    padding: 60px 40px 150px;
     margin-top: 80px;
     margin-left: calc(-12% - 40px);
     margin-right: calc(-12% - 40px);
-}
-.brand-philosophy-inner {
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
+    min-height: 120vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .brand-caption {
     display: block;
     font-size: 0.75rem;
     letter-spacing: 0.25em;
     color: #9A948D;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     font-weight: 400;
+    text-align: center;
     opacity: 0;
     transform: translateY(20px);
 }
 .brand-philosophy-section.animate .brand-caption {
     animation: philosophyFadeUp 0.7s ease-out forwards;
 }
-.philosophy-card {
-    background: rgba(255, 255, 255, 0.85);
-    border-radius: 20px;
-    padding: 60px 50px;
-    box-shadow: 0 8px 40px rgba(44, 41, 38, 0.06);
-    margin-bottom: 50px;
-    opacity: 0;
-    transform: translateY(20px);
+.philosophy-card-wrapper {
+    width: 70vw;
+    max-width: 900px;
+    transition: width 0.1s ease-out;
 }
-.brand-philosophy-section.animate .philosophy-card {
-    animation: philosophyFadeUp 0.8s ease-out 0.15s forwards;
+.philosophy-card-wrapper.expanding {
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+}
+.philosophy-card-wrapper.sticky {
+    position: sticky;
+    bottom: 0;
+}
+.philosophy-card {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 20px;
+    padding: 50px 60px;
+    box-shadow: 0 8px 40px rgba(44, 41, 38, 0.08);
+    text-align: center;
+    overflow: hidden;
+    transition: border-radius 0.3s ease-out;
+}
+.philosophy-card-wrapper.expanding .philosophy-card {
+    border-radius: 20px 20px 0 0;
 }
 .philosophy-main {
     font-family: var(--font-serif);
-    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-size: clamp(1.5rem, 3vw, 2rem);
     color: var(--text-color);
     font-weight: 500;
     letter-spacing: 0.03em;
-    line-height: 1.5;
-    margin-bottom: 30px;
+    line-height: 1.6;
+    margin: 0;
 }
-.philosophy-sub {
+.philosophy-line {
     font-family: var(--font-serif);
-    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-size: clamp(1rem, 2vw, 1.25rem);
     color: #5A554F;
     font-weight: 400;
     letter-spacing: 0.02em;
-    line-height: 1.7;
-}
-.philosophy-desc {
-    opacity: 0;
-    transform: translateY(20px);
-}
-.brand-philosophy-section.animate .philosophy-desc {
-    animation: philosophyFadeUp 0.8s ease-out 0.3s forwards;
-}
-.philosophy-desc p {
-    font-size: clamp(1rem, 1.8vw, 1.15rem);
-    color: #6B635B;
-    line-height: 2.2;
-    letter-spacing: 0.04em;
-    font-weight: 300;
+    line-height: 1.8;
     margin: 0;
+    padding-top: 25px;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    max-height: 0;
+    overflow: hidden;
+}
+.philosophy-line.visible {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 100px;
 }
 @keyframes philosophyFadeUp {
     from { opacity: 0; transform: translateY(20px); }
@@ -1677,14 +1689,15 @@ body::before {
     .staff-bio-2col-container { grid-template-columns: 1fr; gap: 40px; } 
     .staff-header-spacer { display: none; }
     .brand-philosophy-section { 
-        padding: 80px 25px; 
+        padding: 50px 20px 100px; 
         margin-left: calc(-6% - 25px);
         margin-right: calc(-6% - 25px);
+        min-height: 100vh;
     }
-    .philosophy-card { padding: 40px 30px; }
-    .philosophy-main { font-size: 1.4rem; }
-    .philosophy-sub { font-size: 1.1rem; }
-    .philosophy-desc p { font-size: 0.95rem; line-height: 2; }
+    .philosophy-card-wrapper { width: 90vw; }
+    .philosophy-card { padding: 35px 25px; }
+    .philosophy-main { font-size: 1.2rem; }
+    .philosophy-line { font-size: 0.95rem; padding-top: 18px; }
 
     .promo-banner { width: 95%; bottom: 25px; padding: 20px 25px; flex-direction: column; align-items: flex-start; }
     .close-banner-btn { position: absolute; top: 18px; right: 18px; }
