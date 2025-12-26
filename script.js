@@ -182,12 +182,17 @@ function showContentView(id) {
             <div class="brand-philosophy-section">
                 <div class="brand-philosophy-inner">
                     <span class="brand-caption">SEOUL BONE REHAB CLINIC</span>
-                    <div class="expanding-card" id="expanding-card">
-                        <div class="card-line card-line-1">"몸은 결코 거짓을 말하지 않습니다."</div>
-                        <div class="card-line card-line-2">통증은 그 진실을 전하는 가장 정직한 신호입니다.</div>
-                        <div class="card-line card-line-3">우리는 보이는 증상 너머, 숨겨진 원인을 깊이 읽어냅니다.</div>
-                        <div class="card-line card-line-4">현재의 신체 기능과 앞으로의 변화까지 세심하게 고려하여</div>
-                        <div class="card-line card-line-5">가장 온전한 회복을 위해 정성을 다해 진료하겠습니다.</div>
+                    <div class="philosophy-card">
+                        <p class="philosophy-main">"몸은 결코 거짓을 말하지 않습니다."</p>
+                        <p class="philosophy-sub">통증은 그 진실을 전하는<br>가장 정직한 신호입니다.</p>
+                    </div>
+                    <div class="philosophy-desc">
+                        <p>우리는 보이는 증상 너머,</p>
+                        <p>숨겨진 원인을 깊이 읽어냅니다.</p>
+                        <p>현재의 신체 기능과 앞으로의 변화까지</p>
+                        <p>세심하게 고려하여</p>
+                        <p>가장 온전한 회복을 위해</p>
+                        <p>정성을 다해 진료하겠습니다.</p>
                     </div>
                 </div>
             </div>
@@ -522,11 +527,9 @@ function setupFadeInObserver() {
                                     if (entry.isIntersecting) {
                                         entry.target.classList.add('animate');
                                         philosophyObserver.unobserve(entry.target);
-                                        // Initialize expanding card
-                                        setupExpandingCard();
                                     }
                                 });
-                            }, { threshold: 0.1 });
+                            }, { threshold: 0.2 });
                             philosophyObserver.observe(philosophySection);
                         }
                     }, 100);
@@ -560,107 +563,6 @@ function setupSmoothScroll() {
     requestAnimationFrame(raf);
     
     window.lenis = lenis;
-}
-
-// Expanding Card Scroll Animation
-function setupExpandingCard() {
-    const card = document.getElementById('expanding-card');
-    const section = document.querySelector('.brand-philosophy-section');
-    if (!card || !section) return;
-    
-    const lines = card.querySelectorAll('.card-line');
-    
-    // Create placeholder to maintain layout when card is pinned
-    const placeholder = document.createElement('div');
-    placeholder.className = 'expanding-card-placeholder';
-    placeholder.style.display = 'none';
-    card.parentNode.insertBefore(placeholder, card.nextSibling);
-    
-    // Store initial measurements
-    const cardOriginalTop = card.offsetTop + section.offsetTop;
-    let cardHeight = card.offsetHeight;
-    let isPinned = false;
-    
-    function handleScroll() {
-        const scrollY = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        
-        // Update card height (it changes as lines become visible)
-        if (!isPinned) {
-            cardHeight = card.offsetHeight;
-        }
-        
-        // Calculate where the card bottom would be naturally (without pinning)
-        const cardNaturalTop = cardOriginalTop - scrollY;
-        const cardNaturalBottom = cardNaturalTop + cardHeight;
-        
-        // Viewport position thresholds (from top of viewport)
-        const startExpand = viewportHeight * 0.90; // Start expanding at 90vh
-        const endExpand = viewportHeight * 0.60;   // Fully expanded at 60vh
-        
-        // Calculate expansion progress based on card bottom position
-        let expandProgress = 0;
-        if (cardNaturalBottom <= startExpand && cardNaturalBottom > endExpand) {
-            expandProgress = (startExpand - cardNaturalBottom) / (startExpand - endExpand);
-        } else if (cardNaturalBottom <= endExpand) {
-            expandProgress = 1;
-        }
-        
-        // Width expansion: 70% -> 100% (CSS transition handles smoothing)
-        const currentWidth = 70 + (30 * expandProgress);
-        card.style.width = currentWidth + '%';
-        
-        if (expandProgress >= 1) {
-            card.classList.add('expanded-full');
-        } else {
-            card.classList.remove('expanded-full');
-        }
-        
-        // Pin card when bottom reaches 60vh (bottom touches bottom of viewport)
-        const sectionBottom = section.offsetTop + section.offsetHeight;
-        const unpinScrollY = sectionBottom - cardHeight - 50; // 50px padding from section bottom
-        
-        // Pin when card bottom would go below viewport
-        const shouldPin = cardNaturalBottom >= viewportHeight && scrollY < unpinScrollY;
-        
-        if (shouldPin && !isPinned) {
-            isPinned = true;
-            placeholder.style.display = 'block';
-            placeholder.style.height = cardHeight + 'px';
-            card.classList.add('pinned');
-            card.classList.remove('unpinned');
-        } else if (!shouldPin && isPinned) {
-            isPinned = false;
-            placeholder.style.display = 'none';
-            card.classList.remove('pinned');
-            if (scrollY >= unpinScrollY) {
-                card.classList.add('unpinned');
-            }
-        } else if (scrollY >= unpinScrollY && !isPinned) {
-            card.classList.add('unpinned');
-        } else if (scrollY < unpinScrollY && !isPinned) {
-            card.classList.remove('unpinned');
-        }
-        
-        // Calculate scroll progress for text reveal
-        const sectionScrollStart = section.offsetTop;
-        const sectionScrollEnd = sectionScrollStart + section.offsetHeight - viewportHeight;
-        const scrollProgress = Math.max(0, Math.min(1, (scrollY - sectionScrollStart) / (sectionScrollEnd - sectionScrollStart)));
-        
-        // Reveal lines based on scroll progress
-        const lineThresholds = [0, 0.2, 0.4, 0.6, 0.75];
-        lines.forEach((line, index) => {
-            if (scrollProgress >= lineThresholds[index]) {
-                line.classList.add('visible');
-            }
-        });
-    }
-    
-    // Attach scroll listener
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    // Initial check
-    setTimeout(handleScroll, 100);
 }
 
 // Run

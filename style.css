@@ -1096,25 +1096,22 @@ body.menu-open .visual-text { opacity: 0; }
 /* Brand Philosophy Section */
 .brand-philosophy-section {
     background: linear-gradient(180deg, #F8F6F3 0%, #F2EFE9 100%);
-    padding: 70px 40px 200px;
+    padding: 120px 40px;
     margin-top: 80px;
     margin-left: calc(-12% - 40px);
     margin-right: calc(-12% - 40px);
-    min-height: 150vh;
-    position: relative;
 }
 .brand-philosophy-inner {
-    max-width: 1100px;
+    max-width: 900px;
     margin: 0 auto;
     text-align: center;
-    position: relative;
 }
 .brand-caption {
     display: block;
     font-size: 0.75rem;
     letter-spacing: 0.25em;
     color: #9A948D;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     font-weight: 400;
     opacity: 0;
     transform: translateY(20px);
@@ -1122,89 +1119,50 @@ body.menu-open .visual-text { opacity: 0; }
 .brand-philosophy-section.animate .brand-caption {
     animation: philosophyFadeUp 0.7s ease-out forwards;
 }
-
-/* Expanding Card */
-.expanding-card {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 24px;
-    padding: 40px 50px;
-    box-shadow: 0 12px 50px rgba(44, 41, 38, 0.08);
-    margin: 0 auto;
-    width: 70%;
-    max-width: 100%;
-    text-align: center;
-    transition: width 0.4s ease-out, border-radius 0.4s ease-out, padding 0.4s ease-out;
-    overflow: hidden;
-}
-.expanding-card.pinned {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
-}
-.expanding-card.expanded-full {
-    border-radius: 0;
-    padding: 60px 80px;
-    left: 0;
-    transform: none;
-}
-.expanding-card.unpinned {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    transform: none;
-    width: 100% !important;
-    border-radius: 0;
-}
-
-.card-line {
-    font-family: var(--font-serif);
-    color: var(--text-color);
-    line-height: 1.8;
-    letter-spacing: 0.02em;
+.philosophy-card {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 20px;
+    padding: 60px 50px;
+    box-shadow: 0 8px 40px rgba(44, 41, 38, 0.06);
+    margin-bottom: 50px;
     opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: opacity 0.5s ease-out, max-height 0.5s ease-out, margin 0.3s ease-out;
+    transform: translateY(20px);
 }
-.card-line.visible {
-    opacity: 1;
-    max-height: 100px;
+.brand-philosophy-section.animate .philosophy-card {
+    animation: philosophyFadeUp 0.8s ease-out 0.15s forwards;
 }
-.card-line-1 {
-    font-size: clamp(1.5rem, 3vw, 2rem);
+.philosophy-main {
+    font-family: var(--font-serif);
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    color: var(--text-color);
     font-weight: 500;
-    opacity: 1;
-    max-height: 100px;
-    margin-bottom: 0;
-}
-.card-line-1.visible {
-    margin-bottom: 20px;
-}
-.card-line-2 {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
-    font-weight: 400;
-    color: #5A554F;
-}
-.card-line-2.visible {
+    letter-spacing: 0.03em;
+    line-height: 1.5;
     margin-bottom: 30px;
 }
-.card-line-3,
-.card-line-4,
-.card-line-5 {
-    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-    font-weight: 300;
+.philosophy-sub {
+    font-family: var(--font-serif);
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    color: #5A554F;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+}
+.philosophy-desc {
+    opacity: 0;
+    transform: translateY(20px);
+}
+.brand-philosophy-section.animate .philosophy-desc {
+    animation: philosophyFadeUp 0.8s ease-out 0.3s forwards;
+}
+.philosophy-desc p {
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
     color: #6B635B;
+    line-height: 2.2;
+    letter-spacing: 0.04em;
+    font-weight: 300;
+    margin: 0;
 }
-.card-line-3.visible,
-.card-line-4.visible {
-    margin-bottom: 12px;
-}
-.card-line-5.visible {
-    margin-bottom: 0;
-}
-
 @keyframes philosophyFadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -1719,28 +1677,14 @@ body::before {
     .staff-bio-2col-container { grid-template-columns: 1fr; gap: 40px; } 
     .staff-header-spacer { display: none; }
     .brand-philosophy-section { 
-        padding: 40px 20px 150px; 
+        padding: 80px 25px; 
         margin-left: calc(-6% - 25px);
         margin-right: calc(-6% - 25px);
-        min-height: 120vh;
     }
-    .expanding-card { 
-        padding: 30px 25px; 
-        width: 90% !important;
-    }
-    .expanding-card.pinned {
-        bottom: 0;
-    }
-    .expanding-card.expanded-full {
-        padding: 40px 25px;
-        width: 100% !important;
-    }
-    .expanding-card.unpinned {
-        padding: 40px 25px;
-    }
-    .card-line-1 { font-size: 1.3rem; }
-    .card-line-2 { font-size: 1rem; }
-    .card-line-3, .card-line-4, .card-line-5 { font-size: 0.9rem; }
+    .philosophy-card { padding: 40px 30px; }
+    .philosophy-main { font-size: 1.4rem; }
+    .philosophy-sub { font-size: 1.1rem; }
+    .philosophy-desc p { font-size: 0.95rem; line-height: 2; }
 
     .promo-banner { width: 95%; bottom: 25px; padding: 20px 25px; flex-direction: column; align-items: flex-start; }
     .close-banner-btn { position: absolute; top: 18px; right: 18px; }
