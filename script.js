@@ -540,40 +540,42 @@ function setupFadeInObserver() {
 // Philosophy Card Scroll Animation
 function setupPhilosophyCardScroll(section) {
     const cardWrapper = section.querySelector('.philosophy-card-wrapper');
+    const card = section.querySelector('.philosophy-card');
     const lines = section.querySelectorAll('.philosophy-line');
-    if (!cardWrapper) return;
+    if (!cardWrapper || !card) return;
+    
+    const INITIAL_HEIGHT = 160;
+    const MAX_HEIGHT = 420;
+    const LINE_HEIGHT_STEP = 65;
     
     let scrollHandler = null;
     let isFullyExpanded = false;
+    let shownLines = [];
     
     scrollHandler = function() {
         const rect = cardWrapper.getBoundingClientRect();
         const vh = window.innerHeight;
         const cardTop = rect.top;
         
-        // Calculate scroll progress
-        // 80vh = start expanding, 45vh = fully expanded
-        const startThreshold = vh * 0.80;
-        const endThreshold = vh * 0.45;
+        const widthStartThreshold = vh * 0.80;
+        const widthEndThreshold = vh * 0.45;
+        const heightStartThreshold = vh * 0.45;
+        const heightEndThreshold = vh * 0.15;
         
-        if (cardTop <= startThreshold && cardTop > endThreshold) {
-            // Expanding phase: interpolate width from 70vw to 100vw
-            const progress = (startThreshold - cardTop) / (startThreshold - endThreshold);
+        // Phase 1: Width expansion (80vh → 45vh)
+        if (cardTop <= widthStartThreshold && cardTop > widthEndThreshold) {
+            const progress = (widthStartThreshold - cardTop) / (widthStartThreshold - widthEndThreshold);
             const width = 70 + (30 * progress);
             cardWrapper.style.width = width + 'vw';
             cardWrapper.style.maxWidth = 'none';
             cardWrapper.style.marginLeft = 'calc(-' + (width / 2) + 'vw + 50%)';
             cardWrapper.style.marginRight = 'calc(-' + (width / 2) + 'vw + 50%)';
-            
-            // Show lines based on progress
-            const linesToShow = Math.floor(progress * lines.length);
-            lines.forEach((line, idx) => {
-                if (idx < linesToShow) {
-                    line.classList.add('visible');
-                }
-            });
-        } else if (cardTop <= endThreshold) {
-            // Fully expanded: sticky bottom behavior
+            card.style.height = INITIAL_HEIGHT + 'px';
+            cardWrapper.classList.remove('expanding');
+            cardWrapper.classList.remove('sticky');
+        }
+        // Phase 2: Height expansion + sticky (45vh → 15vh)
+        else if (cardTop <= widthEndThreshold && cardTop > heightEndThreshold) {
             if (!isFullyExpanded) {
                 isFullyExpanded = true;
                 cardWrapper.style.width = '100vw';
@@ -584,39 +586,52 @@ function setupPhilosophyCardScroll(section) {
                 cardWrapper.classList.add('sticky');
             }
             
-            // Show all remaining lines progressively
-            const additionalProgress = (endThreshold - cardTop) / (endThreshold * 0.5);
-            const totalLines = lines.length;
-            const linesToShow = Math.min(totalLines, Math.ceil(additionalProgress * totalLines) + Math.floor(totalLines * 0.5));
+            const heightProgress = (widthEndThreshold - cardTop) / (widthEndThreshold - heightEndThreshold);
+            const currentHeight = INITIAL_HEIGHT + ((MAX_HEIGHT - INITIAL_HEIGHT) * heightProgress);
+            card.style.height = Math.min(currentHeight, MAX_HEIGHT) + 'px';
+            
+            const availableSpace = currentHeight - INITIAL_HEIGHT;
+            const linesToShow = Math.floor(availableSpace / LINE_HEIGHT_STEP);
+            
             lines.forEach((line, idx) => {
-                if (idx < linesToShow) {
-                    setTimeout(() => line.classList.add('visible'), idx * 150);
+                if (idx < linesToShow && !shownLines.includes(idx)) {
+                    shownLines.push(idx);
+                    setTimeout(() => {
+                        line.classList.add('visible');
+                    }, 100);
                 }
             });
-            
-            // Check if all lines are visible
-            const allVisible = Array.from(lines).every(l => l.classList.contains('visible'));
-            if (allVisible && cardTop < endThreshold * 0.3) {
-                // All done, can remove scroll listener
-            }
-        } else {
-            // Above threshold, reset to initial state
+        }
+        // Phase 3: Fully expanded
+        else if (cardTop <= heightEndThreshold) {
+            card.style.height = MAX_HEIGHT + 'px';
+            lines.forEach((line, idx) => {
+                if (!shownLines.includes(idx)) {
+                    shownLines.push(idx);
+                    setTimeout(() => {
+                        line.classList.add('visible');
+                    }, idx * 150);
+                }
+            });
+        }
+        // Reset: Above all thresholds
+        else {
             cardWrapper.style.width = '';
             cardWrapper.style.maxWidth = '';
             cardWrapper.style.marginLeft = '';
             cardWrapper.style.marginRight = '';
+            card.style.height = '';
             cardWrapper.classList.remove('expanding');
             cardWrapper.classList.remove('sticky');
             isFullyExpanded = false;
+            shownLines = [];
+            lines.forEach(line => line.classList.remove('visible'));
         }
     };
     
     window.addEventListener('scroll', scrollHandler, { passive: true });
-    
-    // Initial check
     scrollHandler();
     
-    // Store cleanup function
     section._philosophyCleanup = () => {
         window.removeEventListener('scroll', scrollHandler);
     };
