@@ -323,22 +323,9 @@ function showContentView(id) {
                     <div class="values-slide-progress">
                         ${data.details.map((_, i) => `<div class="progress-dot${i === 0 ? ' active' : ''}" data-index="${i}"></div>`).join('')}
                     </div>
-                    <div class="values-image-track">
-                        ${data.details.map((det, i) => `
-                            <div class="values-image-item${i === 0 ? ' active' : ''}" data-index="${i}">
-                                <img src="${det.img}" alt="${det.t}">
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="values-text-track">
-                        <!-- 번호 레이어 -->
-                        <div class="values-layer values-num-layer">
-                            ${data.details.map((_, i) => `
-                                <span class="values-layer-item${i === 0 ? ' active' : ''}" data-slide="${i}">0${i + 1}</span>
-                            `).join('')}
-                        </div>
-                        
-                        <!-- 제목 레이어 (H2 + 밑줄) -->
+                    
+                    <!-- 왼쪽: 제목 트랙 -->
+                    <div class="values-left-track">
                         <div class="values-layer values-title-layer">
                             ${data.details.map((det, i) => `
                                 <div class="values-layer-item${i === 0 ? ' active' : ''}" data-slide="${i}">
@@ -347,17 +334,31 @@ function showContentView(id) {
                                 </div>
                             `).join('')}
                         </div>
-                        
-                        <!-- 영어 부제 레이어 -->
                         <div class="values-layer values-subtitle-layer">
                             ${data.details.map((det, i) => {
                                 const subtitleMatch = det.d.match(/<strong>\[([^\]]+)\]<\/strong>/);
                                 const subtitle = subtitleMatch ? subtitleMatch[1] : '';
-                                return `<span class="values-layer-item${i === 0 ? ' active' : ''}" data-slide="${i}">[${subtitle}]</span>`;
+                                return `<span class="values-layer-item${i === 0 ? ' active' : ''}" data-slide="${i}">${subtitle}</span>`;
                             }).join('')}
                         </div>
-                        
-                        <!-- 포인트들 레이어 -->
+                    </div>
+                    
+                    <!-- 중앙: 이미지 트랙 -->
+                    <div class="values-image-track">
+                        ${data.details.map((det, i) => `
+                            <div class="values-image-item${i === 0 ? ' active' : ''}" data-index="${i}">
+                                <img src="${det.img}" alt="${det.t}">
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <!-- 오른쪽: 번호 + 포인트 트랙 -->
+                    <div class="values-right-track">
+                        <div class="values-layer values-num-layer">
+                            ${data.details.map((_, i) => `
+                                <span class="values-layer-item${i === 0 ? ' active' : ''}" data-slide="${i}">0${i + 1}</span>
+                            `).join('')}
+                        </div>
                         <div class="values-layer values-points-layer">
                             ${data.details.map((det, i) => {
                                 const pointsHtml = det.d
