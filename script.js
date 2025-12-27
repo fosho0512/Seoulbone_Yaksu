@@ -280,14 +280,75 @@ function showContentView(id) {
             </div>
         `;
     }
+    else if (id === 'values') {
+        html = `
+            <div class="sub-hero" id="values-sub-hero">
+                <div class="sub-hero-image">
+                    <img src="images/values-hero.png" alt="${data.title} Hero">
+                </div>
+                <div class="sub-hero-overlay"></div>
+                <div class="sub-hero-text">
+                    <h2>${data.title}</h2>
+                </div>
+                <div class="scroll-indicator">
+                    <div class="scroll-indicator-circle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 5v14M5 12l7 7 7-7"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="sub-hero-curve">
+                    <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                        <path d="M0,100 L0,40 Q360,100 720,50 Q1080,0 1440,60 L1440,100 Z"></path>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="values-slogan-section">
+                <div class="slogan-bg">
+                    <img src="${data.sloganBg}" alt="Values Background">
+                </div>
+                <div class="slogan-overlay"></div>
+                <div class="slogan-content">
+                    <h3 class="slogan-main">${data.slogan.main}</h3>
+                    <p class="slogan-sub">${data.slogan.sub}</p>
+                </div>
+            </div>
+            
+            <div class="values-slides-wrapper">
+                <div class="values-slides-container">
+                    <div class="values-slide-progress">
+                        ${data.details.map((_, i) => `<div class="progress-dot${i === 0 ? ' active' : ''}" data-index="${i}"></div>`).join('')}
+                    </div>
+                    <div class="values-image-track">
+                        ${data.details.map((det, i) => `
+                            <div class="values-image-item${i === 0 ? ' active' : ''}" data-index="${i}">
+                                <img src="${det.img}" alt="${det.t}">
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="values-text-track">
+                        ${data.details.map((det, i) => `
+                            <div class="values-text-item${i === 0 ? ' active' : ''}" data-index="${i}">
+                                <span class="values-num">0${i + 1}</span>
+                                <h3 class="values-title">${det.t.replace(/^\d+\.\s*/, '')}</h3>
+                                <div class="values-divider"></div>
+                                <p class="values-desc">${det.d}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                <div class="values-scroll-spacer"></div>
+            </div>
+        `;
+    }
     else {
         const mediaHtml = data.mapEmbed 
             ? `<div class="map-container">${data.mapEmbed}</div>` 
             : `<img src="${data.modalImg}" alt="${data.title}">`;
         
         let heroImagePath = 'images/staff-hero.png';
-        if (id === 'values') heroImagePath = 'images/values-hero.png';
-        else if (id === 'treatment') heroImagePath = 'images/treatment-hero.png';
+        if (id === 'treatment') heroImagePath = 'images/treatment-hero.png';
         else if (id === 'contact') heroImagePath = 'images/contact-hero.png';
         else if (id === 'facilities') heroImagePath = 'images/treatment-hero.png';
 
