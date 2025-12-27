@@ -331,14 +331,48 @@ function showContentView(id) {
                         `).join('')}
                     </div>
                     <div class="values-text-track">
-                        ${data.details.map((det, i) => `
-                            <div class="values-text-item${i === 0 ? ' active' : ''}" data-index="${i}">
-                                <span class="values-num">0${i + 1}</span>
-                                <h3 class="values-title">${det.t.replace(/^\d+\.\s*/, '')}</h3>
-                                <div class="values-divider"></div>
-                                <p class="values-desc">${det.d}</p>
-                            </div>
-                        `).join('')}
+                        <!-- 번호 레이어 -->
+                        <div class="values-layer values-num-layer">
+                            ${data.details.map((_, i) => `
+                                <span class="values-layer-item${i === 0 ? ' active' : ''}" data-slide="${i}">0${i + 1}</span>
+                            `).join('')}
+                        </div>
+                        
+                        <!-- 제목 레이어 (H2 + 밑줄) -->
+                        <div class="values-layer values-title-layer">
+                            ${data.details.map((det, i) => `
+                                <div class="values-layer-item${i === 0 ? ' active' : ''}" data-slide="${i}">
+                                    <h3>${det.t.replace(/^\d+\.\s*/, '')}</h3>
+                                    <div class="values-divider"></div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <!-- 영어 부제 레이어 -->
+                        <div class="values-layer values-subtitle-layer">
+                            ${data.details.map((det, i) => {
+                                const subtitleMatch = det.d.match(/<strong>\[([^\]]+)\]<\/strong>/);
+                                const subtitle = subtitleMatch ? subtitleMatch[1] : '';
+                                return `<span class="values-layer-item${i === 0 ? ' active' : ''}" data-slide="${i}">[${subtitle}]</span>`;
+                            }).join('')}
+                        </div>
+                        
+                        <!-- 포인트들 레이어 -->
+                        <div class="values-layer values-points-layer">
+                            ${data.details.map((det, i) => {
+                                const pointsHtml = det.d
+                                    .replace(/<strong>\[[^\]]+\]<\/strong><br><br>/, '')
+                                    .split(/<br><br>/)
+                                    .filter(p => p.trim())
+                                    .map(point => {
+                                        const titleMatch = point.match(/<b>([^<]+)<\/b>/);
+                                        const title = titleMatch ? titleMatch[1] : '';
+                                        const desc = point.replace(/<b>[^<]+<\/b><br>/, '').trim();
+                                        return `<div class="point-item"><h4>${title}</h4><p>${desc}</p></div>`;
+                                    }).join('');
+                                return `<div class="values-layer-item${i === 0 ? ' active' : ''}" data-slide="${i}">${pointsHtml}</div>`;
+                            }).join('')}
+                        </div>
                     </div>
                 </div>
                 <div class="values-scroll-spacer"></div>
@@ -783,8 +817,13 @@ function setupValuesSlider() {
     const wrapper = document.querySelector('.values-slides-wrapper');
     const container = document.querySelector('.values-slides-container');
     const imageItems = document.querySelectorAll('.values-image-item');
-    const textItems = document.querySelectorAll('.values-text-item');
     const progressDots = document.querySelectorAll('.progress-dot');
+    
+    // 레이어별 아이템 선택
+    const numItems = document.querySelectorAll('.values-num-layer .values-layer-item');
+    const titleItems = document.querySelectorAll('.values-title-layer .values-layer-item');
+    const subtitleItems = document.querySelectorAll('.values-subtitle-layer .values-layer-item');
+    const pointsItems = document.querySelectorAll('.values-points-layer .values-layer-item');
     
     if (!wrapper || !container || imageItems.length === 0) return;
     
@@ -803,14 +842,11 @@ function setupValuesSlider() {
             }
         });
         
-        // 텍스트: 기존 fade + slide 유지
-        textItems.forEach((item, i) => {
-            item.classList.remove('active', 'exiting');
-            if (i === newIndex) {
-                item.classList.add('active');
-            } else if (i === currentIndex) {
-                item.classList.add('exiting');
-            }
+        // 텍스트 레이어별 fade 처리
+        [numItems, titleItems, subtitleItems, pointsItems].forEach(layerItems => {
+            layerItems.forEach((item, i) => {
+                item.classList.toggle('active', i === newIndex);
+            });
         });
         
         progressDots.forEach((dot, i) => {

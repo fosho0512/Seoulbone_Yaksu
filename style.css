@@ -1903,70 +1903,120 @@ body::before {
     object-fit: cover;
 }
 
-/* Text Track */
+/* Text Track - Layer System */
 .values-text-track {
     position: relative;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
     padding: 60px 80px;
     overflow: hidden;
+    max-width: 520px;
 }
 
-.values-text-item {
+/* 각 레이어 공통 */
+.values-layer {
+    position: relative;
+    width: 100%;
+}
+
+.values-layer-item {
     position: absolute;
+    left: 0;
+    right: 0;
     opacity: 0;
-    transform: translateX(40px);
+    transform: translateY(15px);
     transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-    max-width: 500px;
+    pointer-events: none;
 }
 
-.values-text-item.active {
+.values-layer-item.active {
+    position: relative;
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
-.values-text-item.exiting {
-    opacity: 0;
-    transform: translateX(-40px);
+/* 번호 레이어 - stagger delay 0ms */
+.values-num-layer {
+    margin-bottom: 12px;
 }
 
-.values-num {
+.values-num-layer .values-layer-item {
     font-family: var(--font-serif);
     font-size: var(--font-4xl);
     color: var(--gold-accent);
-    opacity: 0.4;
-    display: block;
-    margin-bottom: 15px;
+    opacity: 0;
+    transition-delay: 0ms;
 }
 
-.values-title {
+.values-num-layer .values-layer-item.active {
+    opacity: 0.4;
+}
+
+/* 제목 레이어 - stagger delay 50ms */
+.values-title-layer {
+    margin-bottom: 8px;
+}
+
+.values-title-layer .values-layer-item {
+    transition-delay: 50ms;
+}
+
+.values-title-layer h3 {
     font-family: var(--font-serif);
     font-size: var(--font-heading-lg);
     color: var(--text-color);
     font-weight: 500;
     line-height: var(--lh-snug);
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
-.values-divider {
+.values-title-layer .values-divider {
     width: 50px;
     height: 2px;
     background: var(--gold-accent);
+}
+
+/* 영어 부제 레이어 - stagger delay 100ms */
+.values-subtitle-layer {
     margin-bottom: 25px;
 }
 
-.values-desc {
+.values-subtitle-layer .values-layer-item {
     font-family: var(--font-sans);
-    font-size: var(--font-body);
-    color: var(--accent-color);
-    line-height: var(--lh-relaxed);
+    font-size: var(--font-body-sm);
+    color: var(--gold-accent);
+    letter-spacing: var(--ls-wide);
+    transition-delay: 100ms;
 }
 
-.values-desc strong {
+/* 포인트들 레이어 - stagger delay 150ms */
+.values-points-layer .values-layer-item {
+    transition-delay: 150ms;
+}
+
+.values-points-layer .point-item {
+    margin-bottom: 20px;
+}
+
+.values-points-layer .point-item:last-child {
+    margin-bottom: 0;
+}
+
+.values-points-layer h4 {
+    font-family: var(--font-sans);
+    font-size: var(--font-body);
+    font-weight: 600;
     color: var(--text-color);
-    display: block;
-    margin-bottom: 15px;
+    margin-bottom: 6px;
+}
+
+.values-points-layer p {
+    font-family: var(--font-sans);
+    font-size: var(--font-body-sm);
+    color: var(--accent-color);
+    line-height: var(--lh-relaxed);
 }
 
 /* Mobile Responsive */
