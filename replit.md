@@ -50,7 +50,15 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 3. CSS transitions reveal background and Enter button
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
-## Recent Changes (2025-12-23)
+## Recent Changes (2025-12-27)
+- Core Values page complete redesign with scroll-triggered pinned slides
+- GSAP ScrollTrigger integration with Lenis smooth scroll
+- Image track: Y-axis slide transitions (top-to-bottom)
+- Text track: Fade + X-axis slide transitions (right-to-left)
+- Progress dots for slide navigation
+- Mobile responsive layout with stacked grid
+
+## Previous Changes (2025-12-23)
 - All menu pages now have unified sub-hero sections with wipe reveal animation
 - Added Smooth Scroll Inertia using Lenis library (PC only, disabled on mobile)
 - Sub-hero full-width extension using negative margins (-12% left/right, header height offset on top)
