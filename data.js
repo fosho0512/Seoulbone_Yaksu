@@ -39,7 +39,7 @@ const siteData = {
                 main: "Excellence in Every Detail",
                 sub: "우리는 환자의 완전한 회복을 위해<br>타협 없는 원칙을 지킵니다."
             },
-            sloganBg: "images/values-hero.png",
+            sloganBg: "images/values.jpg",
             modalImg: "images/values.jpg", 
             details: [ 
                 {t:"01. 융합된 전문성과 세계적 식견", d:"<strong>[Expertise & Global Perspective]</strong><br>• <b>Dual Specialist Insight:</b> 재활의학과 및 정형외과를 모두 전공한 의학박사(MD, PhD)의 통합적인 시각으로 질환의 근본 원인을 찾아냅니다.<br>• <b>Global Standard:</b> 북미, 유럽 등 선진 치료 시스템 도입<br>• <b>Dedicated Primary Physician:</b> 대표원장 1인 책임 진료", img:"images/values_01.jpg"}, 
