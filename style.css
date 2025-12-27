@@ -1914,7 +1914,7 @@ body::before {
     max-width: 520px;
 }
 
-/* 각 레이어 공통 */
+/* 각 레이어 공통 - 고정 높이로 레이아웃 유지 */
 .values-layer {
     position: relative;
     width: 100%;
@@ -1922,6 +1922,7 @@ body::before {
 
 .values-layer-item {
     position: absolute;
+    top: 0;
     left: 0;
     right: 0;
     opacity: 0;
@@ -1931,14 +1932,14 @@ body::before {
 }
 
 .values-layer-item.active {
-    position: relative;
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
 }
 
-/* 번호 레이어 - stagger delay 0ms */
+/* 번호 레이어 - stagger delay 0ms, 고정 높이 */
 .values-num-layer {
+    min-height: 60px;
     margin-bottom: 12px;
 }
 
@@ -1954,8 +1955,9 @@ body::before {
     opacity: 0.4;
 }
 
-/* 제목 레이어 - stagger delay 50ms */
+/* 제목 레이어 - stagger delay 50ms, 고정 높이 */
 .values-title-layer {
+    min-height: 80px;
     margin-bottom: 8px;
 }
 
@@ -1978,8 +1980,9 @@ body::before {
     background: var(--gold-accent);
 }
 
-/* 영어 부제 레이어 - stagger delay 100ms */
+/* 영어 부제 레이어 - stagger delay 100ms, 고정 높이 */
 .values-subtitle-layer {
+    min-height: 24px;
     margin-bottom: 25px;
 }
 
@@ -1991,7 +1994,11 @@ body::before {
     transition-delay: 100ms;
 }
 
-/* 포인트들 레이어 - stagger delay 150ms */
+/* 포인트들 레이어 - stagger delay 150ms, 고정 높이 */
+.values-points-layer {
+    min-height: 200px;
+}
+
 .values-points-layer .values-layer-item {
     transition-delay: 150ms;
 }
