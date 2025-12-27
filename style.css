@@ -358,8 +358,8 @@ body.menu-open .menu-toggle-btn .lines span:last-child { transform: rotate(-45de
     position: absolute;
     top: 30px;
     right: 30px;
-    width: 44px;
-    height: 44px;
+    width: 36px;
+    height: 36px;
     background: transparent;
     border: 1px solid var(--sub-color);
     border-radius: 50%;
@@ -370,9 +370,12 @@ body.menu-open .menu-toggle-btn .lines span:last-child { transform: rotate(-45de
     transition: all var(--transition-fast);
 }
 .close-drawer-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
     color: var(--text-color);
+}
+.chenot-menu {
+    padding-top: 30px;
 }
 .close-drawer-btn:hover {
     background: var(--text-color);
