@@ -127,6 +127,9 @@ function showContentView(id) {
     const data = siteData.content[id];
     if (!data) return;
 
+    // 이전 Values 슬라이더 정리
+    cleanupValuesSlider();
+    
     // Reset Content & Scroll
     elems.contentBody.innerHTML = "";
     window.scrollTo(0, 0);
@@ -414,6 +417,13 @@ function showContentView(id) {
     // 서브히어로 스크롤 효과 설정 (모든 페이지)
     setupSubHeroScrollEffect();
     
+    // Values 페이지 슬라이드 설정
+    if (id === 'values') {
+        setTimeout(() => {
+            setupValuesSlider();
+        }, 100);
+    }
+    
     // Close menu if open
     if (document.body.classList.contains('menu-open')) {
         document.body.classList.remove('menu-open');
@@ -452,6 +462,7 @@ function setupSubHeroScrollEffect() {
 }
 
 function showHomeView(skipPushState = false) {
+    cleanupValuesSlider();
     elems.contentView.classList.remove('active');
     elems.homeView.classList.add('active');
     document.body.classList.remove('content-view-active');
@@ -716,7 +727,19 @@ function setupPhilosophyCardScroll(section) {
     };
 }
 
-// Smooth Scroll Inertia (PC Only)
+// Smooth Scroll Inertia (PC Only) + GSAP ScrollTrigger Integration
+let lenisScrollTriggerLinked = false;
+
+function linkLenisToScrollTrigger() {
+    if (lenisScrollTriggerLinked || !window.lenis) return;
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    
+    gsap.registerPlugin(ScrollTrigger);
+    window.lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.lagSmoothing(0);
+    lenisScrollTriggerLinked = true;
+}
+
 function setupSmoothScroll() {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
         || window.innerWidth < 1024
@@ -738,6 +761,107 @@ function setupSmoothScroll() {
     requestAnimationFrame(raf);
     
     window.lenis = lenis;
+    
+    // GSAP ScrollTrigger 전역 연동 시도
+    linkLenisToScrollTrigger();
+}
+
+// Values Page - ScrollTrigger Slider
+let valuesScrollTrigger = null;
+
+function setupValuesSlider() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        console.warn('GSAP or ScrollTrigger not loaded');
+        return;
+    }
+    
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Lenis 연동 재시도 (늦게 로드된 경우 대비)
+    linkLenisToScrollTrigger();
+    
+    const wrapper = document.querySelector('.values-slides-wrapper');
+    const container = document.querySelector('.values-slides-container');
+    const imageItems = document.querySelectorAll('.values-image-item');
+    const textItems = document.querySelectorAll('.values-text-item');
+    const progressDots = document.querySelectorAll('.progress-dot');
+    
+    if (!wrapper || !container || imageItems.length === 0) return;
+    
+    const totalSlides = imageItems.length;
+    let currentIndex = 0;
+    
+    function updateSlide(newIndex) {
+        if (newIndex === currentIndex) return;
+        
+        const direction = newIndex > currentIndex ? 1 : -1;
+        
+        imageItems.forEach((item, i) => {
+            item.classList.remove('active', 'exiting');
+            if (i === newIndex) {
+                item.classList.add('active');
+            } else if (i === currentIndex) {
+                item.classList.add('exiting');
+            }
+        });
+        
+        textItems.forEach((item, i) => {
+            item.classList.remove('active', 'exiting');
+            if (i === newIndex) {
+                item.classList.add('active');
+            } else if (i === currentIndex) {
+                item.classList.add('exiting');
+            }
+        });
+        
+        progressDots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === newIndex);
+        });
+        
+        currentIndex = newIndex;
+    }
+    
+    // ScrollTrigger 생성
+    if (valuesScrollTrigger) {
+        valuesScrollTrigger.kill();
+    }
+    
+    valuesScrollTrigger = ScrollTrigger.create({
+        trigger: wrapper,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.5,
+        onUpdate: (self) => {
+            const progress = self.progress;
+            const slideIndex = Math.min(
+                Math.floor(progress * totalSlides),
+                totalSlides - 1
+            );
+            updateSlide(slideIndex);
+        }
+    });
+    
+    // Progress dot 클릭 이벤트
+    progressDots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+            const targetProgress = i / totalSlides;
+            const wrapperRect = wrapper.getBoundingClientRect();
+            const scrollTarget = wrapper.offsetTop + (wrapperRect.height * targetProgress);
+            
+            if (window.lenis) {
+                window.lenis.scrollTo(scrollTarget, { duration: 1 });
+            } else {
+                window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+            }
+        });
+    });
+}
+
+function cleanupValuesSlider() {
+    if (valuesScrollTrigger) {
+        valuesScrollTrigger.kill();
+        valuesScrollTrigger = null;
+    }
 }
 
 // Run
