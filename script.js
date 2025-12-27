@@ -197,7 +197,7 @@ function showContentView(id) {
         html = `
             <div class="sub-hero" id="diagnosis-sub-hero">
                 <div class="sub-hero-image">
-                    <img src="images/staff-hero.png" alt="${data.title} Hero">
+                    <img src="images/diagnosis-hero.png" alt="${data.title} Hero">
                 </div>
                 <div class="sub-hero-overlay"></div>
                 <div class="sub-hero-text">
@@ -247,7 +247,7 @@ function showContentView(id) {
         html = `
             <div class="sub-hero" id="prp-sub-hero">
                 <div class="sub-hero-image">
-                    <img src="images/staff-hero.png" alt="${data.title} Hero">
+                    <img src="images/cell-therapy-hero.png" alt="${data.title} Hero">
                 </div>
                 <div class="sub-hero-overlay"></div>
                 <div class="sub-hero-text">
@@ -285,7 +285,11 @@ function showContentView(id) {
             ? `<div class="map-container">${data.mapEmbed}</div>` 
             : `<img src="${data.modalImg}" alt="${data.title}">`;
         
-        const heroImagePath = id === 'values' ? 'images/values-hero.png' : 'images/staff-hero.png';
+        let heroImagePath = 'images/staff-hero.png';
+        if (id === 'values') heroImagePath = 'images/values-hero.png';
+        else if (id === 'treatment') heroImagePath = 'images/treatment-hero.png';
+        else if (id === 'contact') heroImagePath = 'images/contact-hero.png';
+        else if (id === 'facilities') heroImagePath = 'images/treatment-hero.png';
 
         html = `
             <div class="sub-hero" id="${id}-sub-hero">
