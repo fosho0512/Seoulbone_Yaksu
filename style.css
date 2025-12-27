@@ -1885,7 +1885,7 @@ body::before {
 .values-image-item {
     position: absolute;
     inset: 0;
-    clip-path: inset(100% 0 0 0);
+    clip-path: inset(0 0 100% 0);
     transition: clip-path 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
