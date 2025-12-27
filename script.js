@@ -794,17 +794,16 @@ function setupValuesSlider() {
     function updateSlide(newIndex) {
         if (newIndex === currentIndex) return;
         
-        const direction = newIndex > currentIndex ? 1 : -1;
-        
+        // 이미지: reveal 방식 (clip-path wipe-down)
         imageItems.forEach((item, i) => {
-            item.classList.remove('active', 'exiting');
-            if (i === newIndex) {
-                item.classList.add('active');
-            } else if (i === currentIndex) {
-                item.classList.add('exiting');
+            if (i <= newIndex) {
+                item.classList.add('revealed');
+            } else {
+                item.classList.remove('revealed');
             }
         });
         
+        // 텍스트: 기존 fade + slide 유지
         textItems.forEach((item, i) => {
             item.classList.remove('active', 'exiting');
             if (i === newIndex) {
