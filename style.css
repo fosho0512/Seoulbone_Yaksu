@@ -440,15 +440,19 @@ body.menu-open .drawer-menu { transform: translateX(0); }
 /* Visual Background */
 .visual-section { 
     position: relative;
-    width: 100%; 
-    height: 100%; 
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
     background-image: url('images/main-bg.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: var(--text-color); 
-    transition: background-image var(--transition-slow); 
-    z-index: var(--z-visual); 
+    background-color: var(--text-color);
+    z-index: var(--z-visual);
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    overflow: hidden;
 }
 .visual-section .overlay { 
     position: absolute; 
@@ -659,10 +663,14 @@ body.menu-open .visual-text { opacity: 0; }
 .page-view {
     display: none;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
 }
 .page-view.active {
     display: block;
+}
+#home-view {
+    height: 100vh;
+    overflow: hidden;
 }
 
 #content-view {
@@ -1540,6 +1548,11 @@ body.content-view-active.has-sub-hero #main-container {
 body.content-view-active.has-sub-hero #content-view {
     padding-top: 0;
 }
+
+/* 홈 화면에서 main-container padding 제거 */
+body.site-entered:not(.content-view-active) #main-container {
+    padding-top: 0;
+}
 body.content-view-active.has-sub-hero .content-wrapper {
     padding-top: 0;
 }
@@ -1599,6 +1612,39 @@ body.content-view-active.has-sub-hero.sub-hero-passed #global-header .menu-toggl
 .menu-item:hover,
 .menu-item.active {
     transform: translateX(5px);
+}
+
+/* 홈 화면에서도 헤더 투명 */
+body.site-entered:not(.content-view-active) #global-header {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+body.site-entered:not(.content-view-active) #global-header .brand,
+body.site-entered:not(.content-view-active) #global-header .menu-toggle-btn {
+    color: #fff;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.site-entered:not(.content-view-active) #global-header .menu-toggle-btn .lines span {
+    background-color: #fff;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+body.site-entered:not(.content-view-active) #global-header .util-btn {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+body.site-entered:not(.content-view-active) #global-header .util-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #fff;
+}
+
+body.site-entered:not(.content-view-active) #global-header .util-btn.highlight {
+    background: var(--gold-accent);
+    border-color: var(--gold-accent);
+    color: #fff;
 }
 
 /* Image Hover Zoom & Brightness */
