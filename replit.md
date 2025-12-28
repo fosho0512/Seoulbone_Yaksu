@@ -50,7 +50,14 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 3. CSS transitions reveal background and Enter button
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
-## Recent Changes (2025-12-27)
+## Recent Changes (2025-12-28)
+- Homepage background image now extends behind header (same pattern as sub-hero)
+- Added transparent header styling for home view with white text/icons
+- .visual-section uses width: 100vw + calc() margins for full-width extension
+- Home state removes #main-container padding-top for proper background positioning
+- File permission fix for main-bg.png (644)
+
+## Previous Changes (2025-12-27)
 - Core Values page complete redesign with scroll-triggered pinned slides
 - GSAP ScrollTrigger integration with Lenis smooth scroll
 - Image track: Y-axis slide transitions (top-to-bottom)
