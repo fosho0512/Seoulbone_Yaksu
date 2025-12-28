@@ -1,0 +1,73 @@
+🎯 방법 1: 음수 마진 사용 (가장 간단, 추천)
+Medical Staff 페이지와 동일한 방식으로 홈페이지도 헤더 뒤로 확장
+수정 위치: style.css
+1-1. .visual-section 수정 (443-465줄):
+css.visual-section { 
+    position: relative;
+    width: 100vw;  /* ← 100%에서 변경 */
+    max-width: 100vw;
+    height: calc(100vh + var(--header-height));  /* ← 헤더 높이만큼 추가 */
+    min-height: calc(100vh + var(--header-height));
+    background-image: url('images/main-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--text-color);
+    z-index: var(--z-visual);
+    /* 전체 화면 너비로 확장 */
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    margin-top: calc(-1 * var(--header-height));  /* ← 헤더 높이만큼 위로 */
+    overflow: hidden;
+}
+1-2. 홈뷰 헤더 투명화 추가 (1603줄 이후):
+css/* 홈 화면에서도 헤더 투명 */
+body.site-entered:not(.content-view-active) #global-header {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+body.site-entered:not(.content-view-active) #global-header .brand,
+body.site-entered:not(.content-view-active) #global-header .menu-toggle-btn {
+    color: #fff;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.site-entered:not(.content-view-active) #global-header .menu-toggle-btn .lines span {
+    background-color: #fff;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+body.site-entered:not(.content-view-active) #global-header .util-btn {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+body.site-entered:not(.content-view-active) #global-header .util-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #fff;
+}
+
+body.site-entered:not(.content-view-active) #global-header .util-btn.highlight {
+    background: var(--gold-accent);
+    border-color: var(--gold-accent);
+    color: #fff;
+}
+1-3. 텍스트 위치 조정 (467줄 이후):
+css.visual-text { 
+    position: absolute; 
+    top: 50%;  /* ← 중앙 유지 (헤더 포함 높이의 50%) */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--bg-color); 
+    max-width: 650px; 
+    z-index: 10;
+    transition: opacity var(--transition-fast); 
+    text-shadow: 0 2px 15px rgba(44, 41, 38, 0.4);
+    text-align: center;
+}
+1-4. 배너 위치 조정 (필요시):
+css.promo-banner { 
+    /* 기존 코드 유지 */
+    bottom: 40px;  /* ← 그대로 유지하면 화면 하단 기준 */
+}
