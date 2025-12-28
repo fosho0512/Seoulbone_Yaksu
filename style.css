@@ -838,9 +838,8 @@ body.menu-open .visual-text { opacity: 0; }
     position: relative;
     width: 100vw;
     max-width: 100vw;
-    height: calc(70vh + var(--header-height));
-    min-height: calc(450px + var(--header-height));
-    max-height: calc(650px + var(--header-height));
+    height: 100vh;
+    min-height: 100vh;
     overflow: hidden;
     margin-bottom: 0;
     margin-left: calc(50% - 50vw);
@@ -1796,9 +1795,8 @@ body::before {
     .sub-hero { 
         width: 100vw;
         max-width: 100vw;
-        height: calc(50vh + var(--header-height)); 
-        min-height: calc(300px + var(--header-height)); 
-        max-height: calc(450px + var(--header-height)); 
+        height: 100vh;
+        min-height: 100vh;
         margin-left: calc(50% - 50vw);
         margin-right: calc(50% - 50vw);
         margin-top: 0;
