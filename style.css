@@ -461,7 +461,7 @@ body.menu-open .drawer-menu { transform: translateX(0); }
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    transform: scale(1.1);
+    transform: scale(1.2);
     transition: transform 3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     z-index: 0;
 }
