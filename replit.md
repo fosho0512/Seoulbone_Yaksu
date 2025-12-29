@@ -13,7 +13,8 @@ A premium static website for Seoul Bone Rehabilitation Medicine clinic. Features
 ## Technology Stack
 - Static HTML/CSS/JavaScript
 - No build system required
-- Google Fonts (Manrope, Playfair Display)
+- Google Fonts (Playfair Display, Manrope, Noto Serif KR, Gowun Batang)
+- Pretendard font via CDN
 - Font Awesome icons
 
 ## Running the Project
@@ -50,7 +51,16 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 3. CSS transitions reveal background and Enter button
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
-## Recent Changes (2025-12-28)
+## Recent Changes (2025-12-29)
+- Implemented comprehensive Korean font system:
+  - Headings: Playfair Display (영문) + Noto Serif KR (한글)
+  - Body: Manrope (영문) + Pretendard (한글)
+  - Quote/Conversational: Gowun Batang (구어체용)
+- Added .quote-text utility class for conversational text styling
+- Fixed hero text truncation (max-width: 650px → 900px)
+- Sub-hero sections now use 100vh for consistent full-screen coverage
+
+## Previous Changes (2025-12-28)
 - Homepage background image now extends behind header (same pattern as sub-hero)
 - Added transparent header styling for home view with white text/icons
 - .visual-section uses width: 100vw + calc() margins for full-width extension
