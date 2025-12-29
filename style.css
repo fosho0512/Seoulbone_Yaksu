@@ -11,8 +11,9 @@
     --highlight-color: #8B7355;    /* Rich Bronze */
     
     /* [Fonts] */
-    --font-serif: 'Playfair Display', serif; 
-    --font-sans: 'Manrope', sans-serif;
+    --font-serif: 'Playfair Display', 'Noto Serif KR', serif; 
+    --font-sans: 'Manrope', 'Pretendard', sans-serif;
+    --font-quote: 'Gowun Batang', serif;
 
     /* [Typography Scale - 1.2 Modular Ratio] */
     --font-2xs: 0.694rem;          /* 11px - Fine print */
@@ -497,7 +498,7 @@ body.site-entered .visual-section::before {
     left: 50%;
     transform: translate(-50%, -50%);
     color: var(--bg-color); 
-    max-width: 650px; 
+    max-width: 900px; 
     z-index: 10; 
     transition: opacity var(--transition-fast); 
     text-shadow: 0 2px 15px rgba(44, 41, 38, 0.4);
@@ -1536,6 +1537,13 @@ body.menu-open .visual-text { opacity: 0; }
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+/* Quote/Conversational Text Style */
+.quote-text {
+    font-family: var(--font-quote);
+    font-style: normal;
+    line-height: var(--lh-relaxed);
 }
 
 /* Enhanced Header Scroll Effect */
