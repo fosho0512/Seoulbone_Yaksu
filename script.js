@@ -89,11 +89,11 @@ function enterSite() {
     
     setTimeout(() => {
         if (visualH3) visualH3.classList.add('fade-in');
-    }, 300);
+    }, 400);
     
     setTimeout(() => {
         if (visualP) visualP.classList.add('fade-up');
-    }, 600);
+    }, 900);
     
     setTimeout(showBanner, 3500);
 }
