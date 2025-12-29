@@ -88,16 +88,12 @@ function enterSite() {
     }, 300);
     
     setTimeout(() => {
-        if (visualH3) visualH3.classList.add('typing');
-    }, 600);
+        if (visualH3) visualH3.classList.add('fade-in');
+    }, 300);
     
     setTimeout(() => {
-        if (visualH3) {
-            visualH3.classList.remove('typing');
-            visualH3.classList.add('typing-done');
-        }
         if (visualP) visualP.classList.add('fade-up');
-    }, 2800);
+    }, 600);
     
     setTimeout(showBanner, 3500);
 }
