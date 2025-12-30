@@ -51,7 +51,17 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 3. CSS transitions reveal background and Enter button
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
-## Recent Changes (2025-12-29)
+## Recent Changes (2025-12-30)
+- Completely redesigned Diagnostic Tools page with new layout:
+  - Removed flip-card structure
+  - Added diagnostic-philosophy section with clinic principles
+  - Added equipment-narrative section with sticky image + scroll text
+  - Scroll-triggered active states for 4 equipment steps
+  - Fade transitions between diagnostic equipment images
+- JavaScript: setupEquipmentNarrative() with cleanupEquipmentNarrative()
+- Responsive breakpoints at 1024px and 768px
+
+## Previous Changes (2025-12-29)
 - Implemented comprehensive Korean font system:
   - Headings: Playfair Display (영문) + Noto Serif KR (한글)
   - Body: Manrope (영문) + Pretendard (한글)
