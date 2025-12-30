@@ -123,8 +123,9 @@ function showContentView(id) {
     const data = siteData.content[id];
     if (!data) return;
 
-    // 이전 Values 슬라이더 정리
+    // 이전 슬라이더/인터랙션 정리
     cleanupValuesSlider();
+    cleanupEquipmentNarrative();
     
     // Reset Content & Scroll
     elems.contentBody.innerHTML = "";
@@ -215,31 +216,57 @@ function showContentView(id) {
                     </svg>
                 </div>
             </div>
-            <div class="sub-hero-content">
-                <div class="content-intro">
-                    <p class="description">${data.desc}</p>
-                    <div class="divider"></div>
+            
+            <section id="diagnostic-philosophy" class="diagnostic-philosophy">
+                <div class="philosophy-content">
+                    <h1>정확한 진단이 완치의 시작입니다.</h1>
+                    <p class="philosophy-intro">서울본재활의학과는 최첨단 진단 장비에 아낌없이 투자합니다.<br>통증의 근본 원인을 빠르고 정확하게 찾아내어, 환자분에게 가장 적합한 치료 계획을 수립하기 위함입니다.</p>
+                    <div class="principle-box">
+                        <h2>★ 우리의 원칙: 모든 시술의 영상 가이드화 (Image-Guided Injection)</h2>
+                        <p>우리는 감이나 경험에만 의존하는 '블라인드 주사'를 지양합니다.<br>모든 주사 치료 및 시술은 반드시 초음파나 C-arm 실시간 영상 장비를 보면서 진행합니다.<br>이를 통해 타겟 부위에 약물을 오차 없이 정확하게 투여하여 치료 효과를 극대화하고,<br>신경이나 혈관 손상 등의 부작용 위험을 최소화하여 독보적인 안전성을 확보합니다.</p>
+                    </div>
                 </div>
-                <div class="flip-grid">
-                    ${data.details.map(det => `
-                        <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                            <div class="flip-card-inner">
-                                <div class="flip-card-front">
-                                    <div class="flip-img-box"><img src="${det.img}" alt="${det.t}"></div>
-                                    <div class="flip-title-box"><h4>${det.t}</h4><span class="click-hint">Click to View</span></div>
-                                </div>
-                                <div class="flip-card-back">
-                                    <div class="back-content">
-                                        <h4>${det.t}</h4>
-                                        <div class="divider-small"></div>
-                                        <p>${det.d}</p>
-                                    </div>
-                                </div>
-                            </div>
+            </section>
+            
+            <section id="equipment-narrative" class="equipment-narrative">
+                <div class="sticky-image">
+                    <img id="equipment-image" src="images/diagnosis_xray.jpg" alt="Equipment">
+                </div>
+                <div class="equipment-text">
+                    <div class="equipment-step active" data-step="1">
+                        <span class="step-number">01</span>
+                        <h3 class="step-title-kr">고해상도 디지털 X-ray</h3>
+                        <p class="step-title-en">High-Resolution Digital X-ray</p>
+                        <p class="step-slogan">"뼈와 관절 상태를 확인하는 가장 기초적이고 필수적인 검사"</p>
+                        <p class="step-desc">기존 필름 방식 대비 방사선 피폭량을 현저히 줄여 안전성을 높인 최신 디지털 X-ray 장비입니다.<br>촬영 즉시 고해상도의 선명한 영상을 획득하여 골절, 관절염, 척추 변형 등<br>골격계의 구조적인 이상 유무를 신속하고 정확하게 일차적으로 평가합니다.</p>
+                    </div>
+                    <div class="equipment-step" data-step="2">
+                        <span class="step-number">02</span>
+                        <h3 class="step-title-kr">프리미엄 초음파 진단기 (3대 보유)</h3>
+                        <p class="step-title-en">Premium Musculoskeletal Ultrasound Systems - 3 Units</p>
+                        <p class="step-slogan">"진료실에서 대기 없이 즉시 확인하는 '의사의 제2의 눈'"</p>
+                        <p class="step-desc">X-ray로는 확인이 어려운 근육, 힘줄, 인대, 신경 등 연부 조직의 손상과 염증을 정밀하게 관찰합니다.<br>저희 병원은 하이엔드급 초음파 장비를 총 3대 보유하여 각 진료실에 배치했습니다.<br>환자분들은 별도의 검사실 이동이나 대기 시간 없이,<br>진료 상담 도중 즉각적으로 아픈 부위를 초음파로 확인하고 설명을 들으실 수 있습니다.<br>또한 주사 치료 시 실시간 유도 영상으로 활용하여 정확한 치료를 돕습니다.</p>
+                    </div>
+                    <div class="equipment-step" data-step="3">
+                        <span class="step-number">03</span>
+                        <h3 class="step-title-kr">C-arm (이동형 실시간 투시 영상 장비)</h3>
+                        <p class="step-title-en">C-arm Fluoroscopy with SELD</p>
+                        <p class="step-slogan">"정확도는 높이고 피폭은 최소화한, 안전한 비수술 치료의 핵심"</p>
+                        <p class="step-desc">마치 우리 몸속을 실시간 동영상으로 보는 것과 같은 투시 장비입니다.<br>척추나 관절의 깊숙한 부위에 주사 치료나 시술을 시행할 때,<br>네비게이션처럼 바늘의 위치를 실시간으로 정확하게 안내하여<br>오차 없는 정밀한 치료를 가능하게 합니다.</p>
+                        <div class="step-highlight">
+                            <strong>안전 플러스:</strong><br>최신 방사선 피폭 저감 장치인 SELD가 탑재되어 있어,<br>의료진과 환자분이 받는 불필요한 방사선 노출량을 획기적으로 줄여<br>더욱 안심하고 치료받으실 수 있습니다.
                         </div>
-                    `).join('')}
+                    </div>
+                    <div class="equipment-step" data-step="4">
+                        <span class="step-number">04</span>
+                        <h3 class="step-title-kr">최신 신경전도 및 근전도 검사 기기 (NCS/EMG)</h3>
+                        <p class="step-title-en">Nerve Conduction Study / Electromyography Machine</p>
+                        <p class="step-slogan">"눈에 보이지 않는 신경과 근육의 기능적 이상을 찾아내는 정밀 검사"</p>
+                        <p class="step-desc">영상 검사(MRI, X-ray)만으로는 알 수 없는 신경의 기능적 상태를<br>전기적 신호를 통해 평가합니다.<br><br>손발 저림, 감각 이상, 근력 약화 등이 있을 때,<br>이것이 신경의 문제인지 근육 자체의 문제인지,<br>신경 손상이라면 그 위치와 심각도는 어느 정도인지를<br>명확하게 감별 진단합니다.</p>
+                        <p class="step-example">(예: 손목터널증후군, 목/허리 디스크로 인한 신경손상 등 진단)</p>
+                    </div>
                 </div>
-            </div>
+            </section>
         `;
     }
     else if (id === 'prp') {
@@ -455,6 +482,13 @@ function showContentView(id) {
         }, 100);
     }
     
+    // Diagnosis 페이지 장비 내러티브 설정
+    if (id === 'diagnosis') {
+        setTimeout(() => {
+            setupEquipmentNarrative();
+        }, 100);
+    }
+    
     // Close menu if open
     if (document.body.classList.contains('menu-open')) {
         document.body.classList.remove('menu-open');
@@ -494,6 +528,7 @@ function setupSubHeroScrollEffect() {
 
 function showHomeView(skipPushState = false) {
     cleanupValuesSlider();
+    cleanupEquipmentNarrative();
     elems.contentView.classList.remove('active');
     elems.homeView.classList.add('active');
     document.body.classList.remove('content-view-active');
@@ -893,6 +928,66 @@ function cleanupValuesSlider() {
     if (valuesScrollTrigger) {
         valuesScrollTrigger.kill();
         valuesScrollTrigger = null;
+    }
+}
+
+// Equipment Narrative Scroll Interaction
+let equipmentScrollHandler = null;
+
+function setupEquipmentNarrative() {
+    const steps = document.querySelectorAll('.equipment-step');
+    const image = document.getElementById('equipment-image');
+    
+    if (!steps.length || !image) return;
+    
+    const images = [
+        'images/diagnosis_xray.jpg',
+        'images/diagnosis_ultra.jpg',
+        'images/diagnosis_carm.jpg',
+        'images/diagnosis_emg.jpg'
+    ];
+    
+    let currentStep = 0;
+    
+    function updateActiveStep() {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight;
+        
+        steps.forEach((step, index) => {
+            const rect = step.getBoundingClientRect();
+            const stepCenter = rect.top + rect.height / 2;
+            
+            if (stepCenter > 0 && stepCenter < windowHeight * 0.7) {
+                if (currentStep !== index) {
+                    currentStep = index;
+                    
+                    steps.forEach(s => s.classList.remove('active'));
+                    step.classList.add('active');
+                    
+                    image.classList.add('fade-out');
+                    setTimeout(() => {
+                        image.src = images[index];
+                        image.classList.remove('fade-out');
+                    }, 300);
+                }
+            }
+        });
+    }
+    
+    if (equipmentScrollHandler) {
+        window.removeEventListener('scroll', equipmentScrollHandler);
+    }
+    
+    equipmentScrollHandler = updateActiveStep;
+    window.addEventListener('scroll', equipmentScrollHandler, { passive: true });
+    
+    updateActiveStep();
+}
+
+function cleanupEquipmentNarrative() {
+    if (equipmentScrollHandler) {
+        window.removeEventListener('scroll', equipmentScrollHandler);
+        equipmentScrollHandler = null;
     }
 }
 
