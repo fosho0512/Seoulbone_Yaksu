@@ -1,0 +1,449 @@
+구조 설계:
+html<div class="horizontal-scroll-container">
+  <!-- 섹션 1: 서브히어로 -->
+  <section class="scroll-section" id="hero">
+    서브히어로 내용
+  </section>
+  
+  <!-- 섹션 2: 슬로건 -->
+  <section class="scroll-section" id="slogan">
+    정확한 진단이 완치의 시작입니다...
+  </section>
+  
+  <!-- 섹션 3-6: 장비들 -->
+  <section class="scroll-section" id="equipment-xray">
+    X-ray 내용
+  </section>
+  
+  <section class="scroll-section" id="equipment-ultra">
+    초음파 내용
+  </section>
+  
+  <section class="scroll-section" id="equipment-carm">
+    C-arm 내용
+  </section>
+  
+  <section class="scroll-section" id="equipment-emg">
+    EMG 내용
+  </section>
+</div>
+
+단계별 수정 계획
+📋 Phase 1: HTML 구조 변경
+목표: 기존 세로 스크롤 구조를 가로 스크롤 구조로 변경
+수정 위치: script.js (197-269줄)
+변경 전:
+javascripthtml = `
+  <div class="sub-hero">...</div>
+  <div class="sub-hero-content">
+    <div class="diagnostic-philosophy">...</div>
+    <div class="equipment-narrative">
+      <div class="sticky-image">...</div>
+      <div class="equipment-steps">
+        <div class="equipment-step">...</div>
+      </div>
+    </div>
+  </div>
+`;
+변경 후:
+javascripthtml = `
+  <div class="sub-hero">...</div>
+  
+  <!-- 가로 스크롤 컨테이너 -->
+  <div class="horizontal-scroll-wrapper">
+    <div class="horizontal-scroll-container">
+      
+      <!-- 슬로건 섹션 -->
+      <section class="scroll-section slogan-section">
+        <div class="slogan-content">
+          <h2 class="slogan-main">정확한 진단이 완치의 시작입니다</h2>
+          <p class="slogan-desc">
+            최첨단 진단 장비에 아낌없이 투자하여<br>
+            통증의 근본 원인을 빠르고 정확하게 찾아냅니다.
+          </p>
+          <div class="slogan-principle">
+            <h3>우리의 원칙: 모든 시술의 영상 가이드화</h3>
+            <p>(Image-Guided Injection)</p>
+            <p>감이나 경험에만 의존하는 '블라인드 주사'를 지양합니다...</p>
+          </div>
+        </div>
+      </section>
+      
+      <!-- 장비 섹션들 -->
+      ${data.details.map((equipment, index) => `
+        <section class="scroll-section equipment-section" data-index="${index}">
+          <div class="equipment-visual">
+            <img src="${equipment.img}" alt="${equipment.t}">
+          </div>
+          <div class="equipment-info">
+            <span class="equipment-number">${String(index + 1).padStart(2, '0')}</span>
+            <h3 class="equipment-title">${equipment.t}</h3>
+            <div class="equipment-desc">${equipment.d}</div>
+          </div>
+        </section>
+      `).join('')}
+      
+    </div>
+  </div>
+`;
+
+📋 Phase 2: CSS 스타일 구현
+수정 위치: style.css (2184줄 이후 추가)
+css/* ==========================================
+   Horizontal Scroll Container
+   ========================================== */
+
+.horizontal-scroll-wrapper {
+  position: relative;
+  width: 100%;
+  /* 세로 스크롤 가능하게 설정 (실제로는 가로로 변환됨) */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.horizontal-scroll-container {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  height: 100vh;
+  
+  /* 스크롤 동작을 가로로 변환 */
+  transform-origin: top left;
+  will-change: transform;
+}
+
+/* 각 섹션은 화면 전체 차지 */
+.scroll-section {
+  flex-shrink: 0;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: start;
+}
+
+/* ==========================================
+   슬로건 섹션
+   ========================================== */
+
+.slogan-section {
+  background: linear-gradient(135deg, #F8F6F3 0%, #F2EFE9 100%);
+  padding: 0 10%;
+}
+
+.slogan-content {
+  max-width: 900px;
+  opacity: 0;
+  transform: translateX(100px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.slogan-section.active .slogan-content {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slogan-main {
+  font-family: var(--font-serif);
+  font-size: var(--font-display-lg);
+  color: var(--gold-accent);
+  margin-bottom: 30px;
+  line-height: var(--lh-tight);
+}
+
+.slogan-desc {
+  font-size: var(--font-body-lg);
+  color: var(--text-color);
+  line-height: var(--lh-loose);
+  margin-bottom: 60px;
+}
+
+.slogan-principle {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 40px;
+  border-left: 4px solid var(--gold-accent);
+  border-radius: 8px;
+}
+
+.slogan-principle h3 {
+  font-size: var(--font-heading-md);
+  color: var(--accent-color);
+  margin-bottom: 15px;
+}
+
+.slogan-principle p {
+  font-size: var(--font-body);
+  color: #6B635B;
+  line-height: var(--lh-relaxed);
+  margin-bottom: 10px;
+}
+
+/* ==========================================
+   장비 섹션
+   ========================================== */
+
+.equipment-section {
+  background: var(--bg-color);
+  padding: 0;
+  overflow: hidden;
+}
+
+.equipment-section .equipment-visual {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.equipment-section .equipment-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+  transition: transform 0.6s ease;
+}
+
+.equipment-section.active .equipment-visual img {
+  transform: scale(1.05);
+}
+
+.equipment-section .equipment-info {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  max-width: 800px;
+  padding: 0 60px;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease 0.2s, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+}
+
+.equipment-section.active .equipment-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.equipment-number {
+  font-size: var(--font-3xl);
+  font-weight: 300;
+  color: var(--gold-accent);
+  display: block;
+  margin-bottom: 20px;
+  letter-spacing: var(--ls-wider);
+}
+
+.equipment-title {
+  font-family: var(--font-serif);
+  font-size: var(--font-display-md);
+  margin-bottom: 30px;
+  line-height: var(--lh-tight);
+}
+
+.equipment-desc {
+  font-size: var(--font-body-lg);
+  line-height: var(--lh-loose);
+  opacity: 0.95;
+}
+
+.equipment-desc strong {
+  color: var(--gold-accent);
+  font-weight: 500;
+}
+
+.equipment-desc i {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: var(--font-md);
+  color: #D4C5A9;
+  margin: 20px 0;
+}
+
+/* ==========================================
+   스크롤 인디케이터 (선택)
+   ========================================== */
+
+.horizontal-progress {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 100;
+}
+
+.progress-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.progress-dot.active {
+  background: var(--gold-accent);
+  transform: scale(1.3);
+}
+
+📋 Phase 3: JavaScript 가로 스크롤 구현
+수정 위치: script.js (새 함수 추가)
+javascript// Horizontal Scroll for Diagnostic Tools
+let horizontalScrollHandler = null;
+
+function setupHorizontalScroll() {
+    const wrapper = document.querySelector('.horizontal-scroll-wrapper');
+    const container = document.querySelector('.horizontal-scroll-container');
+    const sections = document.querySelectorAll('.scroll-section');
+    
+    if (!wrapper || !container || sections.length === 0) return;
+    
+    // 컨테이너 너비 계산 (섹션 수 × 100vw)
+    const totalWidth = sections.length * window.innerWidth;
+    
+    // wrapper 높이를 늘려서 세로 스크롤 가능하게
+    wrapper.style.height = totalWidth + 'px';
+    
+    const handleScroll = () => {
+        const scrollY = window.scrollY;
+        const wrapperTop = wrapper.offsetTop;
+        const wrapperHeight = wrapper.offsetHeight;
+        const scrollStart = wrapperTop;
+        const scrollEnd = wrapperTop + wrapperHeight - window.innerHeight;
+        
+        // wrapper 영역 안에 있을 때만 작동
+        if (scrollY >= scrollStart && scrollY <= scrollEnd) {
+            // 세로 스크롤을 가로 이동으로 변환
+            const scrollProgress = (scrollY - scrollStart) / (scrollEnd - scrollStart);
+            const translateX = -(totalWidth - window.innerWidth) * scrollProgress;
+            
+            container.style.transform = `translateX(${translateX}px)`;
+            
+            // 현재 활성 섹션 계산
+            const currentSection = Math.floor(scrollProgress * sections.length);
+            
+            sections.forEach((section, index) => {
+                if (index === currentSection) {
+                    section.classList.add('active');
+                } else {
+                    section.classList.remove('active');
+                }
+            });
+        }
+    };
+    
+    // 기존 핸들러 정리
+    if (horizontalScrollHandler) {
+        window.removeEventListener('scroll', horizontalScrollHandler);
+    }
+    
+    horizontalScrollHandler = handleScroll;
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Lenis 스크롤과 연동
+    if (window.lenis) {
+        window.lenis.on('scroll', handleScroll);
+    }
+    
+    // 초기 상태
+    handleScroll();
+}
+
+// 기존 setupEquipmentNarrative 함수 제거하고
+// showContentView에서 diagnosis일 때 호출
+function showContentView(id) {
+    // ... 기존 코드 ...
+    
+    if (id === 'diagnosis') {
+        // HTML 생성 (Phase 1의 새 구조)
+        html = `...`;
+        
+        elems.contentBody.innerHTML = html;
+        
+        // 가로 스크롤 설정
+        setupHorizontalScroll();
+    }
+    
+    // ... 나머지 코드 ...
+}
+
+📋 Phase 4: 정리 및 최적화
+제거할 코드:
+
+style.css 2184-2403줄: 기존 .equipment-narrative 스타일
+script.js 926-974줄: 기존 setupEquipmentNarrative() 함수
+
+추가 최적화:
+javascript// Cleanup on page change
+function showHomeView(skipPushState = false) {
+    // ... 기존 코드 ...
+    
+    // 가로 스크롤 핸들러 정리
+    if (horizontalScrollHandler) {
+        window.removeEventListener('scroll', horizontalScrollHandler);
+        if (window.lenis) {
+            window.lenis.off('scroll', horizontalScrollHandler);
+        }
+        horizontalScrollHandler = null;
+    }
+    
+    // ... 나머지 코드 ...
+}
+
+모바일 대응
+작은 화면에서는 세로 스크롤 유지:
+css@media (max-width: 768px) {
+    .horizontal-scroll-container {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        transform: none !important;
+    }
+    
+    .scroll-section {
+        width: 100%;
+        min-height: 100vh;
+        height: auto;
+    }
+    
+    .horizontal-scroll-wrapper {
+        height: auto !important;
+    }
+}
+```
+
+---
+
+## 🎯 최종 실행 순서
+
+### 1단계: HTML 구조 변경
+- script.js의 `diagnosis` HTML 생성 부분 수정
+
+### 2단계: CSS 스타일 추가
+- 가로 스크롤 컨테이너 스타일
+- 슬로건 섹션 스타일
+- 장비 섹션 스타일
+
+### 3단계: JavaScript 로직 구현
+- `setupHorizontalScroll()` 함수 추가
+- 기존 함수 제거
+
+### 4단계: 테스트 및 최적화
+- 부드러운 스크롤 확인
+- 섹션 전환 타이밍 조정
+- 모바일 대응 확인
+
+---
+
+## 예상 효과
+```
+✨ 사용자 경험:
+스크롤 다운 → 화면이 우측으로 슬라이드
+             → 슬로건 등장 (우→좌 페이드인)
+             → 계속 스크롤
+             → 장비 하나씩 전체 화면으로 등장
+             → 이미지 배경 + 텍스트 오버레이
+             → 부드러운 전환
