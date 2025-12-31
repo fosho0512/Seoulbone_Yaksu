@@ -2189,6 +2189,7 @@ body::before {
     position: sticky;
     top: 0;
     height: 100vh;
+    width: 100vw;
     overflow: hidden;
 }
 
@@ -2196,8 +2197,8 @@ body::before {
     display: flex;
     flex-direction: row;
     height: 100%;
+    width: 200vw;
     will-change: transform;
-    transition: transform 0.1s linear;
 }
 
 .scroll-section {
@@ -2207,7 +2208,67 @@ body::before {
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+/* Hero Duplicate Section */
+.hero-duplicate-section {
+    justify-content: flex-start;
+}
+
+.hero-dup-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-dup-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.85) contrast(1.1) brightness(0.95);
+}
+
+.hero-dup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(44, 41, 38, 0.1) 0%, rgba(44, 41, 38, 0.4) 100%);
+    z-index: 2;
+}
+
+.hero-dup-text {
+    position: relative;
+    z-index: 10;
+    padding-left: 8%;
+}
+
+.hero-dup-text h2 {
+    font-family: var(--font-serif);
+    font-size: var(--font-display-lg);
+    font-weight: 400;
+    color: #fff;
+    letter-spacing: var(--ls-wide);
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: inline-block;
+    padding-bottom: 18px;
+}
+
+.hero-dup-text h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 4ch;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.7);
 }
 
 /* Slogan Section */
@@ -2321,74 +2382,82 @@ body::before {
     line-height: var(--lh-relaxed);
 }
 
-/* Equipment Section */
-.equipment-section {
-    justify-content: flex-start;
-    padding-left: 8%;
+/* =========================================
+   Equipment Narrative (Sticky Image + Scroll Text)
+   ========================================= */
+.equipment-narrative {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    padding: 100px 6%;
+    background: var(--bg-color);
+    min-height: 100vh;
 }
 
-.equipment-visual {
+.sticky-image-wrapper {
+    position: relative;
+}
+
+.sticky-image {
+    position: sticky;
+    top: 120px;
+    height: calc(100vh - 200px);
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.sticky-image img {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
-
-.equipment-visual img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scale(1.05);
-    transition: transform 1s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-.equipment-section.active .equipment-visual img {
-    transform: scale(1);
-}
-
-.equipment-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
-    z-index: 2;
-}
-
-.equipment-info {
-    position: relative;
-    z-index: 3;
-    max-width: 600px;
-    color: #fff;
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) 0.2s,
-                transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1) 0.2s;
+    transition: opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-.equipment-section.active .equipment-info {
+.sticky-image img.active {
     opacity: 1;
-    transform: translateY(0);
+}
+
+.equipment-steps {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.equipment-step {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 0;
+    opacity: 0.3;
+    transition: opacity 0.5s ease;
+}
+
+.equipment-step.active {
+    opacity: 1;
 }
 
 .equipment-number {
     font-family: var(--font-serif);
-    font-size: var(--font-4xl);
+    font-size: var(--font-3xl);
     color: var(--gold-accent);
     font-weight: 300;
     letter-spacing: var(--ls-wider);
     display: block;
-    margin-bottom: 15px;
-    opacity: 0.8;
+    margin-bottom: 20px;
 }
 
 .equipment-title {
     font-family: var(--font-serif);
-    font-size: var(--font-display-md);
-    color: #fff;
+    font-size: var(--font-heading-lg);
+    color: var(--gold-accent);
     margin-bottom: 10px;
     font-weight: 400;
     line-height: var(--lh-tight);
@@ -2397,7 +2466,7 @@ body::before {
 
 .equipment-subtitle {
     font-size: var(--font-body-sm);
-    color: rgba(255,255,255,0.6);
+    color: #8B8378;
     margin-bottom: 25px;
     letter-spacing: var(--ls-wider);
     text-transform: uppercase;
@@ -2406,15 +2475,15 @@ body::before {
 .equipment-slogan {
     font-family: var(--font-quote);
     font-size: var(--font-body-lg);
-    color: var(--gold-accent);
-    margin-bottom: 30px;
+    color: var(--accent-color);
+    margin-bottom: 25px;
     font-style: italic;
     line-height: var(--lh-normal);
 }
 
 .equipment-desc {
     font-size: var(--font-body);
-    color: rgba(255,255,255,0.9);
+    color: #6B635B;
     line-height: var(--lh-loose);
 }
 
@@ -2453,7 +2522,7 @@ body::before {
     transform: scale(1.3);
 }
 
-/* Mobile Responsive */
+/* Mobile Responsive - Horizontal Scroll */
 @media (max-width: 1024px) {
     .slogan-section {
         padding-right: 6%;
@@ -2463,12 +2532,9 @@ body::before {
         max-width: 450px;
     }
     
-    .equipment-section {
-        padding-left: 6%;
-    }
-    
-    .equipment-info {
-        max-width: 500px;
+    .equipment-narrative {
+        gap: 40px;
+        padding: 80px 5%;
     }
 }
 
@@ -2480,10 +2546,12 @@ body::before {
     .horizontal-scroll-wrapper {
         position: relative;
         height: auto;
+        width: 100%;
     }
     
     .horizontal-scroll-container {
         flex-direction: column;
+        width: 100%;
         transform: none !important;
     }
     
@@ -2493,6 +2561,10 @@ body::before {
         height: auto;
         justify-content: center;
         padding: 80px 6%;
+    }
+    
+    .hero-duplicate-section {
+        display: none;
     }
     
     .slogan-section {
@@ -2522,23 +2594,33 @@ body::before {
         text-align: center;
     }
     
-    .equipment-section {
-        padding: 100px 6%;
-        justify-content: center;
+    .horizontal-progress {
+        display: none;
     }
     
-    .equipment-info {
-        max-width: 100%;
-        text-align: center;
+    .equipment-narrative {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 60px 6%;
+    }
+    
+    .sticky-image-wrapper {
+        order: -1;
+    }
+    
+    .sticky-image {
+        position: relative;
+        top: 0;
+        height: 50vh;
+    }
+    
+    .equipment-step {
+        min-height: auto;
+        padding: 40px 0;
         opacity: 1;
-        transform: none;
     }
     
     .equipment-title {
-        font-size: var(--font-heading-lg);
-    }
-    
-    .horizontal-progress {
-        display: none;
+        font-size: var(--font-heading-md);
     }
 }

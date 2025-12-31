@@ -1,0 +1,635 @@
+원하는 동작 재분석
+🎯 정확한 워크플로우:
+1. 서브히어로 (100vh)
+      ↓ 스크롤 다운
+   [가로 스크롤 전환]
+      ↓
+2. 슬로건 섹션 (100vh) - 우측에서 등장
+      ↓ 스크롤 다운
+   [세로 스크롤로 복귀]
+      ↓
+3. 장비 내러티브 영역
+   - 좌측: 이미지 sticky (고정)
+   - 우측: 텍스트 스크롤
+   - 장비 01 → 02 → 03 → 04
+     (이미지 페이드 전환 + 텍스트 전환)
+핵심 포인트:
+
+✅ 1단계: 서브히어로 → 슬로건 (가로 스크롤)
+✅ 2단계: 슬로건 → 장비 (세로 스크롤)
+✅ 3단계: 장비 영역은 기존 방식 유지 (sticky 이미지 + 스크롤 텍스트)
+
+
+구현 전략
+구조:
+html<서브히어로 섹션>
+    ↓
+<가로 스크롤 영역> (서브히어로 + 슬로건만)
+    - 섹션 1: 서브히어로 복제
+    - 섹션 2: 슬로건
+</가로 스크롤 영역>
+    ↓
+<장비 내러티브 영역> (기존 방식)
+    - sticky 이미지
+    - 스크롤 텍스트
+
+수정된 코드
+수정 1: HTML 구조 (script.js)
+javascriptelse if (id === 'diagnosis') {
+    html = `
+        <!-- 1. 서브히어로 (가로 스크롤 시작점) -->
+        <div class="sub-hero" id="diagnosis-sub-hero">
+            <div class="sub-hero-image">
+                <img src="images/diagnosis-hero.png" alt="Diagnostic Tools Hero">
+            </div>
+            <div class="sub-hero-overlay"></div>
+            <div class="sub-hero-text">
+                <h2>${data.title}</h2>
+            </div>
+            <div class="scroll-indicator">
+                <div class="scroll-indicator-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 5v14M5 12l7 7 7-7"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 2. 가로 스크롤 영역 (서브히어로 → 슬로건) -->
+        <div class="horizontal-scroll-outer">
+            <div class="horizontal-scroll-wrapper">
+                <div class="horizontal-scroll-container">
+                    
+                    <!-- 섹션 1: 서브히어로 복제 (가로 스크롤용) -->
+                    <section class="scroll-section hero-duplicate-section">
+                        <div class="sub-hero-image">
+                            <img src="images/diagnosis-hero.png" alt="Diagnostic Tools Hero">
+                        </div>
+                        <div class="sub-hero-overlay"></div>
+                        <div class="sub-hero-text">
+                            <h2>${data.title}</h2>
+                        </div>
+                    </section>
+                    
+                    <!-- 섹션 2: 슬로건 -->
+                    <section class="scroll-section slogan-section">
+                        <div class="slogan-bg">
+                            <img src="images/diagnosis-slogan.png" alt="Slogan Background">
+                        </div>
+                        <div class="slogan-overlay"></div>
+                        <div class="slogan-content">
+                            <h2 class="slogan-main">정확한 진단이<br>완치의 시작입니다</h2>
+                            <p class="slogan-desc">
+                                최첨단 진단 장비에 아낌없이 투자하여<br>
+                                통증의 근본 원인을 빠르고 정확하게 찾아냅니다.
+                            </p>
+                            <div class="slogan-principle">
+                                <h3>★ 우리의 원칙: 모든 시술의 영상 가이드화</h3>
+                                <p class="principle-subtitle">(Image-Guided Injection)</p>
+                                <p class="principle-desc">
+                                    감이나 경험에만 의존하는 '블라인드 주사'를 지양합니다. 
+                                    모든 시술은 초음파나 C-arm 실시간 영상을 보며 진행하여 
+                                    독보적인 안전성을 확보합니다.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <!-- 3. 장비 내러티브 영역 (기존 방식) -->
+        <div class="equipment-narrative">
+            <div class="sticky-image-wrapper">
+                <div class="sticky-image" id="equipment-image">
+                    <img src="${data.details[0].img}" alt="Equipment">
+                </div>
+            </div>
+            <div class="equipment-steps">
+                ${data.details.map((equipment, index) => `
+                    <div class="equipment-step" data-index="${index}">
+                        <span class="equipment-number">${String(index + 1).padStart(2, '0')}</span>
+                        <h3 class="equipment-title">${equipment.t}</h3>
+                        <div class="equipment-desc">${equipment.d}</div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+    
+    // ... 생략 ...
+}
+
+수정 2: CSS 스타일 (style.css)
+css/* ==========================================
+   Diagnosis Page - Sub Hero
+   ========================================== */
+
+.sub-hero#diagnosis-sub-hero {
+    position: relative;
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    margin-top: 0;
+    background-color: var(--bg-color);
+}
+
+/* ==========================================
+   Horizontal Scroll (서브히어로 → 슬로건만)
+   ========================================== */
+
+.horizontal-scroll-outer {
+    position: relative;
+    width: 100%;
+    /* JS에서 height 설정: 2 * 100vh (2개 섹션) */
+}
+
+.horizontal-scroll-wrapper {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.horizontal-scroll-container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 200vw; /* 2개 섹션 */
+    will-change: transform;
+}
+
+.scroll-section {
+    flex-shrink: 0;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 히어로 복제 섹션 (가로 스크롤용) */
+.hero-duplicate-section {
+    overflow: hidden;
+}
+
+.hero-duplicate-section .sub-hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-duplicate-section .sub-hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.85) contrast(1.1) brightness(0.95);
+}
+
+.hero-duplicate-section .sub-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(44, 41, 38, 0.1) 0%, rgba(44, 41, 38, 0.4) 100%);
+    z-index: 2;
+}
+
+.hero-duplicate-section .sub-hero-text {
+    position: relative;
+    z-index: 10;
+    color: #fff;
+    padding-left: 60px;
+    align-self: center;
+}
+
+.hero-duplicate-section .sub-hero-text h2 {
+    font-family: var(--font-serif);
+    font-size: var(--font-display-lg);
+    font-weight: 400;
+    letter-spacing: var(--ls-wide);
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: inline-block;
+    padding-bottom: 18px;
+}
+
+.hero-duplicate-section .sub-hero-text h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 4ch;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+/* 슬로건 섹션 */
+.slogan-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.slogan-section .slogan-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.slogan-section .slogan-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slogan-section .slogan-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+        rgba(248, 246, 243, 0.95) 0%, 
+        rgba(242, 239, 233, 0.9) 100%);
+    z-index: 2;
+}
+
+.slogan-section .slogan-content {
+    position: relative;
+    z-index: 3;
+    max-width: 900px;
+    padding: 0 60px;
+}
+
+.slogan-main {
+    font-family: var(--font-serif);
+    font-size: var(--font-display-lg);
+    color: var(--gold-accent);
+    margin-bottom: 30px;
+    line-height: var(--lh-tight);
+}
+
+.slogan-desc {
+    font-size: var(--font-body-lg);
+    color: var(--text-color);
+    line-height: var(--lh-loose);
+    margin-bottom: 60px;
+}
+
+.slogan-principle {
+    background: rgba(255, 255, 255, 0.7);
+    padding: 40px;
+    border-left: 4px solid var(--gold-accent);
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+}
+
+.slogan-principle h3 {
+    font-size: var(--font-heading-md);
+    color: var(--accent-color);
+    margin-bottom: 10px;
+}
+
+.slogan-principle .principle-subtitle {
+    font-size: var(--font-body);
+    color: var(--gold-accent);
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.slogan-principle .principle-desc {
+    font-size: var(--font-body);
+    color: #6B635B;
+    line-height: var(--lh-relaxed);
+}
+
+/* ==========================================
+   Equipment Narrative (기존 방식 유지)
+   ========================================== */
+
+.equipment-narrative {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    padding: 0 6%;
+    background: var(--bg-color);
+}
+
+.sticky-image-wrapper {
+    position: relative;
+    height: 400vh; /* 4개 장비 * 100vh */
+}
+
+.sticky-image {
+    position: sticky;
+    top: 120px;
+    height: calc(100vh - 240px);
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.sticky-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.5s ease;
+}
+
+.equipment-steps {
+    position: relative;
+}
+
+.equipment-step {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 0;
+    opacity: 0.3;
+    transition: opacity 0.5s ease;
+}
+
+.equipment-step.active {
+    opacity: 1;
+}
+
+.equipment-number {
+    font-size: var(--font-2xl);
+    font-weight: 300;
+    color: var(--gold-accent);
+    display: block;
+    margin-bottom: 20px;
+    letter-spacing: var(--ls-wider);
+}
+
+.equipment-title {
+    font-family: var(--font-serif);
+    font-size: var(--font-heading-lg);
+    color: var(--gold-accent);
+    margin-bottom: 30px;
+    line-height: var(--lh-tight);
+}
+
+.equipment-desc {
+    font-size: var(--font-body);
+    line-height: var(--lh-relaxed);
+    color: #6B635B;
+}
+
+.equipment-desc strong {
+    color: var(--text-color);
+    font-weight: 500;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.equipment-desc i {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: var(--font-body);
+    color: var(--gold-accent);
+    margin: 15px 0;
+    font-style: italic;
+}
+
+수정 3: JavaScript (script.js)
+javascript// Horizontal Scroll for Hero → Slogan transition
+let horizontalScrollHandler = null;
+
+function setupHorizontalScroll() {
+    const outer = document.querySelector('.horizontal-scroll-outer');
+    const wrapper = document.querySelector('.horizontal-scroll-wrapper');
+    const container = document.querySelector('.horizontal-scroll-container');
+    
+    if (!outer || !wrapper || !container) return;
+    
+    // 2개 섹션 (히어로 복제 + 슬로건)
+    const totalSections = 2;
+    const totalHeight = totalSections * window.innerHeight;
+    
+    outer.style.height = totalHeight + 'px';
+    
+    function handleScroll() {
+        const outerRect = outer.getBoundingClientRect();
+        const scrollStart = -outerRect.top;
+        const scrollEnd = totalHeight - window.innerHeight;
+        
+        if (scrollStart >= 0 && scrollStart <= scrollEnd) {
+            const progress = scrollStart / scrollEnd;
+            const translateX = -progress * window.innerWidth;
+            
+            container.style.transform = `translateX(${translateX}px)`;
+        }
+    }
+    
+    if (horizontalScrollHandler) {
+        window.removeEventListener('scroll', horizontalScrollHandler);
+        if (window.lenis) {
+            window.lenis.off('scroll', horizontalScrollHandler);
+        }
+    }
+    
+    horizontalScrollHandler = handleScroll;
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    if (window.lenis) {
+        window.lenis.on('scroll', handleScroll);
+    }
+    
+    handleScroll();
+}
+
+// Equipment Narrative (기존 코드 유지)
+let equipmentScrollHandler = null;
+
+function setupEquipmentNarrative() {
+    const narrative = document.querySelector('.equipment-narrative');
+    const stickyImage = document.getElementById('equipment-image');
+    const steps = document.querySelectorAll('.equipment-step');
+    
+    if (!narrative || !stickyImage || steps.length === 0) return;
+    
+    const equipmentData = siteData.content.diagnosis.details;
+    
+    function handleScroll() {
+        const narrativeRect = narrative.getBoundingClientRect();
+        const triggerPoint = window.innerHeight / 2;
+        
+        steps.forEach((step, index) => {
+            const stepRect = step.getBoundingClientRect();
+            const stepCenter = stepRect.top + stepRect.height / 2;
+            
+            if (Math.abs(stepCenter - triggerPoint) < window.innerHeight / 3) {
+                // 활성화
+                steps.forEach(s => s.classList.remove('active'));
+                step.classList.add('active');
+                
+                // 이미지 전환
+                const currentImg = stickyImage.querySelector('img');
+                const newSrc = equipmentData[index].img;
+                
+                if (currentImg.src.indexOf(newSrc) === -1) {
+                    currentImg.style.opacity = '0';
+                    setTimeout(() => {
+                        currentImg.src = newSrc;
+                        currentImg.style.opacity = '1';
+                    }, 300);
+                }
+            }
+        });
+    }
+    
+    if (equipmentScrollHandler) {
+        window.removeEventListener('scroll', equipmentScrollHandler);
+        if (window.lenis) {
+            window.lenis.off('scroll', equipmentScrollHandler);
+        }
+    }
+    
+    equipmentScrollHandler = handleScroll;
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    if (window.lenis) {
+        window.lenis.on('scroll', handleScroll);
+    }
+    
+    handleScroll();
+}
+
+// Cleanup
+function cleanupDiagnosisScroll() {
+    if (horizontalScrollHandler) {
+        window.removeEventListener('scroll', horizontalScrollHandler);
+        if (window.lenis) {
+            window.lenis.off('scroll', horizontalScrollHandler);
+        }
+        horizontalScrollHandler = null;
+    }
+    
+    if (equipmentScrollHandler) {
+        window.removeEventListener('scroll', equipmentScrollHandler);
+        if (window.lenis) {
+            window.lenis.off('scroll', equipmentScrollHandler);
+        }
+        equipmentScrollHandler = null;
+    }
+}
+
+// showContentView에서 호출
+function showContentView(id) {
+    // ... 기존 코드 ...
+    
+    if (id === 'diagnosis') {
+        // HTML 생성 (위의 새 구조)
+        html = `...`;
+        
+        elems.contentBody.innerHTML = html;
+        
+        // 가로 스크롤 + 장비 내러티브 설정
+        setupSubHeroScrollEffect();
+        setupHorizontalScroll();
+        setupEquipmentNarrative();
+    }
+    
+    // ... 나머지 코드 ...
+}
+
+// showHomeView에서 cleanup
+function showHomeView(skipPushState = false) {
+    // ... 기존 코드 ...
+    
+    cleanupDiagnosisScroll();
+    
+    // ... 나머지 코드 ...
+}
+
+모바일 대응
+css@media (max-width: 768px) {
+    .horizontal-scroll-outer {
+        height: auto !important;
+    }
+    
+    .horizontal-scroll-wrapper {
+        position: relative;
+        height: auto;
+    }
+    
+    .horizontal-scroll-container {
+        flex-direction: column;
+        width: 100%;
+        transform: none !important;
+    }
+    
+    .scroll-section {
+        width: 100%;
+        min-height: 100vh;
+    }
+    
+    .slogan-section .slogan-content {
+        padding: 0 25px;
+    }
+    
+    .equipment-narrative {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 40px 6%;
+    }
+    
+    .sticky-image-wrapper {
+        height: auto;
+    }
+    
+    .sticky-image {
+        position: relative;
+        top: 0;
+        height: 300px;
+        margin-bottom: 40px;
+    }
+    
+    .equipment-step {
+        min-height: auto;
+        opacity: 1;
+    }
+}
+```
+
+---
+
+## 최종 흐름 정리
+```
+1. 서브히어로 (100vh)
+   └─ 일반 세로 스크롤
+   
+2. 가로 스크롤 영역 시작
+   ├─ 히어로 복제 (100vh) ← 서브히어로와 동일
+   │  └─ 스크롤 다운 → 좌측으로 슬라이드
+   │
+   └─ 슬로건 (100vh) ← 우측에서 등장
+      └─ 스크롤 다운 → 가로 스크롤 종료
+   
+3. 장비 내러티브 (세로 스크롤)
+   ├─ 좌측: Sticky 이미지
+   ├─ 우측: 스크롤 텍스트
+   ├─ 장비 01 (100vh) → 이미지 페이드 전환
+   ├─ 장비 02 (100vh) → 이미지 페이드 전환
+   ├─ 장비 03 (100vh) → 이미지 페이드 전환
+   └─ 장비 04 (100vh) → 이미지 페이드 전환

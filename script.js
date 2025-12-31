@@ -221,6 +221,16 @@ function showContentView(id) {
                 <div class="horizontal-scroll-wrapper">
                     <div class="horizontal-scroll-container">
                         
+                        <section class="scroll-section hero-duplicate-section">
+                            <div class="hero-dup-image">
+                                <img src="images/diagnosis-hero.png" alt="${data.title}">
+                            </div>
+                            <div class="hero-dup-overlay"></div>
+                            <div class="hero-dup-text">
+                                <h2>${data.title}</h2>
+                            </div>
+                        </section>
+                        
                         <section class="scroll-section slogan-section">
                             <div class="slogan-bg">
                                 <img src="images/diagnosis-slogan.png" alt="Slogan Background">
@@ -237,71 +247,48 @@ function showContentView(id) {
                             </div>
                         </section>
                         
-                        <section class="scroll-section equipment-section" data-index="0">
-                            <div class="equipment-visual">
-                                <img src="images/diagnosis_xray.jpg" alt="X-ray">
-                            </div>
-                            <div class="equipment-overlay"></div>
-                            <div class="equipment-info">
-                                <span class="equipment-number">01</span>
-                                <h3 class="equipment-title">고해상도 디지털 X-ray</h3>
-                                <p class="equipment-subtitle">High-Resolution Digital X-ray</p>
-                                <p class="equipment-slogan">"뼈와 관절 상태를 확인하는 가장 기초적이고 필수적인 검사"</p>
-                                <p class="equipment-desc">기존 필름 방식 대비 방사선 피폭량을 현저히 줄여 안전성을 높인 최신 디지털 X-ray 장비입니다. 촬영 즉시 고해상도의 선명한 영상을 획득하여 골절, 관절염, 척추 변형 등 골격계의 구조적인 이상 유무를 신속하고 정확하게 평가합니다.</p>
-                            </div>
-                        </section>
-                        
-                        <section class="scroll-section equipment-section" data-index="1">
-                            <div class="equipment-visual">
-                                <img src="images/diagnosis_ultra.jpg" alt="Ultrasound">
-                            </div>
-                            <div class="equipment-overlay"></div>
-                            <div class="equipment-info">
-                                <span class="equipment-number">02</span>
-                                <h3 class="equipment-title">프리미엄 초음파 진단기</h3>
-                                <p class="equipment-subtitle">Premium Musculoskeletal Ultrasound (3 Units)</p>
-                                <p class="equipment-slogan">"진료실에서 대기 없이 즉시 확인하는 '의사의 제2의 눈'"</p>
-                                <p class="equipment-desc">X-ray로는 확인이 어려운 근육, 힘줄, 인대, 신경 등 연부 조직의 손상과 염증을 정밀하게 관찰합니다. 하이엔드급 초음파 장비를 총 3대 보유하여 각 진료실에 배치, 진료 상담 도중 즉각적으로 아픈 부위를 확인하고 설명해 드립니다.</p>
-                            </div>
-                        </section>
-                        
-                        <section class="scroll-section equipment-section" data-index="2">
-                            <div class="equipment-visual">
-                                <img src="images/diagnosis_carm.jpg" alt="C-arm">
-                            </div>
-                            <div class="equipment-overlay"></div>
-                            <div class="equipment-info">
-                                <span class="equipment-number">03</span>
-                                <h3 class="equipment-title">C-arm 실시간 투시 영상</h3>
-                                <p class="equipment-subtitle">C-arm Fluoroscopy with SELD</p>
-                                <p class="equipment-slogan">"정확도는 높이고 피폭은 최소화한, 안전한 비수술 치료의 핵심"</p>
-                                <p class="equipment-desc">마치 우리 몸속을 실시간 동영상으로 보는 것과 같은 투시 장비입니다. 척추나 관절의 깊숙한 부위에 시술 시, 네비게이션처럼 바늘의 위치를 실시간으로 정확하게 안내합니다. 최신 저선량(SELD) 탑재로 방사선 노출을 획기적으로 줄였습니다.</p>
-                            </div>
-                        </section>
-                        
-                        <section class="scroll-section equipment-section" data-index="3">
-                            <div class="equipment-visual">
-                                <img src="images/diagnosis_emg.jpg" alt="EMG">
-                            </div>
-                            <div class="equipment-overlay"></div>
-                            <div class="equipment-info">
-                                <span class="equipment-number">04</span>
-                                <h3 class="equipment-title">신경전도/근전도 검사</h3>
-                                <p class="equipment-subtitle">NCS / EMG Machine</p>
-                                <p class="equipment-slogan">"눈에 보이지 않는 신경과 근육의 기능적 이상을 찾아내는 정밀 검사"</p>
-                                <p class="equipment-desc">영상 검사만으로는 알 수 없는 신경의 기능적 상태를 전기적 신호를 통해 평가합니다. 손발 저림, 감각 이상, 근력 약화 등이 있을 때, 신경 문제인지 근육 문제인지, 손상 위치와 정도를 명확하게 감별 진단합니다.</p>
-                            </div>
-                        </section>
-                        
                     </div>
                 </div>
-                
-                <div class="horizontal-progress">
-                    <div class="progress-dot active" data-index="0"></div>
-                    <div class="progress-dot" data-index="1"></div>
-                    <div class="progress-dot" data-index="2"></div>
-                    <div class="progress-dot" data-index="3"></div>
-                    <div class="progress-dot" data-index="4"></div>
+            </div>
+            
+            <div class="equipment-narrative">
+                <div class="sticky-image-wrapper">
+                    <div class="sticky-image" id="equipment-image">
+                        <img src="${data.details[0].img}" alt="Equipment" class="active">
+                        <img src="${data.details[1].img}" alt="Equipment">
+                        <img src="${data.details[2].img}" alt="Equipment">
+                        <img src="${data.details[3].img}" alt="Equipment">
+                    </div>
+                </div>
+                <div class="equipment-steps">
+                    <div class="equipment-step active" data-index="0">
+                        <span class="equipment-number">01</span>
+                        <h3 class="equipment-title">고해상도 디지털 X-ray</h3>
+                        <p class="equipment-subtitle">High-Resolution Digital X-ray</p>
+                        <p class="equipment-slogan">"뼈와 관절 상태를 확인하는 가장 기초적이고 필수적인 검사"</p>
+                        <p class="equipment-desc">기존 필름 방식 대비 방사선 피폭량을 현저히 줄여 안전성을 높인 최신 디지털 X-ray 장비입니다. 촬영 즉시 고해상도의 선명한 영상을 획득하여 골절, 관절염, 척추 변형 등 골격계의 구조적인 이상 유무를 신속하고 정확하게 평가합니다.</p>
+                    </div>
+                    <div class="equipment-step" data-index="1">
+                        <span class="equipment-number">02</span>
+                        <h3 class="equipment-title">프리미엄 초음파 진단기</h3>
+                        <p class="equipment-subtitle">Premium Musculoskeletal Ultrasound (3 Units)</p>
+                        <p class="equipment-slogan">"진료실에서 대기 없이 즉시 확인하는 '의사의 제2의 눈'"</p>
+                        <p class="equipment-desc">X-ray로는 확인이 어려운 근육, 힘줄, 인대, 신경 등 연부 조직의 손상과 염증을 정밀하게 관찰합니다. 하이엔드급 초음파 장비를 총 3대 보유하여 각 진료실에 배치, 진료 상담 도중 즉각적으로 아픈 부위를 확인하고 설명해 드립니다.</p>
+                    </div>
+                    <div class="equipment-step" data-index="2">
+                        <span class="equipment-number">03</span>
+                        <h3 class="equipment-title">C-arm 실시간 투시 영상</h3>
+                        <p class="equipment-subtitle">C-arm Fluoroscopy with SELD Technology</p>
+                        <p class="equipment-slogan">"정확도는 높이고 피폭은 최소화한, 안전한 비수술 치료의 핵심"</p>
+                        <p class="equipment-desc">몸속을 실시간 동영상으로 보는 투시 장비입니다. 척추나 관절 깊숙한 부위에 시술 시, 바늘 위치를 네비게이션처럼 정확하게 안내합니다. 최신 저선량(SELD) 기술 탑재로 방사선 노출을 획기적으로 줄였습니다.</p>
+                    </div>
+                    <div class="equipment-step" data-index="3">
+                        <span class="equipment-number">04</span>
+                        <h3 class="equipment-title">신경전도 및 근전도 검사</h3>
+                        <p class="equipment-subtitle">Nerve Conduction Study & Electromyography</p>
+                        <p class="equipment-slogan">"눈에 보이지 않는 신경과 근육의 기능적 이상을 찾아내는 정밀 검사"</p>
+                        <p class="equipment-desc">MRI나 X-ray만으로는 알 수 없는 신경의 기능적 상태를 전기적 신호로 평가합니다. 손발 저림, 근력 약화 등이 신경 문제인지 근육 문제인지, 손상 위치와 정도를 명확하게 감별 진단합니다.</p>
+                    </div>
                 </div>
             </div>
         `;
@@ -957,114 +944,76 @@ function cleanupValuesSlider() {
     }
 }
 
-// Horizontal Scroll for Diagnostic Tools
+// Horizontal Scroll for Diagnostic Tools (Hero → Slogan only)
 let horizontalScrollHandler = null;
 let horizontalResizeHandler = null;
+let horizontalLenisHandler = null;
 
 function setupHorizontalScroll() {
     const outer = document.querySelector('.horizontal-scroll-outer');
     const wrapper = document.querySelector('.horizontal-scroll-wrapper');
     const container = document.querySelector('.horizontal-scroll-container');
     const sections = document.querySelectorAll('.scroll-section');
-    const progressDots = document.querySelectorAll('.horizontal-progress .progress-dot');
-    const progressContainer = document.querySelector('.horizontal-progress');
+    const sloganSection = document.querySelector('.slogan-section');
     
     if (!outer || !wrapper || !container || sections.length === 0) return;
     
     // Check if mobile (disable horizontal scroll)
     if (window.innerWidth <= 768) {
         sections.forEach(s => s.classList.add('active'));
+        setupEquipmentNarrative();
         return;
     }
     
-    const totalSections = sections.length;
-    const scrollHeight = (totalSections - 1) * window.innerHeight;
+    // 2 sections only (hero duplicate + slogan)
+    const scrollHeight = window.innerHeight;
     
     // Set outer height for scroll area
     outer.style.height = (scrollHeight + window.innerHeight) + 'px';
-    
-    let currentSection = -1;
     
     function handleScroll() {
         const outerRect = outer.getBoundingClientRect();
         const scrollStart = -outerRect.top;
         const scrollEnd = scrollHeight;
         
-        // Check if in scroll zone
         if (scrollStart >= 0 && scrollStart <= scrollEnd) {
-            // Show progress dots
-            if (progressContainer) progressContainer.classList.add('visible');
-            
-            // Calculate progress (0 to 1)
             const progress = Math.max(0, Math.min(1, scrollStart / scrollEnd));
-            
-            // Calculate translateX
-            const maxTranslate = (totalSections - 1) * window.innerWidth;
-            const translateX = -progress * maxTranslate;
+            const translateX = -progress * window.innerWidth;
             
             container.style.transform = `translateX(${translateX}px)`;
             
-            // Determine active section
-            const sectionIndex = Math.min(
-                Math.floor(progress * totalSections),
-                totalSections - 1
-            );
-            
-            if (sectionIndex !== currentSection) {
-                currentSection = sectionIndex;
-                
-                sections.forEach((section, i) => {
-                    if (i === sectionIndex) {
-                        section.classList.add('active');
-                    } else {
-                        section.classList.remove('active');
-                    }
-                });
-                
-                progressDots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === sectionIndex);
-                });
+            // Activate slogan section when mostly visible
+            if (progress > 0.3 && sloganSection) {
+                sloganSection.classList.add('active');
+            } else if (sloganSection) {
+                sloganSection.classList.remove('active');
             }
         } else if (scrollStart < 0) {
-            // Before scroll zone
-            if (progressContainer) progressContainer.classList.remove('visible');
             container.style.transform = 'translateX(0)';
-            sections.forEach(s => s.classList.remove('active'));
-            currentSection = -1;
+            if (sloganSection) sloganSection.classList.remove('active');
         } else {
-            // After scroll zone
-            if (progressContainer) progressContainer.classList.remove('visible');
-            const maxTranslate = (totalSections - 1) * window.innerWidth;
-            container.style.transform = `translateX(${-maxTranslate}px)`;
-            sections.forEach((s, i) => {
-                s.classList.toggle('active', i === totalSections - 1);
-            });
+            container.style.transform = `translateX(${-window.innerWidth}px)`;
+            if (sloganSection) sloganSection.classList.add('active');
         }
     }
     
-    // Cleanup existing handler
+    // Cleanup existing handlers
     if (horizontalScrollHandler) {
         window.removeEventListener('scroll', horizontalScrollHandler);
     }
+    if (horizontalLenisHandler && window.lenis) {
+        window.lenis.off('scroll', horizontalLenisHandler);
+    }
     
     horizontalScrollHandler = handleScroll;
+    horizontalLenisHandler = handleScroll;
     window.addEventListener('scroll', handleScroll, { passive: true });
     
-    // Progress dot click
-    progressDots.forEach((dot, i) => {
-        dot.addEventListener('click', () => {
-            const targetProgress = i / (totalSections - 1);
-            const scrollTarget = outer.offsetTop + (scrollHeight * targetProgress);
-            
-            if (window.lenis) {
-                window.lenis.scrollTo(scrollTarget, { duration: 1 });
-            } else {
-                window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
-            }
-        });
-    });
+    if (window.lenis) {
+        window.lenis.on('scroll', horizontalLenisHandler);
+    }
     
-    // Resize handler to recalculate dimensions
+    // Resize handler
     if (horizontalResizeHandler) {
         window.removeEventListener('resize', horizontalResizeHandler);
     }
@@ -1073,9 +1022,7 @@ function setupHorizontalScroll() {
     horizontalResizeHandler = () => {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
-            // Recalculate scroll height on resize
-            const newScrollHeight = (totalSections - 1) * window.innerHeight;
-            outer.style.height = (newScrollHeight + window.innerHeight) + 'px';
+            outer.style.height = (window.innerHeight * 2) + 'px';
             handleScroll();
         }, 150);
     };
@@ -1083,6 +1030,59 @@ function setupHorizontalScroll() {
     
     // Initial state
     handleScroll();
+    
+    // Also setup equipment narrative
+    setupEquipmentNarrative();
+}
+
+// Equipment Narrative (Sticky Image + Scroll Text)
+let equipmentScrollHandler = null;
+let equipmentLenisHandler = null;
+
+function setupEquipmentNarrative() {
+    const steps = document.querySelectorAll('.equipment-step');
+    const images = document.querySelectorAll('.sticky-image img');
+    
+    if (steps.length === 0 || images.length === 0) return;
+    
+    function handleEquipmentScroll() {
+        const viewportMiddle = window.innerHeight / 2;
+        
+        steps.forEach((step, index) => {
+            const rect = step.getBoundingClientRect();
+            
+            // Check if step is in the middle of the viewport
+            if (rect.top < viewportMiddle && rect.bottom > viewportMiddle) {
+                // Activate this step
+                steps.forEach(s => s.classList.remove('active'));
+                step.classList.add('active');
+                
+                // Switch image
+                images.forEach((img, i) => {
+                    img.classList.toggle('active', i === index);
+                });
+            }
+        });
+    }
+    
+    // Cleanup existing handlers
+    if (equipmentScrollHandler) {
+        window.removeEventListener('scroll', equipmentScrollHandler);
+    }
+    if (equipmentLenisHandler && window.lenis) {
+        window.lenis.off('scroll', equipmentLenisHandler);
+    }
+    
+    equipmentScrollHandler = handleEquipmentScroll;
+    equipmentLenisHandler = handleEquipmentScroll;
+    window.addEventListener('scroll', handleEquipmentScroll, { passive: true });
+    
+    if (window.lenis) {
+        window.lenis.on('scroll', equipmentLenisHandler);
+    }
+    
+    // Initial state
+    handleEquipmentScroll();
 }
 
 function cleanupHorizontalScroll() {
@@ -1091,14 +1091,24 @@ function cleanupHorizontalScroll() {
         horizontalScrollHandler = null;
     }
     
+    if (horizontalLenisHandler && window.lenis) {
+        window.lenis.off('scroll', horizontalLenisHandler);
+        horizontalLenisHandler = null;
+    }
+    
     if (horizontalResizeHandler) {
         window.removeEventListener('resize', horizontalResizeHandler);
         horizontalResizeHandler = null;
     }
     
-    const progressContainer = document.querySelector('.horizontal-progress');
-    if (progressContainer) {
-        progressContainer.classList.remove('visible');
+    if (equipmentScrollHandler) {
+        window.removeEventListener('scroll', equipmentScrollHandler);
+        equipmentScrollHandler = null;
+    }
+    
+    if (equipmentLenisHandler && window.lenis) {
+        window.lenis.off('scroll', equipmentLenisHandler);
+        equipmentLenisHandler = null;
     }
 }
 
