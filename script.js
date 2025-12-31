@@ -310,7 +310,7 @@ function showContentView(id) {
         html = `
             <div class="sub-hero" id="values-sub-hero">
                 <div class="sub-hero-image">
-                    <img src="images/values-hero.png" alt="${data.title} Hero">
+                    <img src="${data.sloganBg}" alt="${data.title} Hero">
                 </div>
                 <div class="sub-hero-overlay"></div>
                 <div class="sub-hero-text">
@@ -327,17 +327,6 @@ function showContentView(id) {
                     <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
                         <path d="M0,100 L0,40 Q360,100 720,50 Q1080,0 1440,60 L1440,100 Z"></path>
                     </svg>
-                </div>
-            </div>
-            
-            <div class="values-slogan-section">
-                <div class="slogan-bg">
-                    <img src="${data.sloganBg}" alt="Values Background">
-                </div>
-                <div class="slogan-overlay"></div>
-                <div class="slogan-content">
-                    <h3 class="slogan-main">${data.slogan.main}</h3>
-                    <p class="slogan-sub">${data.slogan.sub}</p>
                 </div>
             </div>
             
