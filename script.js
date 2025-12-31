@@ -959,6 +959,7 @@ function cleanupValuesSlider() {
 
 // Horizontal Scroll for Diagnostic Tools
 let horizontalScrollHandler = null;
+let horizontalResizeHandler = null;
 
 function setupHorizontalScroll() {
     const outer = document.querySelector('.horizontal-scroll-outer');
@@ -1063,6 +1064,23 @@ function setupHorizontalScroll() {
         });
     });
     
+    // Resize handler to recalculate dimensions
+    if (horizontalResizeHandler) {
+        window.removeEventListener('resize', horizontalResizeHandler);
+    }
+    
+    let resizeTimeout;
+    horizontalResizeHandler = () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            // Recalculate scroll height on resize
+            const newScrollHeight = (totalSections - 1) * window.innerHeight;
+            outer.style.height = (newScrollHeight + window.innerHeight) + 'px';
+            handleScroll();
+        }, 150);
+    };
+    window.addEventListener('resize', horizontalResizeHandler, { passive: true });
+    
     // Initial state
     handleScroll();
 }
@@ -1071,6 +1089,11 @@ function cleanupHorizontalScroll() {
     if (horizontalScrollHandler) {
         window.removeEventListener('scroll', horizontalScrollHandler);
         horizontalScrollHandler = null;
+    }
+    
+    if (horizontalResizeHandler) {
+        window.removeEventListener('resize', horizontalResizeHandler);
+        horizontalResizeHandler = null;
     }
     
     const progressContainer = document.querySelector('.horizontal-progress');
