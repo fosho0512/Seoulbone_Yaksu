@@ -2273,6 +2273,40 @@ body::before {
     z-index: 5;
 }
 
+/* Horizontal scroll indicator (right arrow) */
+.scroll-indicator-horizontal {
+    animation: floatBounceHorizontal 2.5s ease-in-out infinite;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+.scroll-indicator-horizontal.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+@keyframes floatBounceHorizontal {
+    0%, 100% { transform: translateX(-50%) translateX(0); }
+    50% { transform: translateX(-50%) translateX(8px); }
+}
+
+/* Vertical scroll indicator (down arrow) in slogan */
+.slogan-section .scroll-indicator-vertical {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    animation: floatBounceVertical 2.5s ease-in-out infinite;
+}
+.slogan-section .scroll-indicator-vertical.visible {
+    opacity: 1;
+}
+@keyframes floatBounceVertical {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+}
+
 /* Slogan Section */
 .slogan-section {
     justify-content: flex-end;
@@ -2602,6 +2636,15 @@ body::before {
     
     .horizontal-progress {
         display: none;
+    }
+    
+    /* Mobile: Hide horizontal indicator, show vertical only */
+    .scroll-indicator-horizontal {
+        display: none;
+    }
+    
+    .slogan-section .scroll-indicator-vertical {
+        opacity: 1;
     }
     
     .equipment-narrative {

@@ -207,10 +207,10 @@ function showContentView(id) {
                             <div class="sub-hero-text">
                                 <h2>${data.title}</h2>
                             </div>
-                            <div class="scroll-indicator">
+                            <div class="scroll-indicator scroll-indicator-horizontal" id="indicator-subhero">
                                 <div class="scroll-indicator-circle">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                        <path d="M12 5v14M5 12l7 7 7-7"/>
+                                        <path d="M5 12h14M12 5l7 7-7 7"/>
                                     </svg>
                                 </div>
                             </div>
@@ -226,6 +226,13 @@ function showContentView(id) {
                                 <img src="images/diagnosis-slogan.png" alt="Slogan Background">
                             </div>
                             <div class="slogan-overlay"></div>
+                            <div class="scroll-indicator scroll-indicator-vertical" id="indicator-slogan">
+                                <div class="scroll-indicator-circle">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M12 5v14M5 12l7 7 7-7"/>
+                                    </svg>
+                                </div>
+                            </div>
                             <div class="slogan-content">
                                 <h2 class="slogan-main">정확한 진단이<br>완치의 시작입니다</h2>
                                 <p class="slogan-desc">서울본재활의학과는 최첨단 진단 장비에 아낌없이 투자합니다.<br>통증의 근본 원인을 빠르고 정확하게 찾아내어,<br>환자분에게 가장 적합한 치료 계획을 수립하기 위함입니다.</p>
@@ -945,6 +952,8 @@ function setupHorizontalScroll() {
     const track = document.querySelector('.horizontal-scroll-track');
     const panels = document.querySelectorAll('.scroll-panel');
     const sloganSection = document.querySelector('.slogan-section');
+    const indicatorSubhero = document.getElementById('indicator-subhero');
+    const indicatorSlogan = document.getElementById('indicator-slogan');
     
     if (!outer || !wrapper || !track || panels.length === 0) return;
     
@@ -986,19 +995,31 @@ function setupHorizontalScroll() {
             // Activate slogan when 30% through horizontal phase
             if (phaseProgress > 0.3 && sloganSection) {
                 sloganSection.classList.add('active');
+                // Switch indicators: hide subhero, show slogan
+                if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
+                if (indicatorSlogan) indicatorSlogan.classList.add('visible');
             } else if (sloganSection) {
                 sloganSection.classList.remove('active');
+                // Show subhero indicator, hide slogan
+                if (indicatorSubhero) indicatorSubhero.classList.remove('hidden');
+                if (indicatorSlogan) indicatorSlogan.classList.remove('visible');
             }
         } else {
             // Dwell phase - slogan stays pinned
             track.style.transform = `translateX(${-window.innerWidth}px)`;
             if (sloganSection) sloganSection.classList.add('active');
+            // Keep slogan indicator visible during dwell
+            if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
+            if (indicatorSlogan) indicatorSlogan.classList.add('visible');
         }
         
         // Before horizontal scroll starts
         if (scrollProgress < 0) {
             track.style.transform = 'translateX(0)';
             if (sloganSection) sloganSection.classList.remove('active');
+            // Show subhero indicator at start
+            if (indicatorSubhero) indicatorSubhero.classList.remove('hidden');
+            if (indicatorSlogan) indicatorSlogan.classList.remove('visible');
         }
     }
     
