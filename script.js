@@ -214,6 +214,11 @@ function showContentView(id) {
                                     </svg>
                                 </div>
                             </div>
+                            <div class="sub-hero-curve">
+                                <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                                    <path d="M0,100 L0,40 Q360,100 720,50 Q1080,0 1440,60 L1440,100 Z"></path>
+                                </svg>
+                            </div>
                         </section>
                         
                         <section class="scroll-panel slogan-section">

@@ -2232,9 +2232,11 @@ body::before {
 }
 
 .sub-hero-panel .sub-hero-text {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 60px;
+    transform: translateY(-50%);
     z-index: 10;
-    padding-left: 8%;
 }
 
 .sub-hero-panel .sub-hero-text h2 {
@@ -2564,7 +2566,7 @@ body::before {
     }
     
     .sub-hero-panel .sub-hero-text {
-        padding-left: 6%;
+        left: 25px;
     }
     
     .slogan-section {
