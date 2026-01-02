@@ -248,6 +248,7 @@ function showContentView(id) {
                 </div>
             </div>
             
+            <div class="vertical-section-sentinel" id="vertical-sentinel" style="height: 1px; width: 100%;"></div>
             <div class="equipment-narrative">
                 <div class="sticky-image-wrapper">
                     <div class="sticky-image" id="equipment-image">
@@ -482,8 +483,10 @@ function showContentView(id) {
     elems.homeView.classList.remove('active');
     elems.contentView.classList.add('active');
     
-    // 서브히어로 스크롤 효과 설정 (모든 페이지)
-    setupSubHeroScrollEffect();
+    // 서브히어로 스크롤 효과 설정 (diagnosis 페이지 제외 - 별도 observer 사용)
+    if (id !== 'diagnosis') {
+        setupSubHeroScrollEffect();
+    }
     
     // Values 페이지 슬라이드 설정
     if (id === 'values') {
@@ -945,8 +948,11 @@ function cleanupValuesSlider() {
 let horizontalScrollHandler = null;
 let horizontalResizeHandler = null;
 let horizontalLenisHandler = null;
+let hasEnteredVerticalSection = false;
 
 function setupHorizontalScroll() {
+    // Reset vertical section flag
+    hasEnteredVerticalSection = false;
     const outer = document.querySelector('.horizontal-scroll-outer');
     const wrapper = document.querySelector('.horizontal-scroll-wrapper');
     const track = document.querySelector('.horizontal-scroll-track');
@@ -962,6 +968,8 @@ function setupHorizontalScroll() {
         panels.forEach(p => p.classList.add('active'));
         if (sloganSection) sloganSection.classList.add('active');
         setupEquipmentNarrative();
+        // Still setup header observer for mobile
+        setupDiagnosisHeaderObserver();
         return;
     }
     
@@ -984,42 +992,50 @@ function setupHorizontalScroll() {
         
         const overallProgress = Math.max(0, Math.min(1, scrollProgress / totalScrollDistance));
         
-        if (overallProgress <= horizontalPhaseEnd) {
-            // Horizontal scroll phase with easing
-            const phaseProgress = overallProgress / horizontalPhaseEnd;
-            const easedProgress = easeInOutCubic(phaseProgress);
-            const translateX = -easedProgress * window.innerWidth;
-            
-            track.style.transform = `translateX(${translateX}px)`;
-            
-            // Activate slogan when 30% through horizontal phase
-            if (phaseProgress > 0.3 && sloganSection) {
-                sloganSection.classList.add('active');
-                // Switch indicators: hide subhero, show slogan
-                if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
-                if (indicatorSlogan) indicatorSlogan.classList.add('visible');
-            } else if (sloganSection) {
-                sloganSection.classList.remove('active');
-                // Show subhero indicator, hide slogan
-                if (indicatorSubhero) indicatorSubhero.classList.remove('hidden');
-                if (indicatorSlogan) indicatorSlogan.classList.remove('visible');
-            }
-        } else {
-            // Dwell phase - slogan stays pinned
-            track.style.transform = `translateX(${-window.innerWidth}px)`;
-            if (sloganSection) sloganSection.classList.add('active');
-            // Keep slogan indicator visible during dwell
-            if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
-            if (indicatorSlogan) indicatorSlogan.classList.add('visible');
-        }
+        // Header state is managed by Intersection Observer on equipment-narrative
+        // handleScroll only manages horizontal animation, not header state
         
-        // Before horizontal scroll starts
-        if (scrollProgress < 0) {
+        const beforeHorizontalSection = scrollProgress < 0;
+        const inHorizontalSection = scrollProgress >= 0 && scrollProgress <= totalScrollDistance;
+        
+        // Handle horizontal scroll animation
+        if (beforeHorizontalSection) {
             track.style.transform = 'translateX(0)';
             if (sloganSection) sloganSection.classList.remove('active');
-            // Show subhero indicator at start
             if (indicatorSubhero) indicatorSubhero.classList.remove('hidden');
             if (indicatorSlogan) indicatorSlogan.classList.remove('visible');
+        } else if (inHorizontalSection) {
+            if (overallProgress <= horizontalPhaseEnd) {
+                // Horizontal scroll phase with easing
+                const phaseProgress = overallProgress / horizontalPhaseEnd;
+                const easedProgress = easeInOutCubic(phaseProgress);
+                const translateX = -easedProgress * window.innerWidth;
+                
+                track.style.transform = `translateX(${translateX}px)`;
+                
+                // Activate slogan when 30% through horizontal phase
+                if (phaseProgress > 0.3 && sloganSection) {
+                    sloganSection.classList.add('active');
+                    if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
+                    if (indicatorSlogan) indicatorSlogan.classList.add('visible');
+                } else if (sloganSection) {
+                    sloganSection.classList.remove('active');
+                    if (indicatorSubhero) indicatorSubhero.classList.remove('hidden');
+                    if (indicatorSlogan) indicatorSlogan.classList.remove('visible');
+                }
+            } else {
+                // Dwell phase - slogan stays pinned
+                track.style.transform = `translateX(${-window.innerWidth}px)`;
+                if (sloganSection) sloganSection.classList.add('active');
+                if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
+                if (indicatorSlogan) indicatorSlogan.classList.add('visible');
+            }
+        } else {
+            // In vertical section - keep final horizontal state
+            track.style.transform = `translateX(${-window.innerWidth}px)`;
+            if (sloganSection) sloganSection.classList.add('active');
+            if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
+            if (indicatorSlogan) indicatorSlogan.classList.add('visible');
         }
     }
     
@@ -1058,6 +1074,9 @@ function setupHorizontalScroll() {
     
     // Also setup equipment narrative
     setupEquipmentNarrative();
+    
+    // Setup header state observer for vertical scroll section
+    setupDiagnosisHeaderObserver();
 }
 
 // Equipment Narrative (Sticky Image + Scroll Text)
@@ -1110,6 +1129,55 @@ function setupEquipmentNarrative() {
     handleEquipmentScroll();
 }
 
+// Diagnosis page header observer - switch header state when entering vertical scroll
+let diagnosisHeaderObserver = null;
+
+function setupDiagnosisHeaderObserver() {
+    const sentinel = document.getElementById('vertical-sentinel');
+    if (!sentinel) return;
+    
+    // Cleanup existing observer
+    if (diagnosisHeaderObserver) {
+        diagnosisHeaderObserver.disconnect();
+        diagnosisHeaderObserver = null;
+    }
+    
+    // Observe the sentinel element placed at the vertical section boundary
+    // Triggers immediately when vertical content starts appearing
+    diagnosisHeaderObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const rect = sentinel.getBoundingClientRect();
+            
+            if (entry.isIntersecting) {
+                // Sentinel is visible → at or entering vertical section
+                hasEnteredVerticalSection = true;
+                document.body.classList.add('sub-hero-passed');
+            } else {
+                // Sentinel is NOT visible
+                // Only clear latch if sentinel is BELOW viewport (scrolled back up to horizontal)
+                if (rect.top > window.innerHeight) {
+                    hasEnteredVerticalSection = false;
+                    document.body.classList.remove('sub-hero-passed');
+                }
+                // If sentinel is ABOVE viewport (scrolled further down), keep latch set
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0
+    });
+    
+    diagnosisHeaderObserver.observe(sentinel);
+}
+
+function cleanupDiagnosisHeaderObserver() {
+    if (diagnosisHeaderObserver) {
+        diagnosisHeaderObserver.disconnect();
+        diagnosisHeaderObserver = null;
+    }
+}
+
 function cleanupHorizontalScroll() {
     if (horizontalScrollHandler) {
         window.removeEventListener('scroll', horizontalScrollHandler);
@@ -1135,6 +1203,8 @@ function cleanupHorizontalScroll() {
         window.lenis.off('scroll', equipmentLenisHandler);
         equipmentLenisHandler = null;
     }
+    
+    cleanupDiagnosisHeaderObserver();
 }
 
 // Run
