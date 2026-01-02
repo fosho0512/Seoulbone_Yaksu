@@ -52,6 +52,14 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
 ## Recent Changes (2026-01-02)
+- Horizontal scroll velocity clamping for luxury feel:
+  - Added MAX_VELOCITY constant (0.006 per frame = ~0.36 screen widths/sec at 60fps)
+  - Previous max velocity: ~2.4 screen widths/sec (6.7x faster)
+  - Module-level state: `horizontalDisplayProgress`, `horizontalLastFrameTime`
+  - Time-based deltaTime calculation for consistent behavior across refresh rates
+  - State reset in cleanupHorizontalScroll() and setupHorizontalScroll() for proper navigation cycling
+
+## Previous Changes (2026-01-02)
 - Slogan section redesign with three-group sequential animation system:
   - HTML Structure: `.slogan-main-group`, `.slogan-description-group`, `.principle-card`
   - Main text (45vh): 1.2s fade-up with cubic-bezier(0.22, 0.61, 0.36, 1) easing

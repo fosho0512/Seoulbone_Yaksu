@@ -953,6 +953,8 @@ let horizontalScrollHandler = null;
 let horizontalResizeHandler = null;
 let horizontalLenisHandler = null;
 let hasEnteredVerticalSection = false;
+let horizontalDisplayProgress = 0;
+let horizontalLastFrameTime = 0;
 
 function setupHorizontalScroll() {
     // Reset vertical section flag
@@ -983,6 +985,12 @@ function setupHorizontalScroll() {
             ? 4 * t * t * t 
             : 1 - Math.pow(-2 * t + 2, 3) / 2;
     }
+    
+    // Velocity clamping for luxury feel
+    // Max delta per frame: 0.006 = ~0.36 screen widths/sec at 60fps
+    const MAX_VELOCITY = 0.006;
+    horizontalDisplayProgress = 0;
+    horizontalLastFrameTime = performance.now();
     
     function handleScroll() {
         const outerRect = outer.getBoundingClientRect();
@@ -1016,15 +1024,28 @@ function setupHorizontalScroll() {
         // Handle horizontal scroll animation
         if (beforeHorizontalSection) {
             track.style.transform = 'translateX(0)';
+            horizontalDisplayProgress = 0;
             if (sloganSection) sloganSection.classList.remove('active');
             if (indicatorSubhero) indicatorSubhero.classList.remove('hidden');
             if (indicatorSlogan) indicatorSlogan.classList.remove('visible');
         } else if (inHorizontalSection) {
             if (overallProgress <= horizontalPhaseEnd) {
-                // Horizontal scroll phase with easing
+                // Horizontal scroll phase with easing + velocity clamping
                 const phaseProgress = overallProgress / horizontalPhaseEnd;
-                const easedProgress = easeInOutCubic(phaseProgress);
-                const translateX = -easedProgress * window.innerWidth;
+                const targetProgress = easeInOutCubic(phaseProgress);
+                
+                // Calculate time-based velocity limit
+                const now = performance.now();
+                const deltaTime = Math.min((now - horizontalLastFrameTime) / 16.67, 2);
+                horizontalLastFrameTime = now;
+                
+                // Clamp velocity for smooth, deliberate movement
+                const maxDelta = MAX_VELOCITY * deltaTime;
+                const progressDelta = targetProgress - horizontalDisplayProgress;
+                const clampedDelta = Math.max(-maxDelta, Math.min(maxDelta, progressDelta));
+                horizontalDisplayProgress += clampedDelta;
+                
+                const translateX = -horizontalDisplayProgress * window.innerWidth;
                 
                 track.style.transform = `translateX(${translateX}px)`;
                 
@@ -1040,12 +1061,13 @@ function setupHorizontalScroll() {
                 }
             } else {
                 // Dwell phase - slogan stays pinned
+                horizontalDisplayProgress = 1;
                 track.style.transform = `translateX(${-window.innerWidth}px)`;
                 if (sloganSection) sloganSection.classList.add('active');
                 if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
                 if (indicatorSlogan) indicatorSlogan.classList.add('visible');
                 
-                // Show principle card when 80% into dwell phase
+                // Show principle card when 40% into dwell phase
                 const dwellProgress = (overallProgress - horizontalPhaseEnd) / (1 - horizontalPhaseEnd);
                 if (dwellProgress > 0.4 && sloganSection) {
                     sloganSection.classList.add('principle-visible');
@@ -1055,6 +1077,7 @@ function setupHorizontalScroll() {
             }
         } else {
             // In vertical section - keep final horizontal state
+            horizontalDisplayProgress = 1;
             track.style.transform = `translateX(${-window.innerWidth}px)`;
             if (sloganSection) {
                 sloganSection.classList.add('active');
@@ -1220,6 +1243,11 @@ function cleanupHorizontalScroll() {
         window.removeEventListener('resize', horizontalResizeHandler);
         horizontalResizeHandler = null;
     }
+    
+    // Reset velocity clamping state for next visit
+    horizontalDisplayProgress = 0;
+    horizontalLastFrameTime = 0;
+    hasEnteredVerticalSection = false;
     
     if (equipmentScrollHandler) {
         window.removeEventListener('scroll', equipmentScrollHandler);
