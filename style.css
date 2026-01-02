@@ -2183,6 +2183,7 @@ body::before {
    ========================================= */
 .horizontal-scroll-outer {
     position: relative;
+    height: 200vh;
 }
 
 .horizontal-scroll-wrapper {
@@ -2193,15 +2194,16 @@ body::before {
     overflow: hidden;
 }
 
-.horizontal-scroll-container {
+.horizontal-scroll-track {
     display: flex;
     flex-direction: row;
     height: 100%;
     width: 200vw;
     will-change: transform;
+    transition: transform 0.1s ease-out;
 }
 
-.scroll-section {
+.scroll-panel {
     flex-shrink: 0;
     width: 100vw;
     height: 100vh;
@@ -2212,12 +2214,12 @@ body::before {
     overflow: hidden;
 }
 
-/* Hero Duplicate Section */
-.hero-duplicate-section {
+/* Sub-hero Panel (First panel in horizontal scroll) */
+.sub-hero-panel {
     justify-content: flex-start;
 }
 
-.hero-dup-image {
+.sub-hero-panel .sub-hero-image {
     position: absolute;
     top: 0;
     left: 0;
@@ -2226,14 +2228,14 @@ body::before {
     z-index: 1;
 }
 
-.hero-dup-image img {
+.sub-hero-panel .sub-hero-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     filter: saturate(0.85) contrast(1.1) brightness(0.95);
 }
 
-.hero-dup-overlay {
+.sub-hero-panel .sub-hero-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -2243,13 +2245,13 @@ body::before {
     z-index: 2;
 }
 
-.hero-dup-text {
+.sub-hero-panel .sub-hero-text {
     position: relative;
     z-index: 10;
     padding-left: 8%;
 }
 
-.hero-dup-text h2 {
+.sub-hero-panel .sub-hero-text h2 {
     font-family: var(--font-serif);
     font-size: var(--font-display-lg);
     font-weight: 400;
@@ -2261,7 +2263,7 @@ body::before {
     padding-bottom: 18px;
 }
 
-.hero-dup-text h2::after {
+.sub-hero-panel .sub-hero-text h2::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -2269,6 +2271,14 @@ body::before {
     width: 4ch;
     height: 1px;
     background: rgba(255, 255, 255, 0.7);
+}
+
+.sub-hero-panel .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
 }
 
 /* Slogan Section */
@@ -2549,13 +2559,13 @@ body::before {
         width: 100%;
     }
     
-    .horizontal-scroll-container {
+    .horizontal-scroll-track {
         flex-direction: column;
         width: 100%;
         transform: none !important;
     }
     
-    .scroll-section {
+    .scroll-panel {
         width: 100%;
         min-height: 100vh;
         height: auto;
@@ -2563,8 +2573,12 @@ body::before {
         padding: 80px 6%;
     }
     
-    .hero-duplicate-section {
-        display: none;
+    .sub-hero-panel {
+        padding: 0;
+    }
+    
+    .sub-hero-panel .sub-hero-text {
+        padding-left: 6%;
     }
     
     .slogan-section {

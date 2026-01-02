@@ -195,43 +195,28 @@ function showContentView(id) {
     } 
     else if (id === 'diagnosis') {
         html = `
-            <div class="sub-hero" id="diagnosis-sub-hero">
-                <div class="sub-hero-image">
-                    <img src="images/diagnosis-hero.png" alt="${data.title} Hero">
-                </div>
-                <div class="sub-hero-overlay"></div>
-                <div class="sub-hero-text">
-                    <h2>${data.title}</h2>
-                </div>
-                <div class="scroll-indicator">
-                    <div class="scroll-indicator-circle">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 5v14M5 12l7 7 7-7"/>
-                        </svg>
-                    </div>
-                </div>
-                <div class="sub-hero-curve">
-                    <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-                        <path d="M0,100 L0,40 Q360,100 720,50 Q1080,0 1440,60 L1440,100 Z"></path>
-                    </svg>
-                </div>
-            </div>
-            
             <div class="horizontal-scroll-outer">
                 <div class="horizontal-scroll-wrapper">
-                    <div class="horizontal-scroll-container">
+                    <div class="horizontal-scroll-track">
                         
-                        <section class="scroll-section hero-duplicate-section">
-                            <div class="hero-dup-image">
-                                <img src="images/diagnosis-hero.png" alt="${data.title}">
+                        <section class="scroll-panel sub-hero-panel" id="diagnosis-sub-hero">
+                            <div class="sub-hero-image">
+                                <img src="images/diagnosis-hero.png" alt="${data.title} Hero">
                             </div>
-                            <div class="hero-dup-overlay"></div>
-                            <div class="hero-dup-text">
+                            <div class="sub-hero-overlay"></div>
+                            <div class="sub-hero-text">
                                 <h2>${data.title}</h2>
+                            </div>
+                            <div class="scroll-indicator">
+                                <div class="scroll-indicator-circle">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M12 5v14M5 12l7 7 7-7"/>
+                                    </svg>
+                                </div>
                             </div>
                         </section>
                         
-                        <section class="scroll-section slogan-section">
+                        <section class="scroll-panel slogan-section">
                             <div class="slogan-bg">
                                 <img src="images/diagnosis-slogan.png" alt="Slogan Background">
                             </div>
@@ -944,7 +929,7 @@ function cleanupValuesSlider() {
     }
 }
 
-// Horizontal Scroll for Diagnostic Tools (Hero → Slogan only)
+// Horizontal Scroll for Diagnostic Tools (Sub-hero → Slogan)
 let horizontalScrollHandler = null;
 let horizontalResizeHandler = null;
 let horizontalLenisHandler = null;
@@ -952,47 +937,41 @@ let horizontalLenisHandler = null;
 function setupHorizontalScroll() {
     const outer = document.querySelector('.horizontal-scroll-outer');
     const wrapper = document.querySelector('.horizontal-scroll-wrapper');
-    const container = document.querySelector('.horizontal-scroll-container');
-    const sections = document.querySelectorAll('.scroll-section');
+    const track = document.querySelector('.horizontal-scroll-track');
+    const panels = document.querySelectorAll('.scroll-panel');
     const sloganSection = document.querySelector('.slogan-section');
     
-    if (!outer || !wrapper || !container || sections.length === 0) return;
+    if (!outer || !wrapper || !track || panels.length === 0) return;
     
     // Check if mobile (disable horizontal scroll)
     if (window.innerWidth <= 768) {
-        sections.forEach(s => s.classList.add('active'));
+        panels.forEach(p => p.classList.add('active'));
+        if (sloganSection) sloganSection.classList.add('active');
         setupEquipmentNarrative();
         return;
     }
     
-    // 2 sections only (hero duplicate + slogan)
-    const scrollHeight = window.innerHeight;
-    
-    // Set outer height for scroll area
-    outer.style.height = (scrollHeight + window.innerHeight) + 'px';
-    
     function handleScroll() {
         const outerRect = outer.getBoundingClientRect();
-        const scrollStart = -outerRect.top;
-        const scrollEnd = scrollHeight;
+        const scrollDistance = window.innerHeight;
+        const scrollProgress = -outerRect.top;
         
-        if (scrollStart >= 0 && scrollStart <= scrollEnd) {
-            const progress = Math.max(0, Math.min(1, scrollStart / scrollEnd));
+        if (scrollProgress >= 0 && scrollProgress <= scrollDistance) {
+            const progress = Math.max(0, Math.min(1, scrollProgress / scrollDistance));
             const translateX = -progress * window.innerWidth;
             
-            container.style.transform = `translateX(${translateX}px)`;
+            track.style.transform = `translateX(${translateX}px)`;
             
-            // Activate slogan section when mostly visible
             if (progress > 0.3 && sloganSection) {
                 sloganSection.classList.add('active');
             } else if (sloganSection) {
                 sloganSection.classList.remove('active');
             }
-        } else if (scrollStart < 0) {
-            container.style.transform = 'translateX(0)';
+        } else if (scrollProgress < 0) {
+            track.style.transform = 'translateX(0)';
             if (sloganSection) sloganSection.classList.remove('active');
         } else {
-            container.style.transform = `translateX(${-window.innerWidth}px)`;
+            track.style.transform = `translateX(${-window.innerWidth}px)`;
             if (sloganSection) sloganSection.classList.add('active');
         }
     }
@@ -1022,7 +1001,6 @@ function setupHorizontalScroll() {
     horizontalResizeHandler = () => {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
-            outer.style.height = (window.innerHeight * 2) + 'px';
             handleScroll();
         }, 150);
     };
