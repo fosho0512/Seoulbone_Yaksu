@@ -52,6 +52,14 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
 ## Recent Changes (2026-01-02)
+- Header transparency fix using scroll-progress based approach:
+  - Desktop: `handleScroll()` manages header state via `overallProgress` (0-1)
+  - When `overallProgress >= 1` (horizontal+dwell complete) → `sub-hero-passed` class added (header opaque)
+  - When `overallProgress < 1` → `sub-hero-passed` class removed (header transparent)
+  - Mobile: IntersectionObserver on `.equipment-narrative` with `-50%` rootMargin
+  - Removed sentinel-based approach (caused timing issues due to sticky wrapper)
+
+## Previous Changes (2026-01-02)
 - Premium horizontal-to-vertical scroll transition with dwell section:
   - `.horizontal-scroll-outer` height: 350vh (increased from 200vh)
   - easeInOutCubic easing for slow, deliberate movement
