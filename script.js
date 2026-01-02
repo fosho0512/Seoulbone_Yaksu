@@ -1030,16 +1030,16 @@ function setupHorizontalScroll() {
             if (indicatorSlogan) indicatorSlogan.classList.remove('visible');
         } else if (inHorizontalSection) {
             if (overallProgress <= horizontalPhaseEnd) {
-                // Horizontal scroll phase with easing + velocity clamping
+                // Horizontal scroll phase with linear progress + velocity clamping
                 const phaseProgress = overallProgress / horizontalPhaseEnd;
-                const targetProgress = easeInOutCubic(phaseProgress);
+                const targetProgress = phaseProgress; // Linear - no easing for consistent speed
                 
                 // Calculate time-based velocity limit
                 const now = performance.now();
                 const deltaTime = Math.min((now - horizontalLastFrameTime) / 16.67, 2);
                 horizontalLastFrameTime = now;
                 
-                // Clamp velocity for smooth, deliberate movement
+                // Clamp velocity for smooth, deliberate movement at constant pace
                 const maxDelta = MAX_VELOCITY * deltaTime;
                 const progressDelta = targetProgress - horizontalDisplayProgress;
                 const clampedDelta = Math.max(-maxDelta, Math.min(maxDelta, progressDelta));
