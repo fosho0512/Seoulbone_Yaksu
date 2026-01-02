@@ -2327,9 +2327,9 @@ body::before {
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transform: scale(1.1);
+    transform: scale(1.3);
     transition: opacity 1s cubic-bezier(0.25, 0.1, 0.25, 1),
-                transform 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+                transform 3s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .slogan-section.active .slogan-bg img {
