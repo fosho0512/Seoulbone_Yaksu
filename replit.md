@@ -52,6 +52,16 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
 ## Recent Changes (2026-01-02)
+- Slogan section redesign with three-group sequential animation system:
+  - HTML Structure: `.slogan-main-group`, `.slogan-description-group`, `.principle-card`
+  - Main text (45vh): 1.2s fade-up with cubic-bezier(0.22, 0.61, 0.36, 1) easing
+  - Description: 1.0s fade-in with 1.6s delay after main
+  - Principle card: Appears at 40% dwell phase with 1.3s scale(0.98→1) animation
+  - Card internal elements: Sequential fade with staggered delays (0.2s, 0.35s, 0.5s, 0.65s)
+  - Layout: All centered, max-width constraints (main: 900px, card: 680px)
+  - Mobile: All elements visible immediately, no animation delays
+
+## Previous Changes (2026-01-02)
 - Header transparency fix using scroll-progress based approach:
   - Desktop: `handleScroll()` manages header state via `overallProgress` (0-1)
   - When `overallProgress >= 1` (horizontal+dwell complete) → `sub-hero-passed` class added (header opaque)
