@@ -2269,6 +2269,10 @@ body::before {
     z-index: 10;
 }
 
+.sub-hero-panel .sub-hero-curve {
+    z-index: 5;
+}
+
 /* Slogan Section */
 .slogan-section {
     justify-content: flex-end;
