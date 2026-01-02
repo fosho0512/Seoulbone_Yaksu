@@ -234,18 +234,17 @@ function showContentView(id) {
                                 </div>
                             </div>
                             <div class="slogan-content-wrapper">
-                                <div class="slogan-top-row">
-                                    <div class="slogan-left">
-                                        <h2 class="slogan-main">정확한 진단이<br>완치의 시작입니다</h2>
-                                    </div>
-                                    <div class="slogan-right">
-                                        <p class="slogan-desc">서울본재활의학과는 최첨단 진단 장비에 아낌없이 투자합니다.<br>통증의 근본 원인을 빠르고 정확하게 찾아내어,<br>환자분에게 가장 적합한 치료 계획을 수립하기 위함입니다.</p>
-                                    </div>
+                                <div class="slogan-main-group">
+                                    <h2 class="slogan-main">정확한 진단이<br>완치의 시작입니다</h2>
                                 </div>
-                                <div class="slogan-principle">
-                                    <h3>우리의 원칙</h3>
-                                    <p class="principle-title">모든 시술의 영상 가이드화<br><span>Image-Guided Injection</span></p>
-                                    <p class="principle-desc">감이나 경험에만 의존하는 '블라인드 주사'를 지양합니다.<br>모든 주사 치료 및 시술은 반드시 초음파나 C-arm 실시간<br>영상 장비를 보면서 진행합니다.</p>
+                                <div class="slogan-description-group">
+                                    <p class="slogan-desc">서울본재활의학과는 최첨단 진단 장비에 아낌없이 투자합니다.<br>통증의 근본 원인을 빠르고 정확하게 찾아내어,<br>환자분에게 가장 적합한 치료 계획을 수립하기 위함입니다.</p>
+                                </div>
+                                <div class="principle-card">
+                                    <h3 class="principle-label">우리의 원칙</h3>
+                                    <p class="principle-headline">모든 시술의 영상 가이드화</p>
+                                    <p class="principle-subtitle">Image-Guided Injection</p>
+                                    <p class="principle-body">감이나 경험에만 의존하는 '블라인드 주사'를 지양합니다.<br>모든 주사 치료 및 시술은 반드시 초음파나 C-arm 실시간<br>영상 장비를 보면서 진행합니다.</p>
                                 </div>
                             </div>
                         </section>
@@ -1045,11 +1044,22 @@ function setupHorizontalScroll() {
                 if (sloganSection) sloganSection.classList.add('active');
                 if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
                 if (indicatorSlogan) indicatorSlogan.classList.add('visible');
+                
+                // Show principle card when 80% into dwell phase
+                const dwellProgress = (overallProgress - horizontalPhaseEnd) / (1 - horizontalPhaseEnd);
+                if (dwellProgress > 0.4 && sloganSection) {
+                    sloganSection.classList.add('principle-visible');
+                } else if (sloganSection) {
+                    sloganSection.classList.remove('principle-visible');
+                }
             }
         } else {
             // In vertical section - keep final horizontal state
             track.style.transform = `translateX(${-window.innerWidth}px)`;
-            if (sloganSection) sloganSection.classList.add('active');
+            if (sloganSection) {
+                sloganSection.classList.add('active');
+                sloganSection.classList.add('principle-visible');
+            }
             if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
             if (indicatorSlogan) indicatorSlogan.classList.add('visible');
         }
