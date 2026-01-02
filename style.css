@@ -447,8 +447,6 @@ body.menu-open .drawer-menu { transform: translateX(0); }
     min-height: 100vh;
     background-color: var(--text-color);
     z-index: var(--z-visual);
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
     overflow: hidden;
 }
 .visual-section::before {
@@ -836,10 +834,7 @@ body.menu-open .visual-text { opacity: 0; }
     height: 100vh;
     min-height: 100vh;
     overflow: hidden;
-    margin-bottom: 0;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    margin-top: 0;
+    margin: 0;
     background-color: var(--bg-color);
 }
 .sub-hero-image {
@@ -1136,8 +1131,7 @@ body.menu-open .visual-text { opacity: 0; }
     background: linear-gradient(180deg, #F8F6F3 0%, #F2EFE9 100%);
     padding: 60px 40px 150px;
     margin-top: 80px;
-    margin-left: calc(-12% - 40px);
-    margin-right: calc(-12% - 40px);
+    width: 100vw;
     min-height: 120vh;
     display: flex;
     flex-direction: column;
@@ -1165,8 +1159,6 @@ body.menu-open .visual-text { opacity: 0; }
 .philosophy-card-wrapper.expanding {
     width: 100vw;
     max-width: none;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
 }
 .philosophy-card-wrapper.sticky {
     position: sticky;
@@ -1582,7 +1574,7 @@ body.site-entered:not(.content-view-active) #main-container {
     padding-top: 0;
 }
 body.content-view-active.has-sub-hero .content-wrapper {
-    padding-top: 0;
+    padding: 0;
 }
 
 /* Sub Hero 영역을 벗어난 후 헤더 스타일 */
@@ -1786,7 +1778,7 @@ body::before {
     
     /* 모바일에서도 서브히어로 페이지 패딩 제거 */
     body.content-view-active.has-sub-hero #content-view { padding-top: 0; }
-    body.content-view-active.has-sub-hero .content-wrapper { padding-top: 0; }
+    body.content-view-active.has-sub-hero .content-wrapper { padding: 0; }
     
     .modal-layout-top { flex-direction: column-reverse; gap: 40px; margin-bottom: 60px; }
     .modal-image-group img, .map-container { height: 280px; }
@@ -1799,9 +1791,7 @@ body::before {
         max-width: 100vw;
         height: 100vh;
         min-height: 100vh;
-        margin-left: calc(50% - 50vw);
-        margin-right: calc(50% - 50vw);
-        margin-top: 0;
+        margin: 0;
     }
     .sub-hero-text { top: 50%; left: 25px; }
     .sub-hero-text h2 { font-size: var(--font-heading-lg); }
@@ -1811,8 +1801,6 @@ body::before {
     .staff-header-spacer { display: none; }
     .brand-philosophy-section { 
         padding: 50px 20px 100px; 
-        margin-left: calc(-6% - 25px);
-        margin-right: calc(-6% - 25px);
         min-height: 100vh;
     }
     .philosophy-card-wrapper { width: 90vw; }
@@ -1854,7 +1842,6 @@ body::before {
     position: relative;
     width: 100vw;
     height: 100vh;
-    margin-left: calc(50% - 50vw);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1920,7 +1907,6 @@ body::before {
     top: 0;
     height: 100vh;
     width: 100vw;
-    margin-left: calc(50% - 50vw);
     display: grid;
     grid-template-columns: 1fr 1.2fr 1fr;
     background: var(--bg-color);
