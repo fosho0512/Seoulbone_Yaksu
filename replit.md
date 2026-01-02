@@ -52,6 +52,19 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
 ## Recent Changes (2026-01-02)
+- CSS Architecture cleanup: Removed unnecessary negative margin patterns
+  - All `has-sub-hero` pages: `.content-wrapper` padding set to 0
+  - Full-width sections now use clean `width: 100vw` without margin hacks
+  - Removed `calc(50% - 50vw)` and `calc(-12% - 40px)` patterns from:
+    - `.sub-hero`
+    - `.visual-section`
+    - `.brand-philosophy-section`
+    - `.values-slogan-section`
+    - `.values-slides-container`
+    - `.philosophy-card-wrapper.expanding`
+  - Applied same cleanup to mobile responsive styles (768px↓)
+
+## Previous Changes (2026-01-02)
 - Diagnostic Tools page horizontal scroll redesign:
   - Sub-hero is now the first panel inside `.horizontal-scroll-track` (no duplicate)
   - Scroll down: Sub-hero slides left, slogan appears from right
