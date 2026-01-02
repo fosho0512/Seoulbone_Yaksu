@@ -248,7 +248,6 @@ function showContentView(id) {
                 </div>
             </div>
             
-            <div class="vertical-section-sentinel" id="vertical-sentinel" style="height: 1px; width: 100%;"></div>
             <div class="equipment-narrative">
                 <div class="sticky-image-wrapper">
                     <div class="sticky-image" id="equipment-image">
@@ -992,8 +991,19 @@ function setupHorizontalScroll() {
         
         const overallProgress = Math.max(0, Math.min(1, scrollProgress / totalScrollDistance));
         
-        // Header state is managed by Intersection Observer on equipment-narrative
-        // handleScroll only manages horizontal animation, not header state
+        // Header state management based on scroll progress
+        // When horizontal scroll is complete (progress >= 1), header becomes opaque
+        if (overallProgress >= 1) {
+            if (!hasEnteredVerticalSection) {
+                hasEnteredVerticalSection = true;
+                document.body.classList.add('sub-hero-passed');
+            }
+        } else {
+            if (hasEnteredVerticalSection) {
+                hasEnteredVerticalSection = false;
+                document.body.classList.remove('sub-hero-passed');
+            }
+        }
         
         const beforeHorizontalSection = scrollProgress < 0;
         const inHorizontalSection = scrollProgress >= 0 && scrollProgress <= totalScrollDistance;
@@ -1133,8 +1143,12 @@ function setupEquipmentNarrative() {
 let diagnosisHeaderObserver = null;
 
 function setupDiagnosisHeaderObserver() {
-    const sentinel = document.getElementById('vertical-sentinel');
-    if (!sentinel) return;
+    // For mobile: observe equipment-narrative since there's no horizontal scroll
+    const equipmentNarrative = document.querySelector('.equipment-narrative');
+    if (!equipmentNarrative) return;
+    
+    // Only use observer for mobile - desktop uses scroll progress in handleScroll
+    if (window.innerWidth > 768) return;
     
     // Cleanup existing observer
     if (diagnosisHeaderObserver) {
@@ -1142,33 +1156,30 @@ function setupDiagnosisHeaderObserver() {
         diagnosisHeaderObserver = null;
     }
     
-    // Observe the sentinel element placed at the vertical section boundary
-    // Triggers immediately when vertical content starts appearing
+    // Mobile: observe equipment-narrative to trigger header state change
     diagnosisHeaderObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            const rect = sentinel.getBoundingClientRect();
+            const rect = equipmentNarrative.getBoundingClientRect();
             
             if (entry.isIntersecting) {
-                // Sentinel is visible → at or entering vertical section
+                // Equipment narrative entering view → header opaque
                 hasEnteredVerticalSection = true;
                 document.body.classList.add('sub-hero-passed');
             } else {
-                // Sentinel is NOT visible
-                // Only clear latch if sentinel is BELOW viewport (scrolled back up to horizontal)
-                if (rect.top > window.innerHeight) {
+                // Only clear if scrolled back up (element below viewport)
+                if (rect.top > window.innerHeight * 0.5) {
                     hasEnteredVerticalSection = false;
                     document.body.classList.remove('sub-hero-passed');
                 }
-                // If sentinel is ABOVE viewport (scrolled further down), keep latch set
             }
         });
     }, {
         root: null,
-        rootMargin: '0px',
+        rootMargin: '0px 0px -50% 0px',
         threshold: 0
     });
     
-    diagnosisHeaderObserver.observe(sentinel);
+    diagnosisHeaderObserver.observe(equipmentNarrative);
 }
 
 function cleanupDiagnosisHeaderObserver() {
