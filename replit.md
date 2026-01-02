@@ -53,8 +53,8 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 
 ## Recent Changes (2026-01-02)
 - Horizontal scroll velocity clamping for luxury feel:
-  - Added MAX_VELOCITY constant (0.006 per frame = ~0.36 screen widths/sec at 60fps)
-  - Previous max velocity: ~2.4 screen widths/sec (6.7x faster)
+  - Added MAX_VELOCITY constant (0.017 per frame = ~1.0 screen widths/sec at 60fps)
+  - Previous max velocity: ~2.4 screen widths/sec (2.4x faster)
   - Module-level state: `horizontalDisplayProgress`, `horizontalLastFrameTime`
   - Time-based deltaTime calculation for consistent behavior across refresh rates
   - State reset in cleanupHorizontalScroll() and setupHorizontalScroll() for proper navigation cycling

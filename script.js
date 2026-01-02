@@ -987,8 +987,8 @@ function setupHorizontalScroll() {
     }
     
     // Velocity clamping for luxury feel
-    // Max delta per frame: 0.006 = ~0.36 screen widths/sec at 60fps
-    const MAX_VELOCITY = 0.006;
+    // Max delta per frame: 0.017 = ~1.0 screen widths/sec at 60fps
+    const MAX_VELOCITY = 0.017;
     horizontalDisplayProgress = 0;
     horizontalLastFrameTime = performance.now();
     
