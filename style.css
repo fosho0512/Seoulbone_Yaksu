@@ -2347,28 +2347,67 @@ body::before {
     z-index: 2;
 }
 
-.slogan-content {
-    position: relative;
+.slogan-content-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 3;
-    max-width: 550px;
-    text-align: right;
-    color: #fff;
-    opacity: 0;
-    transform: translateX(60px);
-    transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.3s,
-                transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.3s;
+    display: flex;
+    flex-direction: column;
+    padding: 0 6%;
+    box-sizing: border-box;
 }
 
-.slogan-section.active .slogan-content {
+.slogan-top-row {
+    position: absolute;
+    top: 45vh;
+    left: 6%;
+    right: 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    transform: translateY(-50%);
+}
+
+.slogan-left,
+.slogan-right {
+    flex: 1;
+    max-width: 45%;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+                transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.slogan-section.active .slogan-left {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
+    transition-delay: 0.3s;
+}
+
+.slogan-section.active .slogan-right {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.5s;
+}
+
+.slogan-left {
+    text-align: left;
+}
+
+.slogan-right {
+    text-align: left;
 }
 
 .slogan-main {
     font-family: var(--font-serif);
     font-size: var(--font-display-lg);
     color: #fff;
-    margin-bottom: 30px;
+    margin: 0;
     font-weight: 400;
     line-height: var(--lh-tight);
     letter-spacing: var(--ls-wide);
@@ -2379,15 +2418,29 @@ body::before {
     font-size: var(--font-body-lg);
     color: rgba(255,255,255,0.9);
     line-height: var(--lh-relaxed);
-    margin-bottom: 50px;
+    margin: 0;
 }
 
 .slogan-principle {
+    position: absolute;
+    bottom: 15vh;
+    left: 50%;
+    transform: translateX(-50%) translateY(40px);
+    width: 70%;
     background: rgba(255,255,255,0.1);
     backdrop-filter: blur(10px);
     padding: 35px 40px;
-    border-right: 4px solid var(--gold-accent);
-    border-radius: 8px 0 0 8px;
+    border-radius: 8px;
+    border-bottom: 4px solid var(--gold-accent);
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.7s,
+                transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) 0.7s;
+}
+
+.slogan-section.active .slogan-principle {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 .slogan-principle h3 {
@@ -2611,7 +2664,27 @@ body::before {
         padding: 100px 6%;
     }
     
-    .slogan-content {
+    .slogan-content-wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 80px 0;
+        height: auto;
+    }
+    
+    .slogan-top-row {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        flex-direction: column;
+        gap: 30px;
+        transform: none;
+        margin-bottom: 40px;
+    }
+    
+    .slogan-left,
+    .slogan-right {
         max-width: 100%;
         text-align: center;
         opacity: 1;
@@ -2628,10 +2701,20 @@ body::before {
     }
     
     .slogan-principle {
-        border-right: none;
+        position: relative;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        width: 100%;
+        border-bottom: none;
         border-top: 3px solid var(--gold-accent);
         border-radius: 0 0 8px 8px;
         text-align: center;
+        opacity: 1;
+    }
+    
+    .slogan-section.active .slogan-principle {
+        transform: none;
     }
     
     .horizontal-progress {

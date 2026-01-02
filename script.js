@@ -233,9 +233,15 @@ function showContentView(id) {
                                     </svg>
                                 </div>
                             </div>
-                            <div class="slogan-content">
-                                <h2 class="slogan-main">정확한 진단이<br>완치의 시작입니다</h2>
-                                <p class="slogan-desc">서울본재활의학과는 최첨단 진단 장비에 아낌없이 투자합니다.<br>통증의 근본 원인을 빠르고 정확하게 찾아내어,<br>환자분에게 가장 적합한 치료 계획을 수립하기 위함입니다.</p>
+                            <div class="slogan-content-wrapper">
+                                <div class="slogan-top-row">
+                                    <div class="slogan-left">
+                                        <h2 class="slogan-main">정확한 진단이<br>완치의 시작입니다</h2>
+                                    </div>
+                                    <div class="slogan-right">
+                                        <p class="slogan-desc">서울본재활의학과는 최첨단 진단 장비에 아낌없이 투자합니다.<br>통증의 근본 원인을 빠르고 정확하게 찾아내어,<br>환자분에게 가장 적합한 치료 계획을 수립하기 위함입니다.</p>
+                                    </div>
+                                </div>
                                 <div class="slogan-principle">
                                     <h3>우리의 원칙</h3>
                                     <p class="principle-title">모든 시술의 영상 가이드화<br><span>Image-Guided Injection</span></p>
