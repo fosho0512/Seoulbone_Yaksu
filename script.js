@@ -956,28 +956,49 @@ function setupHorizontalScroll() {
         return;
     }
     
+    // Easing function - ease-in-out for slower, more deliberate movement
+    function easeInOutCubic(t) {
+        return t < 0.5 
+            ? 4 * t * t * t 
+            : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+    
     function handleScroll() {
         const outerRect = outer.getBoundingClientRect();
-        const scrollDistance = window.innerHeight;
+        const totalScrollDistance = outer.offsetHeight - window.innerHeight;
         const scrollProgress = -outerRect.top;
         
-        if (scrollProgress >= 0 && scrollProgress <= scrollDistance) {
-            const progress = Math.max(0, Math.min(1, scrollProgress / scrollDistance));
-            const translateX = -progress * window.innerWidth;
+        // Phase allocation:
+        // 0% - 65%: Horizontal scroll (sub-hero slides left, slogan slides in)
+        // 65% - 100%: Dwell zone (slogan stays pinned and readable)
+        const horizontalPhaseEnd = 0.65;
+        
+        const overallProgress = Math.max(0, Math.min(1, scrollProgress / totalScrollDistance));
+        
+        if (overallProgress <= horizontalPhaseEnd) {
+            // Horizontal scroll phase with easing
+            const phaseProgress = overallProgress / horizontalPhaseEnd;
+            const easedProgress = easeInOutCubic(phaseProgress);
+            const translateX = -easedProgress * window.innerWidth;
             
             track.style.transform = `translateX(${translateX}px)`;
             
-            if (progress > 0.3 && sloganSection) {
+            // Activate slogan when 30% through horizontal phase
+            if (phaseProgress > 0.3 && sloganSection) {
                 sloganSection.classList.add('active');
             } else if (sloganSection) {
                 sloganSection.classList.remove('active');
             }
-        } else if (scrollProgress < 0) {
-            track.style.transform = 'translateX(0)';
-            if (sloganSection) sloganSection.classList.remove('active');
         } else {
+            // Dwell phase - slogan stays pinned
             track.style.transform = `translateX(${-window.innerWidth}px)`;
             if (sloganSection) sloganSection.classList.add('active');
+        }
+        
+        // Before horizontal scroll starts
+        if (scrollProgress < 0) {
+            track.style.transform = 'translateX(0)';
+            if (sloganSection) sloganSection.classList.remove('active');
         }
     }
     
