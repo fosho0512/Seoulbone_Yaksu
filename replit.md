@@ -52,17 +52,19 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
 ## Recent Changes (2026-01-02)
+- Premium horizontal-to-vertical scroll transition with dwell section:
+  - `.horizontal-scroll-outer` height: 350vh (increased from 200vh)
+  - easeInOutCubic easing for slow, deliberate movement
+  - Phase allocation:
+    - 0-65%: Horizontal scroll phase (~162.5vh) - sub-hero slides left, slogan slides in
+    - 65-100%: Dwell zone (~87.5vh) - slogan stays pinned and readable
+  - Slogan remains visible for extended scroll distance before releasing to vertical
+- Added `.sub-hero-panel .sub-hero-curve` z-index: 5 to display wave above overlay
+
+## Previous Changes (2026-01-02)
 - CSS Architecture cleanup: Removed unnecessary negative margin patterns
   - All `has-sub-hero` pages: `.content-wrapper` padding set to 0
   - Full-width sections now use clean `width: 100vw` without margin hacks
-  - Removed `calc(50% - 50vw)` and `calc(-12% - 40px)` patterns from:
-    - `.sub-hero`
-    - `.visual-section`
-    - `.brand-philosophy-section`
-    - `.values-slogan-section`
-    - `.values-slides-container`
-    - `.philosophy-card-wrapper.expanding`
-  - Applied same cleanup to mobile responsive styles (768px↓)
 
 ## Previous Changes (2026-01-02)
 - Diagnostic Tools page horizontal scroll redesign:
@@ -71,13 +73,13 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
   - Equipment narrative follows with sticky image + scroll text
 - HTML Structure:
   ```html
-  .horizontal-scroll-outer (height: 200vh)
+  .horizontal-scroll-outer (height: 350vh)
     └── .horizontal-scroll-wrapper (sticky, 100vh)
           └── .horizontal-scroll-track (translateX animation)
                 ├── .scroll-panel.sub-hero-panel
                 └── .scroll-panel.slogan-section
   ```
-- JavaScript: setupHorizontalScroll() targets `.scroll-panel` and `.horizontal-scroll-track`
+- JavaScript: setupHorizontalScroll() with easeInOutCubic easing and dwell phase
 - Mobile (768px↓): Falls back to vertical scroll layout
 
 ## Previous Changes (2025-12-31)
