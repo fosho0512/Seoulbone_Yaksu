@@ -51,21 +51,23 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 3. CSS transitions reveal background and Enter button
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
-## Recent Changes (2025-12-31)
-- Completely redesigned Diagnostic Tools page with new 3-stage layout:
-  1. **Sub-hero** (100vh): Normal vertical scroll
-  2. **Horizontal scroll** (hero duplicate → slogan): 
-     - Vertical scroll converts to horizontal translateX
-     - Slogan section with background image, right-aligned text, fade-in effect
-  3. **Equipment Narrative** (sticky image + scroll text):
-     - Left: Sticky image that changes on scroll
-     - Right: Equipment descriptions (01~04) with scroll-triggered activation
-     - Image fade transitions between equipment
-- JavaScript: 
-  - setupHorizontalScroll() - simplified to 2 sections only
-  - setupEquipmentNarrative() - sticky image + scroll text
-  - Proper Lenis event listener cleanup
+## Recent Changes (2026-01-02)
+- Diagnostic Tools page horizontal scroll redesign:
+  - Sub-hero is now the first panel inside `.horizontal-scroll-track` (no duplicate)
+  - Scroll down: Sub-hero slides left, slogan appears from right
+  - Equipment narrative follows with sticky image + scroll text
+- HTML Structure:
+  ```html
+  .horizontal-scroll-outer (height: 200vh)
+    └── .horizontal-scroll-wrapper (sticky, 100vh)
+          └── .horizontal-scroll-track (translateX animation)
+                ├── .scroll-panel.sub-hero-panel
+                └── .scroll-panel.slogan-section
+  ```
+- JavaScript: setupHorizontalScroll() targets `.scroll-panel` and `.horizontal-scroll-track`
 - Mobile (768px↓): Falls back to vertical scroll layout
+
+## Previous Changes (2025-12-31)
 - Core Values page: Removed slogan section, sub-hero now uses values.jpg
 
 ## Previous Changes (2025-12-30)
