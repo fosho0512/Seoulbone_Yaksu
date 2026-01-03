@@ -1067,9 +1067,23 @@ function setupHorizontalScroll() {
                     if (indicatorSlogan) indicatorSlogan.classList.remove('visible');
                 }
             } else {
-                // Dwell phase - slogan stays pinned
-                horizontalDisplayProgress = 1;
-                track.style.transform = `translateX(${-window.innerWidth}px)`;
+                // Dwell phase - slogan stays pinned, but use velocity clamping to reach 1
+                const targetProgress = 1;
+                
+                // Calculate time-based velocity limit
+                const now = performance.now();
+                const deltaTime = Math.min((now - horizontalLastFrameTime) / 16.67, 2);
+                horizontalLastFrameTime = now;
+                
+                // Clamp velocity for smooth transition to final position
+                const maxDelta = MAX_VELOCITY * deltaTime;
+                const progressDelta = targetProgress - horizontalDisplayProgress;
+                const clampedDelta = Math.max(-maxDelta, Math.min(maxDelta, progressDelta));
+                horizontalDisplayProgress += clampedDelta;
+                
+                const translateX = -horizontalDisplayProgress * window.innerWidth;
+                track.style.transform = `translateX(${translateX}px)`;
+                
                 if (sloganSection) {
                     sloganSection.classList.add('zoom-out');
                     sloganSection.classList.add('active');
@@ -1086,9 +1100,22 @@ function setupHorizontalScroll() {
                 }
             }
         } else {
-            // In vertical section - keep final horizontal state
-            horizontalDisplayProgress = 1;
-            track.style.transform = `translateX(${-window.innerWidth}px)`;
+            // In vertical section - use velocity clamping to maintain smooth transition
+            const targetProgress = 1;
+            
+            // Calculate time-based velocity limit
+            const now = performance.now();
+            const deltaTime = Math.min((now - horizontalLastFrameTime) / 16.67, 2);
+            horizontalLastFrameTime = now;
+            
+            // Clamp velocity
+            const maxDelta = MAX_VELOCITY * deltaTime;
+            const progressDelta = targetProgress - horizontalDisplayProgress;
+            const clampedDelta = Math.max(-maxDelta, Math.min(maxDelta, progressDelta));
+            horizontalDisplayProgress += clampedDelta;
+            
+            const translateX = -horizontalDisplayProgress * window.innerWidth;
+            track.style.transform = `translateX(${translateX}px)`;
             if (sloganSection) {
                 sloganSection.classList.add('zoom-out');
                 sloganSection.classList.add('active');
