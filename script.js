@@ -240,18 +240,27 @@ function showContentView(id) {
                                 <div class="slogan-description-group">
                                     <p class="slogan-desc">서울본재활의학과는 최첨단 진단 장비에 아낌없이 투자합니다.<br>통증의 근본 원인을 빠르고 정확하게 찾아내어,<br>환자분에게 가장 적합한 치료 계획을 수립하기 위함입니다.</p>
                                 </div>
-                                <div class="principle-card">
-                                    <h3 class="principle-label">우리의 원칙</h3>
-                                    <p class="principle-headline">모든 시술의 영상 가이드화</p>
-                                    <p class="principle-subtitle">Image-Guided Injection</p>
-                                    <p class="principle-body">감이나 경험에만 의존하는 '블라인드 주사'를 지양합니다.<br>모든 주사 치료 및 시술은 반드시 초음파나 C-arm 실시간<br>영상 장비를 보면서 진행합니다.</p>
-                                </div>
                             </div>
                         </section>
                         
                     </div>
                 </div>
             </div>
+            
+            <section class="principle-dwell-section">
+                <div class="principle-dwell-bg">
+                    <img src="images/diagnosis-slogan.png" alt="Background">
+                </div>
+                <div class="principle-dwell-overlay"></div>
+                <div class="principle-sticky-wrapper">
+                    <div class="principle-card">
+                        <h3 class="principle-label">우리의 원칙</h3>
+                        <p class="principle-headline">모든 시술의 영상 가이드화</p>
+                        <p class="principle-subtitle">Image-Guided Injection</p>
+                        <p class="principle-body">감이나 경험에만 의존하는 '블라인드 주사'를 지양합니다.<br>모든 주사 치료 및 시술은 반드시 초음파나 C-arm 실시간<br>영상 장비를 보면서 진행합니다.</p>
+                    </div>
+                </div>
+            </section>
             
             <div class="equipment-narrative">
                 <div class="sticky-image-wrapper">
