@@ -1085,14 +1085,6 @@ function setupHorizontalScroll() {
                 }
                 if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
                 if (indicatorSlogan) indicatorSlogan.classList.add('visible');
-                
-                // Show principle card when 40% into dwell phase
-                const dwellProgress = (overallProgress - horizontalPhaseEnd) / (1 - horizontalPhaseEnd);
-                if (dwellProgress > 0.4 && sloganSection) {
-                    sloganSection.classList.add('principle-visible');
-                } else if (sloganSection) {
-                    sloganSection.classList.remove('principle-visible');
-                }
             }
         } else {
             // In vertical section - keep final horizontal state
@@ -1101,7 +1093,6 @@ function setupHorizontalScroll() {
             if (sloganSection) {
                 sloganSection.classList.add('zoom-out');
                 sloganSection.classList.add('active');
-                sloganSection.classList.add('principle-visible');
             }
             if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
             if (indicatorSlogan) indicatorSlogan.classList.add('visible');
@@ -1141,11 +1132,53 @@ function setupHorizontalScroll() {
     // Initial state
     handleScroll();
     
+    // Setup principle dwell section observer
+    setupPrincipleDwellObserver();
+    
     // Also setup equipment narrative
     setupEquipmentNarrative();
     
     // Setup header state observer for vertical scroll section
     setupDiagnosisHeaderObserver();
+}
+
+// Principle Dwell Section Observer
+let principleDwellObserver = null;
+
+function setupPrincipleDwellObserver() {
+    const dwellSection = document.querySelector('.principle-dwell-section');
+    if (!dwellSection) return;
+    
+    // Cleanup existing observer
+    if (principleDwellObserver) {
+        principleDwellObserver.disconnect();
+        principleDwellObserver = null;
+    }
+    
+    principleDwellObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                dwellSection.classList.add('active');
+            }
+        });
+    }, {
+        threshold: 0.3,
+        rootMargin: '0px'
+    });
+    
+    principleDwellObserver.observe(dwellSection);
+}
+
+function cleanupPrincipleDwellObserver() {
+    if (principleDwellObserver) {
+        principleDwellObserver.disconnect();
+        principleDwellObserver = null;
+    }
+    
+    const dwellSection = document.querySelector('.principle-dwell-section');
+    if (dwellSection) {
+        dwellSection.classList.remove('active');
+    }
 }
 
 // Equipment Narrative (Sticky Image + Scroll Text)
@@ -1268,6 +1301,9 @@ function cleanupHorizontalScroll() {
     horizontalDisplayProgress = 0;
     horizontalLastFrameTime = 0;
     hasEnteredVerticalSection = false;
+    
+    // Cleanup principle dwell observer
+    cleanupPrincipleDwellObserver();
     
     if (equipmentScrollHandler) {
         window.removeEventListener('scroll', equipmentScrollHandler);

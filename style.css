@@ -2512,6 +2512,133 @@ body::before {
 }
 
 /* =========================================
+   Principle Dwell Section (Soft Scroll Lock)
+   ========================================= */
+.principle-dwell-section {
+    position: relative;
+    height: 200vh;
+    overflow: hidden;
+}
+
+.principle-dwell-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.principle-dwell-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.principle-dwell-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+    z-index: 2;
+}
+
+.principle-sticky-wrapper {
+    position: sticky;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    padding: 0 6%;
+}
+
+.principle-dwell-section .principle-card {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: scale(0.98);
+    width: 90%;
+    max-width: 680px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    padding: 40px 50px;
+    border-radius: 12px;
+    border-bottom: 3px solid var(--gold-accent);
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1.3s cubic-bezier(0.22, 0.61, 0.36, 1),
+                transform 1.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.principle-dwell-section.active .principle-card {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.principle-dwell-section .principle-label {
+    font-family: var(--font-serif);
+    font-size: var(--font-body);
+    color: var(--gold-accent);
+    margin: 0 0 16px 0;
+    letter-spacing: var(--ls-widest);
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.principle-dwell-section.active .principle-label {
+    opacity: 1;
+    transition-delay: 0.2s;
+}
+
+.principle-dwell-section .principle-headline {
+    font-family: var(--font-serif);
+    font-size: var(--font-heading-lg);
+    color: #fff;
+    margin: 0 0 8px 0;
+    line-height: var(--lh-snug);
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.principle-dwell-section.active .principle-headline {
+    opacity: 1;
+    transition-delay: 0.35s;
+}
+
+.principle-dwell-section .principle-subtitle {
+    font-size: var(--font-body-sm);
+    color: rgba(255,255,255,0.6);
+    letter-spacing: var(--ls-wider);
+    margin: 0 0 24px 0;
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.principle-dwell-section.active .principle-subtitle {
+    opacity: 1;
+    transition-delay: 0.5s;
+}
+
+.principle-dwell-section .principle-body {
+    font-size: var(--font-body);
+    color: rgba(255,255,255,0.85);
+    line-height: var(--lh-relaxed);
+    margin: 0;
+    text-align: left;
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.principle-dwell-section.active .principle-body {
+    opacity: 1;
+    transition-delay: 0.65s;
+}
+
+/* =========================================
    Equipment Narrative (Sticky Image + Scroll Text)
    ========================================= */
 .equipment-narrative {
@@ -2830,5 +2957,42 @@ body::before {
     
     .equipment-title {
         font-size: var(--font-heading-md);
+    }
+    
+    /* Mobile: Principle Dwell Section - reduced height, no animation */
+    .principle-dwell-section {
+        height: auto;
+        min-height: 100vh;
+        padding: 80px 0;
+    }
+    
+    .principle-sticky-wrapper {
+        position: relative;
+        top: auto;
+        transform: none;
+    }
+    
+    .principle-dwell-section .principle-card {
+        padding: 30px 25px;
+        opacity: 1;
+        transform: none;
+    }
+    
+    .principle-dwell-section .principle-label,
+    .principle-dwell-section .principle-headline,
+    .principle-dwell-section .principle-subtitle,
+    .principle-dwell-section .principle-body {
+        opacity: 1;
+    }
+    
+    .principle-dwell-section.active .principle-label,
+    .principle-dwell-section.active .principle-headline,
+    .principle-dwell-section.active .principle-subtitle,
+    .principle-dwell-section.active .principle-body {
+        transition-delay: 0s;
+    }
+    
+    .principle-dwell-section .principle-body {
+        text-align: center;
     }
 }
