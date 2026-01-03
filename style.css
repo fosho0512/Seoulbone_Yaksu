@@ -2309,8 +2309,7 @@ body::before {
 
 /* Slogan Section */
 .slogan-section {
-    justify-content: flex-end;
-    padding-right: 8%;
+    justify-content: center;
 }
 
 .slogan-bg {
@@ -2654,7 +2653,7 @@ body::before {
 /* Mobile Responsive - Horizontal Scroll */
 @media (max-width: 1024px) {
     .slogan-section {
-        padding-right: 6%;
+        justify-content: center;
     }
     
     .slogan-content {
