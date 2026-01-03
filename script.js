@@ -1174,31 +1174,93 @@ function setupHorizontalScroll() {
 // Equipment Narrative (Sticky Image + Scroll Text)
 let equipmentScrollHandler = null;
 let equipmentLenisHandler = null;
+let equipmentDisplayProgress = 0;
+let equipmentLastFrameTime = 0;
+let currentEquipmentStep = -1;
 
 function setupEquipmentNarrative() {
+    const narrativeSection = document.querySelector('.equipment-narrative');
     const steps = document.querySelectorAll('.equipment-step');
     const images = document.querySelectorAll('.sticky-image img');
     
-    if (steps.length === 0 || images.length === 0) return;
+    if (!narrativeSection || steps.length === 0 || images.length === 0) return;
+    
+    // Reset state
+    equipmentDisplayProgress = 0;
+    equipmentLastFrameTime = performance.now();
+    currentEquipmentStep = -1;
+    
+    // Velocity clamping settings (0.7x speed = slower scroll)
+    const SCROLL_SPEED_MULTIPLIER = 0.7;
+    const MAX_VELOCITY = 0.015; // Max progress change per frame
+    
+    // Each step has active phase + dwell phase
+    // With 4 steps: each step gets 25% of progress
+    // Within each 25%: 70% for scrolling through, 30% for dwelling
+    const stepsCount = steps.length;
+    const stepTotalDuration = 1 / stepsCount; // 0.25 for 4 steps
+    const dwellRatio = 0.3; // 30% of each step is dwell time
     
     function handleEquipmentScroll() {
-        const viewportMiddle = window.innerHeight / 2;
+        const rect = narrativeSection.getBoundingClientRect();
+        const sectionHeight = narrativeSection.offsetHeight;
+        const viewportHeight = window.innerHeight;
         
-        steps.forEach((step, index) => {
-            const rect = step.getBoundingClientRect();
+        // Calculate actual scroll progress through section (0-1)
+        const scrollableDistance = sectionHeight - viewportHeight;
+        const scrolled = -rect.top;
+        const actualProgress = Math.max(0, Math.min(1, scrolled / scrollableDistance));
+        
+        // Apply scroll speed multiplier
+        const targetProgress = actualProgress * SCROLL_SPEED_MULTIPLIER;
+        
+        // Calculate time-based velocity limit
+        const now = performance.now();
+        const deltaTime = Math.min((now - equipmentLastFrameTime) / 16.67, 2);
+        equipmentLastFrameTime = now;
+        
+        // Clamp velocity for smooth, deliberate movement
+        const maxDelta = MAX_VELOCITY * deltaTime;
+        const progressDelta = targetProgress - equipmentDisplayProgress;
+        const clampedDelta = Math.max(-maxDelta, Math.min(maxDelta, progressDelta));
+        equipmentDisplayProgress += clampedDelta;
+        
+        // Ensure display progress stays in valid range
+        equipmentDisplayProgress = Math.max(0, Math.min(1, equipmentDisplayProgress));
+        
+        // Determine which step should be active based on display progress
+        // Each step has a dwell zone at its center
+        let activeStep = 0;
+        
+        for (let i = 0; i < stepsCount; i++) {
+            const stepStart = i * stepTotalDuration;
+            const stepEnd = (i + 1) * stepTotalDuration;
             
-            // Check if step is in the middle of the viewport
-            if (rect.top < viewportMiddle && rect.bottom > viewportMiddle) {
-                // Activate this step
-                steps.forEach(s => s.classList.remove('active'));
-                step.classList.add('active');
-                
-                // Switch image
-                images.forEach((img, i) => {
-                    img.classList.toggle('active', i === index);
-                });
+            if (equipmentDisplayProgress >= stepStart && equipmentDisplayProgress < stepEnd) {
+                activeStep = i;
+                break;
             }
-        });
+            
+            // Handle last step
+            if (i === stepsCount - 1 && equipmentDisplayProgress >= stepStart) {
+                activeStep = i;
+            }
+        }
+        
+        // Only update if step changed (prevents flickering)
+        if (activeStep !== currentEquipmentStep) {
+            currentEquipmentStep = activeStep;
+            
+            // Update step visibility
+            steps.forEach((s, i) => {
+                s.classList.toggle('active', i === activeStep);
+            });
+            
+            // Switch image with transition
+            images.forEach((img, i) => {
+                img.classList.toggle('active', i === activeStep);
+            });
+        }
     }
     
     // Cleanup existing handlers
@@ -1301,6 +1363,11 @@ function cleanupHorizontalScroll() {
         window.lenis.off('scroll', equipmentLenisHandler);
         equipmentLenisHandler = null;
     }
+    
+    // Reset equipment narrative state
+    equipmentDisplayProgress = 0;
+    equipmentLastFrameTime = 0;
+    currentEquipmentStep = -1;
     
     cleanupDiagnosisHeaderObserver();
 }
