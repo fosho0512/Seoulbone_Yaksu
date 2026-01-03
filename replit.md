@@ -51,7 +51,17 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 3. CSS transitions reveal background and Enter button
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
-## Recent Changes (2026-01-02)
+## Recent Changes (2026-01-03)
+- Principle Dwell Section with Soft Scroll Lock:
+  - Separated principle-card into standalone `.principle-dwell-section` (200vh height)
+  - CSS sticky positioning: `.principle-sticky-wrapper` at top: 50%, transform: translateY(-50%)
+  - IntersectionObserver with 30% threshold triggers 'active' class for sequential animations
+  - Card animation: 1.3s scale(0.98→1) + opacity fade with cubic-bezier(0.22, 0.61, 0.36, 1)
+  - Internal elements: Sequential reveal with staggered delays (label 0.2s, headline 0.35s, subtitle 0.5s, body 0.65s)
+  - Cleanup: cleanupPrincipleDwellObserver() resets state on page navigation
+  - Mobile: Immediate visibility with no sticky/animation, graceful fallback
+
+## Previous Changes (2026-01-02)
 - Horizontal scroll velocity clamping for luxury feel:
   - Added MAX_VELOCITY constant (0.017 per frame = ~1.0 screen widths/sec at 60fps)
   - Previous max velocity: ~2.4 screen widths/sec (2.4x faster)
