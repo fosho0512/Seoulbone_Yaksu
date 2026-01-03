@@ -52,13 +52,6 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
 ## Recent Changes (2026-01-03)
-- Equipment Narrative scroll speed control:
-  - SCROLL_SPEED_MULTIPLIER: 0.7 (30% slower scroll)
-  - MAX_VELOCITY: 0.015 per frame for smooth transitions
-  - Virtual progress system (equipmentDisplayProgress) for velocity clamping
-  - Each step gets equal duration with built-in dwell time
-  - State variables: equipmentDisplayProgress, equipmentLastFrameTime, currentEquipmentStep
-  - Cleanup in cleanupHorizontalScroll() for proper state reset
 - Dwell phase subdivision for better content consumption:
   - 0-65%: Horizontal scroll phase (sub-hero slides left, slogan slides in)
   - 65-80%: Text dwell phase (main/sub text visible, ~15% scroll distance ≈ 60vh)
