@@ -955,6 +955,7 @@ let horizontalLenisHandler = null;
 let hasEnteredVerticalSection = false;
 let horizontalDisplayProgress = 0;
 let horizontalLastFrameTime = 0;
+let sloganPinScrollTrigger = null;
 
 function setupHorizontalScroll() {
     // Reset vertical section flag
@@ -1164,6 +1165,65 @@ function setupHorizontalScroll() {
     
     // Setup header state observer for vertical scroll section
     setupDiagnosisHeaderObserver();
+    
+    // Setup ScrollTrigger pin for slogan section after principle card appears
+    // This pins the slogan section for additional scroll consumption after horizontal scroll ends
+    setupSloganPin();
+}
+
+// Slogan section pin - keeps slogan visible for additional scroll after principle card appears
+function setupSloganPin() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        console.warn('GSAP or ScrollTrigger not loaded for slogan pin');
+        return;
+    }
+    
+    // Ensure Lenis is linked to ScrollTrigger before creating new triggers
+    linkLenisToScrollTrigger();
+    
+    // Cleanup existing pin
+    if (sloganPinScrollTrigger) {
+        sloganPinScrollTrigger.kill();
+        sloganPinScrollTrigger = null;
+    }
+    
+    const outer = document.querySelector('.horizontal-scroll-outer');
+    const sloganSection = document.querySelector('.slogan-section');
+    
+    if (!outer || !sloganSection) return;
+    
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Calculate the scroll position where dwell phase ends (overallProgress = 1)
+    // This is when the user has scrolled through the full 350vh of horizontal-scroll-outer
+    const outerHeight = outer.offsetHeight;
+    const viewportHeight = window.innerHeight;
+    const dwellEndOffset = outerHeight - viewportHeight; // The point where overallProgress reaches 1
+    
+    // Pin the slogan section itself when horizontal scroll completes
+    // start: when the top of outer reaches (viewportHeight - dwellEndOffset) from top
+    // This triggers when overallProgress would be ~1 (end of dwell phase)
+    sloganPinScrollTrigger = ScrollTrigger.create({
+        trigger: outer,
+        start: () => `top -${dwellEndOffset}px`, // When scrolled through full outer height
+        end: '+=400', // Consume 400px more scroll
+        pin: sloganSection, // Pin the slogan section directly
+        pinSpacing: false, // Critical: don't add extra height to layout
+        onEnter: () => {
+            // Ensure principle card is fully visible during pin
+            if (sloganSection) {
+                sloganSection.classList.add('zoom-out');
+                sloganSection.classList.add('active');
+                sloganSection.classList.add('principle-visible');
+            }
+        },
+        onLeaveBack: () => {
+            // When scrolling back up, remove principle-visible to allow proper animation
+            if (sloganSection) {
+                sloganSection.classList.remove('principle-visible');
+            }
+        }
+    });
 }
 
 // Equipment Narrative (Sticky Image + Scroll Text)
@@ -1280,6 +1340,12 @@ function cleanupHorizontalScroll() {
     if (horizontalResizeHandler) {
         window.removeEventListener('resize', horizontalResizeHandler);
         horizontalResizeHandler = null;
+    }
+    
+    // Cleanup slogan pin ScrollTrigger
+    if (sloganPinScrollTrigger) {
+        sloganPinScrollTrigger.kill();
+        sloganPinScrollTrigger = null;
     }
     
     // Reset velocity clamping state for next visit
