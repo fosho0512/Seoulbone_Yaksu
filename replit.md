@@ -52,6 +52,11 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
 ## Recent Changes (2026-01-03)
+- Dwell phase subdivision for better content consumption:
+  - 0-65%: Horizontal scroll phase (sub-hero slides left, slogan slides in)
+  - 65-80%: Text dwell phase (main/sub text visible, ~15% scroll distance ≈ 60vh)
+  - 80-100%: Principle card phase (card visible, ~20% scroll distance ≈ 80vh)
+  - Total dwell time significantly increased for content consumption
 - Removed ScrollTrigger pin due to position conflict:
   - ScrollTrigger pin caused white screen issue (position: fixed conflict with translateX transform)
   - Instead, increased .horizontal-scroll-outer height from 350vh to 400vh
