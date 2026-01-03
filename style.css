@@ -2169,7 +2169,7 @@ body::before {
    ========================================= */
 .horizontal-scroll-outer {
     position: relative;
-    height: 350vh;
+    height: 400vh;
 }
 
 .horizontal-scroll-wrapper {
