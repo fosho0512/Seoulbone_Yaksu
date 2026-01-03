@@ -1049,8 +1049,8 @@ function setupHorizontalScroll() {
                 
                 track.style.transform = `translateX(${translateX}px)`;
                 
-                // Activate slogan when 30% through horizontal phase
-                if (phaseProgress > 0.3 && sloganSection) {
+                // Activate slogan when 70% through horizontal phase
+                if (phaseProgress > 0.7 && sloganSection) {
                     sloganSection.classList.add('active');
                     if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
                     if (indicatorSlogan) indicatorSlogan.classList.add('visible');
