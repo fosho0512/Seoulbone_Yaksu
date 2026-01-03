@@ -1049,7 +1049,14 @@ function setupHorizontalScroll() {
                 
                 track.style.transform = `translateX(${translateX}px)`;
                 
-                // Activate slogan when 70% through horizontal phase
+                // Start zoom-out when 50% through horizontal phase
+                if (phaseProgress > 0.5 && sloganSection) {
+                    sloganSection.classList.add('zoom-out');
+                } else if (sloganSection) {
+                    sloganSection.classList.remove('zoom-out');
+                }
+                
+                // Activate slogan text when 70% through horizontal phase
                 if (phaseProgress > 0.7 && sloganSection) {
                     sloganSection.classList.add('active');
                     if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
@@ -1063,7 +1070,10 @@ function setupHorizontalScroll() {
                 // Dwell phase - slogan stays pinned
                 horizontalDisplayProgress = 1;
                 track.style.transform = `translateX(${-window.innerWidth}px)`;
-                if (sloganSection) sloganSection.classList.add('active');
+                if (sloganSection) {
+                    sloganSection.classList.add('zoom-out');
+                    sloganSection.classList.add('active');
+                }
                 if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
                 if (indicatorSlogan) indicatorSlogan.classList.add('visible');
                 
@@ -1080,6 +1090,7 @@ function setupHorizontalScroll() {
             horizontalDisplayProgress = 1;
             track.style.transform = `translateX(${-window.innerWidth}px)`;
             if (sloganSection) {
+                sloganSection.classList.add('zoom-out');
                 sloganSection.classList.add('active');
                 sloganSection.classList.add('principle-visible');
             }
