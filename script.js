@@ -1068,6 +1068,11 @@ function setupHorizontalScroll() {
                 }
             } else {
                 // Dwell phase - slogan stays pinned, but use velocity clamping to reach 1
+                // Phase allocation within dwell:
+                // 65-80% (overallProgress): Text dwell - main/sub text visible
+                // 80-100% (overallProgress): Principle card dwell
+                const textDwellEnd = 0.80; // Switch to principle card at 80%
+                
                 const targetProgress = 1;
                 
                 // Calculate time-based velocity limit
@@ -1091,9 +1096,9 @@ function setupHorizontalScroll() {
                 if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
                 if (indicatorSlogan) indicatorSlogan.classList.add('visible');
                 
-                // Show principle card when 40% into dwell phase
-                const dwellProgress = (overallProgress - horizontalPhaseEnd) / (1 - horizontalPhaseEnd);
-                if (dwellProgress > 0.4 && sloganSection) {
+                // Show principle card when reaching 80% overall progress
+                // This gives text ~15% scroll distance (65-80%) to be consumed
+                if (overallProgress >= textDwellEnd && sloganSection) {
                     sloganSection.classList.add('principle-visible');
                 } else if (sloganSection) {
                     sloganSection.classList.remove('principle-visible');
