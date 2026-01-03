@@ -1056,8 +1056,8 @@ function setupHorizontalScroll() {
                     sloganSection.classList.remove('zoom-out');
                 }
                 
-                // Activate slogan text when 70% through horizontal phase
-                if (phaseProgress > 0.7 && sloganSection) {
+                // Activate slogan text when 60% through horizontal phase
+                if (phaseProgress > 0.6 && sloganSection) {
                     sloganSection.classList.add('active');
                     if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
                     if (indicatorSlogan) indicatorSlogan.classList.add('visible');

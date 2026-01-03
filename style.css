@@ -2362,7 +2362,7 @@ body::before {
 
 .slogan-main-group {
     position: absolute;
-    top: 45vh;
+    top: 35vh;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
@@ -2399,7 +2399,7 @@ body::before {
 
 .slogan-description-group {
     position: absolute;
-    top: calc(45vh + 100px);
+    top: calc(35vh + 100px);
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -2411,7 +2411,7 @@ body::before {
 
 .slogan-section.active .slogan-description-group {
     opacity: 1;
-    transition-delay: 1.6s;
+    transition-delay: 0.6s;
 }
 
 .slogan-section.active.principle-visible .slogan-description-group {
@@ -2429,7 +2429,7 @@ body::before {
 
 .principle-card {
     position: absolute;
-    bottom: 20vh;
+    bottom: 30vh;
     left: 50%;
     transform: translateX(-50%) scale(0.98);
     width: 90%;
@@ -2448,7 +2448,7 @@ body::before {
 .slogan-section.active.principle-visible .principle-card {
     opacity: 1;
     transform: translateX(-50%) scale(1);
-    transition-delay: 0.6s;
+    transition-delay: 0.2s;
 }
 
 .principle-label {
