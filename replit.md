@@ -52,18 +52,17 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
 ## Recent Changes (2026-01-03)
-- Slogan section ScrollTrigger pin implementation:
-  - Pin starts when horizontal scroll completes (overallProgress = 1)
-  - Uses dwellEndOffset = outerHeight - viewportHeight for precise timing
-  - Pin duration: 400px additional scroll consumption
-  - pinSpacing: false prevents layout changes
-  - sloganPinScrollTrigger managed in cleanupHorizontalScroll()
-- Slogan animation timing adjustments:
-  - Text activation at 60% horizontal phase (was 70%)
-  - Main text position: top 35vh (was 45vh)
-  - Description delay: 0.6s after main text (was 1.6s)
-  - Principle card position: bottom 30vh (was 20vh)
-  - Principle card delay: 0.2s (was 0.6s)
+- Removed ScrollTrigger pin due to position conflict:
+  - ScrollTrigger pin caused white screen issue (position: fixed conflict with translateX transform)
+  - Instead, increased .horizontal-scroll-outer height from 350vh to 400vh
+  - This provides ~50vh additional dwell time using native sticky behavior
+  - No transform/position conflicts, cleaner implementation
+- Slogan animation timing:
+  - Text activation at 60% horizontal phase
+  - Main text position: top 35vh
+  - Description delay: 0.6s after main text
+  - Principle card position: bottom 30vh
+  - Principle card delay: 0.2s
 - Slogan background always visible (opacity: 1)
 - Zoom-out effect starts at 50% horizontal scroll progress
 
