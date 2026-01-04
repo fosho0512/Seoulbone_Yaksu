@@ -244,7 +244,7 @@ function showContentView(id) {
                                     <h3 class="principle-label">우리의 원칙</h3>
                                     <p class="principle-headline">모든 시술의 영상 가이드화</p>
                                     <p class="principle-subtitle">Image-Guided Injection</p>
-                                    <p class="principle-body">감이나 경험에만 의존하는 '블라인드 주사'를 지양합니다.<br>모든 주사 치료 및 시술은 반드시 초음파나 C-arm 실시간<br>영상 장비를 보면서 진행합니다.</p>
+                                    <p class="principle-body">우리는 감이나 경험에만 의존하는 '블라인드 주사'를 지양합니다.<br>모든 주사 치료 및 시술은 반드시 초음파나 C-arm 실시간 영상 장비를 보면서 진행합니다.<br><br>이를 통해 타겟 부위에 약물을 오차 없이 정확하게 투여하여 치료 효과를 극대화하고,<br>신경이나 혈관 손상 등의 부작용 위험을 최소화하여 독보적인 안전성을 확보합니다.</p>
                                 </div>
                             </div>
                         </section>
