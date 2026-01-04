@@ -453,13 +453,8 @@ function showContentView(id) {
                         </div>
                         <div class="treatment-content-overlay"></div>
                         <div class="treatment-content-inner">
-                            <div class="modal-layout-top">
-                                <div class="modal-text-group">
-                                    <p class="description">${data.desc}</p>
-                                </div>
-                                <div class="modal-image-group">
-                                    ${mediaHtml}
-                                </div>
+                            <div class="treatment-intro">
+                                <p class="description">${data.desc}</p>
                             </div>
                             <div class="modal-grid">
                                 ${data.details.map(det => `
