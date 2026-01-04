@@ -428,47 +428,94 @@ function showContentView(id) {
         else if (id === 'contact') heroImagePath = 'images/contact-hero.png';
         else if (id === 'facilities') heroImagePath = 'images/treatment-hero.png';
 
-        html = `
-            <div class="sub-hero" id="${id}-sub-hero">
-                <div class="sub-hero-image">
-                    <img src="${heroImagePath}" alt="${data.title} Hero">
+        if (id === 'treatment') {
+            html = `
+                <div class="treatment-sticky-wrapper">
+                    <div class="sub-hero treatment-sub-hero-sticky" id="${id}-sub-hero">
+                        <div class="sub-hero-image">
+                            <img src="${heroImagePath}" alt="${data.title} Hero">
+                        </div>
+                        <div class="sub-hero-overlay"></div>
+                        <div class="sub-hero-text">
+                            <h2>${data.title}</h2>
+                        </div>
+                        <div class="scroll-indicator">
+                            <div class="scroll-indicator-circle">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M12 5v14M5 12l7 7 7-7"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="treatment-content-overlap">
+                        <div class="treatment-content-bg">
+                            <img src="images/treatment-content-bg.png" alt="Background">
+                        </div>
+                        <div class="treatment-content-overlay"></div>
+                        <div class="treatment-content-inner">
+                            <div class="modal-layout-top">
+                                <div class="modal-text-group">
+                                    <p class="description">${data.desc}</p>
+                                </div>
+                                <div class="modal-image-group">
+                                    ${mediaHtml}
+                                </div>
+                            </div>
+                            <div class="modal-grid">
+                                ${data.details.map(det => `
+                                    <div class="grid-item">
+                                        <div class="grid-img-wrapper"><img src="${det.img}" alt="${det.t}"></div>
+                                        <div class="grid-text-wrapper"><h4>${det.t}</h4><p>${det.d}</p></div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="sub-hero-overlay"></div>
-                <div class="sub-hero-text">
-                    <h2>${data.title}</h2>
-                </div>
-                <div class="scroll-indicator">
-                    <div class="scroll-indicator-circle">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 5v14M5 12l7 7 7-7"/>
+            `;
+        } else {
+            html = `
+                <div class="sub-hero" id="${id}-sub-hero">
+                    <div class="sub-hero-image">
+                        <img src="${heroImagePath}" alt="${data.title} Hero">
+                    </div>
+                    <div class="sub-hero-overlay"></div>
+                    <div class="sub-hero-text">
+                        <h2>${data.title}</h2>
+                    </div>
+                    <div class="scroll-indicator">
+                        <div class="scroll-indicator-circle">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 5v14M5 12l7 7 7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="sub-hero-curve">
+                        <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                            <path d="M0,100 L0,40 Q360,100 720,50 Q1080,0 1440,60 L1440,100 Z"></path>
                         </svg>
                     </div>
                 </div>
-                <div class="sub-hero-curve">
-                    <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-                        <path d="M0,100 L0,40 Q360,100 720,50 Q1080,0 1440,60 L1440,100 Z"></path>
-                    </svg>
-                </div>
-            </div>
-            <div class="sub-hero-content">
-                <div class="modal-layout-top">
-                    <div class="modal-text-group">
-                        <p class="description">${data.desc}</p>
-                    </div>
-                    <div class="modal-image-group">
-                        ${mediaHtml}
-                    </div>
-                </div>
-                <div class="modal-grid">
-                    ${data.details.map(det => `
-                        <div class="grid-item">
-                            <div class="grid-img-wrapper"><img src="${det.img}" alt="${det.t}"></div>
-                            <div class="grid-text-wrapper"><h4>${det.t}</h4><p>${det.d}</p></div>
+                <div class="sub-hero-content">
+                    <div class="modal-layout-top">
+                        <div class="modal-text-group">
+                            <p class="description">${data.desc}</p>
                         </div>
-                    `).join('')}
+                        <div class="modal-image-group">
+                            ${mediaHtml}
+                        </div>
+                    </div>
+                    <div class="modal-grid">
+                        ${data.details.map(det => `
+                            <div class="grid-item">
+                                <div class="grid-img-wrapper"><img src="${det.img}" alt="${det.t}"></div>
+                                <div class="grid-text-wrapper"><h4>${det.t}</h4><p>${det.d}</p></div>
+                            </div>
+                        `).join('')}
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
+        }
     }
 
     // 이전 서브히어로 상태 초기화

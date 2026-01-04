@@ -2511,6 +2511,107 @@ body::before {
 }
 
 /* =========================================
+   Treatment Page - Sticky Overlap Effect
+   ========================================= */
+.treatment-sticky-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.treatment-sub-hero-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.treatment-content-overlap {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    background: var(--bg-color);
+}
+
+.treatment-content-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.treatment-content-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.3) saturate(0.8);
+}
+
+.treatment-content-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, 
+        rgba(250, 250, 248, 0.92) 0%, 
+        rgba(250, 250, 248, 0.95) 50%,
+        rgba(250, 250, 248, 1) 100%);
+    z-index: 2;
+}
+
+.treatment-content-inner {
+    position: relative;
+    z-index: 3;
+    padding: 100px 6%;
+}
+
+.treatment-content-inner .modal-layout-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 80px;
+    align-items: start;
+}
+
+.treatment-content-inner .modal-text-group {
+    padding-right: 20px;
+}
+
+.treatment-content-inner .modal-image-group img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+.treatment-content-inner .modal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+@media (max-width: 1024px) {
+    .treatment-content-inner .modal-layout-top {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .treatment-content-inner .modal-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .treatment-content-inner {
+        padding: 60px 5%;
+    }
+    
+    .treatment-content-inner .modal-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
    Equipment Narrative (Sticky Image + Scroll Text)
    ========================================= */
 .equipment-narrative {
