@@ -572,21 +572,23 @@ function setupTreatmentIntroZoom() {
     const introSection = document.querySelector('.treatment-intro-section');
     if (!introSection) return;
     
-    // 줌인/아웃 효과를 위한 IntersectionObserver (스크롤에 따라 토글)
-    const zoomObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('zoom-active');
-            } else {
-                entry.target.classList.remove('zoom-active');
-            }
-        });
-    }, { 
-        threshold: 0.9,
-        rootMargin: '0px'
-    });
+    // 줌인/아웃 효과를 위한 스크롤 리스너
+    // 인트로 섹션 상단이 화면 상단 10% 지점을 지나면 줌아웃, 다시 내려오면 줌인
+    const zoomThreshold = window.innerHeight * 0.1;
     
-    zoomObserver.observe(introSection);
+    const handleZoomScroll = () => {
+        const introRect = introSection.getBoundingClientRect();
+        
+        // 인트로 섹션 상단이 화면 상단 10% 지점 위로 올라가면 줌아웃
+        if (introRect.top <= zoomThreshold) {
+            introSection.classList.add('zoom-active');
+        } else {
+            introSection.classList.remove('zoom-active');
+        }
+    };
+    
+    window.addEventListener('scroll', handleZoomScroll);
+    handleZoomScroll();
     
     // 헤더 배경색 변경을 위한 스크롤 리스너 (인트로 섹션 끝 기준)
     const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 90;
