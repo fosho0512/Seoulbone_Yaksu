@@ -572,6 +572,36 @@ function setupTreatmentIntroZoom() {
     const introSection = document.querySelector('.treatment-intro-section');
     if (!introSection) return;
     
+    const introImg = introSection.querySelector('.treatment-intro-bg img');
+    
+    // Aspect Ratio-aware fitting: 이미지와 화면 비율 비교하여 동적 크기 조절
+    if (introImg) {
+        const adjustImageSize = () => {
+            const imgRatio = introImg.naturalWidth / introImg.naturalHeight;
+            const viewportRatio = window.innerWidth / window.innerHeight;
+            
+            if (viewportRatio > imgRatio) {
+                // 화면이 더 가로로 길다 → 세로 기준
+                introImg.style.width = 'auto';
+                introImg.style.height = '100%';
+            } else {
+                // 화면이 더 세로로 길다 → 가로 기준
+                introImg.style.width = '100%';
+                introImg.style.height = 'auto';
+            }
+        };
+        
+        // 이미지 로드 후 크기 조절
+        if (introImg.complete) {
+            adjustImageSize();
+        } else {
+            introImg.onload = adjustImageSize;
+        }
+        
+        // 창 크기 변경 시 재조절
+        window.addEventListener('resize', adjustImageSize);
+    }
+    
     // 줌인/아웃 효과를 위한 스크롤 리스너
     // 인트로 섹션 상단이 화면 상단 10% 지점을 지나면 줌아웃, 다시 내려오면 줌인
     const zoomThreshold = window.innerHeight * 0.1;
