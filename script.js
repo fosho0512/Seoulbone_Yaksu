@@ -286,10 +286,10 @@ function showContentView(id) {
                     </div>
                     <div class="equipment-step" data-index="3">
                         <span class="equipment-number">04</span>
-                        <h3 class="equipment-title">신경전도 및 근전도 검사</h3>
+                        <h3 class="equipment-title">최신 신경전도 및 근전도 검사 기기 (NCS/EMG)</h3>
                         <p class="equipment-subtitle">Nerve Conduction Study & Electromyography</p>
                         <p class="equipment-slogan">"눈에 보이지 않는 신경과 근육의 기능적 이상을 찾아내는 정밀 검사"</p>
-                        <p class="equipment-desc">MRI나 X-ray만으로는 알 수 없는 신경의 기능적 상태를 전기적 신호로 평가합니다. 손발 저림, 근력 약화 등이 신경 문제인지 근육 문제인지, 손상 위치와 정도를 명확하게 감별 진단합니다.</p>
+                        <p class="equipment-desc">영상 검사(MRI, X-ray)만으로는 알 수 없는 신경의 기능적 상태를 전기적 신호를 통해 평가합니다. 손발 저림, 감각 이상, 근력 약화 등이 있을 때, 이것이 신경의 문제인지 근육 자체의 문제인지, 신경 손상이라면 그 위치와 심각도는 어느 정도인지를 명확하게 감별 진단합니다.<br>(예: 손목터널증후군, 목/허리 디스크로 인한 신경손상 등 진단)</p>
                     </div>
                 </div>
             </div>
