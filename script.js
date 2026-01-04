@@ -279,10 +279,10 @@ function showContentView(id) {
                     </div>
                     <div class="equipment-step" data-index="2">
                         <span class="equipment-number">03</span>
-                        <h3 class="equipment-title">C-arm 실시간 투시 영상</h3>
+                        <h3 class="equipment-title">C-arm (이동형 실시간 투시 영상 장비)</h3>
                         <p class="equipment-subtitle">C-arm Fluoroscopy with SELD Technology</p>
                         <p class="equipment-slogan">"정확도는 높이고 피폭은 최소화한, 안전한 비수술 치료의 핵심"</p>
-                        <p class="equipment-desc">몸속을 실시간 동영상으로 보는 투시 장비입니다. 척추나 관절 깊숙한 부위에 시술 시, 바늘 위치를 네비게이션처럼 정확하게 안내합니다. 최신 저선량(SELD) 기술 탑재로 방사선 노출을 획기적으로 줄였습니다.</p>
+                        <p class="equipment-desc">마치 우리 몸속을 실시간 동영상으로 보는 것과 같은 투시 장비입니다. 척추나 관절의 깊숙한 부위에 주사 치료나 시술을 시행할 때, 네비게이션처럼 바늘의 위치를 실시간으로 정확하게 안내하여 오차 없는 정밀한 치료를 가능하게 합니다.<br><br>안전 플러스: 최신 방사선 피폭 저감 장치인 SELD가 탑재되어 있어, 의료진과 환자분이 받는 불필요한 방사선 노출량을 획기적으로 줄여 더욱 안심하고 치료받으실 수 있습니다.</p>
                     </div>
                     <div class="equipment-step" data-index="3">
                         <span class="equipment-number">04</span>
