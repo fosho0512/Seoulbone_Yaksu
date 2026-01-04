@@ -448,14 +448,16 @@ function showContentView(id) {
                         </div>
                     </div>
                     <div class="treatment-content-overlap">
-                        <div class="treatment-content-bg">
-                            <img src="images/treatment-content-bg.png" alt="Background">
-                        </div>
-                        <div class="treatment-content-overlay"></div>
-                        <div class="treatment-content-inner">
-                            <div class="treatment-intro">
+                        <section class="treatment-intro-section">
+                            <div class="treatment-intro-bg">
+                                <img src="images/treatment-content-bg.png" alt="Background">
+                            </div>
+                            <div class="treatment-intro-overlay"></div>
+                            <div class="treatment-intro-inner">
                                 <p class="description">${data.desc}</p>
                             </div>
+                        </section>
+                        <section class="treatment-grid-section">
                             <div class="modal-grid">
                                 ${data.details.map(det => `
                                     <div class="grid-item">
@@ -464,7 +466,7 @@ function showContentView(id) {
                                     </div>
                                 `).join('')}
                             </div>
-                        </div>
+                        </section>
                     </div>
                 </div>
             `;
