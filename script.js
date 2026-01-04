@@ -275,7 +275,7 @@ function showContentView(id) {
                         <h3 class="equipment-title">프리미엄 초음파 진단기</h3>
                         <p class="equipment-subtitle">Premium Musculoskeletal Ultrasound (3 Units)</p>
                         <p class="equipment-slogan">"진료실에서 대기 없이 즉시 확인하는 '의사의 제2의 눈'"</p>
-                        <p class="equipment-desc">X-ray로는 확인이 어려운 근육, 힘줄, 인대, 신경 등 연부 조직의 손상과 염증을 정밀하게 관찰합니다. 하이엔드급 초음파 장비를 총 3대 보유하여 각 진료실에 배치, 진료 상담 도중 즉각적으로 아픈 부위를 확인하고 설명해 드립니다.</p>
+                        <p class="equipment-desc">X-ray로는 확인이 어려운 근육, 힘줄, 인대, 신경 등 연부 조직의 손상과 염증을 정밀하게 관찰합니다. 저희 병원은 하이엔드급 초음파 장비를 총 3대 보유하여 각 진료실에 배치했습니다. 환자분들은 별도의 검사실 이동이나 대기 시간 없이, 진료 상담 도중 즉각적으로아픈 부위를 초음파로 확인하고 설명을 들으실 수 있습니다. 또한 주사 치료 시 실시간 유도 영상으로 활용하여 정확한 치료를 돕습니다.</p>
                     </div>
                     <div class="equipment-step" data-index="2">
                         <span class="equipment-number">03</span>
