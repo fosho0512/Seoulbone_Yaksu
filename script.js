@@ -572,12 +572,13 @@ function setupTreatmentIntroZoom() {
     const introSection = document.querySelector('.treatment-intro-section');
     if (!introSection) return;
     
-    // 줌인 효과를 위한 IntersectionObserver
+    // 줌인/아웃 효과를 위한 IntersectionObserver (스크롤에 따라 토글)
     const zoomObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('zoom-active');
-                zoomObserver.unobserve(entry.target);
+            } else {
+                entry.target.classList.remove('zoom-active');
             }
         });
     }, { 
