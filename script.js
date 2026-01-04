@@ -446,6 +446,11 @@ function showContentView(id) {
                                 </svg>
                             </div>
                         </div>
+                        <div class="sub-hero-curve">
+                            <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                                <path d="M0,100 L0,40 Q360,100 720,50 Q1080,0 1440,60 L1440,100 Z"></path>
+                            </svg>
+                        </div>
                     </div>
                     <div class="treatment-content-overlap">
                         <section class="treatment-intro-section">
@@ -550,10 +555,37 @@ function showContentView(id) {
         }, 100);
     }
     
+    // Treatment 페이지 인트로 줌인 효과 설정
+    if (id === 'treatment') {
+        setTimeout(() => {
+            setupTreatmentIntroZoom();
+        }, 100);
+    }
+    
     // Close menu if open
     if (document.body.classList.contains('menu-open')) {
         document.body.classList.remove('menu-open');
     }
+}
+
+// Treatment 인트로 줌인 효과
+function setupTreatmentIntroZoom() {
+    const introSection = document.querySelector('.treatment-intro-section');
+    if (!introSection) return;
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('zoom-active');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { 
+        threshold: 0.1,
+        rootMargin: '0px'
+    });
+    
+    observer.observe(introSection);
 }
 
 function setupSubHeroScrollEffect() {
