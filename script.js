@@ -457,7 +457,6 @@ function showContentView(id) {
                             <div class="treatment-intro-bg">
                                 <img src="images/treatment-content-bg.png" alt="Background">
                             </div>
-                            <div class="treatment-intro-overlay"></div>
                             <div class="treatment-intro-inner">
                                 <p class="description">${data.desc}</p>
                             </div>
@@ -568,16 +567,17 @@ function showContentView(id) {
     }
 }
 
-// Treatment 인트로 줌인 효과
+// Treatment 인트로 줌인 효과 및 헤더 상태 관리
 function setupTreatmentIntroZoom() {
     const introSection = document.querySelector('.treatment-intro-section');
     if (!introSection) return;
     
-    const observer = new IntersectionObserver((entries) => {
+    // 줌인 효과를 위한 IntersectionObserver
+    const zoomObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('zoom-active');
-                observer.unobserve(entry.target);
+                zoomObserver.unobserve(entry.target);
             }
         });
     }, { 
@@ -585,7 +585,24 @@ function setupTreatmentIntroZoom() {
         rootMargin: '0px'
     });
     
-    observer.observe(introSection);
+    zoomObserver.observe(introSection);
+    
+    // 헤더 배경색 변경을 위한 스크롤 리스너 (인트로 섹션 끝 기준)
+    const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 90;
+    
+    const handleTreatmentScroll = () => {
+        const introRect = introSection.getBoundingClientRect();
+        
+        // 인트로 섹션의 bottom이 헤더 아래로 지나가면 헤더 배경색 추가
+        if (introRect.bottom <= headerHeight) {
+            document.body.classList.add('sub-hero-passed');
+        } else {
+            document.body.classList.remove('sub-hero-passed');
+        }
+    };
+    
+    window.addEventListener('scroll', handleTreatmentScroll);
+    handleTreatmentScroll(); // 초기 상태 설정
 }
 
 function setupSubHeroScrollEffect() {
