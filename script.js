@@ -455,7 +455,7 @@ function showContentView(id) {
                     <div class="treatment-content-overlap">
                         <section class="treatment-intro-section">
                             <div class="treatment-intro-bg">
-                                <img src="images/treatment-content-bg.png" alt="Background">
+                                <img src="images/treatment-intro-bg.jpg" alt="Background">
                             </div>
                             <div class="treatment-intro-inner">
                                 <p class="description">${data.desc}</p>
