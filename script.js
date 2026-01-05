@@ -592,45 +592,140 @@ function showContentView(id) {
     }
 }
 
-// Treatment 인트로 줌인 효과 및 헤더 상태 관리
+// Treatment 인트로 슬로건 애니메이션 (GSAP ScrollTrigger)
 function setupTreatmentIntroZoom() {
     const introSection = document.querySelector('.treatment-intro-section');
     if (!introSection) return;
     
-    // 줌인/아웃 효과를 위한 스크롤 리스너
-    // 인트로 섹션 상단이 화면 상단 10% 지점을 지나면 줌아웃, 다시 내려오면 줌인
-    const zoomThreshold = window.innerHeight * 0.1;
+    // GSAP 및 ScrollTrigger 확인
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        console.warn('GSAP or ScrollTrigger not loaded');
+        return;
+    }
     
-    const handleZoomScroll = () => {
-        const introRect = introSection.getBoundingClientRect();
-        
-        // 인트로 섹션 상단이 화면 상단 10% 지점 위로 올라가면 줌아웃
-        if (introRect.top <= zoomThreshold) {
-            introSection.classList.add('zoom-active');
-        } else {
-            introSection.classList.remove('zoom-active');
+    // 요소 선택
+    const group1 = introSection.querySelector('.slogan-group-1');
+    const group2 = introSection.querySelector('.slogan-group-2');
+    const group345 = introSection.querySelector('.slogan-group-345');
+    const bgImg = introSection.querySelector('.treatment-intro-bg img');
+    
+    if (!group1 || !group2 || !group345) return;
+    
+    const group1Main = group1.querySelector('.slogan-main');
+    const group1Sub = group1.querySelector('.slogan-sub');
+    const group1Desc = group1.querySelector('.slogan-desc');
+    const group2Main = group2.querySelector('.slogan-promise-main');
+    const group2Desc = group2.querySelector('.slogan-promise-desc');
+    const promiseItems = group345.querySelectorAll('.promise-item');
+    
+    // 공통 이징
+    const easeIn = 'power2.out';
+    const easeOut = 'power2.in';
+    
+    // 메인 타임라인 생성
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: introSection,
+            start: 'top top',
+            end: '+=300%',
+            pin: true,
+            scrub: 1,
+            onEnter: () => {
+                document.body.classList.remove('sub-hero-passed');
+            },
+            onLeave: () => {
+                document.body.classList.add('sub-hero-passed');
+            },
+            onEnterBack: () => {
+                document.body.classList.remove('sub-hero-passed');
+            }
         }
-    };
+    });
     
-    window.addEventListener('scroll', handleZoomScroll);
-    handleZoomScroll();
+    // 배경 줌아웃
+    tl.to(bgImg, {
+        scale: 1,
+        duration: 0.15,
+        ease: 'power2.out'
+    }, 0);
     
-    // 헤더 배경색 변경을 위한 스크롤 리스너 (인트로 섹션 끝 기준)
-    const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 90;
+    // STEP 2: 1번 그룹 등장 (우→좌 순차)
+    tl.to(group1, { opacity: 1, duration: 0.01 }, 0);
+    tl.to(group1Main, {
+        opacity: 1,
+        x: 0,
+        duration: 0.12,
+        ease: easeIn
+    }, 0.02);
+    tl.to(group1Sub, {
+        opacity: 1,
+        x: 0,
+        duration: 0.12,
+        ease: easeIn
+    }, 0.06);
+    tl.to(group1Desc, {
+        opacity: 1,
+        x: 0,
+        duration: 0.12,
+        ease: easeIn
+    }, 0.10);
     
-    const handleTreatmentScroll = () => {
-        const introRect = introSection.getBoundingClientRect();
-        
-        // 인트로 섹션의 bottom이 헤더 아래로 지나가면 헤더 배경색 추가
-        if (introRect.bottom <= headerHeight) {
-            document.body.classList.add('sub-hero-passed');
-        } else {
-            document.body.classList.remove('sub-hero-passed');
-        }
-    };
+    // STEP 3: 1번 그룹 사라짐 (위로 이동 + 페이드아웃)
+    tl.to([group1Main, group1Sub, group1Desc], {
+        opacity: 0,
+        y: -48,
+        duration: 0.12,
+        ease: easeOut
+    }, 0.28);
+    tl.to(group1, { opacity: 0, duration: 0.01 }, 0.40);
     
-    window.addEventListener('scroll', handleTreatmentScroll);
-    handleTreatmentScroll(); // 초기 상태 설정
+    // STEP 4: 2번 그룹 등장 (아래→위 교차)
+    tl.to(group2, { opacity: 1, duration: 0.01 }, 0.32);
+    tl.to(group2Main, {
+        opacity: 1,
+        y: 0,
+        duration: 0.12,
+        ease: easeIn
+    }, 0.34);
+    tl.to(group2Desc, {
+        opacity: 1,
+        y: 0,
+        duration: 0.12,
+        ease: easeIn
+    }, 0.38);
+    
+    // STEP 5: 3·4·5 약속 등장 (순차 페이드업)
+    tl.to(group345, { opacity: 1, duration: 0.01 }, 0.48);
+    promiseItems.forEach((item, i) => {
+        tl.to(item, {
+            opacity: 1,
+            y: 0,
+            duration: 0.10,
+            ease: easeIn
+        }, 0.50 + (i * 0.04));
+    });
+    
+    // 2번 그룹 사라짐 (3·4·5 등장 시)
+    tl.to([group2Main, group2Desc], {
+        opacity: 0,
+        y: -48,
+        duration: 0.10,
+        ease: easeOut
+    }, 0.52);
+    tl.to(group2, { opacity: 0, duration: 0.01 }, 0.62);
+    
+    // STEP 6: 체류 구간 (약속들이 완전히 보인 상태 유지) - 0.65 ~ 0.85
+    // 이 구간에서는 아무 변화 없음
+    
+    // STEP 7: 고정 해제 전 페이드아웃
+    tl.to(promiseItems, {
+        opacity: 0,
+        y: -24,
+        duration: 0.10,
+        stagger: 0.02,
+        ease: easeOut
+    }, 0.88);
+    tl.to(group345, { opacity: 0, duration: 0.01 }, 0.98);
 }
 
 function setupSubHeroScrollEffect() {
