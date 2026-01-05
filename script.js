@@ -595,6 +595,7 @@ function showContentView(id) {
 // Treatment 인트로 슬로건 애니메이션 (GSAP ScrollTrigger)
 function setupTreatmentIntroZoom() {
     const introSection = document.querySelector('.treatment-intro-section');
+    const subHeroSticky = document.querySelector('.treatment-sub-hero-sticky');
     if (!introSection) return;
     
     // GSAP 및 ScrollTrigger 확인
@@ -629,15 +630,22 @@ function setupTreatmentIntroZoom() {
             start: 'top top',
             end: '+=300%',
             pin: true,
+            pinSpacing: true,
             scrub: 1,
             onEnter: () => {
                 document.body.classList.remove('sub-hero-passed');
+                if (subHeroSticky) subHeroSticky.style.visibility = 'hidden';
             },
             onLeave: () => {
                 document.body.classList.add('sub-hero-passed');
+                if (subHeroSticky) subHeroSticky.style.visibility = 'hidden';
             },
             onEnterBack: () => {
                 document.body.classList.remove('sub-hero-passed');
+                if (subHeroSticky) subHeroSticky.style.visibility = 'hidden';
+            },
+            onLeaveBack: () => {
+                if (subHeroSticky) subHeroSticky.style.visibility = 'visible';
             }
         }
     });

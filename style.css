@@ -2527,6 +2527,7 @@ body::before {
 .treatment-content-overlap {
     position: relative;
     z-index: 2;
+    background: var(--bg-color);
 }
 
 /* Treatment Intro Section - Full viewport height */
@@ -2539,6 +2540,8 @@ body::before {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    z-index: 10;
+    background: #000;
 }
 
 .treatment-intro-bg {
