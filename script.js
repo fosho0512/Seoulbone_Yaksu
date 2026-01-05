@@ -461,6 +461,36 @@ function showContentView(id) {
                                 <p class="description">${data.desc}</p>
                             </div>
                         </section>
+                        <section class="treatment-slogan-section">
+                            <div class="slogan-text-area">
+                                <!-- 1번 그룹: 진단 철학 -->
+                                <div class="slogan-group slogan-group-1">
+                                    <h2 class="slogan-main">통증을 넘어, 근본적인 기능 회복을 위한<br>통합 치료 솔루션</h2>
+                                    <p class="slogan-sub">재활의학과와 정형외과의 전문성을 더해, 통증의 일시적 완화가 아닌 근본적인 원인 해결을 목표로 합니다.</p>
+                                    <p class="slogan-desc">대학병원급 최첨단 장비와 숙련된 노하우를 바탕으로, 환자 개개인의 상태에 최적화된 맞춤형 통합 치료 계획을 수립합니다.</p>
+                                </div>
+                                <!-- 2번 그룹: 병원의 약속 -->
+                                <div class="slogan-group slogan-group-2">
+                                    <h2 class="slogan-promise-main">서울본재활의학과의원이 지키는<br>3가지 약속</h2>
+                                    <p class="slogan-promise-desc">우리는 회복이라는 결과 앞에서 어떤 효율과도 타협하지 않습니다.</p>
+                                </div>
+                                <!-- 3·4·5번 그룹: 개별 약속 -->
+                                <div class="slogan-group slogan-group-345">
+                                    <div class="promise-item">
+                                        <h3 class="promise-title">엄격한 재료의 선정 <span class="promise-en">Strict Standard</span></h3>
+                                        <p class="promise-desc">내 가족에게 쓸 수 있는 것만이 환자분에게도 허락됩니다. 우리는 임상적으로 검증된 최상의 재료만을 고집하며, 안전성과 효능에 대한 확신 없이는 절대 사용하지 않습니다.</p>
+                                    </div>
+                                    <div class="promise-item">
+                                        <h3 class="promise-title">실시간 맞춤 처방 <span class="promise-en">Real-time Customization</span></h3>
+                                        <p class="promise-desc">기계적인 루틴(Routine) 진료를 지양합니다. 매 내원 시 달라지는 신체 상태를 정밀하게 파악하여, 지금 당신에게 가장 필요한 최적의 배합으로 치료합니다.</p>
+                                    </div>
+                                    <div class="promise-item">
+                                        <h3 class="promise-title">근본을 보는 통찰 <span class="promise-en">Insight for Cause</span></h3>
+                                        <p class="promise-desc">통증은 몸이 보내는 신호일 뿐입니다. 단순한 불편함의 해소를 넘어, 불균형해진 신체 구조와 기능을 바로잡는 근본적인 치유를 지향합니다.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                         <section class="treatment-grid-section">
                             <div class="modal-grid">
                                 ${data.details.map(det => `
