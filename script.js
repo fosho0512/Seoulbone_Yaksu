@@ -657,82 +657,65 @@ function setupTreatmentIntroZoom() {
         ease: 'power2.out'
     }, 0);
     
-    // STEP 2: 1번 그룹 등장 (우→좌 순차)
+    // STEP 2: 1번 그룹 등장 (우→좌 이동 먼저, 그 다음 페이드인)
     tl.to(group1, { opacity: 1, duration: 0.01 }, 0);
-    tl.to(group1Main, {
-        opacity: 1,
-        x: 0,
-        duration: 0.12,
-        ease: easeIn
-    }, 0.02);
-    tl.to(group1Sub, {
-        opacity: 1,
-        x: 0,
-        duration: 0.12,
-        ease: easeIn
-    }, 0.06);
-    tl.to(group1Desc, {
-        opacity: 1,
-        x: 0,
-        duration: 0.12,
-        ease: easeIn
-    }, 0.10);
+    // x 이동 시작
+    tl.to(group1Main, { x: 0, duration: 0.10, ease: 'power2.out' }, 0.02);
+    tl.to(group1Sub, { x: 0, duration: 0.10, ease: 'power2.out' }, 0.05);
+    tl.to(group1Desc, { x: 0, duration: 0.10, ease: 'power2.out' }, 0.08);
+    // 페이드인 (이동 중간에 시작)
+    tl.to(group1Main, { opacity: 1, duration: 0.06, ease: easeIn }, 0.04);
+    tl.to(group1Sub, { opacity: 1, duration: 0.06, ease: easeIn }, 0.07);
+    tl.to(group1Desc, { opacity: 1, duration: 0.06, ease: easeIn }, 0.10);
     
-    // STEP 3: 1번 그룹 사라짐 (위로 이동 + 페이드아웃)
-    tl.to([group1Main, group1Sub, group1Desc], {
-        opacity: 0,
-        y: -48,
-        duration: 0.12,
-        ease: easeOut
-    }, 0.28);
-    tl.to(group1, { opacity: 0, duration: 0.01 }, 0.40);
+    // STEP 3: 1번 그룹 사라짐 (위로 이동 먼저, 그 다음 페이드아웃)
+    // y 이동 시작
+    tl.to(group1Main, { y: -48, duration: 0.10, ease: 'power2.in' }, 0.24);
+    tl.to(group1Sub, { y: -48, duration: 0.10, ease: 'power2.in' }, 0.26);
+    tl.to(group1Desc, { y: -48, duration: 0.10, ease: 'power2.in' }, 0.28);
+    // 페이드아웃 (이동 중간에 시작)
+    tl.to(group1Main, { opacity: 0, duration: 0.06, ease: easeOut }, 0.28);
+    tl.to(group1Sub, { opacity: 0, duration: 0.06, ease: easeOut }, 0.30);
+    tl.to(group1Desc, { opacity: 0, duration: 0.06, ease: easeOut }, 0.32);
+    tl.to(group1, { opacity: 0, duration: 0.01 }, 0.38);
     
-    // STEP 4: 2번 그룹 등장 (아래→위 교차)
-    tl.to(group2, { opacity: 1, duration: 0.01 }, 0.32);
-    tl.to(group2Main, {
-        opacity: 1,
-        y: 0,
-        duration: 0.12,
-        ease: easeIn
-    }, 0.34);
-    tl.to(group2Desc, {
-        opacity: 1,
-        y: 0,
-        duration: 0.12,
-        ease: easeIn
-    }, 0.38);
+    // STEP 4: 2번 그룹 등장 (아래→위 이동 먼저, 그 다음 페이드인)
+    tl.to(group2, { opacity: 1, duration: 0.01 }, 0.30);
+    // y 이동 시작
+    tl.to(group2Main, { y: 0, duration: 0.10, ease: 'power2.out' }, 0.32);
+    tl.to(group2Desc, { y: 0, duration: 0.10, ease: 'power2.out' }, 0.36);
+    // 페이드인 (이동 중간에 시작)
+    tl.to(group2Main, { opacity: 1, duration: 0.06, ease: easeIn }, 0.35);
+    tl.to(group2Desc, { opacity: 1, duration: 0.06, ease: easeIn }, 0.39);
     
-    // STEP 5: 3·4·5 약속 등장 (순차 페이드업)
-    tl.to(group345, { opacity: 1, duration: 0.01 }, 0.48);
+    // STEP 5: 3·4·5 약속 등장 (위로 이동 먼저, 그 다음 페이드인)
+    tl.to(group345, { opacity: 1, duration: 0.01 }, 0.46);
     promiseItems.forEach((item, i) => {
-        tl.to(item, {
-            opacity: 1,
-            y: 0,
-            duration: 0.10,
-            ease: easeIn
-        }, 0.50 + (i * 0.04));
+        const startTime = 0.48 + (i * 0.04);
+        // y 이동 시작
+        tl.to(item, { y: 0, duration: 0.08, ease: 'power2.out' }, startTime);
+        // 페이드인 (이동 중간에 시작)
+        tl.to(item, { opacity: 1, duration: 0.05, ease: easeIn }, startTime + 0.03);
     });
     
-    // 2번 그룹 사라짐 (3·4·5 등장 시)
-    tl.to([group2Main, group2Desc], {
-        opacity: 0,
-        y: -48,
-        duration: 0.10,
-        ease: easeOut
-    }, 0.52);
-    tl.to(group2, { opacity: 0, duration: 0.01 }, 0.62);
+    // 2번 그룹 사라짐 (위로 이동 먼저, 그 다음 페이드아웃)
+    tl.to(group2Main, { y: -48, duration: 0.08, ease: 'power2.in' }, 0.50);
+    tl.to(group2Desc, { y: -48, duration: 0.08, ease: 'power2.in' }, 0.52);
+    tl.to(group2Main, { opacity: 0, duration: 0.05, ease: easeOut }, 0.54);
+    tl.to(group2Desc, { opacity: 0, duration: 0.05, ease: easeOut }, 0.56);
+    tl.to(group2, { opacity: 0, duration: 0.01 }, 0.60);
     
     // STEP 6: 체류 구간 (약속들이 완전히 보인 상태 유지) - 0.65 ~ 0.85
     // 이 구간에서는 아무 변화 없음
     
-    // STEP 7: 고정 해제 전 페이드아웃
-    tl.to(promiseItems, {
-        opacity: 0,
-        y: -24,
-        duration: 0.10,
-        stagger: 0.02,
-        ease: easeOut
-    }, 0.88);
+    // STEP 7: 고정 해제 전 페이드아웃 (위로 이동 먼저, 그 다음 페이드아웃)
+    promiseItems.forEach((item, i) => {
+        const startTime = 0.86 + (i * 0.02);
+        // y 이동 시작
+        tl.to(item, { y: -24, duration: 0.06, ease: 'power2.in' }, startTime);
+        // 페이드아웃 (이동 중간에 시작)
+        tl.to(item, { opacity: 0, duration: 0.04, ease: easeOut }, startTime + 0.03);
+    });
     tl.to(group345, { opacity: 0, duration: 0.01 }, 0.98);
 }
 
