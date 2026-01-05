@@ -457,11 +457,6 @@ function showContentView(id) {
                             <div class="treatment-intro-bg">
                                 <img src="images/treatment-intro-bg.jpg" alt="Background">
                             </div>
-                            <div class="treatment-intro-inner">
-                                <p class="description">${data.desc}</p>
-                            </div>
-                        </section>
-                        <section class="treatment-slogan-section">
                             <div class="slogan-text-area">
                                 <!-- 1번 그룹: 진단 철학 -->
                                 <div class="slogan-group slogan-group-1">

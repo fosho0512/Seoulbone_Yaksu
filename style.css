@@ -2563,19 +2563,177 @@ body::before {
     transform: scale(1);
 }
 
-.treatment-intro-inner {
-    position: relative;
+/* Treatment Slogan Text Area - 우측 50% 배치 */
+.slogan-text-area {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50vw;
+    height: 100vh;
+    padding-left: 4vw;
+    padding-right: 8vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
     z-index: 2;
-    max-width: 900px;
-    padding: 0 6%;
-    text-align: center;
 }
 
-.treatment-intro-inner .description {
-    font-size: var(--font-heading-md);
-    line-height: var(--lh-relaxed);
+/* 슬로건 그룹 공통 */
+.slogan-group {
+    position: absolute;
+    top: 50%;
+    left: 4vw;
+    right: 8vw;
+    transform: translateY(-50%);
+}
+
+/* 초기 상태: 모든 그룹 숨김 */
+.slogan-group-1,
+.slogan-group-2,
+.slogan-group-345 {
+    opacity: 0;
+}
+
+/* 1번 그룹 초기 상태 (우→좌 등장 대기) */
+.slogan-group-1 .slogan-main,
+.slogan-group-1 .slogan-sub,
+.slogan-group-1 .slogan-desc {
+    opacity: 0;
+    transform: translateX(40px);
+}
+
+/* 2번 그룹 초기 상태 (아래→위 등장 대기) */
+.slogan-group-2 .slogan-promise-main,
+.slogan-group-2 .slogan-promise-desc {
+    opacity: 0;
+    transform: translateY(48px);
+}
+
+/* 3·4·5번 그룹 초기 상태 */
+.slogan-group-345 .promise-item {
+    opacity: 0;
+    transform: translateY(24px);
+}
+
+/* 텍스트 크기 체계 */
+.slogan-main {
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 500;
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
     color: #fff;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-heading);
+}
+
+.slogan-sub {
+    font-size: clamp(22px, 2.8vw, 39px);
+    font-weight: 400;
+    line-height: var(--lh-snug);
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1.2rem;
+}
+
+.slogan-desc {
+    font-size: clamp(16px, 2vw, 28px);
     font-weight: 300;
+    line-height: var(--lh-normal);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.slogan-promise-main {
+    font-size: clamp(28px, 3.6vw, 50px);
+    font-weight: 500;
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
+    color: #fff;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-heading);
+}
+
+.slogan-promise-desc {
+    font-size: clamp(18px, 2.4vw, 38px);
+    font-weight: 300;
+    line-height: var(--lh-normal);
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* 3·4·5 약속 항목 */
+.promise-item {
+    margin-bottom: 2.5rem;
+}
+
+.promise-item:last-child {
+    margin-bottom: 0;
+}
+
+.promise-title {
+    font-size: clamp(20px, 2.5vw, 36px);
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 0.6rem;
+    font-family: var(--font-heading);
+}
+
+.promise-en {
+    font-size: 0.7em;
+    font-weight: 300;
+    color: var(--gold);
+    margin-left: 0.5rem;
+    font-style: italic;
+}
+
+.promise-desc {
+    font-size: clamp(14px, 1.6vw, 22px);
+    font-weight: 300;
+    line-height: var(--lh-relaxed);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+    .slogan-text-area {
+        width: 100%;
+        padding: 0 6%;
+    }
+    
+    .slogan-group {
+        left: 6%;
+        right: 6%;
+    }
+    
+    .slogan-main {
+        font-size: clamp(24px, 6vw, 32px);
+    }
+    
+    .slogan-sub {
+        font-size: clamp(16px, 4vw, 22px);
+    }
+    
+    .slogan-desc {
+        font-size: clamp(14px, 3.5vw, 18px);
+    }
+    
+    .slogan-promise-main {
+        font-size: clamp(22px, 5.5vw, 28px);
+    }
+    
+    .slogan-promise-desc {
+        font-size: clamp(14px, 3.5vw, 20px);
+    }
+    
+    .promise-title {
+        font-size: clamp(16px, 4vw, 22px);
+    }
+    
+    .promise-desc {
+        font-size: clamp(13px, 3vw, 16px);
+    }
+    
+    .promise-item {
+        margin-bottom: 1.8rem;
+    }
 }
 
 /* Treatment Grid Section */
