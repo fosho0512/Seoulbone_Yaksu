@@ -1,0 +1,566 @@
+지금 문제를 다른 시각으로 바라본 2개의 분석을 알려줄게.
+아래 2개의 분석과 너가 했던 분석을 바탕으로 가장 합리적인 원인이 어떤것인지 확인해줘.
+------
+1번분석.
+
+
+## 🔧 수정 1: setupScrollEffects() 함수 개선
+
+### **건드린 요소:**
+1. `handleScroll()` 함수 내부의 조건문 로직
+2. `isDiagnosisHorizontal` 변수 추가
+3. `isTreatmentIntro` 변수 추가
+
+### **왜 작동하는가:**
+
+**원래 문제:**
+```javascript
+// 기존 코드
+if (document.body.classList.contains('has-sub-hero')) {
+    // Scroll progress bar만 업데이트
+    if (scrollProgress) {
+        const scrollPercent = (scrollTop / (scrollHeight - clientHeight)) * 100;
+        scrollProgress.style.width = Math.min(scrollPercent, 100) + '%';
+    }
+    return;
+}
+```
+- 이 코드는 **모든** `has-sub-hero` 페이지에서 헤더 처리를 건너뛰었습니다
+- 하지만 diagnosis와 treatment는 **특정 영역에서만** 건너뛰어야 했습니다
+
+**수정 후:**
+```javascript
+// 1단계: Diagnosis 페이지의 horizontal scroll 영역 감지
+const isDiagnosisHorizontal = 
+    document.body.classList.contains('has-sub-hero') &&  // ① has-sub-hero 클래스 확인
+    document.querySelector('.horizontal-scroll-outer') &&  // ② diagnosis 페이지임을 확인
+    scrollTop < document.querySelector('.horizontal-scroll-outer').offsetHeight;  // ③ 아직 horizontal scroll 영역 안에 있음
+
+// 2단계: Treatment 페이지의 인트로 섹션 감지
+const isTreatmentIntro = 
+    document.body.classList.contains('has-sub-hero') &&
+    document.querySelector('.treatment-intro-section') &&  // treatment 페이지 확인
+    scrollTop < (document.querySelector('.treatment-intro-section').offsetHeight * 4);  // ScrollTrigger의 end: '+=300%' 고려
+```
+
+**작동 원리:**
+- **영역 구분**: 페이지 전체가 아닌 "특정 스크롤 영역"만 체크
+- **scrollTop 비교**: 현재 스크롤 위치가 특수 영역 안인지 밖인지 판단
+- **조기 return**: 특수 영역에서는 헤더 상태 변경을 하지 않고 빠져나감
+
+**왜 헤더가 투명하게 유지되나:**
+- `isDiagnosisHorizontal`이나 `isTreatmentIntro`가 `true`일 때는 `return`으로 함수를 빠져나가므로
+- 아래의 `header.classList.add('scrolled')` 코드가 실행되지 않음
+- 따라서 `.scrolled` 클래스가 추가되지 않아 헤더가 투명 상태 유지
+
+---
+
+## 🔧 수정 2: setupHorizontalScroll() 헤더 처리
+
+### **건드린 요소:**
+1. `handleScroll()` 내부의 헤더 상태 변경 로직
+2. `equipmentNarrative` 요소의 위치 계산
+3. `hasEnteredVerticalSection` 플래그의 업데이트 조건
+
+### **왜 작동하는가:**
+
+**원래 문제:**
+```javascript
+// 기존 코드
+if (overallProgress >= 1) {  // horizontal scroll이 완료되면
+    if (!hasEnteredVerticalSection) {
+        hasEnteredVerticalSection = true;
+        document.body.classList.add('sub-hero-passed');  // 즉시 헤더 불투명
+    }
+}
+```
+- `overallProgress >= 1`은 horizontal scroll이 **끝나는 순간** 체크
+- 하지만 슬로건 섹션은 아직 화면에 있는 상태
+- 따라서 헤더가 너무 일찍 불투명해짐
+
+**수정 후:**
+```javascript
+// Equipment narrative 요소의 실제 화면 위치로 판단
+const equipmentNarrative = document.querySelector('.equipment-narrative');
+if (equipmentNarrative) {
+    const equipmentRect = equipmentNarrative.getBoundingClientRect();  // ① 현재 화면에서의 위치 계산
+    const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 90;
+    
+    // ② equipment narrative가 헤더 아래로 들어왔을 때만 활성화
+    if (equipmentRect.top <= headerHeight) {
+        if (!hasEnteredVerticalSection) {
+            hasEnteredVerticalSection = true;
+            document.body.classList.add('sub-hero-passed');
+        }
+    }
+}
+```
+
+**작동 원리:**
+- **getBoundingClientRect()**: 요소의 현재 viewport 상의 위치를 픽셀 단위로 반환
+- **equipmentRect.top**: equipment narrative의 상단이 viewport의 맨 위로부터 얼마나 떨어져 있는지
+- **조건 `<= headerHeight`**: equipment narrative가 헤더를 지나쳐서 들어올 때만 true
+
+**시나리오:**
+```
+┌─────────────────┐
+│   Header (90px) │  ← headerHeight
+├─────────────────┤
+│                 │
+│  Slogan Section │  ← equipmentRect.top = 200px (아직 아래에 있음)
+│   (visible)     │     → sub-hero-passed 추가 안됨 (헤더 투명)
+│                 │
+└─────────────────┘
+
+스크롤 다운 ↓
+
+┌─────────────────┐
+│   Header (90px) │
+├─────────────────┤  ← equipmentRect.top = 90px (헤더 바로 아래)
+│  Equipment      │     → 여기서 sub-hero-passed 추가! (헤더 불투명)
+│  Narrative      │
+└─────────────────┘
+```
+
+---
+
+## 🔧 수정 3: setupEquipmentNarrative() 스크롤 개선
+
+### **건드린 요소:**
+1. `requestAnimationFrame` 추가로 스크롤 이벤트 throttling
+2. `ticking` 플래그로 중복 실행 방지
+3. 활성화 영역을 `viewportTop` (30%)으로 확장
+4. 상태 업데이트를 한 번에 일괄 처리
+
+### **왜 작동하는가:**
+
+**원래 문제:**
+```javascript
+// 기존 코드
+function handleEquipmentScroll() {
+    const viewportMiddle = window.innerHeight / 2;
+    
+    steps.forEach((step, index) => {
+        const rect = step.getBoundingClientRect();
+        
+        if (rect.top < viewportMiddle && rect.bottom > viewportMiddle) {
+            // 즉시 DOM 조작 (비효율적)
+            steps.forEach(s => s.classList.remove('active'));
+            step.classList.add('active');
+            images.forEach((img, i) => {
+                img.classList.toggle('active', i === index);
+            });
+        }
+    });
+}
+
+window.addEventListener('scroll', handleEquipmentScroll);  // 스크롤마다 즉시 실행
+```
+
+**문제점:**
+1. **과도한 DOM 조작**: 스크롤 이벤트는 1초에 수십~수백 번 발생 → 매번 `classList` 조작
+2. **레이아웃 스래싱**: `getBoundingClientRect()` 호출 후 즉시 `classList` 변경 → 브라우저 reflow 강제 발동
+3. **Lenis와 충돌**: Smooth scroll이 진행 중인데 DOM이 계속 변경되면 scroll position 재계산 발생
+
+**수정 후:**
+```javascript
+// 1단계: Throttle 플래그
+let ticking = false;
+
+function handleEquipmentScroll() {
+    if (ticking) return;  // ① 이미 처리 중이면 무시
+    
+    ticking = true;
+    requestAnimationFrame(() => {  // ② 다음 paint 전에 실행 예약
+        const viewportMiddle = window.innerHeight / 2;
+        const viewportTop = window.innerHeight * 0.3;  // ③ 더 일찍 감지
+        
+        let activeIndex = 0;
+        
+        // ④ 활성 인덱스만 찾기 (DOM 조작 안함)
+        steps.forEach((step, index) => {
+            const rect = step.getBoundingClientRect();
+            if (rect.top < viewportMiddle && rect.bottom > viewportTop) {
+                activeIndex = index;
+            }
+        });
+        
+        // ⑤ 한 번에 모든 상태 업데이트
+        steps.forEach((step, index) => {
+            step.classList.toggle('active', index === activeIndex);
+        });
+        images.forEach((img, index) => {
+            img.classList.toggle('active', index === activeIndex);
+        });
+        
+        ticking = false;  // ⑥ 다음 실행 허용
+    });
+}
+```
+
+**작동 원리:**
+
+**requestAnimationFrame의 마법:**
+```
+스크롤 이벤트 발생 (60fps 기준 16.67ms마다)
+    ↓
+ticking = true (락 걸림)
+    ↓
+requestAnimationFrame 예약 (다음 paint 사이클까지 대기)
+    ↓
+중간에 발생한 스크롤 이벤트들은 if (ticking) return으로 무시됨
+    ↓
+브라우저가 다음 frame을 그리기 직전에 실행
+    ↓
+한 번에 모든 계산 + DOM 업데이트
+    ↓
+ticking = false (락 해제)
+```
+
+**왜 스크롤이 막히지 않는가:**
+1. **60fps 동기화**: 브라우저의 paint cycle과 동기화되어 부드러운 애니메이션
+2. **단일 reflow**: DOM 조작이 한 번에 일괄 처리되어 레이아웃 재계산도 1회만
+3. **Lenis 호환**: Smooth scroll의 진행을 방해하지 않음
+
+**viewportTop (30%) 확장의 효과:**
+```
+기존: rect.top < 50% && rect.bottom > 50%  (정확히 중앙에만 활성화)
+     ↓ 스크롤 속도가 빠르면 중앙을 건너뛸 수 있음
+     
+수정: rect.top < 50% && rect.bottom > 30%  (30%~50% 범위에서 활성화)
+     ↓ 더 넓은 범위 = 감지 누락 방지
+```
+
+---
+
+## 🔧 수정 4: setupTreatmentIntroZoom() 수정
+
+### **건드린 요소:**
+1. ScrollTrigger의 `onUpdate` 콜백 추가
+2. `onEnter`/`onLeave` 콜백의 `sub-hero-passed` 관리 로직 변경
+3. `subHeroSticky.style.visibility` 제어 타이밍
+
+### **왜 작동하는가:**
+
+**원래 문제:**
+```javascript
+// 기존 코드
+scrollTrigger: {
+    trigger: introSection,
+    start: 'top top',
+    end: '+=300%',
+    pin: true,
+    pinSpacing: true,
+    scrub: 1,
+    onEnter: () => {
+        document.body.classList.remove('sub-hero-passed');
+        if (subHeroSticky) subHeroSticky.style.visibility = 'hidden';  // ① 바로 숨김
+    },
+    // onLeave가 없음 → pin 해제 시점에 sub-hero-passed 관리 안됨
+}
+```
+
+**문제의 연쇄 반응:**
+```
+1. 스크롤 시작
+   ↓
+2. onEnter 발동 → sticky sub-hero 바로 숨김
+   ↓
+3. 하지만 헤더는 여전히 투명 (sub-hero-passed가 없음)
+   ↓
+4. Pin이 해제되는 시점에 헤더 상태 관리 안됨
+   ↓
+5. setupScrollEffects()의 조건문이 isTreatmentIntro를 체크하지만
+   scrollTop < (intro높이 * 4) 조건이 애매하게 작동
+```
+
+**수정 후:**
+```javascript
+scrollTrigger: {
+    trigger: introSection,
+    start: 'top top',
+    end: '+=300%',
+    pin: true,
+    pinSpacing: true,
+    scrub: 1,
+    onUpdate: (self) => {  // ① 스크롤 진행 중 실시간 체크
+        if (self.progress > 0.05) {  // 5% 진행 후에 숨김
+            if (subHeroSticky) subHeroSticky.style.visibility = 'hidden';
+        }
+    },
+    onLeave: () => {  // ② Pin이 해제될 때 (애니메이션 완전 종료)
+        document.body.classList.add('sub-hero-passed');  // 여기서 헤더 불투명 활성화
+    },
+    onEnterBack: () => {  // ③ 역방향 스크롤로 돌아올 때
+        document.body.classList.remove('sub-hero-passed');
+        if (subHeroSticky) subHeroSticky.style.visibility = 'hidden';
+    },
+    onLeaveBack: () => {  // ④ 완전히 맨 위로 돌아갈 때
+        if (subHeroSticky) subHeroSticky.style.visibility = 'visible';  // sticky 다시 보임
+        document.body.classList.remove('sub-hero-passed');
+    }
+}
+```
+
+**ScrollTrigger 생명주기:**
+```
+┌──────────────────────────────────────────────────────────┐
+│                    Scroll Direction                      │
+├──────────────────────────────────────────────────────────┤
+│                                                          │
+│  [Before Start]                                          │
+│       ↓ scroll down                                      │
+│  onEnter (start 지점 진입) ← onLeaveBack (역방향 이탈)  │
+│       ↓                              ↑                   │
+│  [Pinned Area - onUpdate 계속 발동]                      │
+│       ↓                              ↑                   │
+│  onLeave (end 지점 이탈) ← onEnterBack (역방향 진입)    │
+│       ↓ scroll down                                      │
+│  [After End]                                             │
+│                                                          │
+└──────────────────────────────────────────────────────────┘
+```
+
+**onUpdate의 역할:**
+```javascript
+onUpdate: (self) => {
+    if (self.progress > 0.05) {  // progress는 0.0 ~ 1.0
+        // 애니메이션 시작 후 5%만 진행해도 sticky sub-hero 숨김
+        // 이렇게 하면 intro section의 배경이 빨리 보임
+    }
+}
+```
+
+**왜 하얀 화면이 사라지는가:**
+```css
+/* style.css */
+.treatment-content-overlap {
+    position: relative;
+    z-index: 2;
+    background: var(--bg-color);  /* ← 이 배경색 추가 */
+    min-height: 100vh;
+}
+```
+- 기존: `background` 없음 → pin 해제 시 intro section이 사라지면 뒤에 아무것도 없어서 하얗게 보임
+- 수정: `background: var(--bg-color)` → intro section이 사라져도 다음 섹션의 배경이 보임
+
+---
+
+## 🔧 수정 5: 가로 스크롤 제거 (100vw → 100%)
+
+### **건드린 요소:**
+1. `.visual-section`, `.sub-hero`, `.horizontal-scroll-wrapper` 등의 `width` 속성
+2. `.horizontal-scroll-track`의 `width` 속성
+3. 모든 full-width 섹션들
+
+### **왜 작동하는가:**
+
+**100vw의 함정:**
+```
+브라우저 창 구조:
+┌─────────────────────────────────┐
+│                                 │  ← 실제 viewport width (예: 1920px)
+│        Content Area             │
+│                                 │
+├─────────────────────────────────┤──┐
+│                                 │  │ ← 수직 스크롤바 (약 17px)
+│                                 │  │
+└─────────────────────────────────┘──┘
+
+100vw = 1920px (스크롤바 포함하지 않음)
+100% = 1903px (스크롤바를 뺀 실제 사용 가능 너비)
+
+결과: 100vw 사용 시 1920px - 1903px = 17px의 가로 오버플로우 발생!
+```
+
+**CSS Box Model 계산:**
+```css
+/* 기존 문제 */
+.visual-section {
+    width: 100vw;  /* = 1920px */
+}
+
+body {
+    width: 100%;   /* = 1903px (스크롤바 제외) */
+}
+
+/* 결과 */
+.visual-section의 너비 > body의 너비
+→ 가로 스크롤바 생성
+```
+
+**수정 후:**
+```css
+.visual-section {
+    width: 100%;       /* 부모(body)의 너비를 따름 = 1903px */
+    max-width: 100%;   /* 혹시 모를 overflow 방지 */
+}
+```
+
+**특히 중요한 케이스: horizontal-scroll-track**
+```css
+/* 기존 */
+.horizontal-scroll-track {
+    width: 200vw;  /* = 3840px */
+}
+
+/* 각 panel */
+.scroll-panel {
+    width: 100vw;  /* = 1920px */
+}
+
+/* 계산 */
+track width = panel1 (1920px) + panel2 (1920px) = 3840px
+하지만 실제 viewport = 1903px
+→ 첫 panel에서 이미 17px 넘침
+→ translateX 계산 오류 발생
+```
+
+**수정 후:**
+```css
+.horizontal-scroll-track {
+    width: 200%;  /* 부모 wrapper의 2배 */
+}
+
+.scroll-panel {
+    width: 100%;  /* 정확히 wrapper와 같은 너비 */
+}
+
+/* JavaScript에서 */
+const translateX = -horizontalDisplayProgress * window.innerWidth;
+// innerWidth는 스크롤바를 제외한 정확한 너비 반환
+```
+
+---
+
+## 🔧 수정 6: Equipment Narrative 성능 개선
+
+### **건드린 요소:**
+1. `will-change` CSS 속성 추가
+2. `transform: translateZ(0)` 추가
+3. `transition` duration 단축
+
+### **왜 작동하는가:**
+
+**GPU 가속의 원리:**
+```
+CPU 렌더링 (기본):
+  opacity 변경 → 레이어 재계산 → 전체 페이지 repaint
+  ↓ 느리고 버벅임
+
+GPU 렌더링 (가속):
+  will-change: opacity → 별도 레이어 생성 → GPU에서 독립적으로 처리
+  ↓ 부드럽고 빠름
+```
+
+**will-change 속성:**
+```css
+.equipment-narrative {
+    will-change: scroll-position;  /* ① 이 요소는 스크롤 시 변할 것 */
+}
+
+.sticky-image {
+    will-change: contents;  /* ② 내용(자식 img)이 변할 것 */
+}
+
+.equipment-step {
+    will-change: opacity;  /* ③ 투명도가 변할 것 */
+}
+```
+
+**브라우저의 최적화 전략:**
+```
+will-change를 보면 브라우저는:
+1. 해당 요소를 별도 composite layer로 분리
+2. GPU 메모리에 미리 업로드
+3. 변경 시 GPU에서만 처리 (CPU 거치지 않음)
+4. 나머지 페이지는 영향 받지 않음
+```
+
+**transform: translateZ(0)의 마법:**
+```css
+.sticky-image img {
+    transform: translateZ(0);  /* Z축으로 0px 이동 = 실제론 이동 안함 */
+    backface-visibility: hidden;
+}
+```
+
+**왜 이렇게 하는가:**
+- `translateZ`는 3D transform → 브라우저가 무조건 GPU 레이어로 승격
+- `backface-visibility: hidden` → 뒷면 렌더링 안함 → 성능 향상
+- 실제로는 위치가 안 바뀌지만, GPU 가속만 얻는 트릭
+
+**transition duration 단축:**
+```css
+/* 기존 */
+.equipment-step {
+    transition: opacity 0.5s ease;  /* 0.5초 = 30프레임 */
+}
+
+/* 수정 */
+.equipment-step {
+    transition: opacity 0.3s ease;  /* 0.3초 = 18프레임 */
+}
+```
+
+**왜 빨라지는가:**
+- 짧은 duration = 더 빠른 상태 변화 = 사용자 액션에 즉각 반응
+- 스크롤 중 여러 step을 빠르게 지나갈 때도 각 step의 애니메이션이 서로 겹치지 않음
+
+---
+
+## 🎯 전체 시스템 작동 원리 요약
+
+### **헤더 상태 관리 Flow:**
+```
+1. setupScrollEffects() (전역 스크롤 리스너)
+   ↓ 조건 체크
+   
+2. Diagnosis 페이지인가?
+   YES → setupHorizontalScroll()의 handleScroll()에서 관리
+   NO → 다음 단계로
+   
+3. Treatment 페이지인가?
+   YES → setupTreatmentIntroZoom()의 ScrollTrigger 콜백에서 관리
+   NO → 다음 단계로
+   
+4. 일반 sub-hero 페이지인가?
+   YES → setupSubHeroScrollEffect()에서 관리
+   NO → setupScrollEffects()에서 직접 관리
+```
+
+### **스크롤 이벤트 처리 Pipeline:**
+```
+사용자 스크롤
+    ↓
+window 'scroll' event 발생
+    ↓
+Lenis smooth scroll 처리 (있는 경우)
+    ↓
+requestAnimationFrame으로 다음 frame 예약
+    ↓
+브라우저 paint cycle 시작
+    ↓
+예약된 DOM 업데이트 일괄 처리
+    ↓
+reflow/repaint (1회만)
+    ↓
+화면에 그리기
+```
+
+### **가로 스크롤 제거 효과:**
+```
+Before:
+  body width: 1903px
+  section width: 1920px (100vw)
+  → horizontal scrollbar 생성
+  → 모든 계산 틀어짐
+
+After:
+  body width: 1903px
+  section width: 1903px (100%)
+  → perfect fit
+  → 정확한 계산
+```
+
+이러한 수정들이 **유기적으로 결합**되어 부드럽고 예측 가능한 스크롤 경험을 만들어냅니다.

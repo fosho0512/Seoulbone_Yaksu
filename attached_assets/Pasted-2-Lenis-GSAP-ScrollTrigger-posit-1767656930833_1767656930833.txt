@@ -1,0 +1,286 @@
+2번 분석
+
+🔴 전체 공통 원인 요약 (가장 중요)
+
+지금 프로젝트는 동시에 다음을 사용하고 있어:
+
+Lenis (커스텀 스크롤)
+
+GSAP ScrollTrigger
+
+position: sticky / pin
+
+수평 스크롤 섹션 (fake vertical → horizontal)
+
+IntersectionObserver (헤더 투명/불투명 판단)
+
+👉 그런데 이 5개를 “페이지별로 분리”하지 않고 전역으로 섞어서 사용하고 있음
+
+그래서 발생하는 핵심 문제는 이것이야:
+
+❌ “스크롤의 기준점이 하나가 아니다”
+
+어떤 로직은 window.scrollY를 기준으로 판단
+
+어떤 로직은 ScrollTrigger.progress
+
+어떤 로직은 IntersectionObserver
+
+어떤 섹션은 실제로는 스크롤되지 않고 pin 상태
+
+Lenis 때문에 실제 스크롤과 감지 스크롤이 다름
+
+이 상태에서는
+
+👉 헤더 / 섹션 전환 / 스크롤 잠김 / 중복 섹션 생성 / 흰 화면 / 가로 스크롤
+
+이 전부 정상적인 결과야.
+
+1️⃣ diagnosis 페이지 – 헤더가 너무 일찍 불투명해지는 문제
+
+증상
+
+가로 스크롤 중인데도 헤더가 불투명해짐
+
+슬로건 섹션까진 투명해야 함
+
+진짜 원인
+
+if (scrollY > subHeroHeight - headerHeight - 50)
+
+이 로직은 “세로 스크롤만 있는 페이지” 기준이야.
+
+하지만 diagnosis 페이지에서는:
+
+서브히어로 + 슬로건 구간이 pin 상태
+
+실제 scrollY는 증가하고 있음 (Lenis 때문)
+
+하지만 시각적으로는 아직 서브히어로 안에 있음
+
+👉 즉, 보이는 위치 ≠ scrollY
+
+❌ 잘못된 판단 방식
+
+scrollY
+
+document height 기준
+
+viewport 기준
+
+✅ 올바른 해결 방향 (중요)
+
+헤더 상태는 “스크롤 값”이 아니라 “섹션 상태”로 결정해야 함
+
+정확한 기준:
+
+✅ “diagnosis 페이지에서 ‘세로 스크롤이 시작되는 순간’”
+
+구현 개념 (의사 전달용 정확한 용어)
+
+horizontal section 종료 sentinel
+
+vertical scroll entry trigger
+
+ScrollTrigger onLeave
+
+IntersectionObserver for vertical entry only
+
+즉:
+
+슬로건 섹션 끝에 sentinel 요소
+
+이 sentinel이 viewport에 들어오는 순간 → 헤더 불투명
+
+2️⃣ diagnosis 장비 소개 – 스크롤이 2번 장비에서 멈추는 문제
+
+증상
+
+1 → 2번 장비까진 잘 됨
+
+이후 스크롤이 멈춘 것처럼 느껴짐
+
+마우스로 강제로 밀면 내려감
+
+진짜 원인
+
+이건 99% 확률로 이것이야:
+
+ScrollTrigger pin: true
+
+end 값이 부족함
+
+scrub: true 상태에서 container height < 필요한 스크롤 길이
+
+즉:
+
+❌ “4개의 장비를 보여주기엔 스크롤 길이가 부족한데, pin이 스크롤을 잡고 있음”
+
+흔한 실수 패턴
+
+ScrollTrigger.create({
+
+  trigger: ".equipment-section",
+
+  pin: true,
+
+  scrub: true,
+
+  end: "+=200%"
+
+});
+
+👉 장비 4개면 최소 +=300% ~ 400% 필요
+
+해결 원칙
+
+장비 개수 × 100vh = 최소 end 값
+
+pin 구간 안에서만 스크롤 가로채기
+
+pin 해제 후에는 절대 스크롤 막지 않기
+
+3️⃣ treatment 페이지 – 서브히어로에서 헤더가 불투명해지는 문제
+
+원인 구조
+
+diagnosis와 완전히 동일한 문제
+
+treatment 페이지도:
+
+서브히어로
+
+인트로 섹션
+
+pin / sticky 사용
+
+핵심 문제
+
+헤더 로직이 페이지 공통
+
+하지만 페이지마다 “투명 유지 기준 섹션”이 다름
+
+반드시 바꿔야 할 사고방식
+
+❌ 잘못된 구조
+
+if (scrollY > X) header opaque
+
+✅ 올바른 구조
+
+if (현재 페이지 === treatment && introSection 벗어남)
+
+즉:
+
+페이지별 헤더 기준 분기
+
+scrollY 사용 금지
+
+observer / ScrollTrigger 상태 기반 판단
+
+4️⃣ 홈페이지 전체에 가로 스크롤이 생기는 문제
+
+가장 흔한 원인 TOP 5
+
+width: 100vw + scrollbar
+
+transform: translateX(...) 요소가 body 밖으로 튐
+
+pinned element가 viewport보다 큼
+
+absolute 요소에 left/right + width 동시 사용
+
+horizontal scroll wrapper overflow 미제어
+
+필수 방어 코드 (전 페이지 공통)
+
+html, body {
+
+  overflow-x: hidden;
+
+}
+
+그리고 반드시 확인해야 할 것:
+
+.horizontal-scroll-wrapper
+
+.pin-spacer
+
+gsap pinSpacing
+
+👉 pinSpacer가 body 폭을 밀어내는 경우 많음
+
+5️⃣ treatment 페이지 – 흰 화면 + 중복 인트로 생성 문제
+
+이건 가장 위험한 신호야.
+
+증상 정리
+
+인트로 진입 순간 흰 화면
+
+스크롤 60%쯤에서 멈춤
+
+강제 스크롤 시 인트로 배경이 하나 더 등장
+
+이게 의미하는 것
+
+❌ DOM에 동일한 섹션이 두 번 존재하거나
+
+❌ GSAP pin-spacer가 중첩 생성됨
+
+발생 원인 패턴
+
+페이지 전환 시
+
+기존 ScrollTrigger를 kill하지 않음
+
+동일한 섹션을
+
+innerHTML로 다시 삽입
+
+Lenis + ScrollTrigger re-init 충돌
+
+반드시 해야 할 것 (중요)
+
+페이지 전환 시:
+
+ScrollTrigger.getAll().forEach(st => st.kill());
+
+그리고:
+
+DOM 재생성 ❌
+
+기존 노드 재사용 ✅
+
+✅ 정리: 지금 반드시 해야 할 구조 정비 순서
+
+1️⃣ 페이지별 스크롤 구조 분리
+
+diagnosis / treatment는 특수 페이지
+
+공통 스크롤 로직 사용 ❌
+
+2️⃣ 헤더 상태 판단 기준 변경
+
+scrollY ❌
+
+“어느 섹션을 벗어났는가” 기준
+
+3️⃣ horizontal → vertical 전환을 명확히 선언
+
+sentinel
+
+ScrollTrigger onLeave
+
+상태 플래그
+
+4️⃣ ScrollTrigger lifecycle 관리
+
+페이지 진입 시 create
+
+페이지 이탈 시 kill
+
+5️⃣ pin 구간 길이 재설계
+
+콘텐츠 수 × 100vh 원칙
+

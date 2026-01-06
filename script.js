@@ -127,6 +127,11 @@ function showContentView(id) {
     cleanupValuesSlider();
     cleanupHorizontalScroll();
     
+    // ScrollTrigger 전체 kill (페이지 전환 시 중복 방지)
+    if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.getAll().forEach(st => st.kill());
+    }
+    
     // Reset Content & Scroll
     elems.contentBody.innerHTML = "";
     window.scrollTo(0, 0);
@@ -630,22 +635,34 @@ function setupTreatmentIntroZoom() {
             start: 'top top',
             end: '+=300%',
             pin: true,
-            pinSpacing: true,
+            pinSpacing: false,
             scrub: 1,
             onEnter: () => {
                 document.body.classList.remove('sub-hero-passed');
-                if (subHeroSticky) subHeroSticky.style.visibility = 'hidden';
+                if (subHeroSticky) {
+                    subHeroSticky.style.opacity = '0';
+                    subHeroSticky.style.pointerEvents = 'none';
+                }
             },
             onLeave: () => {
                 document.body.classList.add('sub-hero-passed');
-                if (subHeroSticky) subHeroSticky.style.visibility = 'hidden';
+                if (subHeroSticky) {
+                    subHeroSticky.style.opacity = '0';
+                    subHeroSticky.style.pointerEvents = 'none';
+                }
             },
             onEnterBack: () => {
                 document.body.classList.remove('sub-hero-passed');
-                if (subHeroSticky) subHeroSticky.style.visibility = 'hidden';
+                if (subHeroSticky) {
+                    subHeroSticky.style.opacity = '0';
+                    subHeroSticky.style.pointerEvents = 'none';
+                }
             },
             onLeaveBack: () => {
-                if (subHeroSticky) subHeroSticky.style.visibility = 'visible';
+                if (subHeroSticky) {
+                    subHeroSticky.style.opacity = '1';
+                    subHeroSticky.style.pointerEvents = 'auto';
+                }
             }
         }
     });
@@ -753,6 +770,12 @@ function setupSubHeroScrollEffect() {
 function showHomeView(skipPushState = false) {
     cleanupValuesSlider();
     cleanupHorizontalScroll();
+    
+    // ScrollTrigger 전체 kill (홈으로 복귀 시)
+    if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.getAll().forEach(st => st.kill());
+    }
+    
     elems.contentView.classList.remove('active');
     elems.homeView.classList.add('active');
     document.body.classList.remove('content-view-active');
