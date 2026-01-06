@@ -72,10 +72,6 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body {
-    overflow-x: hidden;
-    max-width: 100%;
-}
 body { 
     background-color: var(--bg-color); 
     color: var(--text-color); 
@@ -85,8 +81,7 @@ body {
     letter-spacing: var(--ls-normal);
 }
 body.content-view-active {
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: auto;
 }
 ul { list-style: none; }
 button { border: none; background: none; cursor: pointer; font-family: inherit; }
@@ -343,7 +338,7 @@ body.menu-open .menu-toggle-btn .lines span:last-child { transform: rotate(-45de
 /* Main Container & Drawer */
 #main-container { 
     position: relative; 
-    width: 100%; 
+    width: 100vw; 
     height: 100vh; 
     padding-top: var(--header-height); 
     opacity: 1; 
@@ -446,8 +441,8 @@ body.menu-open .drawer-menu { transform: translateX(0); }
 /* Visual Background */
 .visual-section { 
     position: relative;
-    width: 100%;
-    max-width: 100%;
+    width: 100vw;
+    max-width: 100vw;
     height: 100vh;
     min-height: 100vh;
     background-color: var(--text-color);
@@ -834,8 +829,8 @@ body.menu-open .visual-text { opacity: 0; }
 /* Sub Hero Section */
 .sub-hero {
     position: relative;
-    width: 100%;
-    max-width: 100%;
+    width: 100vw;
+    max-width: 100vw;
     height: 100vh;
     min-height: 100vh;
     overflow: hidden;
@@ -1136,7 +1131,7 @@ body.menu-open .visual-text { opacity: 0; }
     background: linear-gradient(180deg, #F8F6F3 0%, #F2EFE9 100%);
     padding: 60px 40px 150px;
     margin-top: 80px;
-    width: 100%;
+    width: 100vw;
     min-height: 120vh;
     display: flex;
     flex-direction: column;
@@ -1162,7 +1157,7 @@ body.menu-open .visual-text { opacity: 0; }
     transition: width 0.1s ease-out;
 }
 .philosophy-card-wrapper.expanding {
-    width: 100%;
+    width: 100vw;
     max-width: none;
 }
 .philosophy-card-wrapper.sticky {
@@ -1792,8 +1787,8 @@ body::before {
     .grid-img-wrapper { height: 200px; }
 
     .sub-hero { 
-        width: 100%;
-        max-width: 100%;
+        width: 100vw;
+        max-width: 100vw;
         height: 100vh;
         min-height: 100vh;
         margin: 0;
@@ -1845,7 +1840,7 @@ body::before {
 /* Slogan Section */
 .values-slogan-section {
     position: relative;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -1911,7 +1906,7 @@ body::before {
     position: sticky;
     top: 0;
     height: 100vh;
-    width: 100%;
+    width: 100vw;
     display: grid;
     grid-template-columns: 1fr 1.2fr 1fr;
     background: var(--bg-color);
@@ -2181,7 +2176,7 @@ body::before {
     position: sticky;
     top: 0;
     height: 100vh;
-    width: 100%;
+    width: 100vw;
     overflow: hidden;
 }
 
@@ -2189,14 +2184,14 @@ body::before {
     display: flex;
     flex-direction: row;
     height: 100%;
-    width: 200%;
+    width: 200vw;
     will-change: transform;
     transition: transform 0.1s ease-out;
 }
 
 .scroll-panel {
     flex-shrink: 0;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     position: relative;
     display: flex;
