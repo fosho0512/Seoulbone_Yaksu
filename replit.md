@@ -52,14 +52,12 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
 ## Recent Changes (2026-01-06)
-- Critical scroll/layout bug fixes across Treatment and Diagnosis pages:
-  - Treatment intro: Changed `pinSpacing: true` → `pinSpacing: false` to eliminate white flash
-  - Treatment grid section: Added manual `padding-top: 300vh; margin-top: -300vh` to compensate for pinSpacing:false
-  - Sub-hero hiding: Changed from `visibility: hidden` → `opacity: 0` with CSS transition for smooth fade
-  - Horizontal scroll prevention: Replaced all `width: 100vw` with `width: 100%`
-  - Added `overflow-x: hidden` to html, body, and body.content-view-active
-  - Added `.pin-spacer { width: 100% !important; max-width: 100% !important; overflow: hidden !important; }`
-  - Header transparency now managed entirely via ScrollTrigger callbacks (onEnter/onLeave/onEnterBack/onLeaveBack)
+- Fixed critical scroll wheel not working issue:
+  - Root cause: `padding-top: 300vh` + `margin-top: -300vh` canceled out, leaving no scroll space for ScrollTrigger
+  - Solution: Restored `pinSpacing: true` (GSAP auto-generates spacer), removed manual padding/margin
+  - Sub-hero hiding: Uses `opacity: 0` with CSS transition for smooth fade (maintained)
+  - Horizontal scroll prevention: `width: 100%` instead of `100vw`, `overflow-x: hidden` globally (maintained)
+  - Header transparency managed via ScrollTrigger callbacks (maintained)
 
 ## Previous Changes (2026-01-03)
 - Dwell phase subdivision for better content consumption:
