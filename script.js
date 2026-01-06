@@ -635,7 +635,7 @@ function setupTreatmentIntroZoom() {
             start: 'top top',
             end: '+=300%',
             pin: true,
-            pinSpacing: false,
+            pinSpacing: true,
             scrub: 1,
             onEnter: () => {
                 document.body.classList.remove('sub-hero-passed');

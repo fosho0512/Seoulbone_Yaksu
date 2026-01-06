@@ -2756,8 +2756,8 @@ body::before {
 .treatment-grid-section {
     background: var(--bg-color);
     padding: 100px 6%;
-    padding-top: 300vh;
-    margin-top: -300vh;
+    position: relative;
+    z-index: 2;
 }
 
 .treatment-grid-section .modal-grid {
@@ -2775,8 +2775,6 @@ body::before {
 @media (max-width: 768px) {
     .treatment-grid-section {
         padding: 60px 5%;
-        padding-top: 300vh;
-        margin-top: -300vh;
     }
     
     .treatment-grid-section .modal-grid {

@@ -1,0 +1,180 @@
+순위 원인 — pin: true + end 계산 실패 (가장 유력)
+증상과 정확히 일치
+
+휠을 돌려도 아무 반응 없음
+
+마우스로 드래그하면 간혹 움직임
+
+모바일/트랙패드에서도 동일
+
+왜 이런 일이 생기나
+
+GSAP ScrollTrigger는 pin: true 상태일 때:
+
+“이 구간에서는 내가 스크롤을 대신 관리한다”
+
+라고 선언합니다.
+
+그런데 ❗
+end 값이 0, NaN, undefined, 너무 작음 →
+👉 ScrollTrigger가 영원히 pin 상태를 유지
+👉 브라우저는 스크롤을 넘길 수 없음
+👉 휠 입력은 먹지만 위치 변화 없음
+
+특히 위험한 코드 패턴
+end: () => `+=${panels.length * window.innerHeight}`
+
+
+이때:
+
+panels.length === 0
+
+window.innerHeight === 0 (SSR, 초기화 타이밍)
+
+selector가 아직 DOM에 없음
+
+➡ 결과:
+
+end: "+=0"
+
+
+또는
+
+end: "+=NaN"
+
+
+➡ 스크롤 완전 사망
+
+즉시 확인 방법 (콘솔)
+ScrollTrigger.getAll().forEach(st => {
+  console.log(st.vars.trigger, st.end);
+});
+
+
+👉 end 값이 0 / NaN / undefined 하나라도 있으면 원인 확정
+
+🔴 2순위 원인 — ScrollTrigger.kill() 후 재초기화 누락
+
+네 결론에서 이 코드가 있었죠:
+
+ScrollTrigger.getAll().forEach(st => st.kill());
+
+문제는 이 다음입니다
+
+❌ kill만 하고 다시 create 안 한 경우
+
+이러면:
+
+body는 여전히 overflow: hidden
+
+Lenis / GSAP은 스크롤을 가로채는 상태
+
+하지만 실제로 스크롤을 처리하는 트리거는 없음
+
+➡ 휠 입력 = 블랙홀
+
+특히 위험한 구조
+onPageEnter() {
+  ScrollTrigger.getAll().forEach(st => st.kill());
+  // ❌ setupScrollTriggers() 호출 안 함
+}
+
+체크 포인트
+
+페이지 진입 시
+
+ScrollTrigger create 함수가 반드시 다시 실행되는가
+
+SPA / PJAX / Barba / Swup 사용 중이면 99% 여기
+
+🔴 3순위 원인 — overflow: hidden이 body/html에 고정됨
+
+3번 분석에서 이걸 추가했을 가능성이 큽니다:
+
+html, body {
+  overflow-x: hidden;
+}
+
+
+⚠️ 이게 의도치 않게 이렇게 변했을 가능성
+
+html, body {
+  overflow: hidden; /* ← x가 아니라 전체 */
+}
+
+
+또는 JS에서:
+
+document.body.style.overflow = 'hidden';
+
+
+이게 pin 해제 시 복구되지 않으면 휠은 영원히 안 먹습니다.
+
+즉시 확인
+
+콘솔에 입력:
+
+getComputedStyle(document.body).overflow
+getComputedStyle(document.documentElement).overflow
+
+
+👉 hidden이면 원인 확정
+
+🔴 4순위 원인 — Lenis / Smooth Scroll 초기화 충돌
+
+지금 구조상 Lenis 사용 중일 가능성 매우 높음
+
+치명적인 패턴
+const lenis = new Lenis();
+
+ScrollTrigger.addEventListener("refresh", () => lenis.update());
+
+
+이 상태에서:
+
+ScrollTrigger를 kill
+
+Lenis는 살아 있음
+
+RAF 루프가 끊김 or 중복됨
+
+➡ Lenis가 휠 이벤트를 가로채고 아무 것도 안 함
+
+체크
+window.lenis
+
+
+있다면:
+
+lenis.destroy();
+
+
+또는
+
+lenis.start();
+
+
+안 하면 스크롤 안 돌아옵니다.
+
+🔴 5순위 원인 — passive: false 휠 이벤트 차단
+
+아주 치명적인 코드가 하나 있습니다:
+
+window.addEventListener('wheel', e => e.preventDefault(), { passive: false });
+
+
+또는 horizontal scroll 구현 중:
+
+wheelHandler(e) {
+  e.preventDefault();
+}
+
+
+pin이 끝났는데도 이 리스너가 살아 있으면:
+➡ 휠 = 무효
+
+콘솔 테스트
+getEventListeners(window).wheel
+
+
+wheel 리스너가 남아 있으면 바로 범인
