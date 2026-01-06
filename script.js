@@ -561,8 +561,9 @@ function showContentView(id) {
     
     elems.contentBody.innerHTML = html;
     
-    // Lenis 높이 재계산
+    // Lenis 스크롤 초기화 및 높이 재계산
     if (window.lenis) {
+        window.lenis.scrollTo(0, { immediate: true });
         window.lenis.resize();
     }
     

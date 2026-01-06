@@ -72,22 +72,20 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html {
+html, body {
+    width: 100%;
     overflow-x: hidden;
+    overscroll-behavior-y: none;
 }
 body { 
     background-color: var(--bg-color); 
     color: var(--text-color); 
     font-family: var(--font-sans); 
-    overflow: hidden;
-    overflow-x: hidden;
     font-weight: 300;
     letter-spacing: var(--ls-normal);
 }
 body.content-view-active {
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: auto !important;
+    /* Lenis handles scrolling */
 }
 ul { list-style: none; }
 button { border: none; background: none; cursor: pointer; font-family: inherit; }
@@ -697,7 +695,6 @@ body.menu-open .visual-text { opacity: 0; }
 }
 #home-view {
     height: 100vh;
-    overflow: hidden;
 }
 
 #content-view {
