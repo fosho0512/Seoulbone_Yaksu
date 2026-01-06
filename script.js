@@ -182,17 +182,17 @@ function showContentView(id) {
                             <ul>${group.items.map(item => `<li>${item}</li>`).join('')}</ul>
                         </div>
                     `).join('')}
-                </div>
-            </div>
-            <div class="brand-philosophy-section">
-                <span class="brand-caption">SEOUL BONE REHAB CLINIC</span>
-                <div class="philosophy-card-wrapper">
-                    <div class="philosophy-card">
-                        <p class="philosophy-main">"몸은 결코 거짓을 말하지 않습니다."</p>
-                        <p class="philosophy-line" data-line="1">통증은 그 진실을 전하는 가장 정직한 신호입니다.</p>
-                        <p class="philosophy-line" data-line="2">우리는 보이는 증상 너머, 숨겨진 원인을 깊이 읽어냅니다.</p>
-                        <p class="philosophy-line" data-line="3">현재의 신체 기능과 앞으로의 변화까지 세심하게 고려하여</p>
-                        <p class="philosophy-line" data-line="4">가장 온전한 회복을 위해 정성을 다해 진료하겠습니다.</p>
+                    <div class="brand-philosophy-section">
+                        <span class="brand-caption">SEOUL BONE REHAB CLINIC</span>
+                        <div class="philosophy-card-wrapper">
+                            <div class="philosophy-card">
+                                <p class="philosophy-main">"몸은 결코 거짓을 말하지 않습니다."</p>
+                                <p class="philosophy-line" data-line="1">통증은 그 진실을 전하는 가장 정직한 신호입니다.</p>
+                                <p class="philosophy-line" data-line="2">우리는 보이는 증상 너머, 숨겨진 원인을 깊이 읽어냅니다.</p>
+                                <p class="philosophy-line" data-line="3">현재의 신체 기능과 앞으로의 변화까지 세심하게 고려하여</p>
+                                <p class="philosophy-line" data-line="4">가장 온전한 회복을 위해 정성을 다해 진료하겠습니다.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
