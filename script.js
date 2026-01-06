@@ -79,6 +79,11 @@ function enterSite() {
     elems.introOverlay.classList.add('hidden');
     document.body.classList.add('site-entered');
     
+    // Lenis 스크롤 시작
+    if (window.lenis) {
+        window.lenis.start();
+    }
+    
     const header = document.getElementById('global-header');
     const visualH3 = document.querySelector('.visual-text h3');
     const visualP = document.querySelector('.visual-text p');
@@ -555,6 +560,11 @@ function showContentView(id) {
     document.body.classList.add('content-view-active');
     
     elems.contentBody.innerHTML = html;
+    
+    // Lenis 높이 재계산
+    if (window.lenis) {
+        window.lenis.resize();
+    }
     
     // Switch views
     elems.homeView.classList.remove('active');

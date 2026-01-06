@@ -85,8 +85,9 @@ body {
     letter-spacing: var(--ls-normal);
 }
 body.content-view-active {
-    overflow: auto;
+    overflow-y: auto;
     overflow-x: hidden;
+    height: auto !important;
 }
 ul { list-style: none; }
 button { border: none; background: none; cursor: pointer; font-family: inherit; }
@@ -344,7 +345,8 @@ body.menu-open .menu-toggle-btn .lines span:last-child { transform: rotate(-45de
 #main-container { 
     position: relative; 
     width: 100%; 
-    height: 100vh; 
+    min-height: 100vh;
+    height: auto;
     padding-top: var(--header-height); 
     opacity: 1; 
 }
