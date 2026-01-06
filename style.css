@@ -72,16 +72,21 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+html {
+    overflow-x: hidden;
+}
 body { 
     background-color: var(--bg-color); 
     color: var(--text-color); 
     font-family: var(--font-sans); 
     overflow: hidden;
+    overflow-x: hidden;
     font-weight: 300;
     letter-spacing: var(--ls-normal);
 }
 body.content-view-active {
     overflow: auto;
+    overflow-x: hidden;
 }
 ul { list-style: none; }
 button { border: none; background: none; cursor: pointer; font-family: inherit; }
@@ -338,7 +343,7 @@ body.menu-open .menu-toggle-btn .lines span:last-child { transform: rotate(-45de
 /* Main Container & Drawer */
 #main-container { 
     position: relative; 
-    width: 100vw; 
+    width: 100%; 
     height: 100vh; 
     padding-top: var(--header-height); 
     opacity: 1; 
@@ -441,8 +446,8 @@ body.menu-open .drawer-menu { transform: translateX(0); }
 /* Visual Background */
 .visual-section { 
     position: relative;
-    width: 100vw;
-    max-width: 100vw;
+    width: 100%;
+    max-width: 100%;
     height: 100vh;
     min-height: 100vh;
     background-color: var(--text-color);
@@ -829,8 +834,8 @@ body.menu-open .visual-text { opacity: 0; }
 /* Sub Hero Section */
 .sub-hero {
     position: relative;
-    width: 100vw;
-    max-width: 100vw;
+    width: 100%;
+    max-width: 100%;
     height: 100vh;
     min-height: 100vh;
     overflow: hidden;
@@ -1131,7 +1136,7 @@ body.menu-open .visual-text { opacity: 0; }
     background: linear-gradient(180deg, #F8F6F3 0%, #F2EFE9 100%);
     padding: 60px 40px 150px;
     margin-top: 80px;
-    width: 100vw;
+    width: 100%;
     min-height: 120vh;
     display: flex;
     flex-direction: column;
@@ -1152,12 +1157,12 @@ body.menu-open .visual-text { opacity: 0; }
     animation: philosophyFadeUp 0.7s ease-out forwards;
 }
 .philosophy-card-wrapper {
-    width: 70vw;
+    width: 70%;
     max-width: 900px;
     transition: width 0.1s ease-out;
 }
 .philosophy-card-wrapper.expanding {
-    width: 100vw;
+    width: 100%;
     max-width: none;
 }
 .philosophy-card-wrapper.sticky {
@@ -1787,8 +1792,8 @@ body::before {
     .grid-img-wrapper { height: 200px; }
 
     .sub-hero { 
-        width: 100vw;
-        max-width: 100vw;
+        width: 100%;
+        max-width: 100%;
         height: 100vh;
         min-height: 100vh;
         margin: 0;
@@ -1803,7 +1808,7 @@ body::before {
         padding: 50px 20px 100px; 
         min-height: 100vh;
     }
-    .philosophy-card-wrapper { width: 90vw; }
+    .philosophy-card-wrapper { width: 90%; }
     .philosophy-card { padding: 35px 25px; height: 130px; }
     .philosophy-main { font-size: 1.2rem; }
     .philosophy-main::before { left: -15px; top: -5px; font-size: 2rem; }
@@ -1840,7 +1845,7 @@ body::before {
 /* Slogan Section */
 .values-slogan-section {
     position: relative;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -1906,7 +1911,7 @@ body::before {
     position: sticky;
     top: 0;
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1.2fr 1fr;
     background: var(--bg-color);
@@ -2176,7 +2181,7 @@ body::before {
     position: sticky;
     top: 0;
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -2191,7 +2196,7 @@ body::before {
 
 .scroll-panel {
     flex-shrink: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     position: relative;
     display: flex;
