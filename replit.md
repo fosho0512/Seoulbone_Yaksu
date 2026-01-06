@@ -51,15 +51,7 @@ The intro page uses a unified Flexbox container structure for consistent PC/mobi
 3. CSS transitions reveal background and Enter button
 4. Click "Enter Site" adds `.hidden` class (slides up)
 
-## Recent Changes (2026-01-06)
-- Fixed critical scroll wheel not working issue:
-  - Root cause: `padding-top: 300vh` + `margin-top: -300vh` canceled out, leaving no scroll space for ScrollTrigger
-  - Solution: Restored `pinSpacing: true` (GSAP auto-generates spacer), removed manual padding/margin
-  - Sub-hero hiding: Uses `opacity: 0` with CSS transition for smooth fade (maintained)
-  - Horizontal scroll prevention: `width: 100%` instead of `100vw`, `overflow-x: hidden` globally (maintained)
-  - Header transparency managed via ScrollTrigger callbacks (maintained)
-
-## Previous Changes (2026-01-03)
+## Recent Changes (2026-01-03)
 - Dwell phase subdivision for better content consumption:
   - 0-65%: Horizontal scroll phase (sub-hero slides left, slogan slides in)
   - 65-80%: Text dwell phase (main/sub text visible, ~15% scroll distance ≈ 60vh)
