@@ -76,12 +76,6 @@ html, body {
     overflow-x: hidden;
     max-width: 100%;
 }
-
-/* GSAP pin-spacer 가로 스크롤 방지 */
-.pin-spacer {
-    max-width: 100% !important;
-    overflow: hidden !important;
-}
 body { 
     background-color: var(--bg-color); 
     color: var(--text-color); 
