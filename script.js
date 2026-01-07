@@ -1034,43 +1034,12 @@ function setupPhilosophyCardScroll(section) {
     };
 }
 
-// Smooth Scroll Inertia (PC Only) + GSAP ScrollTrigger Integration
-let lenisScrollTriggerLinked = false;
-
-function linkLenisToScrollTrigger() {
-    if (lenisScrollTriggerLinked || !window.lenis) return;
+// GSAP ScrollTrigger 초기화
+function setupSmoothScroll() {
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
     
     gsap.registerPlugin(ScrollTrigger);
-    window.lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.lagSmoothing(0);
-    lenisScrollTriggerLinked = true;
-}
-
-function setupSmoothScroll() {
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
-        || window.innerWidth < 1024
-        || ('ontouchstart' in window);
-    
-    if (isMobile || typeof Lenis === 'undefined') return;
-    
-    const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: 'vertical',
-        smoothWheel: true
-    });
-    
-    function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-    
-    window.lenis = lenis;
-    
-    // GSAP ScrollTrigger 전역 연동 시도
-    linkLenisToScrollTrigger();
 }
 
 // Values Page - ScrollTrigger Slider
@@ -1083,9 +1052,6 @@ function setupValuesSlider() {
     }
     
     gsap.registerPlugin(ScrollTrigger);
-    
-    // Lenis 연동 재시도 (늦게 로드된 경우 대비)
-    linkLenisToScrollTrigger();
     
     const wrapper = document.querySelector('.values-slides-wrapper');
     const container = document.querySelector('.values-slides-container');
@@ -1156,11 +1122,7 @@ function setupValuesSlider() {
             const wrapperRect = wrapper.getBoundingClientRect();
             const scrollTarget = wrapper.offsetTop + (wrapperRect.height * targetProgress);
             
-            if (window.lenis) {
-                window.lenis.scrollTo(scrollTarget, { duration: 1 });
-            } else {
-                window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
-            }
+            window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
         });
     });
 }
@@ -1175,7 +1137,6 @@ function cleanupValuesSlider() {
 // Horizontal Scroll for Diagnostic Tools (Sub-hero → Slogan)
 let horizontalScrollHandler = null;
 let horizontalResizeHandler = null;
-let horizontalLenisHandler = null;
 let hasEnteredVerticalSection = false;
 let horizontalDisplayProgress = 0;
 let horizontalLastFrameTime = 0;
@@ -1359,17 +1320,9 @@ function setupHorizontalScroll() {
     if (horizontalScrollHandler) {
         window.removeEventListener('scroll', horizontalScrollHandler);
     }
-    if (horizontalLenisHandler && window.lenis) {
-        window.lenis.off('scroll', horizontalLenisHandler);
-    }
     
     horizontalScrollHandler = handleScroll;
-    horizontalLenisHandler = handleScroll;
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    if (window.lenis) {
-        window.lenis.on('scroll', horizontalLenisHandler);
-    }
     
     // Resize handler
     if (horizontalResizeHandler) {
@@ -1397,7 +1350,6 @@ function setupHorizontalScroll() {
 
 // Equipment Narrative (Sticky Image + Scroll Text)
 let equipmentScrollHandler = null;
-let equipmentLenisHandler = null;
 
 function setupEquipmentNarrative() {
     const steps = document.querySelectorAll('.equipment-step');
@@ -1429,17 +1381,9 @@ function setupEquipmentNarrative() {
     if (equipmentScrollHandler) {
         window.removeEventListener('scroll', equipmentScrollHandler);
     }
-    if (equipmentLenisHandler && window.lenis) {
-        window.lenis.off('scroll', equipmentLenisHandler);
-    }
     
     equipmentScrollHandler = handleEquipmentScroll;
-    equipmentLenisHandler = handleEquipmentScroll;
     window.addEventListener('scroll', handleEquipmentScroll, { passive: true });
-    
-    if (window.lenis) {
-        window.lenis.on('scroll', equipmentLenisHandler);
-    }
     
     // Initial state
     handleEquipmentScroll();
@@ -1501,11 +1445,6 @@ function cleanupHorizontalScroll() {
         horizontalScrollHandler = null;
     }
     
-    if (horizontalLenisHandler && window.lenis) {
-        window.lenis.off('scroll', horizontalLenisHandler);
-        horizontalLenisHandler = null;
-    }
-    
     if (horizontalResizeHandler) {
         window.removeEventListener('resize', horizontalResizeHandler);
         horizontalResizeHandler = null;
@@ -1519,11 +1458,6 @@ function cleanupHorizontalScroll() {
     if (equipmentScrollHandler) {
         window.removeEventListener('scroll', equipmentScrollHandler);
         equipmentScrollHandler = null;
-    }
-    
-    if (equipmentLenisHandler && window.lenis) {
-        window.lenis.off('scroll', equipmentLenisHandler);
-        equipmentLenisHandler = null;
     }
     
     cleanupDiagnosisHeaderObserver();
