@@ -1,0 +1,1205 @@
+<body style="height: 5485px; overscroll-behavior: none; scroll-behavior: auto;"><header class="white apgujeong">
+    <div class="wrap" max="full">
+        <h1>
+            <a href="/apgujeong/">
+                <svg id="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 203.66 41.51">
+	<path class="cls-1" d="M89.43,311.85v-3.53c0-2.41,0-3.82,0-4.25a1.71,1.71,0,0,0-.21-.79,1,1,0,0,0-.66-.35,3.57,3.57,0,0,0-.78-.06c-.23,0-.34-.07-.34-.19s.15-.18.44-.18l1.62,0,1.11,0,1.33,0,1.12,0a6.94,6.94,0,0,1,2.18.31,2.89,2.89,0,0,1,1.33.82,3.25,3.25,0,0,1,.59.95,2.69,2.69,0,0,1,.17.93,3.46,3.46,0,0,1-.53,1.93A7.19,7.19,0,0,1,95.24,309a6.57,6.57,0,0,1,2.56,1.62,3.73,3.73,0,0,1,1.1,2.72,4.1,4.1,0,0,1-1.39,3.07,5.57,5.57,0,0,1-4,1.3c-.3,0-.76,0-1.41-.06s-1.14-.06-1.5-.06l-1.22,0-1.31,0c-.27,0-.4-.07-.4-.2s.11-.16.32-.16a2.33,2.33,0,0,0,.76-.1.57.57,0,0,0,.38-.33,3,3,0,0,0,.17-.75C89.39,315.56,89.43,314.14,89.43,311.85Zm2.4-8.14v5c0,.12,0,.2.14.22a5,5,0,0,0,1,.06,2.14,2.14,0,0,0,1.44-.38,2.56,2.56,0,0,0,.82-2.12,3.73,3.73,0,0,0-.66-2.14,2.09,2.09,0,0,0-1.84-1,3.62,3.62,0,0,0-.67,0C91.89,303.41,91.83,303.52,91.83,303.71Zm0,6.2v4.75a5.23,5.23,0,0,0,.12,1.4.93.93,0,0,0,.59.53,3.81,3.81,0,0,0,1.46.24,2.7,2.7,0,0,0,1.67-.59,2.39,2.39,0,0,0,.76-2,4.56,4.56,0,0,0-2-4,3.17,3.17,0,0,0-1.66-.48c-.24,0-.53,0-.87,0C91.87,309.77,91.83,309.81,91.83,309.91Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M105.67,309.75v3c0,.66,0,1.15,0,1.44s0,.63,0,1a4,4,0,0,0,.1.81.7.7,0,0,0,.21.35,3.54,3.54,0,0,0,2.13.4,3.3,3.3,0,0,0,2.06-.44,1.74,1.74,0,0,0,.52-1.11c.06-.21.12-.32.21-.32s.16.12.16.34,0,.46-.1,1a7,7,0,0,1-.21,1.09.55.55,0,0,1-.27.38,2.51,2.51,0,0,1-.81.08c-.59,0-1.46,0-2.61,0s-2-.05-2.68-.05l-1.11,0-1.18,0c-.26,0-.38-.06-.38-.18s.1-.17.3-.18l.56-.06q.52-.12.6-1.08c0-.47.08-1.62.08-3.45v-3c0-2,0-3.19,0-3.55a1.54,1.54,0,0,0-.18-.66.82.82,0,0,0-.54-.29l-.6-.08c-.22,0-.32-.06-.32-.18s.14-.18.42-.18l1.34,0,1.11,0,1.14,0,1.36,0c.26,0,.38.06.38.18s-.11.18-.34.18l-.66.08a.68.68,0,0,0-.48.28,1.7,1.7,0,0,0-.18.69C105.68,306.54,105.67,307.73,105.67,309.75Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M121.13,313.44h-4c-.07,0-.12.05-.16.14l-.88,2.19a3.1,3.1,0,0,0-.27,1c0,.35.34.52,1,.52.2,0,.3.05.3.16s-.11.18-.32.18l-1,0-1,0-.78,0-1.35,0c-.21,0-.32-.06-.32-.18s.08-.18.24-.18A2.54,2.54,0,0,0,114,317a2.86,2.86,0,0,0,.7-1.16l4.25-10.06c.34-.88.6-1.32.79-1.32s.27.21.46.62q.43,1.25,4.43,10.39a5.06,5.06,0,0,0,.8,1.4,1.44,1.44,0,0,0,.77.45,3.3,3.3,0,0,0,.66,0q.3,0,.3.18c0,.12-.12.18-.34.18-2.38,0-3.79,0-4.22,0-.2,0-.3-.08-.3-.16s.06-.11.18-.16.29-.19.2-.36l-1.36-3.39A.16.16,0,0,0,121.13,313.44Zm-3.57-1h3.19c.08,0,.11,0,.08-.1l-1.57-4.09c-.06-.17-.13-.17-.2,0l-1.58,4.09C117.45,312.4,117.48,312.43,117.56,312.43Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M129.94,315.16c0-1,0-2.67.08-5.12s.06-4.1.06-4.93c0-.41.09-.62.26-.62s.31.17.65.5l.87.86c.51.53,1.21,1.21,2.1,2.07s1.73,1.68,2.56,2.47c.38.35.87.82,1.48,1.43l1.59,1.59.81.79-.16-7.42a4,4,0,0,0-.15-1.09.88.88,0,0,0-.5-.46,8.27,8.27,0,0,0-.9-.1c-.2,0-.3-.06-.3-.2s.15-.16.44-.16l1.29,0,.94,0,.66,0,1.12,0c.26,0,.38.06.38.18s-.1.18-.3.18l-.5.06a.8.8,0,0,0-.53.41,2.73,2.73,0,0,0-.17,1c0,.08-.06,3.61-.18,10.61,0,.41-.09.62-.26.62s-.45-.19-.86-.56c-.78-.71-2.42-2.27-4.94-4.69q-1.42-1.33-4.21-4.24l.18,7c0,1.11.24,1.73.6,1.85a4.55,4.55,0,0,0,.94.12c.2,0,.3.05.3.16s-.13.2-.4.2l-1.32,0-.88,0-.77,0-1.24,0c-.25,0-.38-.06-.38-.18s.09-.18.28-.18l.76-.08a.66.66,0,0,0,.47-.51A7,7,0,0,0,129.94,315.16Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M153.87,317.89a9.22,9.22,0,0,1-6.12-1.84,6.23,6.23,0,0,1-2.21-5,6.92,6.92,0,0,1,.48-2.41,5.53,5.53,0,0,1,1.61-2.28,8.35,8.35,0,0,1,5.64-1.79,17.47,17.47,0,0,1,2.57.18l.86.14.88.14c.18,0,.26.08.26.2a1.16,1.16,0,0,1,0,.17,2.48,2.48,0,0,1,0,.33c0,.15,0,.31,0,.49s0,.34,0,.63,0,.54,0,.77a4.72,4.72,0,0,1,0,.5c0,.27-.1.4-.22.4s-.22-.12-.22-.38a2.31,2.31,0,0,0-.66-1.58,3.18,3.18,0,0,0-1.4-.78,7.46,7.46,0,0,0-2.15-.29,4.73,4.73,0,0,0-3.21,1,5.58,5.58,0,0,0-1.61,4.37,6.8,6.8,0,0,0,.49,2.6,5.17,5.17,0,0,0,1.3,1.89,5.78,5.78,0,0,0,1.76,1.12,5.16,5.16,0,0,0,1.93.39,8.17,8.17,0,0,0,1.95-.19,2.43,2.43,0,0,0,1.18-.73,2.58,2.58,0,0,0,.58-1.17c.07-.24.16-.36.28-.36s.18.09.18.26a8.34,8.34,0,0,1-.14,1.07,11.16,11.16,0,0,1-.26,1.3.72.72,0,0,1-.46.5A9.42,9.42,0,0,1,153.87,317.89Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M170.36,312.72v-3c0-2,0-3.19,0-3.55a1.55,1.55,0,0,0-.19-.71.71.71,0,0,0-.57-.28l-.68-.06q-.3,0-.3-.18c0-.11.13-.16.38-.16l1.4,0,1.19,0,1.16,0,1.61,0c1,0,1.85,0,2.5.08a9.43,9.43,0,0,1,2.29.54,5.73,5.73,0,0,1,3.89,5.68,6.47,6.47,0,0,1-1.92,4.74,8.1,8.1,0,0,1-5.86,2c-.47,0-1.14,0-2-.1s-1.45-.1-1.7-.1l-1.06,0-1.25,0c-.23,0-.34-.06-.34-.18s.1-.18.3-.18a3.59,3.59,0,0,0,.62-.06q.42-.08.51-.9c.06-.55.09-1.51.09-2.87v-.76Zm2.37-3.23v2.1c0,1.84,0,3,0,3.39a3.17,3.17,0,0,0,.22,1.29c.28.44,1,.66,2.23.66a5.66,5.66,0,0,0,3.83-1.22c.95-.79,1.43-2.18,1.43-4.18a5.62,5.62,0,0,0-1.65-4.15,6.51,6.51,0,0,0-4.75-1.73,2.41,2.41,0,0,0-1.13.16.36.36,0,0,0-.11.14,2.64,2.64,0,0,0-.06.45c0,.24,0,.59,0,1.05S172.73,308.59,172.73,309.49Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M188,312.72v-3c0-2,0-3.26,0-3.64a1.39,1.39,0,0,0-.18-.63,1,1,0,0,0-.54-.27l-.69-.06q-.3,0-.3-.18c0-.11.14-.16.4-.16l1.26,0,1.27,0c2.81,0,4.32,0,4.54,0l.31,0,.3,0,.19,0,.14,0,.14,0c.08,0,.12.05.12.16a.8.8,0,0,1,0,.16c0,.08,0,.2-.07.36a4.18,4.18,0,0,0-.06.56c0,.5-.05.89-.08,1.19s-.07.28-.2.28-.17-.11-.18-.32a1.28,1.28,0,0,0-.1-.56.88.88,0,0,0-.32-.41,2.14,2.14,0,0,0-.83-.2c-.45-.05-1.3-.08-2.54-.08q-.12,0-.12.18v4.16q0,.18.12.18c1.56,0,2.49,0,2.79,0a1.54,1.54,0,0,0,.92-.28c.11-.15.2-.22.28-.22s.12,0,.12.14,0,.09,0,.19,0,.25-.06.46a6.67,6.67,0,0,0-.06.67c0,.13,0,.36,0,.68s0,.5,0,.52q0,.33-.18.33c-.12,0-.18-.1-.18-.29S194,312,194,312a1,1,0,0,0-1-.7c-.36,0-1.19-.06-2.48-.06q-.12,0-.12.18v3.81a1.47,1.47,0,0,0,.41,1.18,3.43,3.43,0,0,0,1.73.27,4.64,4.64,0,0,0,1.65-.2,1.21,1.21,0,0,0,.52-.45,2.65,2.65,0,0,0,.28-.84c0-.18.11-.28.22-.28s.14.12.14.34a7.28,7.28,0,0,1-.24,2c-.05.21-.13.34-.24.38a2.52,2.52,0,0,1-.7.06c-.58,0-1.41,0-2.5,0s-1.94-.05-2.54-.05l-1.09,0-1.2,0q-.36,0-.36-.18t.3-.18l.63-.06c.28-.07.45-.42.52-1.06C188,315.72,188,314.56,188,312.72Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M211.25,316.75l-5-12a3.11,3.11,0,0,0-.62-1.06,2.13,2.13,0,0,0-.88-.44,3.1,3.1,0,0,0-.76-.08q-.24,0-.24-.18c0-.11.17-.17.51-.17l1.57,0,1.29,0,1,0,1.4,0c.3,0,.45.06.45.17s-.1.18-.29.18a1.41,1.41,0,0,0-.77.14.47.47,0,0,0-.2.41,5.53,5.53,0,0,0,.46,1.52q1.53,4,3.42,9c.21-.54.62-1.58,1.23-3.11s1.18-3,1.71-4.27.85-2.15,1-2.53a2.07,2.07,0,0,0,.18-.73.35.35,0,0,0-.26-.37,2.38,2.38,0,0,0-.78-.1c-.23,0-.34-.05-.34-.16s.18-.19.55-.19l1.31,0,.76,0,.83,0,1,0c.28,0,.41.06.41.17s-.1.18-.31.18a1.72,1.72,0,0,0-1,.24,4.55,4.55,0,0,0-1.08,1.77c-.29.7-.69,1.62-1.21,2.76s-.9,2-1.15,2.58c-.48,1.07-1,2.28-1.59,3.62l-1,2.38-.12.24a3.66,3.66,0,0,1-.65,1.18.21.21,0,0,1-.14,0,.37.37,0,0,1-.31-.22A9.29,9.29,0,0,1,211.25,316.75Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M223.3,312.72v-3c0-2,0-3.2,0-3.58s-.24-.84-.6-.92l-.62-.08c-.19,0-.28-.06-.28-.2s.13-.16.4-.16l1.27,0,1.08,0,1,0,1.24,0c.23,0,.34.05.34.16s-.09.2-.28.2l-.46.06a.68.68,0,0,0-.48.28,1.7,1.7,0,0,0-.18.69c0,.36-.06,1.54-.06,3.55v3c0,1.82,0,3,.1,3.63s.29.83.7.88a5.46,5.46,0,0,0,.76.08q.3,0,.3.18c0,.12-.11.18-.34.18l-1.65,0-1.09,0-1,0-1.26,0q-.36,0-.36-.18t.3-.18l.54-.06c.32-.08.5-.37.54-.86S223.3,314.68,223.3,312.72Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M232.47,312.72v-3c0-2,0-3.26,0-3.64a1.39,1.39,0,0,0-.18-.63.91.91,0,0,0-.54-.27l-.68-.06q-.3,0-.3-.18c0-.11.13-.16.4-.16l1.25,0,1.27,0c2.81,0,4.32,0,4.54,0l.31,0,.3,0,.19,0,.14,0a.38.38,0,0,1,.14,0c.08,0,.12.05.12.16a.8.8,0,0,1,0,.16c0,.08,0,.2-.07.36s0,.35-.06.56c0,.5,0,.89-.08,1.19s-.07.28-.2.28-.17-.11-.18-.32a1.28,1.28,0,0,0-.1-.56.82.82,0,0,0-.32-.41,2.13,2.13,0,0,0-.82-.2c-.46-.05-1.31-.08-2.55-.08q-.12,0-.12.18v4.16q0,.18.12.18c1.56,0,2.49,0,2.79,0a1.51,1.51,0,0,0,.92-.28c.11-.15.2-.22.28-.22s.12,0,.12.14,0,.09,0,.19,0,.25-.06.46a6.67,6.67,0,0,0-.06.67c0,.13,0,.36,0,.68s0,.5,0,.52q0,.33-.18.33c-.12,0-.18-.1-.18-.29s-.06-.43-.06-.46a1,1,0,0,0-1-.7q-.54-.06-2.49-.06-.12,0-.12.18v3.81a1.5,1.5,0,0,0,.41,1.18,3.48,3.48,0,0,0,1.73.27,4.6,4.6,0,0,0,1.65-.2,1.21,1.21,0,0,0,.52-.45,2.42,2.42,0,0,0,.28-.84c0-.18.12-.28.22-.28s.14.12.14.34a7.28,7.28,0,0,1-.24,2c0,.21-.13.34-.24.38a2.52,2.52,0,0,1-.7.06c-.58,0-1.41,0-2.5,0s-1.93-.05-2.54-.05l-1.09,0-1.19,0q-.36,0-.36-.18t.3-.18l.62-.06c.28-.07.45-.42.52-1.06C232.44,315.72,232.47,314.56,232.47,312.72Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M56.91,322.41h0a2.69,2.69,0,0,1-2.43-1.48,3.12,3.12,0,0,0-3.7-1.53A2.74,2.74,0,0,1,47.33,316a3.1,3.1,0,0,0-1.52-3.7,2.74,2.74,0,0,1,0-4.87,3.1,3.1,0,0,0,1.52-3.7,2.74,2.74,0,0,1,3.45-3.44,3.12,3.12,0,0,0,3.7-1.53,2.74,2.74,0,0,1,4.87,0h0A3.11,3.11,0,0,0,63,300.25a2.74,2.74,0,0,1,3.45,3.44,3.12,3.12,0,0,0,1.53,3.7,2.74,2.74,0,0,1,0,4.87,3.12,3.12,0,0,0-1.53,3.7A2.74,2.74,0,0,1,63,319.4a3.11,3.11,0,0,0-3.69,1.53A2.69,2.69,0,0,1,56.91,322.41Zm-5.19-3.82a3.75,3.75,0,0,1,3.34,2,2.06,2.06,0,0,0,1.85,1.12,2,2,0,0,0,1.85-1.12,3.77,3.77,0,0,1,4.48-1.86,2.09,2.09,0,0,0,2.62-2.61,3.79,3.79,0,0,1,1.85-4.49,2.08,2.08,0,0,0,0-3.69,3.78,3.78,0,0,1-1.86-4.49,2.09,2.09,0,0,0-2.62-2.61A3.77,3.77,0,0,1,58.76,299a2,2,0,0,0-1.85-1.12A2.06,2.06,0,0,0,55.06,299a3.76,3.76,0,0,1-4.48,1.86A2.08,2.08,0,0,0,48,303.49,3.78,3.78,0,0,1,46.11,308a2.08,2.08,0,0,0,0,3.69A3.78,3.78,0,0,1,48,316.16a2.08,2.08,0,0,0,2.61,2.61A3.77,3.77,0,0,1,51.72,318.59Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M56.91,330.58a4.17,4.17,0,0,1-3.75-2.28,5.6,5.6,0,0,0-6.66-2.76,4.22,4.22,0,0,1-5.3-5.3,5.61,5.61,0,0,0-2.77-6.67,4.22,4.22,0,0,1,0-7.49,5.61,5.61,0,0,0,2.77-6.67,4.22,4.22,0,0,1,5.3-5.3,5.6,5.6,0,0,0,6.66-2.76,4.22,4.22,0,0,1,7.5,0h0a5.61,5.61,0,0,0,6.67,2.76,4.22,4.22,0,0,1,5.3,5.3,5.61,5.61,0,0,0,2.76,6.67,4.22,4.22,0,0,1,0,7.49,5.61,5.61,0,0,0-2.76,6.67,4.22,4.22,0,0,1-5.3,5.3,5.61,5.61,0,0,0-6.67,2.76A4.15,4.15,0,0,1,56.91,330.58ZM48.19,325a5.94,5.94,0,0,1,5.27,3.2,3.89,3.89,0,0,0,6.91,0,5.93,5.93,0,0,1,7.06-2.93,3.89,3.89,0,0,0,4.88-4.88,5.93,5.93,0,0,1,2.93-7.06,3.9,3.9,0,0,0,0-6.91,5.93,5.93,0,0,1-2.93-7.06,3.89,3.89,0,0,0-4.88-4.88,5.93,5.93,0,0,1-7.06-2.93h0a3.9,3.9,0,0,0-6.91,0,5.93,5.93,0,0,1-7.06,2.93,3.89,3.89,0,0,0-4.89,4.88,5.91,5.91,0,0,1-2.92,7.06,3.89,3.89,0,0,0,0,6.91,5.91,5.91,0,0,1,2.92,7.06,3.89,3.89,0,0,0,4.89,4.88A6.17,6.17,0,0,1,48.19,325Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M56.91,318.61h0a2.08,2.08,0,0,1-1.84-1.12,1.91,1.91,0,0,0-2.28-.94,2.08,2.08,0,0,1-2.6-2.6,1.92,1.92,0,0,0-.94-2.29,2.06,2.06,0,0,1,0-3.67,1.92,1.92,0,0,0,.94-2.29,2.08,2.08,0,0,1,2.6-2.6,1.9,1.9,0,0,0,2.28-.94,2.07,2.07,0,0,1,3.68,0h0a1.9,1.9,0,0,0,2.28.94,2.08,2.08,0,0,1,2.09.52,2,2,0,0,1,.51,2.08,1.93,1.93,0,0,0,.95,2.29,2.06,2.06,0,0,1,0,3.67,1.93,1.93,0,0,0-.95,2.29,2,2,0,0,1-.51,2.08,2.08,2.08,0,0,1-2.09.52,1.9,1.9,0,0,0-2.28.94A2.07,2.07,0,0,1,56.91,318.61Zm-3.54-3a2.77,2.77,0,0,1,2.46,1.49,1.2,1.2,0,0,0,1.08.66A1.22,1.22,0,0,0,58,317.1a2.75,2.75,0,0,1,3.29-1.36,1.22,1.22,0,0,0,1.23-.31,1.19,1.19,0,0,0,.3-1.23,2.77,2.77,0,0,1,1.37-3.29,1.22,1.22,0,0,0,0-2.17,2.77,2.77,0,0,1-1.37-3.29,1.19,1.19,0,0,0-.3-1.23,1.22,1.22,0,0,0-1.23-.31A2.75,2.75,0,0,1,58,302.55h0a1.22,1.22,0,0,0-1.09-.66,1.2,1.2,0,0,0-1.08.66,2.75,2.75,0,0,1-3.29,1.36,1.23,1.23,0,0,0-1.24.31,1.21,1.21,0,0,0-.3,1.23,2.75,2.75,0,0,1-1.36,3.29,1.22,1.22,0,0,0,0,2.17A2.75,2.75,0,0,1,51,314.2a1.23,1.23,0,0,0,1.54,1.54A2.66,2.66,0,0,1,53.37,315.61Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M56.91,326.55a3.42,3.42,0,0,1-3.08-1.87,4.41,4.41,0,0,0-5.24-2.17,3.47,3.47,0,0,1-4.36-4.36,4.41,4.41,0,0,0-2.17-5.24,3.48,3.48,0,0,1,0-6.17,4.41,4.41,0,0,0,2.17-5.24,3.47,3.47,0,0,1,4.36-4.36A4.41,4.41,0,0,0,53.83,295,3.48,3.48,0,0,1,60,295h0a4.4,4.4,0,0,0,5.23,2.17,3.48,3.48,0,0,1,4.37,4.36,4.4,4.4,0,0,0,2.17,5.24,3.48,3.48,0,0,1,0,6.17,4.4,4.4,0,0,0-2.17,5.24,3.48,3.48,0,0,1-4.37,4.36A4.4,4.4,0,0,0,60,324.68,3.42,3.42,0,0,1,56.91,326.55Zm-7-4.7a4.86,4.86,0,0,1,4.31,2.62,3,3,0,0,0,5.37,0,4.85,4.85,0,0,1,5.77-2.39,3,3,0,0,0,3.8-3.8,4.85,4.85,0,0,1,2.39-5.77,3,3,0,0,0,0-5.37,4.85,4.85,0,0,1-2.39-5.77,3,3,0,0,0-3.8-3.8,4.85,4.85,0,0,1-5.77-2.39l.2-.1-.2.1a3,3,0,0,0-5.37,0,4.85,4.85,0,0,1-5.77,2.39,3,3,0,0,0-3.8,3.8,4.86,4.86,0,0,1-2.39,5.77,3,3,0,0,0,0,5.37,4.86,4.86,0,0,1,2.39,5.77,3,3,0,0,0,3.8,3.8A4.94,4.94,0,0,1,49.92,321.85Z" transform="translate(-36.16 -289.07)"></path>
+</svg>            </a>
+        </h1>
+        <nav>
+            <ul>
+                <li>
+                    <a href="/apgujeong/about/">
+                        <p>About</p>
+                    </a>
+                    <ul class="depth">
+                        <li>
+                            <a href="/apgujeong/about/">
+                                                                    <p>Brand Story</p><em>브랜드스토리</em>
+                                                            </a>
+                        </li>
+                        <li>
+                            <a href="/apgujeong/about/doctor.php">
+                                                                    <p>Doctor</p><em>의료진</em>
+                                                            </a>
+                        </li>
+                        <li>
+                            <a href="/apgujeong/about/gallery.php">
+                                                                    <p>Gallery</p><em>갤러리</em>
+                                                            </a>
+                        </li>
+                        <li>
+                            <a href="/apgujeong/about/location.php">
+                                                                    <p>Location</p><em>오시는길</em>
+                                                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/apgujeong/bdvsignature/sculptinginjection.php">
+                        <p>BDV Signature</p>
+                    </a>
+                    <ul class="depth">
+                        <li>
+                            <a href="/apgujeong/bdvsignature/sculptinginjection.php">
+                                                                    <p>Sculpting Injection</p><em>조각주사</em>
+                                                            </a>
+                        </li>
+                        <li>
+                            <a href="/apgujeong/bdvsignature/easythread.php">
+                                                                    <p>Easy Thread Lifting</p><em>이지실리프팅</em>
+                                                            </a>
+                        </li>
+                        <li>
+                            <a href="/apgujeong/bdvsignature/titanium.php">
+                                                                    <p>Titanium Lifting</p><em>티타늄리프팅</em>
+                                                            </a>
+                        </li>
+                        <li><a href="/apgujeong/bdvsignature/quattro.php">
+                                                                    <p>Quattro Lifting</p><em>콰트로리프팅</em>
+                                                            </a>
+                        </li>
+                        <li>
+                            <a href="/apgujeong/bdvsignature/oneday.php">
+                                                                    <p>One-day Extreme Lifting</p><em>원데이익스트림리프팅</em>
+                                                            </a>
+                        </li>
+                        <li>
+                            <a href="/apgujeong/bdvsignature/btoning.php">
+                                                                    <p>B Toning</p><em>B토닝</em>
+                                                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="custom">
+                    <a href="/apgujeong/customizing/">
+                        <p>Customizing</p>
+                    </a>
+                    
+                                        <!--압구정일때-->
+                    <ul class="depth">
+                        <li>
+                            <a href="/apgujeong/customizing/index.php#lifting">
+                                <p>Lifting</p><em>리프팅</em>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/apgujeong/customizing/index.php#brightening">
+                                <p>Brightening</p><em>미백</em>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/apgujeong/customizing/index.php#skin">
+                                <p>Skin Rejuvenation</p><em>피부재생</em>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/apgujeong/customizing/index.php#pore">
+                                <p>Pore / Scar</p><em>모공/흉터</em>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/apgujeong/customizing/index.php#contouring">
+                                <p>Body Contouring</p><em>바디컨투어링</em>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/apgujeong/customizing/index.php#skincare">
+                                <p>Skin Care Program</p><em>스킨케어 프로그램</em>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/apgujeong/customizing/index.php#circulation">
+                                <p>Circulation</p><em>순환 프로그램</em>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/apgujeong/customizing/index.php#stem">
+                                <p>Stem Cell</p><em>항노화 안티에이징 시술</em>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/apgujeong/customizing/index.php#petit">
+                                <p>Petit</p><em>쁘띠시술</em>
+                            </a>
+                        </li>
+                    </ul>
+                                    </li>
+                <li>
+                    <a href="/apgujeong/bdvchannel/">
+                        <p>BDV Channel</p>
+                    </a>
+                    <ul class="depth">
+                        <li><a href="/apgujeong/bdvchannel/">
+                                                            <p>Blog</p><em>블로그</em>
+                                                        </a></li>
+                        <li><a href="/apgujeong/bdvchannel/instagram.php">
+                                                            <p>Instagram</p><em>인스타그램</em>
+                                                        </a></li>
+                        <li><a href="/apgujeong/bdvchannel/youtube.php">
+                                                            <p>Youtube</p><em>유튜브</em>
+                                                        </a></li>
+                        <li><a href="/apgujeong/bdvchannel/media.php">
+                                                            <p>Media</p><em>언론보도</em>
+                                                        </a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/apgujeong/community/notice.php">
+                        <p>Community</p>
+                    </a>
+                    <ul class="depth">
+                        <li><a href="/apgujeong/community/notice.php">
+                                                            <p>Notice</p><em>공지사항</em>
+                                                        </a></li>
+                        <li><a href="/apgujeong/community/news.php">
+                                                            <p>News</p><em>소식</em>
+                                                        </a></li>
+                        <li><a href="/apgujeong/community/contactus.php">
+                                                            <p>Contact Us</p><em>상담 및 예약</em>
+                                                        </a></li>
+                        <li><a href="/apgujeong/community/membership.php">
+                                                            <p>Membership</p><em>블랑드비 멤버십</em>
+                                                        </a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/apgujeong/promotion/">
+                        <p>Promotion</p>
+                    </a>
+                    <ul class="depth">
+                        <li><a href="/apgujeong/promotion/">
+                                                            <p>Monthly Event</p><em>정기 이벤트</em>
+                                                        </a></li>
+                        <li><a href="/apgujeong/promotion/spot_event.php">
+                                                            <p>Spot Event</p><em>스팟 이벤트</em>
+                                                        </a></li>
+                    </ul>
+                </li>
+            </ul>
+
+                            <div class="lang">
+                    <div class="lang_current">
+                        <img src="/asset/img/common/kor_icon.png" alt="korean">
+                        <span>KOR</span>
+                        <i class="xi-angle-down"></i>
+                    </div>
+                    <div class="lang_list_wrap">
+                        <div class="lang_list">
+                            <a href="/chn/"><img src="/asset/img/common/chn_icon.png" alt="chinese">CHN</a>
+                            <a href="/eng/"><img src="/asset/img/common/eng_icon.png" alt="english">ENG</a>
+                            <a href="/jpn/" style="padding-right: 0.9em;"><img src="/asset/img/common/jpn_icon.png" alt="japanese">JPN</a>
+                        </div>
+                    </div>
+                </div>
+                    </nav>
+
+        
+
+        <div class="menuIco">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</header>
+
+<div class="total">
+    <ul>
+        <li>
+            <div class="mbx">
+                <span>
+                    <img src="/asset/img/common/flowericon.svg" width="8px">
+                    <p>About</p>
+                </span>
+                <i class="xi-angle-down"></i>
+            </div>
+            <ul class="depth">
+                <li><a href="/apgujeong/about/">
+                                                    <p>Brand Story</p><em>브랜드스토리</em>
+                                            </a></li>
+                <li><a href="/apgujeong/about/doctor.php">
+                                                    <p>Doctor</p><em>의료진</em>
+                                            </a></li>
+                <li><a href="/apgujeong/about/gallery.php">
+                                                    <p>Gallery</p><em>갤러리</em>
+                                            </a></li>
+                <li><a href="/apgujeong/about/location.php">
+                                                    <p>Location</p><em>오시는길</em>
+                                            </a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="mbx">
+                <span>
+                    <img src="/asset/img/common/flowericon.svg" width="8px">
+                    <p>BDV Signature</p>
+                </span>
+                <i class="xi-angle-down"></i>
+            </div>
+            <ul class="depth">
+                <li><a href="/apgujeong/bdvsignature/sculptinginjection.php">
+                                                    <p>Sculpting Injection</p><em>조각주사</em>
+                                            </a></li>
+                <li><a href="/apgujeong/bdvsignature/easythread.php">
+                                                    <p>Easy Thread Lifting</p><em>이지실리프팅</em>
+                                            </a></li>
+                <li><a href="/apgujeong/bdvsignature/titanium.php">
+                                                    <p>Titanium Lifting</p><em>티타늄리프팅</em>
+                                            </a></li>
+                <li><a href="/apgujeong/bdvsignature/quattro.php">
+                                                    <p>Quattro Lifting</p><em>콰트로리프팅</em>
+                                            </a></li>
+                <li><a href="/apgujeong/bdvsignature/oneday.php">
+                                                    <p>One-day Extreme Lifting</p><em>원데이익스트림리프팅</em>
+                                            </a>
+                </li>
+                <li>
+                    <a href="/apgujeong/bdvsignature/btoning.php">
+                                                    <p>B Toning</p><em>B토닝</em>
+                                            </a>
+                </li>
+            </ul>
+        </li>
+        <li class="custom">
+            <div class="mbx">
+                <span>
+                    <img src="/asset/img/common/flowericon.svg" width="8px">
+                    <p>Customizing</p>
+                </span>
+                <i class="xi-angle-down"></i>
+            </div>
+                        <!--압구정일때-->
+            <ul class="depth">
+                <li>
+                    <a href="/apgujeong/customizing/">
+                        <p>Custumizing</p><em>커스터마이징</em>
+                    </a>
+                </li>
+                <li>
+                    <a href="/apgujeong/customizing/index.php#lifting">
+                        <p>Lifting</p><em>리프팅</em>
+                    </a>
+                </li>
+                <li>
+                    <a href="/apgujeong/customizing/index.php#brightening">
+                        <p>Brightening</p><em>미백</em>
+                    </a>
+                </li>
+                <li>
+                    <a href="/apgujeong/customizing/index.php#skin">
+                        <p>Skin Rejuvenation</p><em>피부재생</em>
+                    </a>
+                </li>
+                <li>
+                    <a href="/apgujeong/customizing/index.php#pore">
+                        <p>Pore / Scar</p><em>모공/흉터</em>
+                    </a>
+                </li>
+                <li>
+                    <a href="/apgujeong/customizing/index.php#contouring">
+                        <p>Body Contouring</p><em>바디컨투어링</em>
+                    </a>
+                </li>
+                <li>
+                    <a href="/apgujeong/customizing/index.php#skincare">
+                        <p>Skin Care Program</p><em>스킨케어 프로그램</em>
+                    </a>
+                </li>
+                <li>
+                    <a href="/apgujeong/customizing/index.php#circulation">
+                        <p>Circulation</p><em>순환 프로그램</em>
+                    </a>
+                </li>
+                <li>
+                    <a href="/apgujeong/customizing/index.php#stem">
+                        <p>Stem Cell</p><em>항노화 안티에이징 시술</em>
+                    </a>
+                </li>
+                <li>
+                    <a href="/apgujeong/customizing/index.php#petit">
+                        <p>Petit</p><em>쁘띠시술</em>
+                    </a>
+                </li>
+            </ul>
+                    </li>
+        <li>
+            <div class="mbx">
+                <span>
+                    <img src="/asset/img/common/flowericon.svg" width="8px">
+                    <p>BDV Channel</p>
+                </span>
+                <i class="xi-angle-down"></i>
+            </div>
+            <ul class="depth">
+                <li><a href="/apgujeong/bdvchannel/">
+                                            <p>Blog</p><em>블로그</em>
+                                        </a></li>
+                <li><a href="/apgujeong/bdvchannel/instagram.php">
+                                            <p>Instagram</p><em>인스타그램</em>
+                                        </a></li>
+                <li><a href="/apgujeong/bdvchannel/youtube.php">
+                                            <p>Youtube</p><em>유튜브</em>
+                                        </a></li>
+                <li><a href="/apgujeong/bdvchannel/media.php">
+                                            <p>Media</p><em>언론보도</em>
+                                        </a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="mbx">
+                <span>
+                    <img src="/asset/img/common/flowericon.svg" width="8px">
+                    <p>Community</p>
+                </span>
+                <i class="xi-angle-down"></i>
+            </div>
+            <ul class="depth">
+                <li><a href="/apgujeong/community/notice.php">
+                                            <p>Notice</p><em>공지사항</em>
+                                        </a></li>
+                <li><a href="/apgujeong/community/news.php">
+                                            <p>News</p><em>소식</em>
+                                        </a></li>
+                <li><a href="/apgujeong/community/contactus.php">
+                                            <p>Contact Us</p><em>상담 및 예약</em>
+                                        </a></li>
+                <li><a href="/apgujeong/community/membership.php">
+                                            <p>Membership</p><em>블랑드비 멤버십</em>
+                                        </a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="mbx">
+                <span>
+                    <img src="/asset/img/common/flowericon.svg" width="8px">
+                    <p>Promotion</p>
+                </span>
+                <i class="xi-angle-down"></i>
+            </div>
+            <ul class="depth">
+                <li><a href="/apgujeong/promotion/">
+                                            <p>Monthly Event</p><em>정기 이벤트</em>
+                                        </a></li>
+                <li><a href="/apgujeong/promotion/spot_event.php">
+                                            <p>Spot Event</p><em>스팟 이벤트</em>
+                                        </a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<script>
+    $('header .menuIco').click(function () {
+        $('header').toggleClass('menuOn');
+    });
+
+    $('header nav > ul > li').mouseover(function () {
+        $(this).find('.depth').stop().slideDown(300);
+    });
+
+    $('header nav > ul > li').mouseleave(function () {
+        $(this).find('.depth').stop().slideUp(300);
+    });
+
+
+    $('.total > ul > li').click(function () {
+        $(this).find('.depth').slideToggle();
+        $(this).toggleClass('on');
+        $(this).siblings().removeClass('on');
+        $(this).siblings().find('.depth').slideUp();
+
+    });
+
+    /* 준비중입니다 */
+    $('.prep_').click(function () {
+        alert("현재 준비중입니다.");
+        
+        return false;
+    });
+
+    $('header nav .lang .lang_current').click(function () {
+        $(this).siblings('.lang_list_wrap').slideToggle();
+    });
+</script>
+
+<link rel="stylesheet" href="/css/signature.css">
+
+<div id="smooth-wrapper" style="inset: 0px; width: 100%; height: 100%; position: fixed; overflow: hidden;">
+    <div id="smooth-content" style="translate: none; rotate: none; scale: none; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); box-sizing: border-box; width: 100%; overflow: visible;">
+        <main class="_s _injection">
+            <div class="pin-spacer" style="order: 0; place-self: auto; grid-area: auto; z-index: auto; float: none; flex-shrink: 1; display: block; margin: 0px; inset: auto; position: relative; flex-basis: auto; overflow: visible; box-sizing: border-box; width: 1111px; height: 2880px; padding: 0px 0px 2185px;"><section class="horizontal" style="translate: none; rotate: none; scale: none; inset: 0px auto auto 0px; margin: 0px; max-width: 1111.2px; width: 1111.2px; max-height: 695.2px; height: 695.2px; padding: 0px; transform: translate(0px, 0.001px);">
+                <div class="Wrap" style="translate: none; rotate: none; scale: none; transform: translate(-0.0001%, 0%) translate3d(0.001px, 0px, 0px);">
+                    <div class="sec1">
+                        <div class="bg" style="background-image: url(&quot;/asset/img/sub/signature/sec1_bg.jpg&quot;); translate: none; rotate: none; scale: none; transform: translate(0px, 0px);"></div>
+                        <div class="lbx" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+                            <span>FIGURE</span>
+                        </div>
+                        <div class="rbx" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+                            <span>MAKING</span>
+                        </div>
+                        <div class="tit">
+                            <p style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+                                아름다운 라인을 만드는 "FIGURE MAKING"을 모토로 탄생한<br>
+                                블랑드비의  TOP 시그니처 시술.
+                            </p>
+                            <p style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+                                얼굴의 전반적인 조화, 자연스러움, 각각의 개성을 살리고<br>
+                                단점을 보완하는 방향으로 수술없이 간단한 시술로도<br>
+                                본연의 숨겨진 라인과 아름다움을 재발견.
+                            </p>
+                        </div>
+                        <div class="scrollcircle">
+                            <div class="rel">
+                                <img src="/asset/img/sub/scroll_circle.png" alt="">
+                                <span>
+                                    <svg id="arrow_down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128.66 218.52">
+                                    <defs>
+                                        <style>
+                                            #arrow_down .cls-1 {
+                                                fill: none;
+                                                stroke: #fcfcfc;
+                                                stroke-linecap: round;
+                                                stroke-linejoin: round;
+                                                stroke-width: 6px;
+                                            }
+                                        </style>
+                                    </defs>
+                                    <path class="cls-1" d="M-546.63,408.4a61.33,61.33,0,0,1,61.33-61.33" transform="translate(610.96 -192.89)"></path>
+                                    <path class="cls-1" d="M-546.63,195.89V408.4A61.33,61.33,0,0,0-608,347.07" transform="translate(610.96 -192.89)"></path>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scrollcircle">
+                        <div class="rel">
+                            <img src="/asset/img/sub/scroll_circle.png" alt="">
+                            <span>
+                                <svg id="arrow_down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128.66 218.52">
+                                <defs>
+                                    <style>
+                                        #arrow_down .cls-1 {
+                                            fill: none;
+                                            stroke: #fcfcfc;
+                                            stroke-linecap: round;
+                                            stroke-linejoin: round;
+                                            stroke-width: 6px;
+                                        }
+                                    </style>
+                                </defs>
+                                <path class="cls-1" d="M-546.63,408.4a61.33,61.33,0,0,1,61.33-61.33" transform="translate(610.96 -192.89)"></path>
+                                <path class="cls-1" d="M-546.63,195.89V408.4A61.33,61.33,0,0,0-608,347.07" transform="translate(610.96 -192.89)"></path>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="sec2">
+                        <div class="bg" style="background-image: url(&quot;/asset/img/sub/signature/sec2_sculpt.jpg&quot;); translate: none; rotate: none; scale: none; transform: scale(1.2, 1.2);"></div>
+                        <div class="tit">
+                            <h2 style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">SCULPTING<br>INJECTION</h2>
+                            <div class="bx" style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">
+                                <span>조각주사</span>
+                            </div>
+                        </div>
+                        <div class="marquee">
+                            <div class="absol">
+                                <div class="mar_ch" style="translate: none; rotate: none; scale: none; transform: translate(-64.54%, 0%) translate3d(0px, 0px, 0px);">
+                                    <span>BDV SIGNATURE</span>
+                                </div>
+                            <div class="mar_ch" style="translate: none; rotate: none; scale: none; transform: translate(-64.54%, 0%) translate3d(0px, 0px, 0px);">
+                                    <span>BDV SIGNATURE</span>
+                                </div></div>
+                        </div>
+                    </div>
+                    <div class="sec3" style="background-image: url(/asset/img/sub/signature/sec3_bg.jpg);">
+                        <div class="scrollcircle">
+                            <div class="rel">
+                                <img src="/asset/img/sub/scroll_circle.png" alt="">
+                                <span>
+                                    <svg id="arrow_down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128.66 218.52">
+                                    <defs>
+                                        <style>
+                                            #arrow_down .cls-1 {
+                                                fill: none;
+                                                stroke: #fcfcfc;
+                                                stroke-linecap: round;
+                                                stroke-linejoin: round;
+                                                stroke-width: 6px;
+                                            }
+                                        </style>
+                                    </defs>
+                                    <path class="cls-1" d="M-546.63,408.4a61.33,61.33,0,0,1,61.33-61.33" transform="translate(610.96 -192.89)"></path>
+                                    <path class="cls-1" d="M-546.63,195.89V408.4A61.33,61.33,0,0,0-608,347.07" transform="translate(610.96 -192.89)"></path>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="con">
+                            <div class="tit">
+                                <span style="translate: none; rotate: none; scale: none; transform: translate(-40px, 0px); opacity: 0;">01</span>
+                                <h2 style="translate: none; rotate: none; scale: none; transform: translate(-40px, 0px); opacity: 0;">조각주사란?</h2>
+                                <p style="translate: none; rotate: none; scale: none; transform: translate(-40px, 0px); opacity: 0;">
+                                    불필요한 지방으로 비대해진 광대, 볼살, 팔자 위, 턱선, 이중턱을 줄여서 <br>눈코입을 선명하게 하고, 얼굴을 작아지게 만들어주는 비절개 윤곽 시술로서 <br>탑여배우들에게 사랑받고 있는 1위 시술입니다. <br>또한 허리, 허벅지, 등살, 팔뚝, 종아리 등의 바디에도 적용되며 <br>매끈한 바디라인으로 변화시켜주는 바디조각주사도 있습니다.
+                                </p>
+                            </div>
+                            <div class="line"></div>
+                            <div class="sub">
+                                <p><b style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">종류</b><span style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">안면비대칭주사, 광대축소주사, 이중턱조각주사, 바디조각주사, 코조각주사,<br>인중술 등</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section></div>
+
+            <section class="speciality">
+                <div class="pin-spacer" style="order: 0; place-self: auto; grid-area: auto; z-index: auto; float: none; flex-shrink: 1; display: block; margin: 0px; inset: 0px 0px 614.312px; position: absolute; flex-basis: auto; overflow: visible; box-sizing: border-box; width: 1111px; height: 1310px; padding: 0px 0px 615px;"><div class="bg" style="background-image: url(&quot;/asset/img/sub/signature/speciality_bg.jpg&quot;); translate: none; rotate: none; scale: none; inset: 0px auto auto 0px; margin: 0px; max-width: 1111.2px; width: 1111.2px; max-height: 695.2px; height: 695.2px; padding: 0px; transform: translate(0px, 0px);"></div></div>
+                <div class="wrap" max="1600">
+                    <div class="tit">
+                        <h2 style="translate: none; rotate: none; scale: none; transform: translate(40px, 0px); opacity: 0;">Speciality</h2>
+                    </div>
+                    <div class="pin-spacer" style="order: 0; place-self: auto; grid-area: auto; z-index: auto; float: none; flex-shrink: 1; display: flex; margin: 0px; inset: 291.984px 804.688px 561.287px 0px; position: absolute; flex-basis: auto; overflow: visible; box-sizing: border-box; width: 207px; height: 419px; padding: 0px 0px 203px;"><div class="lbx" style="translate: none; rotate: none; scale: none; opacity: 0; inset: 0px auto auto 0px; margin: 0px; max-width: 206.512px; width: 206.512px; max-height: 216.25px; height: 216.25px; padding: 104.28px 0px 0px; transform: translate(0px, 0px);">
+                        <p>
+                            블랑드비 <span>조각시술</span>로<br>
+                            변하지 않는 아름다움을<br>
+                            만들어 보세요.
+                        </p>
+                    </div></div>
+                    <div class="con pc">
+                        <div class="rbx">
+                            <div class="left">
+                                <div class="bx" style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">
+                                    <div class="btn"><span>effect01</span></div>
+                                    <div class="cont">
+                                        <h3>다양한 부위 시술 가능</h3>
+                                        <p>
+                                        순환을 촉진시켜 지방과 노폐물 배출에 도움을 주는<br>
+                                        블랑드비만의 노하우를 담아 완성한 포뮬러로 구성이<br> 
+                                        되어있으며 다양한 부위에 적용이 가능한 시술입니다.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="bx" style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">
+                                    <div class="btn"><span>effect03</span></div>
+                                    <div class="cont">
+                                        <h3>반영구적 효과</h3>
+                                        <p>
+                                            체중이 늘어 지방이 붙지않는 한 거의 반영구적인<br>
+                                            효과를 기대할 수 있어 더욱 만족하시는 시술입니다.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="right">
+                                <div class="bx" style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">
+                                    <div class="btn"><span>effect02</span></div>
+                                    <div class="cont">
+                                        <h3>즉시 일상생활 가능</h3>
+                                        <p>
+                                            수술없이 간단하게 주사만으로 윤곽라인을 교정할 수<br> 
+                                            있는 장점이 있으며, 주사맞는 정도의 통증으로, 멍이나<br>
+                                            붓기같은 부작용이 적어 일상생활이 즉시 가능합니다.
+                                        </p>    
+                                    </div>
+                                </div>
+                                <div class="bx" style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">
+                                    <div class="btn"><span>effect04</span></div>
+                                    <div class="cont">
+                                        <h3>블랑드비만의 디자인 기술</h3>
+                                        <p>
+                                            어디를 어떻게 줄이고 낮출지 디자인하는 기술이<br>
+                                            중요하며, 반복적으로 시술할 시 더욱 효과가<br>
+                                            증대됩니다.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="con mo">
+                        <div class="rbx">
+                            <div class="left">
+                                
+                                
+                            <div class="bx" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+                                    <div class="btn"><span>effect01</span></div>
+                                    <div class="cont">
+                                        <h3>다양한 부위 시술 가능</h3>
+                                        <p>
+                                        순환을 촉진시켜 지방과 노폐물 배출에 도움을 주는<br>
+                                        블랑드비만의 노하우를 담아 완성한 포뮬러로 구성이<br> 
+                                        되어있으며 다양한 부위에 적용이 가능한 시술입니다.
+                                        </p>
+                                    </div>
+                                </div><div class="bx" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+                                    <div class="btn"><span>effect02</span></div>
+                                    <div class="cont">
+                                        <h3>즉시 일상생활 가능</h3>
+                                        <p>
+                                            수술없이 간단하게 주사만으로 윤곽라인을 교정할 수<br> 
+                                            있는 장점이 있으며, 주사맞는 정도의 통증으로, 멍이나<br>
+                                            붓기같은 부작용이 적어 일상생활이 즉시 가능합니다.
+                                        </p>    
+                                    </div>
+                                </div></div>
+                            <div class="right">
+                                
+                                
+                            <div class="bx" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+                                    <div class="btn"><span>effect03</span></div>
+                                    <div class="cont">
+                                        <h3>반영구적 효과</h3>
+                                        <p>
+                                            체중이 늘어 지방이 붙지않는 한 거의 반영구적인<br>
+                                            효과를 기대할 수 있어 더욱 만족하시는 시술입니다.
+                                        </p>
+                                    </div>
+                                </div><div class="bx" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+                                    <div class="btn"><span>effect04</span></div>
+                                    <div class="cont">
+                                        <h3>블랑드비만의 디자인 기술</h3>
+                                        <p>
+                                            어디를 어떻게 줄이고 낮출지 디자인하는 기술이<br>
+                                            중요하며, 반복적으로 시술할 시 더욱 효과가<br>
+                                            증대됩니다.
+                                        </p>
+                                    </div>
+                                </div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="feature">
+                <div class="wrap" max="1440">
+                    <div class="tit">
+                        <h2 style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">Feature</h2>
+                        <p style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;"><span>조각주사</span> 시술별 특징</p>
+                    </div>
+                    <div class="con">
+                        <a href="https://blog.naver.com/blacdevie_apgujung/223578170721?trackingCode=blog_bloghome_searchlist" target="_blank" class="bx" style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">
+                            <div class="bxCont">
+                                <div class="top">
+                                    <p><span class="num">01</span>안면비대칭주사</p>
+                                    <span>비대칭이 있는 얼굴의 중심선을 기준으로 대칭이 되도록 개선</span>
+                                </div>
+                                <div class="bottom">
+                                    <p>시술주기 <span></span> 1~2주</p>
+                                    <div class="view">
+                                        <span>View more</span>
+                                        <div class="arrow">
+                                            <img src="/asset/img/sub/signature/arrow.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </a>
+                        <a href="https://blog.naver.com/blacdevie_apgujung/223405795158?trackingCode=blog_bloghome_searchlist" target="_blank" class="bx" style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">
+                            <div class="bxCont">
+                                <div class="top">
+                                    <p><span class="num">02</span>광대축소주사</p>
+                                    <span>뼈를 깎지 않고 과잉지방을 축소시키는 방법으로 광대 부근의 울퉁불퉁한 라인을 정리하고 땅콩형 얼굴 개선 </span>
+                                </div>
+                                <div class="bottom">
+                                    <p>시술주기<span></span> 1~2주</p>
+                                    <div class="view">
+                                        <span>View more</span>
+                                        <div class="arrow">
+                                            <img src="/asset/img/sub/signature/arrow.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </a>
+                        <a href="https://blog.naver.com/maylin_apgujung_/223359574321?trackingCode=blog_bloghome_searchlist" target="_blank" class="bx" style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">
+                            <div class="bxCont">
+                                <div class="top">
+                                    <p><span class="num">03</span>이중턱조각주사</p>
+                                    <span>이중턱에만 지방이 도드라지는 경우와 턱선이 무너진 경우 효과적, 매끈한 턱선 및 V 윤곽라인 개선</span>
+                                </div>
+                                <div class="bottom">
+                                    <p>시술주기<span></span> 1~2주</p>
+                                    <div class="view">
+                                        <span>View more</span>
+                                        <div class="arrow">
+                                            <img src="/asset/img/sub/signature/arrow.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </a>
+                        <a href="https://blog.naver.com/blacdevie_apgujung/223718904929?trackingCode=blog_bloghome_searchlist" target="_blank" class="bx" style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">
+                            <div class="bxCont">
+                                <div class="top">
+                                    <p><span class="num">04</span>바디조각주사</p>
+                                    <span>단단하게 뭉쳐있어 운동과 식단으로 빼기 힘들었던 군살을 분해하여 사이즈 감소. 허벅지 허리 팔뚝 복부 종아리 등 어느부위라도 적용 가능</span>
+                                </div>
+                                <div class="bottom">
+                                    <p>시술주기<span></span> 1~2주</p>
+                                    <div class="view">
+                                        <span>View more</span>
+                                        <div class="arrow">
+                                            <img src="/asset/img/sub/signature/arrow.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </a>
+                        <a href="https://blog.naver.com/blacdevie_apgujung/223724676396?trackingCode=blog_bloghome_searchlist" target="_blank" class="bx" style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">
+                            <div class="bxCont">
+                                <div class="top">
+                                    <p><span class="num">05</span>코조각주사</p>
+                                    <span>뭉툭한 코를 좀 더 날렵하게 연출하고 전체적인 조화로움을 유지하여 코의 모양을 보완하여 개선</span>
+                                </div>
+                                <div class="bottom">
+                                    <p>시술주기<span></span> 1~2주</p>
+                                    <div class="view">
+                                        <span>View more</span>
+                                        <div class="arrow">
+                                            <img src="/asset/img/sub/signature/arrow.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </a>
+                        <a href="https://blog.naver.com/blacdevie_apgujung/223689986551?trackingCode=blog_bloghome_searchlist" target="_blank" class="bx" style="translate: none; rotate: none; scale: none; transform: translate(0px, 40px); opacity: 0;">
+                            <div class="bxCont">
+                                <div class="top">
+                                    <p><span class="num">06</span>인중술</p>
+                                    <span>코선과 평평하고 길어보이는 인중의 선과 모양을 잡아주어 인중을 짧아보이게 하고, 입술산 모양을 잡아주어 좀더 어려보이게 하는 동안페이스 시술</span>
+                                </div>
+                                <div class="bottom">
+                                    <p>시술주기<span></span> 1~2주</p>
+                                    <div class="view">
+                                        <span>View more</span>
+                                        <div class="arrow">
+                                            <img src="/asset/img/sub/signature/arrow.png" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </a>
+                    </div>
+                    <div class="linkBx">
+                        
+                        
+                        <a class="on" href="/apgujeong/bdvsignature/sculptinginjection.php" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;"><span>조각주사</span></a>
+                        <a href="/apgujeong/bdvsignature/easythread.php" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;"><span>이지실리프팅</span></a>
+                        <a href="/apgujeong/bdvsignature/titanium.php" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;"><span>티타늄리프팅</span></a>
+                        <a href="/apgujeong/bdvsignature/quattro.php" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;"><span>콰트로리프팅</span></a>
+                    <a href="/apgujeong/bdvsignature/oneday.php" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;"><span>원데이익스트림리프팅</span></a><a href="/apgujeong/bdvsignature/btoning.php" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;"><span>B토닝</span></a></div>
+                </div>
+            </section>
+
+
+            <footer>
+    <div class="wrap">
+        <div class="logo">
+            <svg id="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 203.66 41.51">
+	<path class="cls-1" d="M89.43,311.85v-3.53c0-2.41,0-3.82,0-4.25a1.71,1.71,0,0,0-.21-.79,1,1,0,0,0-.66-.35,3.57,3.57,0,0,0-.78-.06c-.23,0-.34-.07-.34-.19s.15-.18.44-.18l1.62,0,1.11,0,1.33,0,1.12,0a6.94,6.94,0,0,1,2.18.31,2.89,2.89,0,0,1,1.33.82,3.25,3.25,0,0,1,.59.95,2.69,2.69,0,0,1,.17.93,3.46,3.46,0,0,1-.53,1.93A7.19,7.19,0,0,1,95.24,309a6.57,6.57,0,0,1,2.56,1.62,3.73,3.73,0,0,1,1.1,2.72,4.1,4.1,0,0,1-1.39,3.07,5.57,5.57,0,0,1-4,1.3c-.3,0-.76,0-1.41-.06s-1.14-.06-1.5-.06l-1.22,0-1.31,0c-.27,0-.4-.07-.4-.2s.11-.16.32-.16a2.33,2.33,0,0,0,.76-.1.57.57,0,0,0,.38-.33,3,3,0,0,0,.17-.75C89.39,315.56,89.43,314.14,89.43,311.85Zm2.4-8.14v5c0,.12,0,.2.14.22a5,5,0,0,0,1,.06,2.14,2.14,0,0,0,1.44-.38,2.56,2.56,0,0,0,.82-2.12,3.73,3.73,0,0,0-.66-2.14,2.09,2.09,0,0,0-1.84-1,3.62,3.62,0,0,0-.67,0C91.89,303.41,91.83,303.52,91.83,303.71Zm0,6.2v4.75a5.23,5.23,0,0,0,.12,1.4.93.93,0,0,0,.59.53,3.81,3.81,0,0,0,1.46.24,2.7,2.7,0,0,0,1.67-.59,2.39,2.39,0,0,0,.76-2,4.56,4.56,0,0,0-2-4,3.17,3.17,0,0,0-1.66-.48c-.24,0-.53,0-.87,0C91.87,309.77,91.83,309.81,91.83,309.91Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M105.67,309.75v3c0,.66,0,1.15,0,1.44s0,.63,0,1a4,4,0,0,0,.1.81.7.7,0,0,0,.21.35,3.54,3.54,0,0,0,2.13.4,3.3,3.3,0,0,0,2.06-.44,1.74,1.74,0,0,0,.52-1.11c.06-.21.12-.32.21-.32s.16.12.16.34,0,.46-.1,1a7,7,0,0,1-.21,1.09.55.55,0,0,1-.27.38,2.51,2.51,0,0,1-.81.08c-.59,0-1.46,0-2.61,0s-2-.05-2.68-.05l-1.11,0-1.18,0c-.26,0-.38-.06-.38-.18s.1-.17.3-.18l.56-.06q.52-.12.6-1.08c0-.47.08-1.62.08-3.45v-3c0-2,0-3.19,0-3.55a1.54,1.54,0,0,0-.18-.66.82.82,0,0,0-.54-.29l-.6-.08c-.22,0-.32-.06-.32-.18s.14-.18.42-.18l1.34,0,1.11,0,1.14,0,1.36,0c.26,0,.38.06.38.18s-.11.18-.34.18l-.66.08a.68.68,0,0,0-.48.28,1.7,1.7,0,0,0-.18.69C105.68,306.54,105.67,307.73,105.67,309.75Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M121.13,313.44h-4c-.07,0-.12.05-.16.14l-.88,2.19a3.1,3.1,0,0,0-.27,1c0,.35.34.52,1,.52.2,0,.3.05.3.16s-.11.18-.32.18l-1,0-1,0-.78,0-1.35,0c-.21,0-.32-.06-.32-.18s.08-.18.24-.18A2.54,2.54,0,0,0,114,317a2.86,2.86,0,0,0,.7-1.16l4.25-10.06c.34-.88.6-1.32.79-1.32s.27.21.46.62q.43,1.25,4.43,10.39a5.06,5.06,0,0,0,.8,1.4,1.44,1.44,0,0,0,.77.45,3.3,3.3,0,0,0,.66,0q.3,0,.3.18c0,.12-.12.18-.34.18-2.38,0-3.79,0-4.22,0-.2,0-.3-.08-.3-.16s.06-.11.18-.16.29-.19.2-.36l-1.36-3.39A.16.16,0,0,0,121.13,313.44Zm-3.57-1h3.19c.08,0,.11,0,.08-.1l-1.57-4.09c-.06-.17-.13-.17-.2,0l-1.58,4.09C117.45,312.4,117.48,312.43,117.56,312.43Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M129.94,315.16c0-1,0-2.67.08-5.12s.06-4.1.06-4.93c0-.41.09-.62.26-.62s.31.17.65.5l.87.86c.51.53,1.21,1.21,2.1,2.07s1.73,1.68,2.56,2.47c.38.35.87.82,1.48,1.43l1.59,1.59.81.79-.16-7.42a4,4,0,0,0-.15-1.09.88.88,0,0,0-.5-.46,8.27,8.27,0,0,0-.9-.1c-.2,0-.3-.06-.3-.2s.15-.16.44-.16l1.29,0,.94,0,.66,0,1.12,0c.26,0,.38.06.38.18s-.1.18-.3.18l-.5.06a.8.8,0,0,0-.53.41,2.73,2.73,0,0,0-.17,1c0,.08-.06,3.61-.18,10.61,0,.41-.09.62-.26.62s-.45-.19-.86-.56c-.78-.71-2.42-2.27-4.94-4.69q-1.42-1.33-4.21-4.24l.18,7c0,1.11.24,1.73.6,1.85a4.55,4.55,0,0,0,.94.12c.2,0,.3.05.3.16s-.13.2-.4.2l-1.32,0-.88,0-.77,0-1.24,0c-.25,0-.38-.06-.38-.18s.09-.18.28-.18l.76-.08a.66.66,0,0,0,.47-.51A7,7,0,0,0,129.94,315.16Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M153.87,317.89a9.22,9.22,0,0,1-6.12-1.84,6.23,6.23,0,0,1-2.21-5,6.92,6.92,0,0,1,.48-2.41,5.53,5.53,0,0,1,1.61-2.28,8.35,8.35,0,0,1,5.64-1.79,17.47,17.47,0,0,1,2.57.18l.86.14.88.14c.18,0,.26.08.26.2a1.16,1.16,0,0,1,0,.17,2.48,2.48,0,0,1,0,.33c0,.15,0,.31,0,.49s0,.34,0,.63,0,.54,0,.77a4.72,4.72,0,0,1,0,.5c0,.27-.1.4-.22.4s-.22-.12-.22-.38a2.31,2.31,0,0,0-.66-1.58,3.18,3.18,0,0,0-1.4-.78,7.46,7.46,0,0,0-2.15-.29,4.73,4.73,0,0,0-3.21,1,5.58,5.58,0,0,0-1.61,4.37,6.8,6.8,0,0,0,.49,2.6,5.17,5.17,0,0,0,1.3,1.89,5.78,5.78,0,0,0,1.76,1.12,5.16,5.16,0,0,0,1.93.39,8.17,8.17,0,0,0,1.95-.19,2.43,2.43,0,0,0,1.18-.73,2.58,2.58,0,0,0,.58-1.17c.07-.24.16-.36.28-.36s.18.09.18.26a8.34,8.34,0,0,1-.14,1.07,11.16,11.16,0,0,1-.26,1.3.72.72,0,0,1-.46.5A9.42,9.42,0,0,1,153.87,317.89Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M170.36,312.72v-3c0-2,0-3.19,0-3.55a1.55,1.55,0,0,0-.19-.71.71.71,0,0,0-.57-.28l-.68-.06q-.3,0-.3-.18c0-.11.13-.16.38-.16l1.4,0,1.19,0,1.16,0,1.61,0c1,0,1.85,0,2.5.08a9.43,9.43,0,0,1,2.29.54,5.73,5.73,0,0,1,3.89,5.68,6.47,6.47,0,0,1-1.92,4.74,8.1,8.1,0,0,1-5.86,2c-.47,0-1.14,0-2-.1s-1.45-.1-1.7-.1l-1.06,0-1.25,0c-.23,0-.34-.06-.34-.18s.1-.18.3-.18a3.59,3.59,0,0,0,.62-.06q.42-.08.51-.9c.06-.55.09-1.51.09-2.87v-.76Zm2.37-3.23v2.1c0,1.84,0,3,0,3.39a3.17,3.17,0,0,0,.22,1.29c.28.44,1,.66,2.23.66a5.66,5.66,0,0,0,3.83-1.22c.95-.79,1.43-2.18,1.43-4.18a5.62,5.62,0,0,0-1.65-4.15,6.51,6.51,0,0,0-4.75-1.73,2.41,2.41,0,0,0-1.13.16.36.36,0,0,0-.11.14,2.64,2.64,0,0,0-.06.45c0,.24,0,.59,0,1.05S172.73,308.59,172.73,309.49Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M188,312.72v-3c0-2,0-3.26,0-3.64a1.39,1.39,0,0,0-.18-.63,1,1,0,0,0-.54-.27l-.69-.06q-.3,0-.3-.18c0-.11.14-.16.4-.16l1.26,0,1.27,0c2.81,0,4.32,0,4.54,0l.31,0,.3,0,.19,0,.14,0,.14,0c.08,0,.12.05.12.16a.8.8,0,0,1,0,.16c0,.08,0,.2-.07.36a4.18,4.18,0,0,0-.06.56c0,.5-.05.89-.08,1.19s-.07.28-.2.28-.17-.11-.18-.32a1.28,1.28,0,0,0-.1-.56.88.88,0,0,0-.32-.41,2.14,2.14,0,0,0-.83-.2c-.45-.05-1.3-.08-2.54-.08q-.12,0-.12.18v4.16q0,.18.12.18c1.56,0,2.49,0,2.79,0a1.54,1.54,0,0,0,.92-.28c.11-.15.2-.22.28-.22s.12,0,.12.14,0,.09,0,.19,0,.25-.06.46a6.67,6.67,0,0,0-.06.67c0,.13,0,.36,0,.68s0,.5,0,.52q0,.33-.18.33c-.12,0-.18-.1-.18-.29S194,312,194,312a1,1,0,0,0-1-.7c-.36,0-1.19-.06-2.48-.06q-.12,0-.12.18v3.81a1.47,1.47,0,0,0,.41,1.18,3.43,3.43,0,0,0,1.73.27,4.64,4.64,0,0,0,1.65-.2,1.21,1.21,0,0,0,.52-.45,2.65,2.65,0,0,0,.28-.84c0-.18.11-.28.22-.28s.14.12.14.34a7.28,7.28,0,0,1-.24,2c-.05.21-.13.34-.24.38a2.52,2.52,0,0,1-.7.06c-.58,0-1.41,0-2.5,0s-1.94-.05-2.54-.05l-1.09,0-1.2,0q-.36,0-.36-.18t.3-.18l.63-.06c.28-.07.45-.42.52-1.06C188,315.72,188,314.56,188,312.72Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M211.25,316.75l-5-12a3.11,3.11,0,0,0-.62-1.06,2.13,2.13,0,0,0-.88-.44,3.1,3.1,0,0,0-.76-.08q-.24,0-.24-.18c0-.11.17-.17.51-.17l1.57,0,1.29,0,1,0,1.4,0c.3,0,.45.06.45.17s-.1.18-.29.18a1.41,1.41,0,0,0-.77.14.47.47,0,0,0-.2.41,5.53,5.53,0,0,0,.46,1.52q1.53,4,3.42,9c.21-.54.62-1.58,1.23-3.11s1.18-3,1.71-4.27.85-2.15,1-2.53a2.07,2.07,0,0,0,.18-.73.35.35,0,0,0-.26-.37,2.38,2.38,0,0,0-.78-.1c-.23,0-.34-.05-.34-.16s.18-.19.55-.19l1.31,0,.76,0,.83,0,1,0c.28,0,.41.06.41.17s-.1.18-.31.18a1.72,1.72,0,0,0-1,.24,4.55,4.55,0,0,0-1.08,1.77c-.29.7-.69,1.62-1.21,2.76s-.9,2-1.15,2.58c-.48,1.07-1,2.28-1.59,3.62l-1,2.38-.12.24a3.66,3.66,0,0,1-.65,1.18.21.21,0,0,1-.14,0,.37.37,0,0,1-.31-.22A9.29,9.29,0,0,1,211.25,316.75Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M223.3,312.72v-3c0-2,0-3.2,0-3.58s-.24-.84-.6-.92l-.62-.08c-.19,0-.28-.06-.28-.2s.13-.16.4-.16l1.27,0,1.08,0,1,0,1.24,0c.23,0,.34.05.34.16s-.09.2-.28.2l-.46.06a.68.68,0,0,0-.48.28,1.7,1.7,0,0,0-.18.69c0,.36-.06,1.54-.06,3.55v3c0,1.82,0,3,.1,3.63s.29.83.7.88a5.46,5.46,0,0,0,.76.08q.3,0,.3.18c0,.12-.11.18-.34.18l-1.65,0-1.09,0-1,0-1.26,0q-.36,0-.36-.18t.3-.18l.54-.06c.32-.08.5-.37.54-.86S223.3,314.68,223.3,312.72Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M232.47,312.72v-3c0-2,0-3.26,0-3.64a1.39,1.39,0,0,0-.18-.63.91.91,0,0,0-.54-.27l-.68-.06q-.3,0-.3-.18c0-.11.13-.16.4-.16l1.25,0,1.27,0c2.81,0,4.32,0,4.54,0l.31,0,.3,0,.19,0,.14,0a.38.38,0,0,1,.14,0c.08,0,.12.05.12.16a.8.8,0,0,1,0,.16c0,.08,0,.2-.07.36s0,.35-.06.56c0,.5,0,.89-.08,1.19s-.07.28-.2.28-.17-.11-.18-.32a1.28,1.28,0,0,0-.1-.56.82.82,0,0,0-.32-.41,2.13,2.13,0,0,0-.82-.2c-.46-.05-1.31-.08-2.55-.08q-.12,0-.12.18v4.16q0,.18.12.18c1.56,0,2.49,0,2.79,0a1.51,1.51,0,0,0,.92-.28c.11-.15.2-.22.28-.22s.12,0,.12.14,0,.09,0,.19,0,.25-.06.46a6.67,6.67,0,0,0-.06.67c0,.13,0,.36,0,.68s0,.5,0,.52q0,.33-.18.33c-.12,0-.18-.1-.18-.29s-.06-.43-.06-.46a1,1,0,0,0-1-.7q-.54-.06-2.49-.06-.12,0-.12.18v3.81a1.5,1.5,0,0,0,.41,1.18,3.48,3.48,0,0,0,1.73.27,4.6,4.6,0,0,0,1.65-.2,1.21,1.21,0,0,0,.52-.45,2.42,2.42,0,0,0,.28-.84c0-.18.12-.28.22-.28s.14.12.14.34a7.28,7.28,0,0,1-.24,2c0,.21-.13.34-.24.38a2.52,2.52,0,0,1-.7.06c-.58,0-1.41,0-2.5,0s-1.93-.05-2.54-.05l-1.09,0-1.19,0q-.36,0-.36-.18t.3-.18l.62-.06c.28-.07.45-.42.52-1.06C232.44,315.72,232.47,314.56,232.47,312.72Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M56.91,322.41h0a2.69,2.69,0,0,1-2.43-1.48,3.12,3.12,0,0,0-3.7-1.53A2.74,2.74,0,0,1,47.33,316a3.1,3.1,0,0,0-1.52-3.7,2.74,2.74,0,0,1,0-4.87,3.1,3.1,0,0,0,1.52-3.7,2.74,2.74,0,0,1,3.45-3.44,3.12,3.12,0,0,0,3.7-1.53,2.74,2.74,0,0,1,4.87,0h0A3.11,3.11,0,0,0,63,300.25a2.74,2.74,0,0,1,3.45,3.44,3.12,3.12,0,0,0,1.53,3.7,2.74,2.74,0,0,1,0,4.87,3.12,3.12,0,0,0-1.53,3.7A2.74,2.74,0,0,1,63,319.4a3.11,3.11,0,0,0-3.69,1.53A2.69,2.69,0,0,1,56.91,322.41Zm-5.19-3.82a3.75,3.75,0,0,1,3.34,2,2.06,2.06,0,0,0,1.85,1.12,2,2,0,0,0,1.85-1.12,3.77,3.77,0,0,1,4.48-1.86,2.09,2.09,0,0,0,2.62-2.61,3.79,3.79,0,0,1,1.85-4.49,2.08,2.08,0,0,0,0-3.69,3.78,3.78,0,0,1-1.86-4.49,2.09,2.09,0,0,0-2.62-2.61A3.77,3.77,0,0,1,58.76,299a2,2,0,0,0-1.85-1.12A2.06,2.06,0,0,0,55.06,299a3.76,3.76,0,0,1-4.48,1.86A2.08,2.08,0,0,0,48,303.49,3.78,3.78,0,0,1,46.11,308a2.08,2.08,0,0,0,0,3.69A3.78,3.78,0,0,1,48,316.16a2.08,2.08,0,0,0,2.61,2.61A3.77,3.77,0,0,1,51.72,318.59Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M56.91,330.58a4.17,4.17,0,0,1-3.75-2.28,5.6,5.6,0,0,0-6.66-2.76,4.22,4.22,0,0,1-5.3-5.3,5.61,5.61,0,0,0-2.77-6.67,4.22,4.22,0,0,1,0-7.49,5.61,5.61,0,0,0,2.77-6.67,4.22,4.22,0,0,1,5.3-5.3,5.6,5.6,0,0,0,6.66-2.76,4.22,4.22,0,0,1,7.5,0h0a5.61,5.61,0,0,0,6.67,2.76,4.22,4.22,0,0,1,5.3,5.3,5.61,5.61,0,0,0,2.76,6.67,4.22,4.22,0,0,1,0,7.49,5.61,5.61,0,0,0-2.76,6.67,4.22,4.22,0,0,1-5.3,5.3,5.61,5.61,0,0,0-6.67,2.76A4.15,4.15,0,0,1,56.91,330.58ZM48.19,325a5.94,5.94,0,0,1,5.27,3.2,3.89,3.89,0,0,0,6.91,0,5.93,5.93,0,0,1,7.06-2.93,3.89,3.89,0,0,0,4.88-4.88,5.93,5.93,0,0,1,2.93-7.06,3.9,3.9,0,0,0,0-6.91,5.93,5.93,0,0,1-2.93-7.06,3.89,3.89,0,0,0-4.88-4.88,5.93,5.93,0,0,1-7.06-2.93h0a3.9,3.9,0,0,0-6.91,0,5.93,5.93,0,0,1-7.06,2.93,3.89,3.89,0,0,0-4.89,4.88,5.91,5.91,0,0,1-2.92,7.06,3.89,3.89,0,0,0,0,6.91,5.91,5.91,0,0,1,2.92,7.06,3.89,3.89,0,0,0,4.89,4.88A6.17,6.17,0,0,1,48.19,325Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M56.91,318.61h0a2.08,2.08,0,0,1-1.84-1.12,1.91,1.91,0,0,0-2.28-.94,2.08,2.08,0,0,1-2.6-2.6,1.92,1.92,0,0,0-.94-2.29,2.06,2.06,0,0,1,0-3.67,1.92,1.92,0,0,0,.94-2.29,2.08,2.08,0,0,1,2.6-2.6,1.9,1.9,0,0,0,2.28-.94,2.07,2.07,0,0,1,3.68,0h0a1.9,1.9,0,0,0,2.28.94,2.08,2.08,0,0,1,2.09.52,2,2,0,0,1,.51,2.08,1.93,1.93,0,0,0,.95,2.29,2.06,2.06,0,0,1,0,3.67,1.93,1.93,0,0,0-.95,2.29,2,2,0,0,1-.51,2.08,2.08,2.08,0,0,1-2.09.52,1.9,1.9,0,0,0-2.28.94A2.07,2.07,0,0,1,56.91,318.61Zm-3.54-3a2.77,2.77,0,0,1,2.46,1.49,1.2,1.2,0,0,0,1.08.66A1.22,1.22,0,0,0,58,317.1a2.75,2.75,0,0,1,3.29-1.36,1.22,1.22,0,0,0,1.23-.31,1.19,1.19,0,0,0,.3-1.23,2.77,2.77,0,0,1,1.37-3.29,1.22,1.22,0,0,0,0-2.17,2.77,2.77,0,0,1-1.37-3.29,1.19,1.19,0,0,0-.3-1.23,1.22,1.22,0,0,0-1.23-.31A2.75,2.75,0,0,1,58,302.55h0a1.22,1.22,0,0,0-1.09-.66,1.2,1.2,0,0,0-1.08.66,2.75,2.75,0,0,1-3.29,1.36,1.23,1.23,0,0,0-1.24.31,1.21,1.21,0,0,0-.3,1.23,2.75,2.75,0,0,1-1.36,3.29,1.22,1.22,0,0,0,0,2.17A2.75,2.75,0,0,1,51,314.2a1.23,1.23,0,0,0,1.54,1.54A2.66,2.66,0,0,1,53.37,315.61Z" transform="translate(-36.16 -289.07)"></path>
+	<path class="cls-1" d="M56.91,326.55a3.42,3.42,0,0,1-3.08-1.87,4.41,4.41,0,0,0-5.24-2.17,3.47,3.47,0,0,1-4.36-4.36,4.41,4.41,0,0,0-2.17-5.24,3.48,3.48,0,0,1,0-6.17,4.41,4.41,0,0,0,2.17-5.24,3.47,3.47,0,0,1,4.36-4.36A4.41,4.41,0,0,0,53.83,295,3.48,3.48,0,0,1,60,295h0a4.4,4.4,0,0,0,5.23,2.17,3.48,3.48,0,0,1,4.37,4.36,4.4,4.4,0,0,0,2.17,5.24,3.48,3.48,0,0,1,0,6.17,4.4,4.4,0,0,0-2.17,5.24,3.48,3.48,0,0,1-4.37,4.36A4.4,4.4,0,0,0,60,324.68,3.42,3.42,0,0,1,56.91,326.55Zm-7-4.7a4.86,4.86,0,0,1,4.31,2.62,3,3,0,0,0,5.37,0,4.85,4.85,0,0,1,5.77-2.39,3,3,0,0,0,3.8-3.8,4.85,4.85,0,0,1,2.39-5.77,3,3,0,0,0,0-5.37,4.85,4.85,0,0,1-2.39-5.77,3,3,0,0,0-3.8-3.8,4.85,4.85,0,0,1-5.77-2.39l.2-.1-.2.1a3,3,0,0,0-5.37,0,4.85,4.85,0,0,1-5.77,2.39,3,3,0,0,0-3.8,3.8,4.86,4.86,0,0,1-2.39,5.77,3,3,0,0,0,0,5.37,4.86,4.86,0,0,1,2.39,5.77,3,3,0,0,0,3.8,3.8A4.94,4.94,0,0,1,49.92,321.85Z" transform="translate(-36.16 -289.07)"></path>
+</svg>        </div>
+        <div class="btnBx">
+            <a href="/apgujeong/about/location.php">
+                                    <p>오시는 길</p>
+                            </a>
+        </div>
+        <div class="info">
+                            <p>블랑드비의원(BLANC DE VIE) <span>|</span> 대표자: 최 준</p>
+                <p>대표번호: 02.563.0000</p>
+                    </div>
+        <small>(c) 2025 BLANC DE VIE. All rights reserved.</small>
+    </div>
+</footer>
+        </main>
+    </div>
+</div>
+
+<script src="/js/layout.js"></script>
+<script>
+
+    // s1
+
+    /*
+    let horizon = gsap.timeline().to('.horizontal .Wrap', {
+        x: function() {
+            return -(document.querySelector('.Wrap').offsetWidth - window.innerWidth);
+        }
+    });
+
+    ScrollTrigger.matchMedia({
+        '(min-width: 1025px)': function() {
+            ScrollTrigger.create({
+                trigger: '.horizontal',
+                start: 'left left',
+                end: '+=200%',
+                pin: true,
+                markers: true,
+                animation: horizon,
+                scrub: 1,
+            });
+        },
+        '(max-width: 1024px)': function() {
+            horizon.kill();
+        }
+    })
+    */
+
+    gsap.timeline() // sec1
+    .from('._injection .sec1 .bg', { scale: 1.2, duration: 2 })
+    .from('._injection .sec1 .lbx', { opacity: 0, xPercent: -100, duration: 1.5 }, '-=100%')
+    .from('._injection .sec1 .rbx', { opacity: 0, xPercent: 100, duration: 1.5 }, '-=100%')
+    .from('._injection .sec1 .tit p', { opacity: 0, y: 40, stagger: .2, duration: .8 }, '-=80%')
+
+
+    const marquees = document.querySelectorAll('._injection .sec2 .marquee .absol'); // 모든 마키 요소 선택
+
+    marquees.forEach(marquee => {
+        const marqueeChildSize = marquee.querySelector('.mar_ch'); // 각 마키의 자식 요소
+        const cloneMarqueeTimes = Math.ceil(marquee.getBoundingClientRect().width / marqueeChildSize.getBoundingClientRect().width);
+
+        for (let i = 0; i < cloneMarqueeTimes; i++) {
+            const childClone = marqueeChildSize.cloneNode(true); // deep clone 사용
+            marquee.appendChild(childClone);
+        }
+
+        // 각 마키에 대해 개별적으로 애니메이션 적용
+        gsap.fromTo(marquee.querySelectorAll('.mar_ch'), {
+            xPercent: 0
+        }, {
+            xPercent: -100,
+            repeat: -1,
+            duration: 15,
+            ease: 'none'
+        });
+    });
+
+    ScrollTrigger.matchMedia({
+        '(min-width: 1025px)' : function () {
+
+            const body = document.querySelector("body");
+            const mainContainer = body.querySelector(".horizontal");
+            const extraLongContainer = mainContainer.querySelector(".Wrap");
+
+            let horizon = gsap.to(".horizontal .Wrap", {
+                xPercent: -100,
+                x: () => window.innerWidth,
+                // ease: "none", // <-- IMPORTANT!
+                scrollTrigger: {
+                    pin: ".horizontal",
+                    trigger: ".horizontal",
+                    start: "left left",
+                    end: () => `+=${extraLongContainer.offsetWidth} bottom`,
+                    scrub: 1,
+                    // markers: true,
+                }
+            });
+            
+            const tl = gsap.timeline({ // sec2
+                scrollTrigger: {
+                    trigger: "._injection .sec2",
+                    start: "left 45%",
+                    end: "left",
+                    containerAnimation: horizon,
+                    toggleActions: 'play none none reverse',
+                    // markers: true
+                },
+            })
+            tl
+            .from('._injection .sec2 .bg', { scale: 1.2, duration: 1.5 })
+            .from('._injection .sec2 .tit h2', { opacity: 0, duration: .8, y: 40 }, '-=100%')
+            .from('._injection .sec2 .tit .bx', { opacity: 0, duration: .8, y: 40 }, '-=80%')
+
+            const tl2 = gsap.timeline({ // sec3
+                scrollTrigger: {
+                    trigger: "._injection .sec3",
+                    start: "left 90%",
+                    end: "left",
+                    containerAnimation: horizon,
+                    toggleActions: 'play none none reverse',
+                    // markers: true
+                },
+            })
+            tl2
+            .from('._injection .sec3 .con .tit > *', { opacity: 0, stagger: .2, duration: .8, x: -40 })
+            .from('._injection .sec3 .con .sub p > *', { opacity: 0, stagger: .2, duration: .8, y: 40 }, '-=80%')
+        },
+        '(max-width: 1024px)': function() {
+            gsap.timeline({ // sec2
+                scrollTrigger: {
+                    trigger: "._injection .sec2",
+                    start: "top center+=20%",
+                    toggleActions: 'play none none reverse',
+                },
+            })
+            .from('._injection .sec2 .bg', { scale: 1.2, duration: 1.5 })
+            .from('._injection .sec2 .tit h2', { opacity: 0, duration: .8, y: 40 }, '-=100%')
+            .from('._injection .sec2 .tit .bx', { opacity: 0, duration: .8, y: 40 }, '-=80%')
+
+
+            gsap.timeline({ // sec3
+                scrollTrigger: {
+                    trigger: "._injection .sec3",
+                    start: "top center+=20%",
+                    toggleActions: 'play none none reverse',
+                },
+            })
+            .from('._injection .sec3 .con .tit > *', { opacity: 0, stagger: .2, duration: .8, x: -40 })
+            .from('._injection .sec3 .con .sub p > *', { opacity: 0, stagger: .2, duration: .8, y: 40 }, '-=80%')
+        }
+    });
+
+
+
+    // s2
+
+    ScrollTrigger.matchMedia({
+        '(min-width: 1025px)' : function () {
+            ScrollTrigger.create({ // s2 lbx 고정
+                trigger: '._injection .speciality .lbx',
+                endTrigger: '._injection .speciality',
+                start: 'top top',
+                // markers: true,
+                end: 'bottom bottom',
+                scrub: 1,
+                pin: true,
+            });
+        },
+    });
+
+    gsap.timeline({
+        scrollTrigger: {
+            trigger: '._injection .speciality',
+            start: 'top center+=20%',
+            toggleActions: 'play none none reverse',
+            onEnter: function () {
+                $('header').removeClass('white')
+            },
+            onLeaveBack: function () {
+                $('header').addClass('white')
+            }
+        }
+    })
+    .from('._injection .speciality .wrap .tit h2', { opacity: 0, x: 40, duration: .8 })
+    .from('._injection .speciality .lbx', { opacity: 0, x: -40, duration: .8 }, '-=80%')
+    
+    let infobx = gsap.utils.toArray('._injection .speciality .con .rbx .bx');
+    infobx.forEach(function (item, idx) {
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: item,
+                start: 'top center+=20%',
+                toggleActions: 'play none none reverse',
+            }
+        })
+        .from(item, { opacity: 0, y: 40, duration: .8 })
+    });
+    
+
+    gsap.to('._injection .speciality .wrap',{ // s2 bg 고정
+        scrollTrigger: {
+            trigger: '._injection .speciality .bg',
+            endTrigger: '._injection .speciality',
+            start: 'top top',
+            // markers: true,
+            end: 'bottom bottom',
+            scrub: 1,
+            pin: true,
+        }
+    });
+
+    
+
+
+    // s3
+    gsap.timeline({
+        scrollTrigger: {
+            trigger: '._injection .feature',
+            start: 'top center+=20%',
+            toggleActions: 'play none none reverse',
+        }
+    })
+    .from('._injection .feature .tit h2', { opacity: 0, y: 40, duration: .8 })
+    .from('._injection .feature .tit p', { opacity: 0, y: 40, duration: .8 }, '-=80%')
+    
+    let featbx = gsap.utils.toArray('._injection .feature .con .bx');
+    featbx.forEach(function (item, idx) {
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: item,
+                start: 'top center+=20%',
+                toggleActions: 'play none none reverse',
+            }
+        })
+        .from(item, { opacity: 0, y: 40, duration: .8, delay: `${((idx%2) * 0.1)}` })
+    });
+
+    gsap.from('._injection .feature .linkBx a', {
+        opacity: 0,
+        y: 40,
+        duration: .8,
+        scrollTrigger: {
+            trigger: '._injection .feature .linkBx a',
+            start: 'top center+=20%',
+            toggleActions: 'play none none reverse',
+        }
+    })
+
+
+
+
+</script>
+
+<button class="quick_link hide">
+    <span>
+        <b></b>
+        <b></b>
+    </span>
+    <ul class="sns" style="height: 0px;">
+        
+                        <!--압구정일때-->
+            <li>
+                <a href="http://talk.naver.com/wvhd8p7" target="_blank">
+                    <img src="/asset/img/common/talktalk.png">
+                    <em>톡톡</em>
+                </a>
+            </li>
+            <li>
+                <a href="http://pf.kakao.com/_eGxaHu/chat" target="_blank">
+                    <img src="/asset/img/common/kakaotalk.png">
+                    <em>카카오톡</em>
+                </a>
+            </li>
+            <li>
+                <a href="https://m.booking.naver.com/booking/13/bizes/1328864" target="_blank">
+                    <img src="/asset/img/common/naver.png">
+                    <em>예약</em>
+                </a>
+            </li>
+                </ul>
+</button>
+
+<button class="_topBtn hide">
+    <svg id="arrow_up" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128.66 218.52">
+	<path class="cls-1" d="M-546.63,195.89A61.33,61.33,0,0,1-608,257.22" transform="translate(610.96 -192.89)"></path>
+	<path class="cls-1" d="M-546.63,408.4V195.89a61.33,61.33,0,0,0,61.33,61.33" transform="translate(610.96 -192.89)"></path>
+</svg></button>
+
+<script>
+    
+
+    // top 버튼
+	$('._topBtn').click(function(){
+		gsap.to(window, {
+			duration: 1,
+			ease: "power2.out",
+			scrollTo: { y: "main", offsetY: 0 },
+		});
+	});
+
+    // 우측 버튼 노출/미노출
+    ScrollTrigger.matchMedia({
+        "(min-width: 351px)" : function () {
+            ScrollTrigger.create({
+                trigger: 'body',
+                start: 'top top-=10%',
+                endTrigger: 'footer',
+                end: 'top bottom',
+                // markers: true,
+                onEnter: function () {
+                    $('._topBtn').removeClass('hide');
+                    $('.quick_link').removeClass('hide');
+                },
+                onLeaveBack: function () {
+                    $('._topBtn').addClass('hide');
+                    $('.quick_link').addClass('hide');
+                },
+            });
+        },
+        "(max-width: 350px)" : function () {
+            ScrollTrigger.create({
+                trigger: 'body',
+                start: 'top top-=10%',
+                endTrigger: 'footer',
+                end: 'top bottom',
+                // markers: true,
+                onEnter: function () {
+                    $('._topBtn').removeClass('hide');
+                    $('.quick_link').removeClass('hide');
+                },
+                onLeave: function () {
+                    $('._topBtn').addClass('hide');
+                    $('.quick_link').addClass('hide');
+                },
+                onEnterBack: function () {
+                    $('._topBtn').removeClass('hide');
+                    $('.quick_link').removeClass('hide');
+                },
+                onLeaveBack: function () {
+                    $('._topBtn').addClass('hide');
+                    $('.quick_link').addClass('hide');
+                },
+            });
+        }
+    });
+
+
+    // sns버튼 클릭
+
+    $(window).on('load', function () {
+        let snsHeight = $('.quick_link .sns').outerHeight();
+
+        $('.quick_link .sns').css('height', '0px');
+
+        let snschk = 0;
+
+        $('.quick_link > span').click(function () {
+
+            
+
+            if(snschk == 0){
+                $('.quick_link').addClass('on');
+                $('.quick_link .sns').css('height', `${snsHeight}px`);
+
+                snschk = 1;
+            }else{
+                $('.quick_link').removeClass('on');
+                $('.quick_link .sns').css('height', '0px');
+
+                snschk = 0;
+            }
+
+        });
+    });
+    
+    
+</script>
+
+
+
+</body>

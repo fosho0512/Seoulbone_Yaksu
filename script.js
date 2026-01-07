@@ -883,16 +883,26 @@ function setupScrollEffects() {
 
 // Intersection Observer for Fade-In Animation
 function setupFadeInObserver() {
+    // Blanc de Vie style: toggleActions equivalent (play on enter, reverse on leave)
     const observerOptions = {
         root: null,
-        rootMargin: '0px',
+        rootMargin: '0px 0px -10% 0px',
         threshold: 0.15
     };
     
+    // Observer with toggleActions: play on enter, reverse on leave (scroll up)
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                entry.target.classList.remove('reverse');
+            } else {
+                // Only reverse if element is below viewport (scrolling up)
+                const rect = entry.target.getBoundingClientRect();
+                if (rect.top > window.innerHeight * 0.5) {
+                    entry.target.classList.remove('visible');
+                    entry.target.classList.add('reverse');
+                }
             }
         });
     }, observerOptions);
@@ -907,7 +917,8 @@ function setupFadeInObserver() {
                         const fadeElements = contentView.querySelectorAll('.grid-item, .flip-card, .prp-section, .bio-group');
                         fadeElements.forEach((el, index) => {
                             el.classList.add('fade-in-up');
-                            el.style.transitionDelay = (index * 0.1) + 's';
+                            // Blanc de Vie style: stagger 0.2s
+                            el.style.transitionDelay = (index * 0.2) + 's';
                             observer.observe(el);
                         });
                         
