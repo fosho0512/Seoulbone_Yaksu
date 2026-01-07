@@ -210,9 +210,6 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* Intro CTA */
-.intro-cta {
-    opacity: 1;
-}
 .enter-btn {
     border: 1px solid rgba(184, 160, 126, 0.6);
     padding: clamp(14px, 2vh, 18px) clamp(30px, 6vw, 50px);
@@ -834,7 +831,6 @@ body.menu-open .visual-text { opacity: 0; }
     height: 100vh;
     min-height: 100vh;
     overflow: hidden;
-    margin: 0;
     background-color: var(--bg-color);
 }
 .sub-hero-image {
