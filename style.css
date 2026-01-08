@@ -1575,9 +1575,10 @@ body.content-view-active.has-sub-hero #global-header .menu-toggle-btn .lines spa
                 box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* 서브히어로 페이지에서 모든 상단 패딩 제거 */
+/* 서브히어로 페이지에서 모든 상단 패딩 제거 + 높이 자동 (sticky 작동 위해) */
 body.content-view-active.has-sub-hero #main-container {
     padding-top: 0;
+    height: auto;
 }
 body.content-view-active.has-sub-hero #content-view {
     padding-top: 0;
