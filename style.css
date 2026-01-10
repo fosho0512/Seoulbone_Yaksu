@@ -1575,21 +1575,25 @@ body.content-view-active.has-sub-hero #global-header .menu-toggle-btn .lines spa
                 box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* 서브히어로 페이지에서 모든 상단 패딩 제거 + 높이 자동 (sticky 작동 위해) */
+/* 서브히어로 페이지에서 sticky 작동을 위한 전체 조상 체인 수정 */
 body.content-view-active.has-sub-hero #main-container {
     padding-top: 0;
     height: auto;
+    overflow: visible;
 }
 body.content-view-active.has-sub-hero #content-view {
     padding-top: 0;
+    min-height: auto;
+    overflow: visible;
+}
+body.content-view-active.has-sub-hero .content-wrapper {
+    padding: 0;
+    overflow: visible;
 }
 
 /* 홈 화면에서 main-container padding 제거 */
 body.site-entered:not(.content-view-active) #main-container {
     padding-top: 0;
-}
-body.content-view-active.has-sub-hero .content-wrapper {
-    padding: 0;
 }
 
 /* Sub Hero 영역을 벗어난 후 헤더 스타일 - 부드러운 전환 */
