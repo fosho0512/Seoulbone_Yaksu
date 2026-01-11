@@ -1265,76 +1265,85 @@ function setupDiagnosisScroll() {
     
     const totalScrollHeight = area.offsetHeight - window.innerHeight;
     
-    // 메인 트랙 이동 애니메이션
-    diagScrollTrigger = ScrollTrigger.create({
-        trigger: area,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1,
-        onUpdate: (self) => {
-            const progress = self.progress;
-            
-            // 구간별 처리
-            // 0-11%: Sub Hero 고정 (이동 없음)
-            // 11-44%: 가로 이동 (0% → 50% translateX)
-            // 44-100%: Slogan 고정 (50% translateX 유지)
-            
-            let translateX = 0;
-            if (progress < 0.11) {
-                // Sub Hero 고정 구간
-                translateX = 0;
-            } else if (progress < 0.44) {
-                // 가로 이동 구간: 11% → 44% 사이에서 0 → -50% 이동
-                const moveProgress = (progress - 0.11) / (0.44 - 0.11);
-                translateX = -50 * easeInOutCubic(moveProgress);
-            } else {
-                // Slogan 고정 구간
-                translateX = -50;
-            }
-            
-            track.style.transform = `translateX(${translateX}%)`;
-            
-            // Slogan 진입 85% 시점 = 가로 이동 85% 완료 시점
-            // 가로 이동 구간(11-44%)의 85% = 약 39%
-            const sloganEnterPoint = 0.39;
-            
-            // Slogan Text 01: 39% ~ 67%
-            // Slogan Text 02: 67% ~ 89%
-            if (sloganText1 && sloganText2) {
-                if (progress < sloganEnterPoint) {
-                    // 아직 Slogan 미진입
-                    sloganText1.classList.remove('active');
-                    sloganText2.classList.remove('active');
-                } else if (progress < 0.67) {
-                    // Text 01 표시 구간
-                    sloganText1.classList.add('active');
-                    sloganText2.classList.remove('active');
-                } else if (progress < 0.89) {
-                    // Text 02 표시 구간
-                    sloganText1.classList.remove('active');
-                    sloganText2.classList.add('active');
-                } else {
-                    // 세로 스크롤 전환 구간
-                    sloganText1.classList.remove('active');
-                    sloganText2.classList.add('active');
-                }
-            }
-            
-            // 헤더 상태: 가로 이동 완료 후 변경
-            if (progress >= 0.44) {
-                document.body.classList.add('sub-hero-passed');
-            } else {
-                document.body.classList.remove('sub-hero-passed');
-            }
-        }
-    });
-    
     // Easing 함수
     function easeInOutCubic(t) {
         return t < 0.5 
             ? 4 * t * t * t 
             : 1 - Math.pow(-2 * t + 2, 3) / 2;
     }
+    
+    // 스크롤 구간 정의 (viewport height 기반 동적 계산)
+    // 전체 스크롤 거리 = area.offsetHeight - window.innerHeight
+    // 구간 비율:
+    // - 0~10%: Sub Hero 고정
+    // - 10~40%: 가로 이동 (Sub Hero → Slogan)
+    // - 40~60%: Slogan Text 01
+    // - 60~85%: Slogan Text 02
+    // - 85~100%: 세로 스크롤 전환 (Text 02 유지)
+    
+    const PHASE = {
+        SUBHERO_END: 0.10,      // Sub Hero 고정 끝
+        SLIDE_END: 0.40,        // 가로 이동 끝
+        TEXT1_END: 0.60,        // Text 01 끝
+        TEXT2_END: 0.85,        // Text 02 끝 (이후 세로 전환)
+        SLOGAN_APPEAR: 0.35     // Slogan 85% 진입 = 가로 이동 85%
+    };
+    
+    // 메인 트랙 이동 애니메이션
+    diagScrollTrigger = ScrollTrigger.create({
+        trigger: area,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.5,
+        onUpdate: (self) => {
+            const progress = self.progress;
+            
+            // 가로 이동 계산
+            let translateX = 0;
+            if (progress < PHASE.SUBHERO_END) {
+                translateX = 0;
+            } else if (progress < PHASE.SLIDE_END) {
+                const moveProgress = (progress - PHASE.SUBHERO_END) / (PHASE.SLIDE_END - PHASE.SUBHERO_END);
+                translateX = -50 * easeInOutCubic(moveProgress);
+            } else {
+                translateX = -50;
+            }
+            
+            track.style.transform = `translateX(${translateX}%)`;
+            
+            // Slogan Text 상호 배타적 토글 (항상 하나만 active)
+            if (sloganText1 && sloganText2) {
+                // 기본: 둘 다 비활성화
+                let showText1 = false;
+                let showText2 = false;
+                
+                if (progress >= PHASE.SLOGAN_APPEAR && progress < PHASE.TEXT1_END) {
+                    showText1 = true;
+                } else if (progress >= PHASE.TEXT1_END && progress < 1.0) {
+                    showText2 = true;
+                }
+                
+                // 클래스 토글 (상호 배타)
+                if (showText1) {
+                    sloganText1.classList.add('active');
+                    sloganText2.classList.remove('active');
+                } else if (showText2) {
+                    sloganText1.classList.remove('active');
+                    sloganText2.classList.add('active');
+                } else {
+                    sloganText1.classList.remove('active');
+                    sloganText2.classList.remove('active');
+                }
+            }
+            
+            // 헤더 상태
+            if (progress >= PHASE.SLIDE_END) {
+                document.body.classList.add('sub-hero-passed');
+            } else {
+                document.body.classList.remove('sub-hero-passed');
+            }
+        }
+    });
 }
 
 function cleanupDiagnosisScroll() {
