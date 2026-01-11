@@ -1149,6 +1149,8 @@ function cleanupValuesSlider() {
 let horizontalScrollHandler = null;
 let horizontalResizeHandler = null;
 let hasEnteredVerticalSection = false;
+let horizontalDisplayProgress = 0;
+let horizontalLastFrameTime = 0;
 
 function setupHorizontalScroll() {
     // Reset vertical section flag
@@ -1173,6 +1175,19 @@ function setupHorizontalScroll() {
         return;
     }
     
+    // Easing function - ease-in-out for slower, more deliberate movement
+    function easeInOutCubic(t) {
+        return t < 0.5 
+            ? 4 * t * t * t 
+            : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+    
+    // Velocity clamping for luxury feel
+    // Max delta per frame: 0.012 = ~0.7 screen widths/sec at 60fps
+    const MAX_VELOCITY = 0.012;
+    horizontalDisplayProgress = 0;
+    horizontalLastFrameTime = performance.now();
+    
     function handleScroll() {
         const outerRect = outer.getBoundingClientRect();
         const totalScrollDistance = outer.offsetHeight - window.innerHeight;
@@ -1182,11 +1197,11 @@ function setupHorizontalScroll() {
         // 0% - 65%: Horizontal scroll (sub-hero slides left, slogan slides in)
         // 65% - 100%: Dwell zone (slogan stays pinned and readable)
         const horizontalPhaseEnd = 0.65;
-        const textDwellEnd = 0.80;
         
         const overallProgress = Math.max(0, Math.min(1, scrollProgress / totalScrollDistance));
         
         // Header state management based on scroll progress
+        // When horizontal scroll is complete (progress >= 1), header becomes opaque
         if (overallProgress >= 1) {
             if (!hasEnteredVerticalSection) {
                 hasEnteredVerticalSection = true;
@@ -1202,49 +1217,106 @@ function setupHorizontalScroll() {
         const beforeHorizontalSection = scrollProgress < 0;
         const inHorizontalSection = scrollProgress >= 0 && scrollProgress <= totalScrollDistance;
         
-        // Handle horizontal scroll animation - direct scroll position sync (no velocity clamping)
+        // Handle horizontal scroll animation
         if (beforeHorizontalSection) {
             track.style.transform = 'translateX(0)';
-            if (sloganSection) {
-                sloganSection.classList.remove('active');
-                sloganSection.classList.remove('zoom-out');
-                sloganSection.classList.remove('principle-visible');
-            }
+            horizontalDisplayProgress = 0;
+            if (sloganSection) sloganSection.classList.remove('active');
             if (indicatorSubhero) indicatorSubhero.classList.remove('hidden');
             if (indicatorSlogan) indicatorSlogan.classList.remove('visible');
         } else if (inHorizontalSection) {
-            // Calculate horizontal progress (0-1) within horizontal phase (0-65%)
-            const phaseProgress = Math.min(overallProgress / horizontalPhaseEnd, 1);
-            const translateX = -phaseProgress * window.innerWidth;
-            track.style.transform = `translateX(${translateX}px)`;
-            
-            // Zoom-out starts at 50% of horizontal phase
-            if (phaseProgress > 0.5 && sloganSection) {
-                sloganSection.classList.add('zoom-out');
-            } else if (sloganSection) {
-                sloganSection.classList.remove('zoom-out');
-            }
-            
-            // Activate slogan text at 60% of horizontal phase
-            if (phaseProgress > 0.6 && sloganSection) {
-                sloganSection.classList.add('active');
+            if (overallProgress <= horizontalPhaseEnd) {
+                // Horizontal scroll phase with linear progress + velocity clamping
+                const phaseProgress = overallProgress / horizontalPhaseEnd;
+                const targetProgress = phaseProgress; // Linear - no easing for consistent speed
+                
+                // Calculate time-based velocity limit
+                const now = performance.now();
+                const deltaTime = Math.min((now - horizontalLastFrameTime) / 16.67, 2);
+                horizontalLastFrameTime = now;
+                
+                // Clamp velocity for smooth, deliberate movement at constant pace
+                const maxDelta = MAX_VELOCITY * deltaTime;
+                const progressDelta = targetProgress - horizontalDisplayProgress;
+                const clampedDelta = Math.max(-maxDelta, Math.min(maxDelta, progressDelta));
+                horizontalDisplayProgress += clampedDelta;
+                
+                const translateX = -horizontalDisplayProgress * window.innerWidth;
+                
+                track.style.transform = `translateX(${translateX}px)`;
+                
+                // Start zoom-out when 50% through horizontal phase
+                if (phaseProgress > 0.5 && sloganSection) {
+                    sloganSection.classList.add('zoom-out');
+                } else if (sloganSection) {
+                    sloganSection.classList.remove('zoom-out');
+                }
+                
+                // Activate slogan text when 60% through horizontal phase
+                if (phaseProgress > 0.6 && sloganSection) {
+                    sloganSection.classList.add('active');
+                    if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
+                    if (indicatorSlogan) indicatorSlogan.classList.add('visible');
+                } else if (sloganSection) {
+                    sloganSection.classList.remove('active');
+                    if (indicatorSubhero) indicatorSubhero.classList.remove('hidden');
+                    if (indicatorSlogan) indicatorSlogan.classList.remove('visible');
+                }
+            } else {
+                // Dwell phase - slogan stays pinned, but use velocity clamping to reach 1
+                // Phase allocation within dwell:
+                // 65-80% (overallProgress): Text dwell - main/sub text visible
+                // 80-100% (overallProgress): Principle card dwell
+                const textDwellEnd = 0.80; // Switch to principle card at 80%
+                
+                const targetProgress = 1;
+                
+                // Calculate time-based velocity limit
+                const now = performance.now();
+                const deltaTime = Math.min((now - horizontalLastFrameTime) / 16.67, 2);
+                horizontalLastFrameTime = now;
+                
+                // Clamp velocity for smooth transition to final position
+                const maxDelta = MAX_VELOCITY * deltaTime;
+                const progressDelta = targetProgress - horizontalDisplayProgress;
+                const clampedDelta = Math.max(-maxDelta, Math.min(maxDelta, progressDelta));
+                horizontalDisplayProgress += clampedDelta;
+                
+                const translateX = -horizontalDisplayProgress * window.innerWidth;
+                track.style.transform = `translateX(${translateX}px)`;
+                
+                if (sloganSection) {
+                    sloganSection.classList.add('zoom-out');
+                    sloganSection.classList.add('active');
+                }
                 if (indicatorSubhero) indicatorSubhero.classList.add('hidden');
                 if (indicatorSlogan) indicatorSlogan.classList.add('visible');
-            } else if (sloganSection) {
-                sloganSection.classList.remove('active');
-                if (indicatorSubhero) indicatorSubhero.classList.remove('hidden');
-                if (indicatorSlogan) indicatorSlogan.classList.remove('visible');
-            }
-            
-            // Principle card visible at 80% overall progress (during dwell phase)
-            if (overallProgress >= textDwellEnd && sloganSection) {
-                sloganSection.classList.add('principle-visible');
-            } else if (sloganSection) {
-                sloganSection.classList.remove('principle-visible');
+                
+                // Show principle card when reaching 80% overall progress
+                // This gives text ~15% scroll distance (65-80%) to be consumed
+                if (overallProgress >= textDwellEnd && sloganSection) {
+                    sloganSection.classList.add('principle-visible');
+                } else if (sloganSection) {
+                    sloganSection.classList.remove('principle-visible');
+                }
             }
         } else {
-            // Past horizontal section - locked at final position
-            track.style.transform = `translateX(${-window.innerWidth}px)`;
+            // In vertical section - use velocity clamping to maintain smooth transition
+            const targetProgress = 1;
+            
+            // Calculate time-based velocity limit
+            const now = performance.now();
+            const deltaTime = Math.min((now - horizontalLastFrameTime) / 16.67, 2);
+            horizontalLastFrameTime = now;
+            
+            // Clamp velocity
+            const maxDelta = MAX_VELOCITY * deltaTime;
+            const progressDelta = targetProgress - horizontalDisplayProgress;
+            const clampedDelta = Math.max(-maxDelta, Math.min(maxDelta, progressDelta));
+            horizontalDisplayProgress += clampedDelta;
+            
+            const translateX = -horizontalDisplayProgress * window.innerWidth;
+            track.style.transform = `translateX(${translateX}px)`;
             if (sloganSection) {
                 sloganSection.classList.add('zoom-out');
                 sloganSection.classList.add('active');
@@ -1389,7 +1461,9 @@ function cleanupHorizontalScroll() {
         horizontalResizeHandler = null;
     }
     
-    // Reset state for next visit
+    // Reset velocity clamping state for next visit
+    horizontalDisplayProgress = 0;
+    horizontalLastFrameTime = 0;
     hasEnteredVerticalSection = false;
     
     if (equipmentScrollHandler) {
