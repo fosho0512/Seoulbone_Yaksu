@@ -3242,13 +3242,11 @@ body::before {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg-color);
 }
 
 .hs-slogan-bg {
     position: absolute;
     inset: 0;
-    z-index: 1;
 }
 
 .hs-slogan-bg img {
@@ -3260,7 +3258,6 @@ body::before {
 .hs-slogan-overlay {
     position: absolute;
     inset: 0;
-    z-index: 2;
     background: rgba(44, 41, 38, 0.5);
 }
 
