@@ -195,10 +195,22 @@ function showContentView(id) {
         `;
     } 
     else if (id === 'diagnosis') {
-        // NEW: 단순화된 구조 - 독립적인 article.route-diagnosis 컨테이너
+        // NEW: 슬로건을 고정 배경 레이어로 분리 - hero만 트랙에서 이동
         html = `
             <article class="route-diagnosis">
                 <div class="hs-section">
+                    <!-- 슬로건: 고정 배경 레이어 (z-index: 1) -->
+                    <div class="hs-slogan-layer">
+                        <div class="hs-slogan-bg">
+                            <img src="images/diagnosis-slogan.png" alt="Slogan">
+                        </div>
+                        <div class="hs-slogan-overlay"></div>
+                        <div class="hs-slogan-content">
+                            <h2 class="hs-slogan-main">정확한 진단이<br>완치의 시작입니다</h2>
+                            <p class="hs-slogan-desc">서울본재활의학과는 최첨단 진단 장비에 아낌없이 투자합니다.</p>
+                        </div>
+                    </div>
+                    <!-- Hero 트랙: 스크롤 시 왼쪽으로 이동 (z-index: 2) -->
                     <div class="hs-sticky">
                         <div class="hs-track">
                             <section class="hs-panel hs-panel-hero">
@@ -208,16 +220,6 @@ function showContentView(id) {
                                 <div class="hs-hero-overlay"></div>
                                 <div class="hs-hero-text">
                                     <h2>${data.title}</h2>
-                                </div>
-                            </section>
-                            <section class="hs-panel hs-panel-slogan">
-                                <div class="hs-slogan-bg">
-                                    <img src="images/diagnosis-slogan.png" alt="Slogan">
-                                </div>
-                                <div class="hs-slogan-overlay"></div>
-                                <div class="hs-slogan-content">
-                                    <h2 class="hs-slogan-main">정확한 진단이<br>완치의 시작입니다</h2>
-                                    <p class="hs-slogan-desc">서울본재활의학과는 최첨단 진단 장비에 아낌없이 투자합니다.</p>
                                 </div>
                             </section>
                         </div>
@@ -1234,21 +1236,15 @@ function setupDiagnosisNewScroll() {
         diagnosisNewScrollTrigger = null;
     }
     
-    // 패널 수에 따른 이동 거리 계산
-    const panelCount = track.querySelectorAll('.hs-panel').length;
-    const moveDistance = (panelCount - 1) * 100; // vw 단위
-    
-    // ScrollTrigger로 horizontal scroll 구현
+    // Hero 패널을 100% 왼쪽으로 이동시켜 슬로건 배경 레이어 노출
     diagnosisNewScrollTrigger = gsap.to(track, {
-        x: `-${moveDistance}vw`,
+        x: '-100%',
         ease: 'none',
         scrollTrigger: {
             trigger: section,
             start: 'top top',
             end: `+=${section.offsetHeight - window.innerHeight}`,
             scrub: 1,
-            pin: sticky,
-            pinSpacing: false,
             onUpdate: (self) => {
                 // 스크롤 진행도에 따른 헤더 상태 변경
                 if (self.progress >= 0.95) {

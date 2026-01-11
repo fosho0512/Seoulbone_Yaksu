@@ -3149,96 +3149,31 @@ body::before {
 }
 
 /* ============================================
-   NEW DIAGNOSIS PAGE - 단순화된 구조
+   NEW DIAGNOSIS PAGE - 슬로건 고정 배경 + Hero 이동 구조
    ============================================ */
 
-/* 독립적인 라우트 컨테이너 - 모든 조상 제약 해제 */
+/* 독립적인 라우트 컨테이너 */
 .route-diagnosis {
     width: 100%;
     overflow: visible;
 }
 
-/* Horizontal Scroll Section - 400vh 높이로 스크롤 공간 확보 */
+/* Horizontal Scroll Section - 스크롤 공간 확보 */
 .hs-section {
     position: relative;
-    height: 400vh;
+    height: 300vh;
     width: 100%;
     overflow: visible;
 }
 
-/* Sticky wrapper - 화면에 고정되는 뷰포트 */
-.hs-sticky {
+/* 슬로건 고정 배경 레이어 - 항상 뷰포트에 고정 */
+.hs-slogan-layer {
     position: sticky;
     top: 0;
     height: 100vh;
     height: 100svh;
     width: 100%;
-    overflow: hidden;
-}
-
-/* Track - 패널들을 담는 가로 컨테이너 */
-.hs-track {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    width: 200%;
-    will-change: transform;
-}
-
-/* 개별 패널 - 각각 100vw */
-.hs-panel {
-    flex-shrink: 0;
-    width: 100vw;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Hero 패널 */
-.hs-panel-hero {
-    background: var(--bg-color);
-}
-
-.hs-hero-image {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.hs-hero-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.hs-hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, 
-        rgba(44, 41, 38, 0.3) 0%, 
-        rgba(44, 41, 38, 0.1) 40%,
-        rgba(44, 41, 38, 0.4) 100%);
-}
-
-.hs-hero-text {
-    position: absolute;
-    bottom: 15%;
-    left: 12%;
-    z-index: 10;
-}
-
-.hs-hero-text h2 {
-    font-family: var(--font-serif);
-    font-size: var(--font-display-xl);
-    font-weight: 400;
-    color: #fff;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-    letter-spacing: var(--ls-wide);
-}
-
-/* Slogan 패널 */
-.hs-panel-slogan {
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3284,6 +3219,79 @@ body::before {
     font-size: var(--font-body-lg);
     color: rgba(255, 255, 255, 0.9);
     line-height: var(--lh-relaxed);
+}
+
+/* Hero Sticky wrapper - 슬로건 위에 겹쳐서 표시 */
+.hs-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    width: 100%;
+    overflow: hidden;
+    z-index: 2;
+    margin-top: -100vh;
+    margin-top: -100svh;
+}
+
+/* Track - Hero 패널만 담는 컨테이너 */
+.hs-track {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    will-change: transform;
+}
+
+/* Hero 패널 */
+.hs-panel {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.hs-panel-hero {
+    background: var(--bg-color);
+}
+
+.hs-hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hs-hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hs-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, 
+        rgba(44, 41, 38, 0.3) 0%, 
+        rgba(44, 41, 38, 0.1) 40%,
+        rgba(44, 41, 38, 0.4) 100%);
+}
+
+.hs-hero-text {
+    position: absolute;
+    bottom: 15%;
+    left: 12%;
+    z-index: 10;
+}
+
+.hs-hero-text h2 {
+    font-family: var(--font-serif);
+    font-size: var(--font-display-xl);
+    font-weight: 400;
+    color: #fff;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    letter-spacing: var(--ls-wide);
 }
 
 /* Diagnosis 콘텐츠 영역 */
@@ -3358,15 +3366,23 @@ body::before {
     opacity: 0.8;
 }
 
-/* Mobile responsive */
+/* Mobile responsive - 새 구조 */
 @media (max-width: 768px) {
     .hs-section {
         height: auto;
     }
     
+    .hs-slogan-layer {
+        position: relative;
+        height: 100vh;
+        height: 100svh;
+    }
+    
     .hs-sticky {
         position: relative;
         height: auto;
+        margin-top: 0;
+        z-index: 1;
     }
     
     .hs-track {
