@@ -3264,6 +3264,23 @@ body::before {
     animation: slideUpFade 0.6s ease-out 1.35s forwards;
 }
 
+/* Diag Sub Hero 스크롤 인디케이터 */
+.diag-subhero .scroll-indicator-horizontal {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    animation: floatBounceHorizontal 2.5s ease-in-out infinite;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.diag-subhero .scroll-indicator-horizontal.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
 /* Sub Hero 하단 파도 곡선 */
 .diag-subhero-curve {
     position: absolute;
@@ -3317,6 +3334,22 @@ body::before {
     position: absolute;
     inset: 0;
     background: rgba(44, 41, 38, 0.55);
+}
+
+/* Diag Slogan 스크롤 인디케이터 */
+.diag-slogan .scroll-indicator-vertical {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    animation: floatBounceVertical 2.5s ease-in-out infinite;
+}
+
+.diag-slogan .scroll-indicator-vertical.visible {
+    opacity: 1;
 }
 
 .diag-slogan-content {

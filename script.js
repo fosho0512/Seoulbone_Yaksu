@@ -211,6 +211,13 @@ function showContentView(id) {
                                 <div class="diag-subhero-text">
                                     <h2>${data.title}</h2>
                                 </div>
+                                <div class="scroll-indicator scroll-indicator-horizontal" id="diag-indicator-subhero">
+                                    <div class="scroll-indicator-circle">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                                        </svg>
+                                    </div>
+                                </div>
                                 <div class="diag-subhero-curve">
                                     <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
                                         <path d="M0,100 L0,40 Q360,100 720,50 Q1080,0 1440,60 L1440,100 Z" fill="var(--bg-color)"/>
@@ -232,6 +239,13 @@ function showContentView(id) {
                                     <div class="diag-slogan-text" data-slogan="2">
                                         <h3>최첨단 장비로<br>정밀하게 분석합니다</h3>
                                         <p>서울본재활의학과는 첨단 진단 장비에<br>아낌없이 투자합니다.</p>
+                                    </div>
+                                </div>
+                                <div class="scroll-indicator scroll-indicator-vertical" id="diag-indicator-slogan">
+                                    <div class="scroll-indicator-circle">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M12 5v14M5 12l7 7 7-7"/>
+                                        </svg>
                                     </div>
                                 </div>
                             </section>
@@ -1255,6 +1269,8 @@ function setupDiagnosisScroll() {
     const sloganText1 = document.querySelector('.diag-slogan-text[data-slogan="1"]');
     const sloganText2 = document.querySelector('.diag-slogan-text[data-slogan="2"]');
     const sloganPanel = document.querySelector('.diag-slogan');
+    const indicatorSubhero = document.getElementById('diag-indicator-subhero');
+    const indicatorSlogan = document.getElementById('diag-indicator-slogan');
     
     if (!area || !viewport || !track) {
         console.warn('Diagnosis V3: Required elements not found');
@@ -1378,6 +1394,25 @@ function setupDiagnosisScroll() {
             } else {
                 document.body.classList.remove('sub-hero-passed');
             }
+            
+            // 스크롤 인디케이터 제어
+            // Sub Hero 인디케이터: 슬로건 진입 전까지 표시
+            if (indicatorSubhero) {
+                if (progress < PHASE.SLOGAN_APPEAR) {
+                    indicatorSubhero.classList.remove('hidden');
+                } else {
+                    indicatorSubhero.classList.add('hidden');
+                }
+            }
+            
+            // Slogan 인디케이터: 슬로건 진입 후부터 TEXT2_END까지 표시
+            if (indicatorSlogan) {
+                if (progress >= PHASE.SLOGAN_APPEAR && progress < PHASE.TEXT2_END) {
+                    indicatorSlogan.classList.add('visible');
+                } else {
+                    indicatorSlogan.classList.remove('visible');
+                }
+            }
         }
     });
     
@@ -1410,6 +1445,12 @@ function cleanupDiagnosisScroll() {
         window.removeEventListener('scroll', equipmentScrollHandler);
         equipmentScrollHandler = null;
     }
+    
+    // 스크롤 인디케이터 초기화
+    const indicatorSubhero = document.getElementById('diag-indicator-subhero');
+    const indicatorSlogan = document.getElementById('diag-indicator-slogan');
+    if (indicatorSubhero) indicatorSubhero.classList.remove('hidden');
+    if (indicatorSlogan) indicatorSlogan.classList.remove('visible');
     
     // 헤더 상태 초기화
     document.body.classList.remove('sub-hero-passed');
