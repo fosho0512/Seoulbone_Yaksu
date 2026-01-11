@@ -3149,7 +3149,7 @@ body::before {
 }
 
 /* ============================================
-   NEW DIAGNOSIS PAGE - 슬로건 고정 배경 + Hero 이동 구조
+   NEW DIAGNOSIS PAGE - 단일 sticky 컨테이너 구조
    ============================================ */
 
 /* 독립적인 라우트 컨테이너 */
@@ -3166,13 +3166,20 @@ body::before {
     overflow: visible;
 }
 
-/* 슬로건 고정 배경 레이어 - 항상 뷰포트에 고정 */
-.hs-slogan-layer {
+/* 단일 Sticky 컨테이너 - 슬로건과 Hero를 모두 포함 */
+.hs-sticky {
     position: sticky;
     top: 0;
     height: 100vh;
     height: 100svh;
     width: 100%;
+    overflow: hidden;
+}
+
+/* 슬로건 레이어 - absolute로 뒤에 배치 (z-index: 1) */
+.hs-slogan-layer {
+    position: absolute;
+    inset: 0;
     z-index: 1;
     display: flex;
     align-items: center;
@@ -3221,38 +3228,12 @@ body::before {
     line-height: var(--lh-relaxed);
 }
 
-/* Hero Sticky wrapper - 슬로건 위에 겹쳐서 표시 */
-.hs-sticky {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    height: 100svh;
-    width: 100%;
-    overflow: hidden;
+/* Hero 패널 - absolute로 앞에 배치 (z-index: 2), GSAP으로 이동 */
+.hs-hero-panel {
+    position: absolute;
+    inset: 0;
     z-index: 2;
-    margin-top: -100vh;
-    margin-top: -100svh;
-}
-
-/* Track - Hero 패널만 담는 컨테이너 */
-.hs-track {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    width: 100%;
     will-change: transform;
-}
-
-/* Hero 패널 */
-.hs-panel {
-    flex-shrink: 0;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.hs-panel-hero {
     background: var(--bg-color);
 }
 
@@ -3366,9 +3347,14 @@ body::before {
     opacity: 0.8;
 }
 
-/* Mobile responsive - 새 구조 */
+/* Mobile responsive - 단일 sticky 구조 */
 @media (max-width: 768px) {
     .hs-section {
+        height: auto;
+    }
+    
+    .hs-sticky {
+        position: relative;
         height: auto;
     }
     
@@ -3378,23 +3364,11 @@ body::before {
         height: 100svh;
     }
     
-    .hs-sticky {
+    .hs-hero-panel {
         position: relative;
-        height: auto;
-        margin-top: 0;
-        z-index: 1;
-    }
-    
-    .hs-track {
-        flex-direction: column;
-        width: 100%;
+        height: 100vh;
+        height: 100svh;
         transform: none !important;
-    }
-    
-    .hs-panel {
-        width: 100%;
-        min-height: 100vh;
-        min-height: 100svh;
     }
     
     .hs-hero-text {

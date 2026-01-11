@@ -195,33 +195,31 @@ function showContentView(id) {
         `;
     } 
     else if (id === 'diagnosis') {
-        // NEW: 슬로건을 고정 배경 레이어로 분리 - hero만 트랙에서 이동
+        // NEW: 하나의 sticky 컨테이너 안에 슬로건(absolute) + Hero(animated) 배치
         html = `
             <article class="route-diagnosis">
                 <div class="hs-section">
-                    <!-- 슬로건: 고정 배경 레이어 (z-index: 1) -->
-                    <div class="hs-slogan-layer">
-                        <div class="hs-slogan-bg">
-                            <img src="images/diagnosis-slogan.png" alt="Slogan">
-                        </div>
-                        <div class="hs-slogan-overlay"></div>
-                        <div class="hs-slogan-content">
-                            <h2 class="hs-slogan-main">정확한 진단이<br>완치의 시작입니다</h2>
-                            <p class="hs-slogan-desc">서울본재활의학과는 최첨단 진단 장비에 아낌없이 투자합니다.</p>
-                        </div>
-                    </div>
-                    <!-- Hero 트랙: 스크롤 시 왼쪽으로 이동 (z-index: 2) -->
                     <div class="hs-sticky">
-                        <div class="hs-track">
-                            <section class="hs-panel hs-panel-hero">
-                                <div class="hs-hero-image">
-                                    <img src="${data.heroImg || 'images/diagnosis-hero.png'}" alt="${data.title}">
-                                </div>
-                                <div class="hs-hero-overlay"></div>
-                                <div class="hs-hero-text">
-                                    <h2>${data.title}</h2>
-                                </div>
-                            </section>
+                        <!-- 슬로건: 뒤에 고정된 배경 (z-index: 1) -->
+                        <div class="hs-slogan-layer">
+                            <div class="hs-slogan-bg">
+                                <img src="images/diagnosis-slogan.png" alt="Slogan">
+                            </div>
+                            <div class="hs-slogan-overlay"></div>
+                            <div class="hs-slogan-content">
+                                <h2 class="hs-slogan-main">정확한 진단이<br>완치의 시작입니다</h2>
+                                <p class="hs-slogan-desc">서울본재활의학과는 최첨단 진단 장비에 아낌없이 투자합니다.</p>
+                            </div>
+                        </div>
+                        <!-- Hero: 스크롤 시 왼쪽으로 이동 (z-index: 2) -->
+                        <div class="hs-hero-panel">
+                            <div class="hs-hero-image">
+                                <img src="${data.heroImg || 'images/diagnosis-hero.png'}" alt="${data.title}">
+                            </div>
+                            <div class="hs-hero-overlay"></div>
+                            <div class="hs-hero-text">
+                                <h2>${data.title}</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1211,16 +1209,16 @@ let diagnosisNewScrollTrigger = null;
 function setupDiagnosisNewScroll() {
     const section = document.querySelector('.hs-section');
     const sticky = document.querySelector('.hs-sticky');
-    const track = document.querySelector('.hs-track');
+    const heroPanel = document.querySelector('.hs-hero-panel');
     
-    if (!section || !sticky || !track) {
+    if (!section || !sticky || !heroPanel) {
         console.warn('Diagnosis new scroll elements not found');
         return;
     }
     
     // 모바일에서는 수평 스크롤 비활성화
     if (window.innerWidth <= 768) {
-        track.style.transform = 'none';
+        heroPanel.style.transform = 'none';
         return;
     }
     
@@ -1236,14 +1234,17 @@ function setupDiagnosisNewScroll() {
         diagnosisNewScrollTrigger = null;
     }
     
-    // Hero 패널을 100% 왼쪽으로 이동시켜 슬로건 배경 레이어 노출
-    diagnosisNewScrollTrigger = gsap.to(track, {
+    // Hero를 0-60% 구간에서 왼쪽으로 이동, 60-100%는 슬로건 dwell 구간
+    const scrollDistance = section.offsetHeight - window.innerHeight;
+    const heroSlideEnd = scrollDistance * 0.6; // 60% 지점에서 Hero 이동 완료
+    
+    diagnosisNewScrollTrigger = gsap.to(heroPanel, {
         x: '-100%',
-        ease: 'none',
+        ease: 'power2.inOut',
         scrollTrigger: {
             trigger: section,
             start: 'top top',
-            end: `+=${section.offsetHeight - window.innerHeight}`,
+            end: `+=${heroSlideEnd}`,
             scrub: 1,
             onUpdate: (self) => {
                 // 스크롤 진행도에 따른 헤더 상태 변경
@@ -1263,10 +1264,10 @@ function cleanupDiagnosisNewScroll() {
         diagnosisNewScrollTrigger = null;
     }
     
-    // Transform 초기화 - 라우트 재진입 시 트랙이 최종 위치에 고정되는 문제 방지
-    const track = document.querySelector('.hs-track');
-    if (track && typeof gsap !== 'undefined') {
-        gsap.set(track, { clearProps: 'transform' });
+    // Transform 초기화 - 라우트 재진입 시 Hero가 최종 위치에 고정되는 문제 방지
+    const heroPanel = document.querySelector('.hs-hero-panel');
+    if (heroPanel && typeof gsap !== 'undefined') {
+        gsap.set(heroPanel, { clearProps: 'transform' });
     }
     
     // 헤더 상태 초기화
