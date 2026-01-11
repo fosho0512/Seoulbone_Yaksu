@@ -239,23 +239,25 @@ function showContentView(id) {
                     </div>
                 </div>
                 
-                <!-- 섹션 3: Equipment (일반 세로 스크롤) -->
-                <section class="diag-equipment">
-                    <div class="diag-equipment-intro">
-                        <p>${data.desc}</p>
+                <!-- 섹션 3: Equipment Narrative (Sticky Image + Scroll Text) -->
+                <div class="equipment-narrative">
+                    <div class="sticky-image-wrapper">
+                        <div class="sticky-image" id="equipment-image">
+                            ${data.details.map((det, i) => `
+                                <img src="${det.img}" alt="${det.t}"${i === 0 ? ' class="active"' : ''}>
+                            `).join('')}
+                        </div>
                     </div>
-                    <div class="diag-equipment-grid">
-                        ${data.details.map(det => `
-                            <div class="diag-equipment-card">
-                                <div class="diag-equipment-card-img"><img src="${det.img}" alt="${det.t}"></div>
-                                <div class="diag-equipment-card-text">
-                                    <h4>${det.t}</h4>
-                                    <p>${det.d}</p>
-                                </div>
+                    <div class="equipment-steps">
+                        ${data.details.map((det, i) => `
+                            <div class="equipment-step${i === 0 ? ' active' : ''}" data-index="${i}">
+                                <span class="equipment-number">${String(i + 1).padStart(2, '0')}</span>
+                                <h3 class="equipment-title">${det.t}</h3>
+                                <p class="equipment-desc">${det.d}</p>
                             </div>
                         `).join('')}
                     </div>
-                </section>
+                </div>
             </article>
         `;
     }
@@ -1356,6 +1358,9 @@ function setupDiagnosisScroll() {
             }
         }
     });
+    
+    // Equipment Narrative 스크롤 효과 설정
+    setupEquipmentNarrative();
 }
 
 function cleanupDiagnosisScroll() {
@@ -1377,6 +1382,12 @@ function cleanupDiagnosisScroll() {
     // Slogan zoom-out 초기화
     const sloganPanel = document.querySelector('.diag-slogan');
     if (sloganPanel) sloganPanel.classList.remove('zoom-out');
+    
+    // Equipment 핸들러 정리
+    if (equipmentScrollHandler) {
+        window.removeEventListener('scroll', equipmentScrollHandler);
+        equipmentScrollHandler = null;
+    }
     
     // 헤더 상태 초기화
     document.body.classList.remove('sub-hero-passed');
