@@ -126,7 +126,7 @@ function showContentView(id) {
     // 이전 슬라이더/인터랙션 정리
     cleanupValuesSlider();
     cleanupHorizontalScroll();
-    cleanupDiagnosisNewScroll();
+    cleanupDiagnosisScroll();
     
     // Reset Content & Scroll
     elems.contentBody.innerHTML = "";
@@ -195,50 +195,67 @@ function showContentView(id) {
         `;
     } 
     else if (id === 'diagnosis') {
-        // NEW: 하나의 sticky 컨테이너 안에 슬로건(absolute) + Hero(animated) 배치
+        // V3: 새로운 스크롤 구조 - 3개 섹션만 (Sub Hero, Slogan, Equipment)
         html = `
-            <article class="route-diagnosis">
-                <div class="hs-section">
-                    <div class="hs-sticky">
-                        <!-- 슬로건: 뒤에 고정된 배경 (z-index: 1) -->
-                        <div class="hs-slogan-layer">
-                            <div class="hs-slogan-bg">
-                                <img src="images/diagnosis-slogan.png" alt="Slogan">
-                            </div>
-                            <div class="hs-slogan-overlay"></div>
-                            <div class="hs-slogan-content">
-                                <h2 class="hs-slogan-main">정확한 진단이<br>완치의 시작입니다</h2>
-                                <p class="hs-slogan-desc">서울본재활의학과는 최첨단 진단 장비에 아낌없이 투자합니다.</p>
-                            </div>
-                        </div>
-                        <!-- Hero: 스크롤 시 왼쪽으로 이동 (z-index: 2) -->
-                        <div class="hs-hero-panel">
-                            <div class="hs-hero-image">
-                                <img src="${data.heroImg || 'images/diagnosis-hero.png'}" alt="${data.title}">
-                            </div>
-                            <div class="hs-hero-overlay"></div>
-                            <div class="hs-hero-text">
-                                <h2>${data.title}</h2>
-                            </div>
+            <article class="diag-page">
+                <!-- 수평 스크롤 영역: Sub Hero + Slogan -->
+                <div class="diag-horizontal-area">
+                    <div class="diag-viewport">
+                        <div class="diag-track">
+                            <!-- 섹션 1: Sub Hero -->
+                            <section class="diag-panel diag-subhero">
+                                <div class="diag-subhero-bg">
+                                    <img src="${data.heroImg || 'images/diagnosis-hero.png'}" alt="${data.title}">
+                                </div>
+                                <div class="diag-subhero-overlay"></div>
+                                <div class="diag-subhero-text">
+                                    <h2>${data.title}</h2>
+                                </div>
+                                <div class="diag-subhero-curve">
+                                    <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                                        <path d="M0,100 L0,40 Q360,100 720,50 Q1080,0 1440,60 L1440,100 Z" fill="var(--bg-color)"/>
+                                    </svg>
+                                </div>
+                            </section>
+                            
+                            <!-- 섹션 2: Slogan (Text 01 + Text 02) -->
+                            <section class="diag-panel diag-slogan">
+                                <div class="diag-slogan-bg">
+                                    <img src="images/diagnosis-slogan.png" alt="Slogan Background">
+                                </div>
+                                <div class="diag-slogan-overlay"></div>
+                                <div class="diag-slogan-content">
+                                    <div class="diag-slogan-text" data-slogan="1">
+                                        <h3>정확한 진단이<br>완치의 시작입니다</h3>
+                                        <p>통증의 근본 원인을 찾아내는 것,<br>그것이 진정한 치료의 첫걸음입니다.</p>
+                                    </div>
+                                    <div class="diag-slogan-text" data-slogan="2">
+                                        <h3>최첨단 장비로<br>정밀하게 분석합니다</h3>
+                                        <p>서울본재활의학과는 첨단 진단 장비에<br>아낌없이 투자합니다.</p>
+                                    </div>
+                                </div>
+                            </section>
                         </div>
                     </div>
                 </div>
-                <div class="diagnosis-content">
-                    <div class="diagnosis-intro">
+                
+                <!-- 섹션 3: Equipment (일반 세로 스크롤) -->
+                <section class="diag-equipment">
+                    <div class="diag-equipment-intro">
                         <p>${data.desc}</p>
                     </div>
-                    <div class="diagnosis-grid">
+                    <div class="diag-equipment-grid">
                         ${data.details.map(det => `
-                            <div class="diagnosis-card">
-                                <div class="diagnosis-card-img"><img src="${det.img}" alt="${det.t}"></div>
-                                <div class="diagnosis-card-text">
+                            <div class="diag-equipment-card">
+                                <div class="diag-equipment-card-img"><img src="${det.img}" alt="${det.t}"></div>
+                                <div class="diag-equipment-card-text">
                                     <h4>${det.t}</h4>
                                     <p>${det.d}</p>
                                 </div>
                             </div>
                         `).join('')}
                     </div>
-                </div>
+                </section>
             </article>
         `;
     }
@@ -622,10 +639,10 @@ function showContentView(id) {
         }, 100);
     }
     
-    // NEW Diagnosis 페이지 - 단순화된 horizontal scroll
+    // V3 Diagnosis 페이지 - 세로→가로 스크롤 치환
     if (id === 'diagnosis') {
         setTimeout(() => {
-            setupDiagnosisNewScroll();
+            setupDiagnosisScroll();
         }, 100);
     }
     
@@ -827,7 +844,7 @@ function setupSubHeroScrollEffect() {
 function showHomeView(skipPushState = false) {
     cleanupValuesSlider();
     cleanupHorizontalScroll();
-    cleanupDiagnosisNewScroll();
+    cleanupDiagnosisScroll();
     elems.contentView.classList.remove('active');
     elems.homeView.classList.add('active');
     document.body.classList.remove('content-view-active');
@@ -1203,72 +1220,138 @@ function cleanupValuesSlider() {
     }
 }
 
-// NEW: 단순화된 Diagnosis 페이지 horizontal scroll
-let diagnosisNewScrollTrigger = null;
+// V3: Diagnosis 페이지 스크롤 시스템
+// 원칙: 세로 스크롤 → 가로 이동 치환, 진행도 기반 애니메이션
+let diagScrollTrigger = null;
 
-function setupDiagnosisNewScroll() {
-    const section = document.querySelector('.hs-section');
-    const sticky = document.querySelector('.hs-sticky');
-    const heroPanel = document.querySelector('.hs-hero-panel');
+function setupDiagnosisScroll() {
+    const area = document.querySelector('.diag-horizontal-area');
+    const viewport = document.querySelector('.diag-viewport');
+    const track = document.querySelector('.diag-track');
+    const sloganText1 = document.querySelector('.diag-slogan-text[data-slogan="1"]');
+    const sloganText2 = document.querySelector('.diag-slogan-text[data-slogan="2"]');
     
-    if (!section || !sticky || !heroPanel) {
-        console.warn('Diagnosis new scroll elements not found');
+    if (!area || !viewport || !track) {
+        console.warn('Diagnosis V3: Required elements not found');
         return;
     }
     
     // 모바일에서는 수평 스크롤 비활성화
     if (window.innerWidth <= 768) {
-        heroPanel.style.transform = 'none';
+        track.style.transform = 'none';
+        if (sloganText1) sloganText1.classList.add('active');
         return;
     }
     
     // GSAP ScrollTrigger 확인
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-        console.warn('GSAP or ScrollTrigger not loaded for diagnosis new scroll');
+        console.warn('GSAP or ScrollTrigger not loaded');
         return;
     }
     
     // 기존 트리거 정리
-    if (diagnosisNewScrollTrigger) {
-        diagnosisNewScrollTrigger.kill();
-        diagnosisNewScrollTrigger = null;
+    if (diagScrollTrigger) {
+        diagScrollTrigger.kill();
+        diagScrollTrigger = null;
     }
     
-    // Hero를 0-60% 구간에서 왼쪽으로 이동, 60-100%는 슬로건 dwell 구간
-    const scrollDistance = section.offsetHeight - window.innerHeight;
-    const heroSlideEnd = scrollDistance * 0.6; // 60% 지점에서 Hero 이동 완료
+    // 스크롤 구간 계산
+    // 전체 높이 450vh 중:
+    // - 0~50vh (0-11%): Sub Hero 고정 구간
+    // - 50~200vh (11-44%): 가로 이동 구간 (Sub Hero → Slogan)
+    // - 200~300vh (44-67%): Slogan Text 01 표시
+    // - 300~400vh (67-89%): Slogan Text 02 표시
+    // - 400~450vh (89-100%): 세로 스크롤 전환 구간
     
-    diagnosisNewScrollTrigger = gsap.to(heroPanel, {
-        x: '-100%',
-        ease: 'power2.inOut',
-        scrollTrigger: {
-            trigger: section,
-            start: 'top top',
-            end: `+=${heroSlideEnd}`,
-            scrub: 1,
-            onUpdate: (self) => {
-                // 스크롤 진행도에 따른 헤더 상태 변경
-                if (self.progress >= 0.95) {
-                    document.body.classList.add('sub-hero-passed');
+    const totalScrollHeight = area.offsetHeight - window.innerHeight;
+    
+    // 메인 트랙 이동 애니메이션
+    diagScrollTrigger = ScrollTrigger.create({
+        trigger: area,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 1,
+        onUpdate: (self) => {
+            const progress = self.progress;
+            
+            // 구간별 처리
+            // 0-11%: Sub Hero 고정 (이동 없음)
+            // 11-44%: 가로 이동 (0% → 50% translateX)
+            // 44-100%: Slogan 고정 (50% translateX 유지)
+            
+            let translateX = 0;
+            if (progress < 0.11) {
+                // Sub Hero 고정 구간
+                translateX = 0;
+            } else if (progress < 0.44) {
+                // 가로 이동 구간: 11% → 44% 사이에서 0 → -50% 이동
+                const moveProgress = (progress - 0.11) / (0.44 - 0.11);
+                translateX = -50 * easeInOutCubic(moveProgress);
+            } else {
+                // Slogan 고정 구간
+                translateX = -50;
+            }
+            
+            track.style.transform = `translateX(${translateX}%)`;
+            
+            // Slogan 진입 85% 시점 = 가로 이동 85% 완료 시점
+            // 가로 이동 구간(11-44%)의 85% = 약 39%
+            const sloganEnterPoint = 0.39;
+            
+            // Slogan Text 01: 39% ~ 67%
+            // Slogan Text 02: 67% ~ 89%
+            if (sloganText1 && sloganText2) {
+                if (progress < sloganEnterPoint) {
+                    // 아직 Slogan 미진입
+                    sloganText1.classList.remove('active');
+                    sloganText2.classList.remove('active');
+                } else if (progress < 0.67) {
+                    // Text 01 표시 구간
+                    sloganText1.classList.add('active');
+                    sloganText2.classList.remove('active');
+                } else if (progress < 0.89) {
+                    // Text 02 표시 구간
+                    sloganText1.classList.remove('active');
+                    sloganText2.classList.add('active');
                 } else {
-                    document.body.classList.remove('sub-hero-passed');
+                    // 세로 스크롤 전환 구간
+                    sloganText1.classList.remove('active');
+                    sloganText2.classList.add('active');
                 }
+            }
+            
+            // 헤더 상태: 가로 이동 완료 후 변경
+            if (progress >= 0.44) {
+                document.body.classList.add('sub-hero-passed');
+            } else {
+                document.body.classList.remove('sub-hero-passed');
             }
         }
     });
+    
+    // Easing 함수
+    function easeInOutCubic(t) {
+        return t < 0.5 
+            ? 4 * t * t * t 
+            : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
 }
 
-function cleanupDiagnosisNewScroll() {
-    if (diagnosisNewScrollTrigger) {
-        diagnosisNewScrollTrigger.kill();
-        diagnosisNewScrollTrigger = null;
+function cleanupDiagnosisScroll() {
+    if (diagScrollTrigger) {
+        diagScrollTrigger.kill();
+        diagScrollTrigger = null;
     }
     
-    // Transform 초기화 - 라우트 재진입 시 Hero가 최종 위치에 고정되는 문제 방지
-    const heroPanel = document.querySelector('.hs-hero-panel');
-    if (heroPanel && typeof gsap !== 'undefined') {
-        gsap.set(heroPanel, { clearProps: 'transform' });
+    // Transform 초기화
+    const track = document.querySelector('.diag-track');
+    if (track) {
+        track.style.transform = '';
     }
+    
+    // Slogan 텍스트 초기화
+    const sloganTexts = document.querySelectorAll('.diag-slogan-text');
+    sloganTexts.forEach(el => el.classList.remove('active'));
     
     // 헤더 상태 초기화
     document.body.classList.remove('sub-hero-passed');

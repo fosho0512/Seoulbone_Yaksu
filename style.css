@@ -3149,25 +3149,32 @@ body::before {
 }
 
 /* ============================================
-   NEW DIAGNOSIS PAGE - 단일 sticky 컨테이너 구조
+   DIAGNOSIS PAGE V3 - 새로운 스크롤 구조
+   원칙: vw 금지, width: 100% 기준, 3개 섹션만 (Sub Hero, Slogan, Equipment)
    ============================================ */
 
-/* 독립적인 라우트 컨테이너 */
-.route-diagnosis {
+/* 페이지 컨테이너 */
+.diag-page {
     width: 100%;
-    overflow: visible;
-}
-
-/* Horizontal Scroll Section - 스크롤 공간 확보 */
-.hs-section {
     position: relative;
-    height: 300vh;
-    width: 100%;
-    overflow: visible;
 }
 
-/* 단일 Sticky 컨테이너 - 슬로건과 Hero를 모두 포함 */
-.hs-sticky {
+/* ============================================
+   섹션 1: Sub Hero Section
+   - 다른 페이지의 서브히어로와 동일한 wipe reveal 인트로
+   - 수평 스크롤 연출의 시작점
+   ============================================ */
+
+/* 수평 스크롤 구간 - Sub Hero + Slogan을 담는 스크롤 영역 */
+.diag-horizontal-area {
+    position: relative;
+    /* 스크롤 거리: 1vh = Sub Hero 고정 + 2vh = 가로 이동 + 1.5vh = Slogan dwell */
+    height: 450vh;
+    width: 100%;
+}
+
+/* Sticky 뷰포트 - 화면에 고정되는 프레임 */
+.diag-viewport {
     position: sticky;
     top: 0;
     height: 100vh;
@@ -3176,81 +3183,40 @@ body::before {
     overflow: hidden;
 }
 
-/* 슬로건 레이어 - absolute로 뒤에 배치 (z-index: 1) */
-.hs-slogan-layer {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
+/* 수평 트랙 - Sub Hero와 Slogan이 나란히 배치, translateX로 이동 */
+.diag-track {
     display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.hs-slogan-bg {
-    position: absolute;
-    inset: 0;
-}
-
-.hs-slogan-bg img {
-    width: 100%;
+    flex-direction: row;
     height: 100%;
-    object-fit: cover;
-}
-
-.hs-slogan-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(44, 41, 38, 0.5);
-}
-
-.hs-slogan-content {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    padding: 0 12%;
-    max-width: 900px;
-}
-
-.hs-slogan-main {
-    font-family: var(--font-serif);
-    font-size: var(--font-display-lg);
-    font-weight: 400;
-    color: #fff;
-    line-height: var(--lh-snug);
-    margin-bottom: 30px;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-}
-
-.hs-slogan-desc {
-    font-family: var(--font-sans);
-    font-size: var(--font-body-lg);
-    color: rgba(255, 255, 255, 0.9);
-    line-height: var(--lh-relaxed);
-}
-
-/* Hero 패널 - absolute로 앞에 배치 (z-index: 2), GSAP으로 이동 */
-.hs-hero-panel {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
+    width: 200%; /* 2개 패널 (각 100%) */
     will-change: transform;
+}
+
+/* 개별 패널 - 각각 뷰포트 크기 */
+.diag-panel {
+    flex: 0 0 50%; /* 트랙의 50% = 뷰포트의 100% */
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Sub Hero 패널 */
+.diag-subhero {
     background: var(--bg-color);
 }
 
-.hs-hero-image {
+.diag-subhero-bg {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
 }
 
-.hs-hero-image img {
+.diag-subhero-bg img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.hs-hero-overlay {
+.diag-subhero-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(180deg, 
@@ -3259,14 +3225,14 @@ body::before {
         rgba(44, 41, 38, 0.4) 100%);
 }
 
-.hs-hero-text {
+.diag-subhero-text {
     position: absolute;
     bottom: 15%;
     left: 12%;
     z-index: 10;
 }
 
-.hs-hero-text h2 {
+.diag-subhero-text h2 {
     font-family: var(--font-serif);
     font-size: var(--font-display-xl);
     font-weight: 400;
@@ -3275,31 +3241,131 @@ body::before {
     letter-spacing: var(--ls-wide);
 }
 
-/* Diagnosis 콘텐츠 영역 */
-.diagnosis-content {
-    background: var(--bg-color);
-    padding: 120px 12% 100px;
+/* Sub Hero 하단 파도 곡선 */
+.diag-subhero-curve {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    z-index: 5;
+    overflow: hidden;
 }
 
-.diagnosis-intro {
+.diag-subhero-curve svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ============================================
+   섹션 2: Slogan Section
+   - Text 01과 Text 02가 순차적으로 등장
+   - 동시에 보이지 않음
+   ============================================ */
+.diag-slogan {
+    background: var(--bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.diag-slogan-bg {
+    position: absolute;
+    inset: 0;
+}
+
+.diag-slogan-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.diag-slogan-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(44, 41, 38, 0.55);
+}
+
+.diag-slogan-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 0 12%;
+    max-width: 900px;
+    width: 100%;
+}
+
+/* Slogan Text 블록 - 기본적으로 숨김 */
+.diag-slogan-text {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) translateY(30px);
+    width: 100%;
+    max-width: 800px;
+    padding: 0 12%;
+    box-sizing: border-box;
+}
+
+.diag-slogan-text.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0);
+}
+
+.diag-slogan-text h3 {
+    font-family: var(--font-serif);
+    font-size: var(--font-display-lg);
+    font-weight: 400;
+    color: #fff;
+    line-height: var(--lh-snug);
+    margin-bottom: 24px;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.diag-slogan-text p {
+    font-family: var(--font-sans);
+    font-size: var(--font-body-lg);
+    color: rgba(255, 255, 255, 0.9);
+    line-height: var(--lh-relaxed);
+}
+
+/* ============================================
+   섹션 3: Equipment Section
+   - 일반 세로 스크롤, pin/sticky 없음
+   ============================================ */
+.diag-equipment {
+    background: var(--bg-color);
+    padding: 120px 12% 100px;
+    position: relative;
+    z-index: 10;
+}
+
+.diag-equipment-intro {
     max-width: 800px;
     margin: 0 auto 80px;
     text-align: center;
 }
 
-.diagnosis-intro p {
+.diag-equipment-intro p {
     font-size: var(--font-body-lg);
     line-height: var(--lh-relaxed);
     color: var(--text-color);
 }
 
-.diagnosis-grid {
+.diag-equipment-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 40px;
 }
 
-.diagnosis-card {
+.diag-equipment-card {
     background: #fff;
     border-radius: 16px;
     overflow: hidden;
@@ -3307,32 +3373,32 @@ body::before {
     transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.diagnosis-card:hover {
+.diag-equipment-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 60px rgba(44, 41, 38, 0.12);
 }
 
-.diagnosis-card-img {
+.diag-equipment-card-img {
     height: 280px;
     overflow: hidden;
 }
 
-.diagnosis-card-img img {
+.diag-equipment-card-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.6s ease;
 }
 
-.diagnosis-card:hover .diagnosis-card-img img {
+.diag-equipment-card:hover .diag-equipment-card-img img {
     transform: scale(1.05);
 }
 
-.diagnosis-card-text {
+.diag-equipment-card-text {
     padding: 30px;
 }
 
-.diagnosis-card-text h4 {
+.diag-equipment-card-text h4 {
     font-family: var(--font-serif);
     font-size: var(--font-heading-sm);
     color: var(--text-color);
@@ -3340,53 +3406,73 @@ body::before {
     font-weight: 500;
 }
 
-.diagnosis-card-text p {
+.diag-equipment-card-text p {
     font-size: var(--font-body-sm);
     line-height: var(--lh-relaxed);
     color: var(--text-color);
     opacity: 0.8;
 }
 
-/* Mobile responsive - 단일 sticky 구조 */
+/* ============================================
+   Mobile Responsive - 모바일에서는 세로 스크롤
+   ============================================ */
 @media (max-width: 768px) {
-    .hs-section {
+    .diag-horizontal-area {
         height: auto;
     }
     
-    .hs-sticky {
+    .diag-viewport {
         position: relative;
         height: auto;
     }
     
-    .hs-slogan-layer {
-        position: relative;
-        height: 100vh;
-        height: 100svh;
-    }
-    
-    .hs-hero-panel {
-        position: relative;
-        height: 100vh;
-        height: 100svh;
+    .diag-track {
+        flex-direction: column;
+        width: 100%;
         transform: none !important;
     }
     
-    .hs-hero-text {
+    .diag-panel {
+        flex: none;
+        width: 100%;
+        height: 100vh;
+        height: 100svh;
+    }
+    
+    .diag-subhero-text {
         bottom: 20%;
         left: 6%;
         right: 6%;
     }
     
-    .diagnosis-content {
+    .diag-slogan-text {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        opacity: 1;
+        padding: 0 6%;
+    }
+    
+    .diag-slogan-text.active {
+        transform: none;
+    }
+    
+    /* 모바일에서는 Text 01만 표시 */
+    .diag-slogan-text:nth-child(2) {
+        display: none;
+    }
+    
+    .diag-equipment {
         padding: 80px 6% 60px;
     }
     
-    .diagnosis-grid {
+    .diag-equipment-grid {
         grid-template-columns: 1fr;
         gap: 30px;
     }
     
-    .diagnosis-card-img {
+    .diag-equipment-card-img {
         height: 200px;
     }
 }
