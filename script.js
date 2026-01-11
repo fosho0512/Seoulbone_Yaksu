@@ -1266,6 +1266,15 @@ function cleanupDiagnosisNewScroll() {
         diagnosisNewScrollTrigger.kill();
         diagnosisNewScrollTrigger = null;
     }
+    
+    // Transform 초기화 - 라우트 재진입 시 트랙이 최종 위치에 고정되는 문제 방지
+    const track = document.querySelector('.hs-track');
+    if (track && typeof gsap !== 'undefined') {
+        gsap.set(track, { clearProps: 'transform' });
+    }
+    
+    // 헤더 상태 초기화
+    document.body.classList.remove('sub-hero-passed');
 }
 
 // LEGACY: Horizontal Scroll for Diagnostic Tools (Sub-hero → Slogan)
