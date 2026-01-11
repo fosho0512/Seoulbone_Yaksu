@@ -3171,6 +3171,7 @@ body::before {
     /* 스크롤 거리: 1vh = Sub Hero 고정 + 2vh = 가로 이동 + 1.5vh = Slogan dwell */
     height: 450vh;
     width: 100%;
+    background: var(--bg-color);
 }
 
 /* Sticky 뷰포트 - 화면에 고정되는 프레임 */
