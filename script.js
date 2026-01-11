@@ -1285,10 +1285,10 @@ function setupDiagnosisScroll() {
         SUBHERO_END: 0.10,      // Sub Hero 고정 끝
         SLIDE_END: 0.40,        // 가로 이동 끝
         TEXT1_END: 0.60,        // Text 01 끝
-        TEXT2_END: 0.85,        // Text 02 끝 (이후 세로 전환)
+        TEXT2_END: 0.85,        // Text 02 끝 (이후 세로 전환, 헤더 투명도 변경)
         // Slogan 85% 진입 = 가로 이동 85% 지점
-        // 0.10 + (0.40 - 0.10) * 0.85 = 0.10 + 0.255 = 0.355 ≈ 0.36
-        SLOGAN_APPEAR: 0.36
+        // 0.10 + (0.40 - 0.10) * 0.85 = 0.10 + 0.255 = 0.355
+        SLOGAN_APPEAR: 0.355
     };
     
     // 메인 트랙 이동 애니메이션
@@ -1338,8 +1338,8 @@ function setupDiagnosisScroll() {
                 }
             }
             
-            // 헤더 상태
-            if (progress >= PHASE.SLIDE_END) {
+            // 헤더 상태 (슬로건 섹션을 벗어나는 시점 = TEXT2_END)
+            if (progress >= PHASE.TEXT2_END) {
                 document.body.classList.add('sub-hero-passed');
             } else {
                 document.body.classList.remove('sub-hero-passed');
