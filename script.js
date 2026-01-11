@@ -126,6 +126,7 @@ function showContentView(id) {
     // 이전 슬라이더/인터랙션 정리
     cleanupValuesSlider();
     cleanupHorizontalScroll();
+    cleanupDiagnosisNewScroll();
     
     // Reset Content & Scroll
     elems.contentBody.innerHTML = "";
@@ -194,6 +195,55 @@ function showContentView(id) {
         `;
     } 
     else if (id === 'diagnosis') {
+        // NEW: 단순화된 구조 - 독립적인 article.route-diagnosis 컨테이너
+        html = `
+            <article class="route-diagnosis">
+                <div class="hs-section">
+                    <div class="hs-sticky">
+                        <div class="hs-track">
+                            <section class="hs-panel hs-panel-hero">
+                                <div class="hs-hero-image">
+                                    <img src="${data.heroImg || 'images/diagnosis-hero.png'}" alt="${data.title}">
+                                </div>
+                                <div class="hs-hero-overlay"></div>
+                                <div class="hs-hero-text">
+                                    <h2>${data.title}</h2>
+                                </div>
+                            </section>
+                            <section class="hs-panel hs-panel-slogan">
+                                <div class="hs-slogan-bg">
+                                    <img src="images/diagnosis-slogan.png" alt="Slogan">
+                                </div>
+                                <div class="hs-slogan-overlay"></div>
+                                <div class="hs-slogan-content">
+                                    <h2 class="hs-slogan-main">정확한 진단이<br>완치의 시작입니다</h2>
+                                    <p class="hs-slogan-desc">서울본재활의학과는 최첨단 진단 장비에 아낌없이 투자합니다.</p>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <div class="diagnosis-content">
+                    <div class="diagnosis-intro">
+                        <p>${data.desc}</p>
+                    </div>
+                    <div class="diagnosis-grid">
+                        ${data.details.map(det => `
+                            <div class="diagnosis-card">
+                                <div class="diagnosis-card-img"><img src="${det.img}" alt="${det.t}"></div>
+                                <div class="diagnosis-card-text">
+                                    <h4>${det.t}</h4>
+                                    <p>${det.d}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </article>
+        `;
+    }
+    else if (id === 'diagnosis_1') {
+        // LEGACY: 기존 버전 백업
         html = `
             <div class="horizontal-scroll-outer">
                 <div class="horizontal-scroll-wrapper">
@@ -560,8 +610,8 @@ function showContentView(id) {
     elems.homeView.classList.remove('active');
     elems.contentView.classList.add('active');
     
-    // 서브히어로 스크롤 효과 설정 (diagnosis 페이지 제외 - 별도 observer 사용)
-    if (id !== 'diagnosis') {
+    // 서브히어로 스크롤 효과 설정 (diagnosis, diagnosis_1 페이지 제외 - 별도 처리)
+    if (id !== 'diagnosis' && id !== 'diagnosis_1') {
         setupSubHeroScrollEffect();
     }
     
@@ -572,8 +622,15 @@ function showContentView(id) {
         }, 100);
     }
     
-    // Diagnosis 페이지 장비 내러티브 설정
+    // NEW Diagnosis 페이지 - 단순화된 horizontal scroll
     if (id === 'diagnosis') {
+        setTimeout(() => {
+            setupDiagnosisNewScroll();
+        }, 100);
+    }
+    
+    // LEGACY Diagnosis 페이지 - 기존 horizontal scroll
+    if (id === 'diagnosis_1') {
         setTimeout(() => {
             setupHorizontalScroll();
         }, 100);
@@ -770,6 +827,7 @@ function setupSubHeroScrollEffect() {
 function showHomeView(skipPushState = false) {
     cleanupValuesSlider();
     cleanupHorizontalScroll();
+    cleanupDiagnosisNewScroll();
     elems.contentView.classList.remove('active');
     elems.homeView.classList.add('active');
     document.body.classList.remove('content-view-active');
@@ -1145,7 +1203,72 @@ function cleanupValuesSlider() {
     }
 }
 
-// Horizontal Scroll for Diagnostic Tools (Sub-hero → Slogan)
+// NEW: 단순화된 Diagnosis 페이지 horizontal scroll
+let diagnosisNewScrollTrigger = null;
+
+function setupDiagnosisNewScroll() {
+    const section = document.querySelector('.hs-section');
+    const sticky = document.querySelector('.hs-sticky');
+    const track = document.querySelector('.hs-track');
+    
+    if (!section || !sticky || !track) {
+        console.warn('Diagnosis new scroll elements not found');
+        return;
+    }
+    
+    // 모바일에서는 수평 스크롤 비활성화
+    if (window.innerWidth <= 768) {
+        track.style.transform = 'none';
+        return;
+    }
+    
+    // GSAP ScrollTrigger 확인
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        console.warn('GSAP or ScrollTrigger not loaded for diagnosis new scroll');
+        return;
+    }
+    
+    // 기존 트리거 정리
+    if (diagnosisNewScrollTrigger) {
+        diagnosisNewScrollTrigger.kill();
+        diagnosisNewScrollTrigger = null;
+    }
+    
+    // 패널 수에 따른 이동 거리 계산
+    const panelCount = track.querySelectorAll('.hs-panel').length;
+    const moveDistance = (panelCount - 1) * 100; // vw 단위
+    
+    // ScrollTrigger로 horizontal scroll 구현
+    diagnosisNewScrollTrigger = gsap.to(track, {
+        x: `-${moveDistance}vw`,
+        ease: 'none',
+        scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: `+=${section.offsetHeight - window.innerHeight}`,
+            scrub: 1,
+            pin: sticky,
+            pinSpacing: false,
+            onUpdate: (self) => {
+                // 스크롤 진행도에 따른 헤더 상태 변경
+                if (self.progress >= 0.95) {
+                    document.body.classList.add('sub-hero-passed');
+                } else {
+                    document.body.classList.remove('sub-hero-passed');
+                }
+            }
+        }
+    });
+}
+
+function cleanupDiagnosisNewScroll() {
+    if (diagnosisNewScrollTrigger) {
+        diagnosisNewScrollTrigger.kill();
+        diagnosisNewScrollTrigger = null;
+    }
+}
+
+// LEGACY: Horizontal Scroll for Diagnostic Tools (Sub-hero → Slogan)
 let horizontalScrollHandler = null;
 let horizontalResizeHandler = null;
 let hasEnteredVerticalSection = false;

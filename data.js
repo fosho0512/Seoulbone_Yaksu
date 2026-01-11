@@ -48,9 +48,22 @@ const siteData = {
                 {t:"04. 진정한 환자 중심의 소통과 동행", d:"<strong>[Patient-Centered Communication & Partnership]</strong><br><br><b>Clear Explanation</b><br>어려운 의학 용어가 아닌 환자의 눈높이에서, 현재 상태와 통증의 원인을 상세하고 명확하게 설명해 드립니다.<br><br><b>Shared Decision Making</b><br>일방적인 치료 결정이 아닌, 가능한 다양한 치료 옵션의 장단점을 투명하게 제공하고 환자와 함께 최선의 방법을 고민합니다.<br><br><b>Treatment Roadmap</b><br>단순히 현재의 치료를 넘어, 앞으로 나아갈 장기적인 치료 방향성과 목표를 공유하여 치료 과정의 막연한 불안감을 해소합니다.", img:"images/values_04.jpg"} 
             ] 
         },
-        // 03. Diagnostic Tools
+        // 03. Diagnostic Tools (NEW - 단순화된 구조)
         diagnosis: { 
             title: "Diagnostic Tools", 
+            desc: "<strong>정확한 진단이 완치의 시작입니다.</strong><br>최첨단 진단 장비에 아낌없이 투자하여 통증의 근본 원인을 빠르고 정확하게 찾아냅니다.", 
+            modalImg: "images/diagnosis.jpg",
+            heroImg: "images/diagnosis-hero.png",
+            details: [ 
+                { t: "01. 고해상도 디지털 X-ray", d: `<strong>(High-Resolution Digital X-ray)</strong><br><br><i>\"뼈와 관절 상태를 확인하는 가장 기초적이고 필수적인 검사\"</i><br><br>기존 필름 방식 대비 방사선 피폭량을 현저히 줄여 안전성을 높인 최신 장비입니다. 촬영 즉시 고해상도의 선명한 영상을 획득하여 골절, 관절염, 척추 변형 등 골격계 이상 유무를 신속하게 평가합니다.`, img: "images/diagnosis_xray.jpg" },
+                { t: "02. 프리미엄 초음파 진단기 (3대)", d: `<strong>(Premium Ultrasound Systems - 3 Units)</strong><br><br><i>\"진료실에서 대기 없이 즉시 확인하는 '의사의 제2의 눈'\"</i><br><br>X-ray로 확인이 어려운 근육, 인대, 신경 등 연부 조직의 손상을 정밀하게 관찰합니다. 하이엔드급 장비 3대를 각 진료실에 배치하여, 대기 없이 진료 도중 즉각적으로 확인하고 설명해 드립니다.`, img: "images/diagnosis_ultra.jpg" },
+                { t: "03. C-arm (이동형 실시간 투시 영상)", d: `<strong>(C-arm Fluoroscopy with SELD)</strong><br><br><i>\"정확도는 높이고 피폭은 최소화한, 안전한 비수술 치료의 핵심\"</i><br><br>몸속을 실시간 동영상으로 보는 투시 장비입니다. 척추나 관절 깊숙한 부위에 시술 시, 바늘 위치를 네비게이션처럼 정확하게 안내합니다. 최신 저선량(SELD) 탑재로 방사선 노출을 획기적으로 줄였습니다.`, img: "images/diagnosis_carm.jpg" },
+                { t: "04. 신경전도 및 근전도 검사 (NCS/EMG)", d: `<strong>(Nerve Conduction & Electromyography)</strong><br><br><i>\"눈에 보이지 않는 신경과 근육의 기능적 이상을 찾아내는 정밀 검사\"</i><br><br>MRI나 X-ray만으로는 알 수 없는 신경의 기능적 상태를 전기적 신호로 평가합니다. 손발 저림, 근력 약화 등이 신경 문제인지 근육 문제인지, 손상 위치와 정도를 명확하게 감별 진단합니다.`, img: "images/diagnosis_emg.jpg" }
+            ] 
+        },
+        // 03-1. Diagnostic Tools (LEGACY - 기존 버전 백업)
+        diagnosis_1: { 
+            title: "Diagnostic Tools (Legacy)", 
             desc: "<strong>정확한 진단이 완치의 시작입니다.</strong><br>최첨단 진단 장비에 아낌없이 투자하여 통증의 근본 원인을 빠르고 정확하게 찾아냅니다.<br><br><strong>★ 우리의 원칙: 모든 시술의 영상 가이드화</strong><br>(Image-Guided Injection)<br>감이나 경험에만 의존하는 '블라인드 주사'를 지양합니다. 모든 시술은 초음파나 C-arm 실시간 영상을 보며 진행하여 독보적인 안전성을 확보합니다.", 
             modalImg: "images/diagnosis.jpg", 
             details: [ 
