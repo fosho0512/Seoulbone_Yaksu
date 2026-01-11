@@ -1230,6 +1230,7 @@ function setupDiagnosisScroll() {
     const track = document.querySelector('.diag-track');
     const sloganText1 = document.querySelector('.diag-slogan-text[data-slogan="1"]');
     const sloganText2 = document.querySelector('.diag-slogan-text[data-slogan="2"]');
+    const sloganPanel = document.querySelector('.diag-slogan');
     
     if (!area || !viewport || !track) {
         console.warn('Diagnosis V3: Required elements not found');
@@ -1338,6 +1339,15 @@ function setupDiagnosisScroll() {
                 }
             }
             
+            // 슬로건 배경 zoom-out 효과 (슬로건 진입 시)
+            if (sloganPanel) {
+                if (progress >= PHASE.SLOGAN_APPEAR) {
+                    sloganPanel.classList.add('zoom-out');
+                } else {
+                    sloganPanel.classList.remove('zoom-out');
+                }
+            }
+            
             // 헤더 상태 (슬로건 섹션을 벗어나는 시점 = TEXT2_END)
             if (progress >= PHASE.TEXT2_END) {
                 document.body.classList.add('sub-hero-passed');
@@ -1363,6 +1373,10 @@ function cleanupDiagnosisScroll() {
     // Slogan 텍스트 초기화
     const sloganTexts = document.querySelectorAll('.diag-slogan-text');
     sloganTexts.forEach(el => el.classList.remove('active'));
+    
+    // Slogan zoom-out 초기화
+    const sloganPanel = document.querySelector('.diag-slogan');
+    if (sloganPanel) sloganPanel.classList.remove('zoom-out');
     
     // 헤더 상태 초기화
     document.body.classList.remove('sub-hero-passed');

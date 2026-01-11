@@ -3298,12 +3298,19 @@ body::before {
 .diag-slogan-bg {
     position: absolute;
     inset: 0;
+    z-index: 1;
 }
 
 .diag-slogan-bg img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transform: scale(1.3);
+    transition: transform 3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.diag-slogan.zoom-out .diag-slogan-bg img {
+    transform: scale(1);
 }
 
 .diag-slogan-overlay {
