@@ -1151,7 +1151,6 @@ let horizontalResizeHandler = null;
 let hasEnteredVerticalSection = false;
 let horizontalDisplayProgress = 0;
 let horizontalLastFrameTime = 0;
-let currentHorizontalPhaseEnd = 0.65; // Will be recalculated dynamically
 
 function setupHorizontalScroll() {
     // Reset vertical section flag
@@ -1166,44 +1165,15 @@ function setupHorizontalScroll() {
     
     if (!outer || !wrapper || !track || panels.length === 0) return;
     
-    // calculateOuterHeight: must be defined before resize handler
-    function calculateOuterHeight() {
-        if (window.innerWidth <= 768) return; // Skip on mobile
-        const horizontalTravelDistance = track.scrollWidth - window.innerWidth;
-        const dwellZone = window.innerHeight * 0.5;
-        const totalHeight = horizontalTravelDistance + window.innerHeight + dwellZone;
-        outer.style.height = totalHeight + 'px';
-        
-        const totalScrollDistance = totalHeight - window.innerHeight;
-        if (totalScrollDistance > 0) {
-            currentHorizontalPhaseEnd = horizontalTravelDistance / totalScrollDistance;
-        }
-    }
-    
-    // Debounced resize handler
-    let resizeTimeout = null;
-    horizontalResizeHandler = () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            // Always cleanup and re-setup on significant resize
-            cleanupHorizontalScroll();
-            requestAnimationFrame(() => setupHorizontalScroll());
-        }, 150);
-    };
-    window.addEventListener('resize', horizontalResizeHandler);
-    
     // Check if mobile (disable horizontal scroll)
     if (window.innerWidth <= 768) {
-        outer.style.height = 'auto';
         panels.forEach(p => p.classList.add('active'));
         if (sloganSection) sloganSection.classList.add('active');
         setupEquipmentNarrative();
+        // Still setup header observer for mobile
         setupDiagnosisHeaderObserver();
         return;
     }
-    
-    // Calculate dynamic height for desktop
-    calculateOuterHeight();
     
     // Easing function - ease-in-out for slower, more deliberate movement
     function easeInOutCubic(t) {
@@ -1219,17 +1189,14 @@ function setupHorizontalScroll() {
     horizontalLastFrameTime = performance.now();
     
     function handleScroll() {
-        // Skip horizontal scroll logic on mobile
-        if (window.innerWidth <= 768) return;
-        
         const outerRect = outer.getBoundingClientRect();
         const totalScrollDistance = outer.offsetHeight - window.innerHeight;
         const scrollProgress = -outerRect.top;
         
-        // Phase allocation (dynamically calculated):
-        // 0% - horizontalPhaseEnd: Horizontal scroll (sub-hero slides left, slogan slides in)
-        // horizontalPhaseEnd - 100%: Dwell zone (slogan stays pinned and readable)
-        const horizontalPhaseEnd = currentHorizontalPhaseEnd;
+        // Phase allocation:
+        // 0% - 65%: Horizontal scroll (sub-hero slides left, slogan slides in)
+        // 65% - 100%: Dwell zone (slogan stays pinned and readable)
+        const horizontalPhaseEnd = 0.65;
         
         const overallProgress = Math.max(0, Math.min(1, scrollProgress / totalScrollDistance));
         
@@ -1367,6 +1334,20 @@ function setupHorizontalScroll() {
     
     horizontalScrollHandler = handleScroll;
     window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Resize handler
+    if (horizontalResizeHandler) {
+        window.removeEventListener('resize', horizontalResizeHandler);
+    }
+    
+    let resizeTimeout;
+    horizontalResizeHandler = () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            handleScroll();
+        }, 150);
+    };
+    window.addEventListener('resize', horizontalResizeHandler, { passive: true });
     
     // Initial state
     handleScroll();
