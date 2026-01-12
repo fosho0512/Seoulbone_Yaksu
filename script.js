@@ -253,6 +253,9 @@ function showContentView(id) {
                     </div>
                 </div>
                 
+                <!-- 헤더 투명도 전환 감지용 센티넬 (슬로건과 Equipment 사이) -->
+                <div class="equipment-header-trigger" id="equipment-header-trigger" aria-hidden="true"></div>
+                
                 <!-- 섹션 3: Equipment Narrative (Sticky Image + Scroll Text) -->
                 <div class="equipment-narrative">
                     <div class="sticky-image-wrapper">
@@ -1388,12 +1391,8 @@ function setupDiagnosisScroll() {
                 }
             }
             
-            // 헤더 상태 (슬로건 섹션을 벗어나는 시점 = TEXT2_END)
-            if (progress >= PHASE.TEXT2_END) {
-                document.body.classList.add('sub-hero-passed');
-            } else {
-                document.body.classList.remove('sub-hero-passed');
-            }
+            // 헤더 상태는 Equipment 섹션이 헤더에 닿을 때 변경 (별도 핸들러에서 처리)
+            // 여기서는 제거 - setupEquipmentNarrative에서 처리
             
             // 스크롤 인디케이터 제어
             // Sub Hero 인디케이터: 슬로건 진입 전까지 표시
@@ -1445,6 +1444,9 @@ function cleanupDiagnosisScroll() {
         window.removeEventListener('scroll', equipmentScrollHandler);
         equipmentScrollHandler = null;
     }
+    
+    // Equipment 헤더 observer 정리
+    cleanupEquipmentHeaderObserver();
     
     // 스크롤 인디케이터 초기화
     const indicatorSubhero = document.getElementById('diag-indicator-subhero');
@@ -1673,11 +1675,20 @@ function setupHorizontalScroll() {
 // Equipment Narrative (Sticky Image + Scroll Text)
 let equipmentScrollHandler = null;
 
+// IntersectionObserver for header trigger
+let equipmentHeaderObserver = null;
+
 function setupEquipmentNarrative() {
     const steps = document.querySelectorAll('.equipment-step');
     const images = document.querySelectorAll('.sticky-image img');
+    const stickyImage = document.querySelector('.sticky-image');
+    const header = document.getElementById('global-header');
     
     if (steps.length === 0 || images.length === 0) return;
+    
+    // IntersectionObserver로 헤더 투명도 전환
+    // stickyImage가 viewport에 진입할 때 (rootMargin으로 헤더 높이 보정)
+    setupEquipmentHeaderObserver(stickyImage, header);
     
     function handleEquipmentScroll() {
         const viewportMiddle = window.innerHeight / 2;
@@ -1711,47 +1722,61 @@ function setupEquipmentNarrative() {
     handleEquipmentScroll();
 }
 
-// Diagnosis page header observer - switch header state when entering vertical scroll
-let diagnosisHeaderObserver = null;
-
-function setupDiagnosisHeaderObserver() {
-    // For mobile: observe equipment-narrative since there's no horizontal scroll
-    const equipmentNarrative = document.querySelector('.equipment-narrative');
-    if (!equipmentNarrative) return;
-    
-    // Only use observer for mobile - desktop uses scroll progress in handleScroll
-    if (window.innerWidth > 768) return;
-    
-    // Cleanup existing observer
-    if (diagnosisHeaderObserver) {
-        diagnosisHeaderObserver.disconnect();
-        diagnosisHeaderObserver = null;
+// Equipment 섹션 헤더 전환용 IntersectionObserver
+function setupEquipmentHeaderObserver(targetElement, header) {
+    // 기존 observer 정리
+    if (equipmentHeaderObserver) {
+        equipmentHeaderObserver.disconnect();
+        equipmentHeaderObserver = null;
     }
     
-    // Mobile: observe equipment-narrative to trigger header state change
-    diagnosisHeaderObserver = new IntersectionObserver((entries) => {
+    if (!targetElement) return;
+    
+    // 헤더 높이 계산
+    const headerHeight = header ? header.offsetHeight : 70;
+    
+    // IntersectionObserver 설정
+    // rootMargin: 상단에 헤더 높이만큼 마진을 주어, 요소가 헤더 아래에 진입할 때 감지
+    // threshold: 0 = 요소가 조금이라도 보이면 트리거
+    equipmentHeaderObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            const rect = equipmentNarrative.getBoundingClientRect();
+            // isIntersecting: 요소가 viewport(rootMargin 보정됨)에 진입했는지
+            // boundingClientRect.top: 요소의 현재 위치
+            const rect = entry.boundingClientRect;
             
-            if (entry.isIntersecting) {
-                // Equipment narrative entering view → header opaque
-                hasEnteredVerticalSection = true;
+            // 요소가 viewport에 진입하고, 상단이 헤더 높이 아래에 있을 때
+            // = Equipment 컨텐츠가 헤더 영역과 겹칠 때
+            if (rect.top <= headerHeight) {
                 document.body.classList.add('sub-hero-passed');
             } else {
-                // Only clear if scrolled back up (element below viewport)
-                if (rect.top > window.innerHeight * 0.5) {
-                    hasEnteredVerticalSection = false;
-                    document.body.classList.remove('sub-hero-passed');
-                }
+                document.body.classList.remove('sub-hero-passed');
             }
         });
     }, {
         root: null,
-        rootMargin: '0px 0px -50% 0px',
-        threshold: 0
+        rootMargin: `0px 0px 0px 0px`,
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
     });
     
-    diagnosisHeaderObserver.observe(equipmentNarrative);
+    equipmentHeaderObserver.observe(targetElement);
+}
+
+function cleanupEquipmentHeaderObserver() {
+    if (equipmentHeaderObserver) {
+        equipmentHeaderObserver.disconnect();
+        equipmentHeaderObserver = null;
+    }
+}
+
+// Diagnosis page header observer - switch header state when entering vertical scroll
+let diagnosisHeaderObserver = null;
+
+function setupDiagnosisHeaderObserver() {
+    // 더 이상 사용하지 않음 - setupEquipmentHeaderObserver로 대체
+    if (diagnosisHeaderObserver) {
+        diagnosisHeaderObserver.disconnect();
+        diagnosisHeaderObserver = null;
+    }
 }
 
 function cleanupDiagnosisHeaderObserver() {
