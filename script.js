@@ -1687,8 +1687,8 @@ function setupEquipmentNarrative() {
     if (steps.length === 0 || images.length === 0) return;
     
     // IntersectionObserver로 헤더 투명도 전환
-    // stickyImage가 viewport에 진입할 때 (rootMargin으로 헤더 높이 보정)
-    setupEquipmentHeaderObserver(stickyImage, header);
+    // 동적 센티넬 시스템 사용
+    setupEquipmentHeaderObserver();
     
     function handleEquipmentScroll() {
         const viewportMiddle = window.innerHeight / 2;
@@ -1722,49 +1722,130 @@ function setupEquipmentNarrative() {
     handleEquipmentScroll();
 }
 
-// Equipment 섹션 헤더 전환용 IntersectionObserver
-function setupEquipmentHeaderObserver(targetElement, header) {
+// Equipment 섹션 헤더 전환용 동적 센티넬 시스템
+let equipmentSentinel = null;
+let equipmentResizeObserver = null;
+
+function createEquipmentHeaderSentinel() {
+    const narrative = document.querySelector('.equipment-narrative');
+    const stickyImage = document.querySelector('.sticky-image img.active') || document.querySelector('.sticky-image img');
+    const firstStep = document.querySelector('.equipment-step');
+    const header = document.getElementById('global-header');
+    
+    if (!narrative || !header) return null;
+    
+    // 기존 센티넬 제거
+    if (equipmentSentinel) {
+        equipmentSentinel.remove();
+        equipmentSentinel = null;
+    }
+    
+    // 첫 번째 보이는 컨텐츠의 위치 계산
+    // narrative의 padding-top을 기준으로 함
+    const narrativeStyle = getComputedStyle(narrative);
+    const narrativePaddingTop = parseFloat(narrativeStyle.paddingTop) || 100;
+    
+    // 센티넬 생성 - narrative 내부 첫 번째 컨텐츠 위치에 배치
+    equipmentSentinel = document.createElement('div');
+    equipmentSentinel.id = 'equipment-content-sentinel';
+    equipmentSentinel.style.cssText = `
+        position: absolute;
+        top: ${narrativePaddingTop}px;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        pointer-events: none;
+    `;
+    
+    // narrative를 relative로 만들어 센티넬 위치 기준 설정
+    narrative.style.position = 'relative';
+    narrative.insertBefore(equipmentSentinel, narrative.firstChild);
+    
+    return equipmentSentinel;
+}
+
+function setupEquipmentHeaderObserver() {
     // 기존 observer 정리
     if (equipmentHeaderObserver) {
         equipmentHeaderObserver.disconnect();
         equipmentHeaderObserver = null;
     }
     
-    if (!targetElement) return;
+    if (equipmentResizeObserver) {
+        equipmentResizeObserver.disconnect();
+        equipmentResizeObserver = null;
+    }
     
-    // 헤더 높이 계산
-    const headerHeight = header ? header.offsetHeight : 70;
+    const header = document.getElementById('global-header');
+    if (!header) return;
     
-    // IntersectionObserver 설정
-    // rootMargin: 상단에 헤더 높이만큼 마진을 주어, 요소가 헤더 아래에 진입할 때 감지
-    // threshold: 0 = 요소가 조금이라도 보이면 트리거
+    // 센티넬 생성
+    const sentinel = createEquipmentHeaderSentinel();
+    if (!sentinel) return;
+    
+    // 헤더 높이 (동적으로 계산)
+    const headerHeight = header.offsetHeight || 70;
+    
+    // IntersectionObserver: 센티넬이 헤더 영역에 진입할 때 감지
+    // rootMargin의 top을 negative로 설정하여 viewport 상단에서 headerHeight 만큼 안쪽으로 축소
     equipmentHeaderObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            // isIntersecting: 요소가 viewport(rootMargin 보정됨)에 진입했는지
-            // boundingClientRect.top: 요소의 현재 위치
-            const rect = entry.boundingClientRect;
-            
-            // 요소가 viewport에 진입하고, 상단이 헤더 높이 아래에 있을 때
-            // = Equipment 컨텐츠가 헤더 영역과 겹칠 때
-            if (rect.top <= headerHeight) {
+            // isIntersecting이 false가 되면 = 센티넬이 rootMargin 영역(헤더 아래)을 벗어남
+            // = 센티넬이 헤더 높이보다 위로 올라감 = 컨텐츠가 헤더와 겹침
+            if (!entry.isIntersecting && entry.boundingClientRect.top < headerHeight) {
                 document.body.classList.add('sub-hero-passed');
-            } else {
+            } else if (entry.isIntersecting || entry.boundingClientRect.top >= headerHeight) {
                 document.body.classList.remove('sub-hero-passed');
             }
         });
     }, {
         root: null,
-        rootMargin: `0px 0px 0px 0px`,
-        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+        rootMargin: `-${headerHeight}px 0px 0px 0px`,
+        threshold: [0]
     });
     
-    equipmentHeaderObserver.observe(targetElement);
+    equipmentHeaderObserver.observe(sentinel);
+    
+    // 리사이즈 시 센티넬 위치 재계산
+    equipmentResizeObserver = new ResizeObserver(() => {
+        const newSentinel = createEquipmentHeaderSentinel();
+        if (newSentinel && equipmentHeaderObserver) {
+            equipmentHeaderObserver.disconnect();
+            const newHeaderHeight = header.offsetHeight || 70;
+            
+            equipmentHeaderObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting && entry.boundingClientRect.top < newHeaderHeight) {
+                        document.body.classList.add('sub-hero-passed');
+                    } else if (entry.isIntersecting || entry.boundingClientRect.top >= newHeaderHeight) {
+                        document.body.classList.remove('sub-hero-passed');
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: `-${newHeaderHeight}px 0px 0px 0px`,
+                threshold: [0]
+            });
+            
+            equipmentHeaderObserver.observe(newSentinel);
+        }
+    });
+    
+    equipmentResizeObserver.observe(document.body);
 }
 
 function cleanupEquipmentHeaderObserver() {
     if (equipmentHeaderObserver) {
         equipmentHeaderObserver.disconnect();
         equipmentHeaderObserver = null;
+    }
+    if (equipmentResizeObserver) {
+        equipmentResizeObserver.disconnect();
+        equipmentResizeObserver = null;
+    }
+    if (equipmentSentinel) {
+        equipmentSentinel.remove();
+        equipmentSentinel = null;
     }
 }
 
