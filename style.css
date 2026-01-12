@@ -3095,19 +3095,59 @@ body::before {
     max-width: 900px;
     text-align: center;
     opacity: 0;
-    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     pointer-events: none;
 }
 
-.treatment-v2-slogan-group.active {
+.treatment-v2-slogan-group[data-group="1"],
+.treatment-v2-slogan-group[data-group="2"] {
+    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.treatment-v2-slogan-group[data-group="1"].active,
+.treatment-v2-slogan-group[data-group="2"].active {
     opacity: 1;
     transform: translate(-50%, -50%);
 }
 
-.treatment-v2-slogan-group.exit-up {
+.treatment-v2-slogan-group[data-group="1"].exit-up,
+.treatment-v2-slogan-group[data-group="2"].exit-up {
     opacity: 0;
-    transform: translate(-50%, calc(-50% - 40px));
+    transform: translate(-50%, calc(-50% - 50px));
+}
+
+.treatment-v2-slogan-group .slogan-line {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.treatment-v2-slogan-group .slogan-line.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.treatment-v2-slogan-group .slogan-line:nth-child(1) { transition-delay: 0s; }
+.treatment-v2-slogan-group .slogan-line:nth-child(2) { transition-delay: 0.12s; }
+.treatment-v2-slogan-group .slogan-line:nth-child(3) { transition-delay: 0.24s; }
+
+.treatment-v2-slogan-group[data-group="3"] {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    margin-top: 180vh;
+    margin-bottom: 20vh;
+    padding: 0 5%;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.treatment-v2-slogan-group[data-group="3"].active {
+    opacity: 1;
 }
 
 .treatment-v2-slogan-group .slogan-main {
@@ -3201,9 +3241,15 @@ body::before {
         min-height: 250vh;
     }
     
-    .treatment-v2-slogan-group {
+    .treatment-v2-slogan-group[data-group="1"],
+    .treatment-v2-slogan-group[data-group="2"] {
         width: 92%;
         padding: 0 4%;
+    }
+    
+    .treatment-v2-slogan-group[data-group="3"] {
+        margin-top: 130vh;
+        margin-bottom: 15vh;
     }
     
     .treatment-v2-slogan-group .slogan-main {

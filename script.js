@@ -464,9 +464,9 @@ function showContentView(id) {
                     </div>
                     <div class="treatment-v2-slogan-container">
                         <div class="treatment-v2-slogan-group" data-group="1">
-                            <h2 class="slogan-main">${data.slogans[0].main}</h2>
-                            <p class="slogan-sub">${data.slogans[0].sub || ''}</p>
-                            <p class="slogan-desc">${data.slogans[0].desc}</p>
+                            <h2 class="slogan-main slogan-line">${data.slogans[0].main}</h2>
+                            <p class="slogan-sub slogan-line">${data.slogans[0].sub || ''}</p>
+                            <p class="slogan-desc slogan-line">${data.slogans[0].desc}</p>
                         </div>
                         <div class="treatment-v2-slogan-group" data-group="2">
                             <h2 class="slogan-main">${data.slogans[1].main}</h2>
@@ -814,64 +814,110 @@ function setupTreatmentV2Scroll() {
     const sloganSection = document.querySelector('.treatment-v2-slogan-section');
     if (!sloganSection) return;
     
-    const groups = sloganSection.querySelectorAll('.treatment-v2-slogan-group');
-    if (groups.length === 0) return;
+    const group1 = sloganSection.querySelector('.treatment-v2-slogan-group[data-group="1"]');
+    const group2 = sloganSection.querySelector('.treatment-v2-slogan-group[data-group="2"]');
+    const group3 = sloganSection.querySelector('.treatment-v2-slogan-group[data-group="3"]');
+    
+    if (!group1 || !group2 || !group3) return;
+    
+    const group1Lines = group1.querySelectorAll('.slogan-line');
+    let lastScrollY = window.scrollY;
     
     const handleScroll = () => {
         const sectionRect = sloganSection.getBoundingClientRect();
         const sectionHeight = sloganSection.offsetHeight;
         const viewportHeight = window.innerHeight;
         
-        // 섹션이 뷰포트에 들어왔는지 확인
-        if (sectionRect.top > viewportHeight || sectionRect.bottom < 0) {
-            // 섹션 밖 - 모든 그룹 숨김
-            groups.forEach(g => {
-                g.classList.remove('active', 'exit-up');
-            });
+        const currentScrollY = window.scrollY;
+        const direction = currentScrollY > lastScrollY ? 'down' : 'up';
+        lastScrollY = currentScrollY;
+        
+        const sectionEntered = sectionRect.top <= 0;
+        const sectionExited = sectionRect.bottom <= viewportHeight;
+        
+        if (sectionRect.bottom <= 0) {
+            group1.classList.remove('active', 'exit-up');
+            group2.classList.remove('active', 'exit-up');
+            group3.classList.add('active');
+            group1Lines.forEach(line => line.classList.add('visible'));
+            document.body.classList.add('sub-hero-passed');
             return;
         }
         
-        // 스크롤 진행도 계산 (0 ~ 1)
+        if (!sectionEntered) {
+            group1.classList.remove('active', 'exit-up');
+            group2.classList.remove('active', 'exit-up');
+            group3.classList.remove('active');
+            group1Lines.forEach(line => line.classList.remove('visible'));
+            document.body.classList.remove('sub-hero-passed');
+            return;
+        }
+        
         const scrolled = -sectionRect.top;
         const scrollableDistance = sectionHeight - viewportHeight;
         const progress = Math.max(0, Math.min(1, scrolled / scrollableDistance));
         
-        // 각 그룹 활성화 범위 정의
-        // Group 1: 0% ~ 30%
-        // Group 2: 30% ~ 60%
-        // Group 3 (promises): 60% ~ 100%
-        
-        groups.forEach(group => {
-            const groupNum = parseInt(group.dataset.group);
-            let isActive = false;
-            let isExitUp = false;
-            
-            if (groupNum === 1) {
-                isActive = progress >= 0 && progress < 0.28;
-                isExitUp = progress >= 0.28 && progress < 0.35;
-            } else if (groupNum === 2) {
-                isActive = progress >= 0.30 && progress < 0.58;
-                isExitUp = progress >= 0.58 && progress < 0.65;
-            } else if (groupNum === 3) {
-                isActive = progress >= 0.55;
+        if (direction === 'down') {
+            if (progress < 0.35) {
+                group1.classList.add('active');
+                group1.classList.remove('exit-up');
+                group2.classList.remove('active', 'exit-up');
+                
+                const lineProgress = progress / 0.35;
+                group1Lines.forEach((line, idx) => {
+                    const threshold = idx / group1Lines.length;
+                    line.classList.toggle('visible', lineProgress > threshold);
+                });
+            } else if (progress < 0.70) {
+                group1.classList.remove('active');
+                group1.classList.add('exit-up');
+                group2.classList.add('active');
+                group2.classList.remove('exit-up');
+                group1Lines.forEach(line => line.classList.add('visible'));
+            } else {
+                group1.classList.remove('active', 'exit-up');
+                group2.classList.remove('active');
+                group2.classList.add('exit-up');
             }
             
-            group.classList.toggle('active', isActive);
-            group.classList.toggle('exit-up', isExitUp);
-        });
-        
-        // sub-hero-passed 상태 관리
-        if (progress > 0.1) {
-            document.body.classList.add('sub-hero-passed');
+            if (progress >= 0.65) {
+                group3.classList.add('active');
+            }
         } else {
-            document.body.classList.remove('sub-hero-passed');
+            if (progress >= 0.70) {
+                group2.classList.add('exit-up');
+                group2.classList.remove('active');
+            } else if (progress >= 0.35) {
+                group2.classList.add('active');
+                group2.classList.remove('exit-up');
+                group1.classList.add('exit-up');
+                group1.classList.remove('active');
+            } else if (progress > 0) {
+                group1.classList.add('active');
+                group1.classList.remove('exit-up');
+                group2.classList.remove('active', 'exit-up');
+                
+                const lineProgress = progress / 0.35;
+                group1Lines.forEach((line, idx) => {
+                    const threshold = idx / group1Lines.length;
+                    line.classList.toggle('visible', lineProgress > threshold);
+                });
+            } else {
+                group1.classList.remove('active', 'exit-up');
+                group1Lines.forEach(line => line.classList.remove('visible'));
+            }
+            
+            if (progress < 0.60) {
+                group3.classList.remove('active');
+            }
         }
+        
+        document.body.classList.remove('sub-hero-passed');
     };
     
     treatmentV2ScrollHandler = handleScroll;
     window.addEventListener('scroll', handleScroll);
     
-    // 초기 상태 설정
     handleScroll();
 }
 
