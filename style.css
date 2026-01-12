@@ -3239,6 +3239,14 @@ body::before {
     font-style: italic;
 }
 
+.treatment-v2-promises .promise-sub {
+    font-size: clamp(16px, 2vw, 24px);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: var(--lh-normal);
+    margin-top: 0.3rem;
+}
+
 .treatment-v2-grid-section {
     background: var(--bg-color);
     padding: 100px 6%;

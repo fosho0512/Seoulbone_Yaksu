@@ -80,19 +80,19 @@ const siteData = {
             heroImg: "images/treatment-hero.png",
             slogans: [
                 {
-                    main: "통증을 넘어",
-                    sub: "근본적인 기능 회복을 목표로",
-                    desc: "재활의학과와 정형외과의 전문성을 더해<br>근본적인 원인 해결을 지향합니다."
+                    main: "통증을 넘어,",
+                    sub: "근본적인 기능 회복을 위한 통합 치료 솔루션",
+                    desc: "재활의학과와 정형외과의 전문성을 더해<br>근본적인 원인 해결을 목표로 합니다."
                 },
                 {
-                    main: "서울본재활의학과의 약속",
+                    main: "서울본재활의학과의 3가지 약속",
                     desc: "대학병원급 최첨단 장비와 숙련된 노하우를 바탕으로<br>최적화된 맞춤형 통합 치료를 제공합니다."
                 }
             ],
             promises: [
-                { title: "Strict Standard", desc: "검증된 최상의 재료만 사용" },
-                { title: "Real-time Customization", desc: "매 내원 시 상태에 따른 최적 배합" },
-                { title: "Insight for Cause", desc: "구조와 기능을 바로잡는 근본 치유" }
+                { title: "Strict Standard", desc: "엄격한 재료의 선정", sub: "검증된 최상의 재료만 사용" },
+                { title: "Real-time Customization", desc: "실시간 맞춤 처방", sub: "매 내원 시 상태에 따른 최적 배합" },
+                { title: "Insight for Cause", desc: "근본을 보는 통찰", sub: "구조와 기능을 바로잡는 근본 치유" }
             ],
             details: [ 
                 { t: "01. 정밀 영상 유도 주사 치료", d: `<strong>[Precision Image-Guided Injection]</strong><br><i>\"보면서 치료하는 정확함, 안전하고 빠른 통증 해결\"</i><br><br>모든 주사 치료는 초음파나 C-arm 실시간 영상을 통해 타겟 부위를 확인하며 정확하게 투여합니다.<br>• <b>초음파 유도하 주사:</b> 인대, 힘줄 손상 부위에 정확히 주사 (프롤로, DNA 등)<br>• <b>C-arm 중재술:</b> 척추 심부 신경 주변의 염증과 부종을 가라앉히는 정밀 시술`, img: "images/treatment_injection.jpg" },

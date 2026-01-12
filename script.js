@@ -475,7 +475,8 @@ function showContentView(id) {
                         <div class="treatment-v2-slogan-group treatment-v2-promises" data-group="3">
                             ${data.promises.map(p => `
                                 <div class="promise-item">
-                                    <h3 class="promise-title">${p.desc} <span class="promise-en">${p.title}</span></h3>
+                                    <h3 class="promise-title">${p.desc} <span class="promise-en">(${p.title})</span></h3>
+                                    <p class="promise-sub">${p.sub}</p>
                                 </div>
                             `).join('')}
                         </div>
