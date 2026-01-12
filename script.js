@@ -836,6 +836,7 @@ function setupTreatmentV2Scroll() {
         const sectionExited = sectionRect.bottom <= viewportHeight;
         
         if (sectionRect.bottom <= 0) {
+            sloganSection.classList.add('zoom-active');
             group1.classList.remove('active', 'exit-up');
             group2.classList.remove('active', 'exit-up');
             group3.classList.add('active');
@@ -845,6 +846,7 @@ function setupTreatmentV2Scroll() {
         }
         
         if (!sectionEntered) {
+            sloganSection.classList.remove('zoom-active');
             group1.classList.remove('active', 'exit-up');
             group2.classList.remove('active', 'exit-up');
             group3.classList.remove('active');
@@ -852,6 +854,8 @@ function setupTreatmentV2Scroll() {
             document.body.classList.remove('sub-hero-passed');
             return;
         }
+        
+        sloganSection.classList.add('zoom-active');
         
         const scrolled = -sectionRect.top;
         const scrollableDistance = sectionHeight - viewportHeight;
@@ -927,10 +931,18 @@ function cleanupTreatmentV2Scroll() {
         treatmentV2ScrollHandler = null;
     }
     
+    const sloganSection = document.querySelector('.treatment-v2-slogan-section');
+    if (sloganSection) {
+        sloganSection.classList.remove('zoom-active');
+    }
+    
     const groups = document.querySelectorAll('.treatment-v2-slogan-group');
     groups.forEach(g => {
         g.classList.remove('active', 'exit-up');
     });
+    
+    const lines = document.querySelectorAll('.treatment-v2-slogan-group .slogan-line');
+    lines.forEach(line => line.classList.remove('visible'));
 }
 
 function setupSubHeroScrollEffect() {

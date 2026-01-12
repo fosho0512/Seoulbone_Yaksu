@@ -3073,7 +3073,13 @@ body::before {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transform: scale(1.3);
+    transition: transform 2s cubic-bezier(0.22, 1, 0.36, 1);
     filter: saturate(70%) contrast(95%) brightness(0.5);
+}
+
+.treatment-v2-slogan-section.zoom-active .treatment-v2-slogan-bg img {
+    transform: scale(1);
 }
 
 .treatment-v2-slogan-container {
@@ -3089,47 +3095,81 @@ body::before {
 .treatment-v2-slogan-group {
     position: fixed;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 900px;
-    text-align: center;
+    right: 0;
+    left: auto;
+    transform: translateY(-50%);
+    width: 50vw;
+    max-width: none;
+    text-align: left;
+    padding: 0 8% 0 5%;
+    box-sizing: border-box;
     opacity: 0;
     pointer-events: none;
 }
 
 .treatment-v2-slogan-group[data-group="1"],
 .treatment-v2-slogan-group[data-group="2"] {
-    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .treatment-v2-slogan-group[data-group="1"].active,
 .treatment-v2-slogan-group[data-group="2"].active {
     opacity: 1;
-    transform: translate(-50%, -50%);
 }
 
 .treatment-v2-slogan-group[data-group="1"].exit-up,
 .treatment-v2-slogan-group[data-group="2"].exit-up {
     opacity: 0;
-    transform: translate(-50%, calc(-50% - 50px));
 }
 
-.treatment-v2-slogan-group .slogan-line {
+.treatment-v2-slogan-group[data-group="1"] .slogan-line {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateX(40px);
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.treatment-v2-slogan-group .slogan-line.visible {
+.treatment-v2-slogan-group[data-group="1"] .slogan-line.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.treatment-v2-slogan-group[data-group="1"] .slogan-line:nth-child(1) { transition-delay: 0s; }
+.treatment-v2-slogan-group[data-group="1"] .slogan-line:nth-child(2) { transition-delay: 0.15s; }
+.treatment-v2-slogan-group[data-group="1"] .slogan-line:nth-child(3) { transition-delay: 0.3s; }
+
+.treatment-v2-slogan-group[data-group="2"] .slogan-main,
+.treatment-v2-slogan-group[data-group="2"] .slogan-desc {
+    opacity: 0;
+    transform: translateY(48px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.treatment-v2-slogan-group[data-group="2"].active .slogan-main {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0s;
+}
+
+.treatment-v2-slogan-group[data-group="2"].active .slogan-desc {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.15s;
+}
+
+.treatment-v2-slogan-group[data-group="3"] .promise-item {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.treatment-v2-slogan-group[data-group="3"].active .promise-item {
     opacity: 1;
     transform: translateY(0);
 }
 
-.treatment-v2-slogan-group .slogan-line:nth-child(1) { transition-delay: 0s; }
-.treatment-v2-slogan-group .slogan-line:nth-child(2) { transition-delay: 0.12s; }
-.treatment-v2-slogan-group .slogan-line:nth-child(3) { transition-delay: 0.24s; }
+.treatment-v2-slogan-group[data-group="3"].active .promise-item:nth-child(1) { transition-delay: 0s; }
+.treatment-v2-slogan-group[data-group="3"].active .promise-item:nth-child(2) { transition-delay: 0.12s; }
+.treatment-v2-slogan-group[data-group="3"].active .promise-item:nth-child(3) { transition-delay: 0.24s; }
 
 .treatment-v2-slogan-group[data-group="3"] {
     position: relative;
@@ -3151,26 +3191,27 @@ body::before {
 }
 
 .treatment-v2-slogan-group .slogan-main {
-    font-size: clamp(28px, 4vw, 52px);
-    font-weight: 300;
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 500;
     color: #fff;
     line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
     margin-bottom: 1.5rem;
     font-family: var(--font-heading);
 }
 
 .treatment-v2-slogan-group .slogan-sub {
-    font-size: clamp(18px, 2.2vw, 32px);
-    font-weight: 300;
-    color: var(--gold);
-    margin-bottom: 1rem;
-    font-family: var(--font-heading);
+    font-size: clamp(22px, 2.8vw, 39px);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1.2rem;
+    line-height: var(--lh-snug);
 }
 
 .treatment-v2-slogan-group .slogan-desc {
-    font-size: clamp(14px, 1.6vw, 22px);
+    font-size: clamp(16px, 2vw, 28px);
     font-weight: 300;
-    line-height: var(--lh-relaxed);
+    line-height: var(--lh-normal);
     color: rgba(255, 255, 255, 0.8);
 }
 
@@ -3181,34 +3222,13 @@ body::before {
     gap: 2rem;
 }
 
-.treatment-v2-promises .promise-item {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.treatment-v2-promises.active .promise-item {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.treatment-v2-promises.active .promise-item:nth-child(1) {
-    transition-delay: 0s;
-}
-
-.treatment-v2-promises.active .promise-item:nth-child(2) {
-    transition-delay: 0.15s;
-}
-
-.treatment-v2-promises.active .promise-item:nth-child(3) {
-    transition-delay: 0.3s;
-}
-
 .treatment-v2-promises .promise-title {
-    font-size: clamp(18px, 2.2vw, 32px);
-    font-weight: 400;
+    font-size: clamp(28px, 3.6vw, 50px);
+    font-weight: 500;
     color: #fff;
     font-family: var(--font-heading);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
 }
 
 .treatment-v2-promises .promise-en {
@@ -3243,25 +3263,29 @@ body::before {
     
     .treatment-v2-slogan-group[data-group="1"],
     .treatment-v2-slogan-group[data-group="2"] {
-        width: 92%;
-        padding: 0 4%;
+        width: 100%;
+        left: 0;
+        right: 0;
+        padding: 0 6%;
+        text-align: center;
     }
     
     .treatment-v2-slogan-group[data-group="3"] {
         margin-top: 130vh;
         margin-bottom: 15vh;
+        text-align: center;
     }
     
     .treatment-v2-slogan-group .slogan-main {
-        font-size: clamp(22px, 5.5vw, 32px);
+        font-size: clamp(24px, 6vw, 32px);
     }
     
     .treatment-v2-slogan-group .slogan-sub {
-        font-size: clamp(16px, 4vw, 24px);
+        font-size: clamp(18px, 4.5vw, 24px);
     }
     
     .treatment-v2-slogan-group .slogan-desc {
-        font-size: clamp(13px, 3.5vw, 18px);
+        font-size: clamp(14px, 3.8vw, 18px);
     }
     
     .treatment-v2-promises {
@@ -3269,7 +3293,7 @@ body::before {
     }
     
     .treatment-v2-promises .promise-title {
-        font-size: clamp(16px, 4vw, 24px);
+        font-size: clamp(20px, 5vw, 28px);
     }
     
     .treatment-v2-grid-section {
