@@ -1544,21 +1544,6 @@ function cleanupDiagnosisHeaderObserver() {
 }
 
 function cleanupHorizontalScroll() {
-    if (horizontalScrollHandler) {
-        window.removeEventListener('scroll', horizontalScrollHandler);
-        horizontalScrollHandler = null;
-    }
-    
-    if (horizontalResizeHandler) {
-        window.removeEventListener('resize', horizontalResizeHandler);
-        horizontalResizeHandler = null;
-    }
-    
-    // Reset velocity clamping state for next visit
-    horizontalDisplayProgress = 0;
-    horizontalLastFrameTime = 0;
-    hasEnteredVerticalSection = false;
-    
     if (equipmentScrollHandler) {
         window.removeEventListener('scroll', equipmentScrollHandler);
         equipmentScrollHandler = null;
