@@ -72,6 +72,34 @@ const siteData = {
                 { t: "03. 도수 및 재활 운동 치료", d: `<strong>[Manual Therapy & Rehabilitation Exercise]</strong><br><i>\"무너진 신체 밸런스를 바로잡아 재발을 막는 근본 해결책\"</i><br><br>• <b>1:1 도수 치료:</b> 전문 치료사가 굳어진 관절을 풀고 척추/골반 정렬 교정<br>• <b>맞춤 재활 운동:</b> 약해진 근력 강화 및 가동 범위 회복, 재발 방지`, img: "images/treatment_manual.jpg" }
             ] 
         },
+        // 04-1. Integrated Treatment Solutions V2 (최적화 버전)
+        treatment_v2: { 
+            title: "Integrated Solutions V2", 
+            desc: "<strong>통증을 넘어, 근본적인 기능 회복을 위한 통합 치료 솔루션</strong><br>재활의학과와 정형외과의 전문성을 더해 근본적인 원인 해결을 목표로 합니다.", 
+            modalImg: "images/treatment.jpg",
+            heroImg: "images/treatment-hero.png",
+            slogans: [
+                {
+                    main: "통증을 넘어",
+                    sub: "근본적인 기능 회복을 목표로",
+                    desc: "재활의학과와 정형외과의 전문성을 더해<br>근본적인 원인 해결을 지향합니다."
+                },
+                {
+                    main: "서울본재활의학과의 약속",
+                    desc: "대학병원급 최첨단 장비와 숙련된 노하우를 바탕으로<br>최적화된 맞춤형 통합 치료를 제공합니다."
+                }
+            ],
+            promises: [
+                { title: "Strict Standard", desc: "검증된 최상의 재료만 사용" },
+                { title: "Real-time Customization", desc: "매 내원 시 상태에 따른 최적 배합" },
+                { title: "Insight for Cause", desc: "구조와 기능을 바로잡는 근본 치유" }
+            ],
+            details: [ 
+                { t: "01. 정밀 영상 유도 주사 치료", d: `<strong>[Precision Image-Guided Injection]</strong><br><i>\"보면서 치료하는 정확함, 안전하고 빠른 통증 해결\"</i><br><br>모든 주사 치료는 초음파나 C-arm 실시간 영상을 통해 타겟 부위를 확인하며 정확하게 투여합니다.<br>• <b>초음파 유도하 주사:</b> 인대, 힘줄 손상 부위에 정확히 주사 (프롤로, DNA 등)<br>• <b>C-arm 중재술:</b> 척추 심부 신경 주변의 염증과 부종을 가라앉히는 정밀 시술`, img: "images/treatment_injection.jpg" },
+                { t: "02. 첨단 특수 물리·재생 치료", d: `<strong>[Advanced Modality & Regenerative Therapy]</strong><br><i>\"대학병원급 하이엔드 장비를 이용한 비수술적 재생 관리\"</i><br><br>• <b>체외충격파 (ESWT):</b> 혈관 재형성 유도 및 힘줄/조직 재생 촉진<br>• <b>고강도 레이저 (HILT):</b> 깊은 조직까지 에너지 전달, 통증 감소 및 회복 촉진<br>• <b>스크램블러 테라피:</b> 난치성 만성 통증 신호를 무통증 신호로 전환<br>• <b>자기장 치료:</b> 심부 근육 경직 이완 및 신경 세포 자극`, img: "images/treatment_modality.jpg" },
+                { t: "03. 도수 및 재활 운동 치료", d: `<strong>[Manual Therapy & Rehabilitation Exercise]</strong><br><i>\"무너진 신체 밸런스를 바로잡아 재발을 막는 근본 해결책\"</i><br><br>• <b>1:1 도수 치료:</b> 전문 치료사가 굳어진 관절을 풀고 척추/골반 정렬 교정<br>• <b>맞춤 재활 운동:</b> 약해진 근력 강화 및 가동 범위 회복, 재발 방지`, img: "images/treatment_manual.jpg" }
+            ] 
+        },
         // 05. Cell Therapy (PRP)
         prp: { 
             title: "Cell Therapy (PRP)", 

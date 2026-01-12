@@ -127,6 +127,7 @@ function showContentView(id) {
     cleanupValuesSlider();
     cleanupHorizontalScroll();
     cleanupDiagnosisScroll();
+    cleanupTreatmentV2Scroll();
     
     // Reset Content & Scroll
     elems.contentBody.innerHTML = "";
@@ -430,10 +431,68 @@ function showContentView(id) {
         
         let heroImagePath = 'images/staff-hero.png';
         if (id === 'treatment') heroImagePath = 'images/treatment-hero.png';
+        else if (id === 'treatment_v2') heroImagePath = 'images/treatment-hero.png';
         else if (id === 'contact') heroImagePath = 'images/contact-hero.png';
         else if (id === 'facilities') heroImagePath = 'images/treatment-hero.png';
 
-        if (id === 'treatment') {
+        if (id === 'treatment_v2') {
+            html = `
+                <div class="sub-hero" id="${id}-sub-hero">
+                    <div class="sub-hero-image">
+                        <img src="${heroImagePath}" alt="${data.title} Hero">
+                    </div>
+                    <div class="sub-hero-overlay"></div>
+                    <div class="sub-hero-text">
+                        <h2>${data.title}</h2>
+                    </div>
+                    <div class="scroll-indicator">
+                        <div class="scroll-indicator-circle">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 5v14M5 12l7 7 7-7"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="sub-hero-curve">
+                        <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                            <path d="M0,100 L0,40 Q360,100 720,50 Q1080,0 1440,60 L1440,100 Z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <section class="treatment-v2-slogan-section">
+                    <div class="treatment-v2-slogan-bg">
+                        <img src="images/treatment-intro-bg.jpg" alt="Background">
+                    </div>
+                    <div class="treatment-v2-slogan-container">
+                        <div class="treatment-v2-slogan-group" data-group="1">
+                            <h2 class="slogan-main">${data.slogans[0].main}</h2>
+                            <p class="slogan-sub">${data.slogans[0].sub || ''}</p>
+                            <p class="slogan-desc">${data.slogans[0].desc}</p>
+                        </div>
+                        <div class="treatment-v2-slogan-group" data-group="2">
+                            <h2 class="slogan-main">${data.slogans[1].main}</h2>
+                            <p class="slogan-desc">${data.slogans[1].desc}</p>
+                        </div>
+                        <div class="treatment-v2-slogan-group treatment-v2-promises" data-group="3">
+                            ${data.promises.map(p => `
+                                <div class="promise-item">
+                                    <h3 class="promise-title">${p.desc} <span class="promise-en">${p.title}</span></h3>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+                <section class="treatment-v2-grid-section">
+                    <div class="modal-grid">
+                        ${data.details.map(det => `
+                            <div class="grid-item">
+                                <div class="grid-img-wrapper"><img src="${det.img}" alt="${det.t}"></div>
+                                <div class="grid-text-wrapper"><h4>${det.t}</h4><p>${det.d}</p></div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </section>
+            `;
+        } else if (id === 'treatment') {
             html = `
                 <div class="treatment-sticky-wrapper">
                     <div class="sub-hero treatment-sub-hero-sticky" id="${id}-sub-hero">
@@ -591,6 +650,13 @@ function showContentView(id) {
         }, 100);
     }
     
+    // Treatment V2 페이지 스크롤 효과 설정
+    if (id === 'treatment_v2') {
+        setTimeout(() => {
+            setupTreatmentV2Scroll();
+        }, 100);
+    }
+    
     // Close menu if open
     if (document.body.classList.contains('menu-open')) {
         document.body.classList.remove('menu-open');
@@ -741,6 +807,86 @@ function setupTreatmentIntroZoom() {
     tl.to(group345, { opacity: 0, duration: 0.01 }, 0.98);
 }
 
+// Treatment V2 스크롤 효과 (순수 JS)
+let treatmentV2ScrollHandler = null;
+
+function setupTreatmentV2Scroll() {
+    const sloganSection = document.querySelector('.treatment-v2-slogan-section');
+    if (!sloganSection) return;
+    
+    const groups = sloganSection.querySelectorAll('.treatment-v2-slogan-group');
+    if (groups.length === 0) return;
+    
+    const handleScroll = () => {
+        const sectionRect = sloganSection.getBoundingClientRect();
+        const sectionHeight = sloganSection.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        
+        // 섹션이 뷰포트에 들어왔는지 확인
+        if (sectionRect.top > viewportHeight || sectionRect.bottom < 0) {
+            // 섹션 밖 - 모든 그룹 숨김
+            groups.forEach(g => {
+                g.classList.remove('active', 'exit-up');
+            });
+            return;
+        }
+        
+        // 스크롤 진행도 계산 (0 ~ 1)
+        const scrolled = -sectionRect.top;
+        const scrollableDistance = sectionHeight - viewportHeight;
+        const progress = Math.max(0, Math.min(1, scrolled / scrollableDistance));
+        
+        // 각 그룹 활성화 범위 정의
+        // Group 1: 0% ~ 30%
+        // Group 2: 30% ~ 60%
+        // Group 3 (promises): 60% ~ 100%
+        
+        groups.forEach(group => {
+            const groupNum = parseInt(group.dataset.group);
+            let isActive = false;
+            let isExitUp = false;
+            
+            if (groupNum === 1) {
+                isActive = progress >= 0 && progress < 0.28;
+                isExitUp = progress >= 0.28 && progress < 0.35;
+            } else if (groupNum === 2) {
+                isActive = progress >= 0.30 && progress < 0.58;
+                isExitUp = progress >= 0.58 && progress < 0.65;
+            } else if (groupNum === 3) {
+                isActive = progress >= 0.55;
+            }
+            
+            group.classList.toggle('active', isActive);
+            group.classList.toggle('exit-up', isExitUp);
+        });
+        
+        // sub-hero-passed 상태 관리
+        if (progress > 0.1) {
+            document.body.classList.add('sub-hero-passed');
+        } else {
+            document.body.classList.remove('sub-hero-passed');
+        }
+    };
+    
+    treatmentV2ScrollHandler = handleScroll;
+    window.addEventListener('scroll', handleScroll);
+    
+    // 초기 상태 설정
+    handleScroll();
+}
+
+function cleanupTreatmentV2Scroll() {
+    if (treatmentV2ScrollHandler) {
+        window.removeEventListener('scroll', treatmentV2ScrollHandler);
+        treatmentV2ScrollHandler = null;
+    }
+    
+    const groups = document.querySelectorAll('.treatment-v2-slogan-group');
+    groups.forEach(g => {
+        g.classList.remove('active', 'exit-up');
+    });
+}
+
 function setupSubHeroScrollEffect() {
     const subHero = document.querySelector('.sub-hero');
     if (!subHero) return;
@@ -776,6 +922,7 @@ function showHomeView(skipPushState = false) {
     cleanupValuesSlider();
     cleanupHorizontalScroll();
     cleanupDiagnosisScroll();
+    cleanupTreatmentV2Scroll();
     elems.contentView.classList.remove('active');
     elems.homeView.classList.add('active');
     document.body.classList.remove('content-view-active');
