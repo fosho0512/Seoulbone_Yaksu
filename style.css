@@ -3189,6 +3189,11 @@ body::before {
     opacity: 1;
 }
 
+.treatment-v2-slogan-group[data-group="3"].is-exiting {
+    position: absolute;
+    transform: translateX(-50%);
+}
+
 .treatment-v2-slogan-group .slogan-main {
     font-size: clamp(24px, 2.8vw, 42px);
     font-weight: 400;

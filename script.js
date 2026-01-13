@@ -862,12 +862,15 @@ function setupTreatmentV2Scroll() {
         const scrollableDistance = sectionHeight - viewportHeight;
         const progress = Math.max(0, Math.min(1, scrolled / scrollableDistance));
         
+        const isUnpinning = sectionRect.bottom <= viewportHeight;
+        
         if (direction === 'down') {
             if (progress < 0.35) {
                 group1.classList.add('active');
                 group1.classList.remove('exit-up');
                 group2.classList.remove('active', 'exit-up');
-                group3.classList.remove('active');
+                group3.classList.remove('active', 'is-exiting');
+                group3.style.top = '';
                 
                 const lineProgress = progress / 0.35;
                 group1Lines.forEach((line, idx) => {
@@ -879,30 +882,59 @@ function setupTreatmentV2Scroll() {
                 group1.classList.add('exit-up');
                 group2.classList.add('active');
                 group2.classList.remove('exit-up');
-                group3.classList.remove('active');
+                group3.classList.remove('active', 'is-exiting');
+                group3.style.top = '';
                 group1Lines.forEach(line => line.classList.add('visible'));
             } else {
                 group1.classList.remove('active', 'exit-up');
                 group2.classList.remove('active');
                 group2.classList.add('exit-up');
                 group3.classList.add('active');
+                
+                if (isUnpinning) {
+                    if (!group3.classList.contains('is-exiting')) {
+                        const group3Rect = group3.getBoundingClientRect();
+                        const sectionTop = sectionRect.top + window.scrollY;
+                        const absoluteTop = group3Rect.top + window.scrollY - sectionTop;
+                        group3.style.top = absoluteTop + 'px';
+                        group3.classList.add('is-exiting');
+                    }
+                } else {
+                    group3.classList.remove('is-exiting');
+                    group3.style.top = '';
+                }
             }
         } else {
             if (progress >= 0.65) {
                 group2.classList.add('exit-up');
                 group2.classList.remove('active');
                 group3.classList.add('active');
+                
+                if (isUnpinning) {
+                    if (!group3.classList.contains('is-exiting')) {
+                        const group3Rect = group3.getBoundingClientRect();
+                        const sectionTop = sectionRect.top + window.scrollY;
+                        const absoluteTop = group3Rect.top + window.scrollY - sectionTop;
+                        group3.style.top = absoluteTop + 'px';
+                        group3.classList.add('is-exiting');
+                    }
+                } else {
+                    group3.classList.remove('is-exiting');
+                    group3.style.top = '';
+                }
             } else if (progress >= 0.35) {
                 group2.classList.add('active');
                 group2.classList.remove('exit-up');
                 group1.classList.add('exit-up');
                 group1.classList.remove('active');
-                group3.classList.remove('active');
+                group3.classList.remove('active', 'is-exiting');
+                group3.style.top = '';
             } else if (progress > 0) {
                 group1.classList.add('active');
                 group1.classList.remove('exit-up');
                 group2.classList.remove('active', 'exit-up');
-                group3.classList.remove('active');
+                group3.classList.remove('active', 'is-exiting');
+                group3.style.top = '';
                 
                 const lineProgress = progress / 0.35;
                 group1Lines.forEach((line, idx) => {
@@ -912,7 +944,8 @@ function setupTreatmentV2Scroll() {
             } else {
                 group1.classList.remove('active', 'exit-up');
                 group2.classList.remove('active', 'exit-up');
-                group3.classList.remove('active');
+                group3.classList.remove('active', 'is-exiting');
+                group3.style.top = '';
                 group1Lines.forEach(line => line.classList.remove('visible'));
             }
         }
@@ -939,7 +972,8 @@ function cleanupTreatmentV2Scroll() {
     
     const groups = document.querySelectorAll('.treatment-v2-slogan-group');
     groups.forEach(g => {
-        g.classList.remove('active', 'exit-up');
+        g.classList.remove('active', 'exit-up', 'is-exiting');
+        g.style.top = '';
     });
     
     const lines = document.querySelectorAll('.treatment-v2-slogan-group .slogan-line');
