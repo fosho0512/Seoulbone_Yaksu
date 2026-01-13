@@ -3172,18 +3172,18 @@ body::before {
 .treatment-v2-slogan-group[data-group="3"].active .promise-item:nth-child(3) { transition-delay: 0.24s; }
 
 .treatment-v2-slogan-group[data-group="3"] {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    width: 100%;
+    position: sticky;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
     max-width: 800px;
-    margin: 180vh auto 20vh;
+    margin: 150vh 0 30vh;
     padding: 0 8%;
     box-sizing: border-box;
     text-align: center;
     opacity: 0;
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition: opacity 0.6s ease;
 }
 
 .treatment-v2-slogan-group[data-group="3"].active {
@@ -3283,9 +3283,11 @@ body::before {
     }
     
     .treatment-v2-slogan-group[data-group="3"] {
-        margin-top: 130vh;
-        margin-bottom: 15vh;
-        text-align: center;
+        margin: 120vh 0 20vh;
+        width: 100%;
+        left: 0;
+        transform: translateY(-50%);
+        padding: 0 6%;
     }
     
     .treatment-v2-slogan-group .slogan-main {
