@@ -3206,6 +3206,11 @@ body::before {
     pointer-events: auto;
 }
 
+.treatment-v2-slogan-group[data-group="3"].exit-left .promise-item {
+    opacity: 0;
+    transform: translateX(-40px);
+}
+
 .treatment-v2-slogan-group .slogan-main {
     font-size: clamp(24px, 2.8vw, 42px);
     font-weight: 400;
