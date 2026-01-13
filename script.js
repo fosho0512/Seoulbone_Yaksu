@@ -128,6 +128,7 @@ function showContentView(id) {
     cleanupHorizontalScroll();
     cleanupDiagnosisScroll();
     cleanupTreatmentV2Scroll();
+    cleanupTreatmentV2Details();
     
     // Reset Content & Scroll
     elems.contentBody.innerHTML = "";
@@ -484,15 +485,18 @@ function showContentView(id) {
                         </div>
                     </div>
                 </section>
-                <section class="treatment-v2-grid-section">
-                    <div class="modal-grid">
-                        ${data.details.map(det => `
-                            <div class="grid-item">
-                                <div class="grid-img-wrapper"><img src="${det.img}" alt="${det.t}"></div>
-                                <div class="grid-text-wrapper"><h4>${det.t}</h4><p>${det.d}</p></div>
+                <section class="treatment-v2-details-section">
+                    ${data.details.map((det, idx) => `
+                        <div class="treatment-v2-detail-row ${idx % 2 === 0 ? 'text-left' : 'text-right'}">
+                            <div class="treatment-v2-detail-text">
+                                <h3 class="detail-title">${det.t}</h3>
+                                <p class="detail-desc">${det.d}</p>
                             </div>
-                        `).join('')}
-                    </div>
+                            <div class="treatment-v2-detail-img">
+                                <img src="${det.img}" alt="${det.t}">
+                            </div>
+                        </div>
+                    `).join('')}
                 </section>
             `;
         } else if (id === 'treatment') {
@@ -657,6 +661,7 @@ function showContentView(id) {
     if (id === 'treatment_v2') {
         setTimeout(() => {
             setupTreatmentV2Scroll();
+            setupTreatmentV2Details();
         }, 100);
     }
     
@@ -912,6 +917,39 @@ function cleanupTreatmentV2Scroll() {
     lines.forEach(line => line.classList.remove('visible'));
 }
 
+let treatmentV2DetailsObserver = null;
+
+function setupTreatmentV2Details() {
+    const detailTexts = document.querySelectorAll('.treatment-v2-detail-text');
+    const detailImgs = document.querySelectorAll('.treatment-v2-detail-img');
+    
+    if (detailTexts.length === 0) return;
+    
+    treatmentV2DetailsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+            }
+        });
+    }, { 
+        threshold: 0.2,
+        rootMargin: '0px 0px -10% 0px'
+    });
+    
+    detailTexts.forEach(el => treatmentV2DetailsObserver.observe(el));
+    detailImgs.forEach(el => treatmentV2DetailsObserver.observe(el));
+}
+
+function cleanupTreatmentV2Details() {
+    if (treatmentV2DetailsObserver) {
+        treatmentV2DetailsObserver.disconnect();
+        treatmentV2DetailsObserver = null;
+    }
+    
+    const elements = document.querySelectorAll('.treatment-v2-detail-text, .treatment-v2-detail-img');
+    elements.forEach(el => el.classList.remove('fade-in'));
+}
+
 function setupSubHeroScrollEffect() {
     const subHero = document.querySelector('.sub-hero');
     if (!subHero) return;
@@ -948,6 +986,7 @@ function showHomeView(skipPushState = false) {
     cleanupHorizontalScroll();
     cleanupDiagnosisScroll();
     cleanupTreatmentV2Scroll();
+    cleanupTreatmentV2Details();
     elems.contentView.classList.remove('active');
     elems.homeView.classList.add('active');
     document.body.classList.remove('content-view-active');
