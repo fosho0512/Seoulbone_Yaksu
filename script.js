@@ -840,7 +840,8 @@ function setupTreatmentV2Scroll() {
             sloganSection.classList.add('zoom-active');
             group1.classList.remove('active', 'exit-up');
             group2.classList.remove('active', 'exit-up');
-            group3.classList.add('active');
+            group3.classList.add('active', 'released');
+            group3.classList.remove('pinned');
             group1Lines.forEach(line => line.classList.add('visible'));
             document.body.classList.add('sub-hero-passed');
             return;
