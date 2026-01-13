@@ -459,26 +459,28 @@ function showContentView(id) {
                     </div>
                 </div>
                 <section class="treatment-v2-slogan-section">
-                    <div class="treatment-v2-slogan-bg">
-                        <img src="images/treatment-intro-bg.jpg" alt="Background">
-                    </div>
-                    <div class="treatment-v2-slogan-container">
-                        <div class="treatment-v2-slogan-group" data-group="1">
-                            <h2 class="slogan-main slogan-line">${data.slogans[0].main}</h2>
-                            <p class="slogan-sub slogan-line">${data.slogans[0].sub || ''}</p>
-                            <p class="slogan-desc slogan-line">${data.slogans[0].desc}</p>
+                    <div class="treatment-v2-slogan-stage">
+                        <div class="treatment-v2-slogan-bg">
+                            <img src="images/treatment-intro-bg.jpg" alt="Background">
                         </div>
-                        <div class="treatment-v2-slogan-group" data-group="2">
-                            <h2 class="slogan-main">${data.slogans[1].main}</h2>
-                            <p class="slogan-desc">${data.slogans[1].desc}</p>
-                        </div>
-                        <div class="treatment-v2-slogan-group treatment-v2-promises" data-group="3">
-                            ${data.promises.map(p => `
-                                <div class="promise-item">
-                                    <h3 class="promise-title">${p.name} <span class="promise-en">${p.title}</span></h3>
-                                    <p class="promise-desc">${p.desc}</p>
-                                </div>
-                            `).join('')}
+                        <div class="treatment-v2-slogan-container">
+                            <div class="treatment-v2-slogan-group" data-group="1">
+                                <h2 class="slogan-main slogan-line">${data.slogans[0].main}</h2>
+                                <p class="slogan-sub slogan-line">${data.slogans[0].sub || ''}</p>
+                                <p class="slogan-desc slogan-line">${data.slogans[0].desc}</p>
+                            </div>
+                            <div class="treatment-v2-slogan-group" data-group="2">
+                                <h2 class="slogan-main">${data.slogans[1].main}</h2>
+                                <p class="slogan-desc">${data.slogans[1].desc}</p>
+                            </div>
+                            <div class="treatment-v2-slogan-group treatment-v2-promises" data-group="3">
+                                ${data.promises.map(p => `
+                                    <div class="promise-item">
+                                        <h3 class="promise-title">${p.name} <span class="promise-en">${p.title}</span></h3>
+                                        <p class="promise-desc">${p.desc}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -808,7 +810,7 @@ function setupTreatmentIntroZoom() {
     tl.to(group345, { opacity: 0, duration: 0.01 }, 0.98);
 }
 
-// Treatment V2 스크롤 효과 (순수 JS)
+// Treatment V2 스크롤 효과 (통합 Sticky 구조)
 let treatmentV2ScrollHandler = null;
 
 function setupTreatmentV2Scroll() {
@@ -822,25 +824,19 @@ function setupTreatmentV2Scroll() {
     if (!group1 || !group2 || !group3) return;
     
     const group1Lines = group1.querySelectorAll('.slogan-line');
-    let lastScrollY = window.scrollY;
     
     const handleScroll = () => {
         const sectionRect = sloganSection.getBoundingClientRect();
         const sectionHeight = sloganSection.offsetHeight;
         const viewportHeight = window.innerHeight;
         
-        const currentScrollY = window.scrollY;
-        const direction = currentScrollY > lastScrollY ? 'down' : 'up';
-        lastScrollY = currentScrollY;
-        
         const sectionEntered = sectionRect.top <= 0;
-        const sectionExited = sectionRect.bottom <= viewportHeight;
         
         if (sectionRect.bottom <= 0) {
             sloganSection.classList.add('zoom-active');
             group1.classList.remove('active', 'exit-up');
             group2.classList.remove('active', 'exit-up');
-            group3.classList.add('active');
+            group3.classList.remove('active');
             group1Lines.forEach(line => line.classList.add('visible'));
             document.body.classList.add('sub-hero-passed');
             return;
@@ -862,92 +858,29 @@ function setupTreatmentV2Scroll() {
         const scrollableDistance = sectionHeight - viewportHeight;
         const progress = Math.max(0, Math.min(1, scrolled / scrollableDistance));
         
-        const isUnpinning = sectionRect.bottom <= viewportHeight;
-        
-        if (direction === 'down') {
-            if (progress < 0.35) {
-                group1.classList.add('active');
-                group1.classList.remove('exit-up');
-                group2.classList.remove('active', 'exit-up');
-                group3.classList.remove('active', 'is-exiting');
-                group3.style.top = '';
-                
-                const lineProgress = progress / 0.35;
-                group1Lines.forEach((line, idx) => {
-                    const threshold = idx / group1Lines.length;
-                    line.classList.toggle('visible', lineProgress > threshold);
-                });
-            } else if (progress < 0.65) {
-                group1.classList.remove('active');
-                group1.classList.add('exit-up');
-                group2.classList.add('active');
-                group2.classList.remove('exit-up');
-                group3.classList.remove('active', 'is-exiting');
-                group3.style.top = '';
-                group1Lines.forEach(line => line.classList.add('visible'));
-            } else {
-                group1.classList.remove('active', 'exit-up');
-                group2.classList.remove('active');
-                group2.classList.add('exit-up');
-                group3.classList.add('active');
-                
-                if (isUnpinning) {
-                    if (!group3.classList.contains('is-exiting')) {
-                        const group3Rect = group3.getBoundingClientRect();
-                        const sectionTop = sectionRect.top + window.scrollY;
-                        const absoluteTop = group3Rect.top + window.scrollY - sectionTop;
-                        group3.style.top = absoluteTop + 'px';
-                        group3.classList.add('is-exiting');
-                    }
-                } else {
-                    group3.classList.remove('is-exiting');
-                    group3.style.top = '';
-                }
-            }
+        if (progress < 0.35) {
+            group1.classList.add('active');
+            group1.classList.remove('exit-up');
+            group2.classList.remove('active', 'exit-up');
+            group3.classList.remove('active');
+            
+            const lineProgress = progress / 0.35;
+            group1Lines.forEach((line, idx) => {
+                const threshold = idx / group1Lines.length;
+                line.classList.toggle('visible', lineProgress > threshold);
+            });
+        } else if (progress < 0.65) {
+            group1.classList.remove('active');
+            group1.classList.add('exit-up');
+            group2.classList.add('active');
+            group2.classList.remove('exit-up');
+            group3.classList.remove('active');
+            group1Lines.forEach(line => line.classList.add('visible'));
         } else {
-            if (progress >= 0.65) {
-                group2.classList.add('exit-up');
-                group2.classList.remove('active');
-                group3.classList.add('active');
-                
-                if (isUnpinning) {
-                    if (!group3.classList.contains('is-exiting')) {
-                        const group3Rect = group3.getBoundingClientRect();
-                        const sectionTop = sectionRect.top + window.scrollY;
-                        const absoluteTop = group3Rect.top + window.scrollY - sectionTop;
-                        group3.style.top = absoluteTop + 'px';
-                        group3.classList.add('is-exiting');
-                    }
-                } else {
-                    group3.classList.remove('is-exiting');
-                    group3.style.top = '';
-                }
-            } else if (progress >= 0.35) {
-                group2.classList.add('active');
-                group2.classList.remove('exit-up');
-                group1.classList.add('exit-up');
-                group1.classList.remove('active');
-                group3.classList.remove('active', 'is-exiting');
-                group3.style.top = '';
-            } else if (progress > 0) {
-                group1.classList.add('active');
-                group1.classList.remove('exit-up');
-                group2.classList.remove('active', 'exit-up');
-                group3.classList.remove('active', 'is-exiting');
-                group3.style.top = '';
-                
-                const lineProgress = progress / 0.35;
-                group1Lines.forEach((line, idx) => {
-                    const threshold = idx / group1Lines.length;
-                    line.classList.toggle('visible', lineProgress > threshold);
-                });
-            } else {
-                group1.classList.remove('active', 'exit-up');
-                group2.classList.remove('active', 'exit-up');
-                group3.classList.remove('active', 'is-exiting');
-                group3.style.top = '';
-                group1Lines.forEach(line => line.classList.remove('visible'));
-            }
+            group1.classList.remove('active', 'exit-up');
+            group2.classList.remove('active');
+            group2.classList.add('exit-up');
+            group3.classList.add('active');
         }
         
         document.body.classList.remove('sub-hero-passed');
@@ -972,8 +905,7 @@ function cleanupTreatmentV2Scroll() {
     
     const groups = document.querySelectorAll('.treatment-v2-slogan-group');
     groups.forEach(g => {
-        g.classList.remove('active', 'exit-up', 'is-exiting');
-        g.style.top = '';
+        g.classList.remove('active', 'exit-up');
     });
     
     const lines = document.querySelectorAll('.treatment-v2-slogan-group .slogan-line');
