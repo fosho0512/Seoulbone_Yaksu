@@ -3158,7 +3158,7 @@ body::before {
 
 .treatment-v2-slogan-group[data-group="3"] .promise-item {
     opacity: 0;
-    transform: translateX(40px);
+    transform: translateX(-40px);
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
