@@ -3173,19 +3173,37 @@ body::before {
 
 .treatment-v2-slogan-group[data-group="3"] {
     position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
     width: 100%;
     max-width: none;
     margin-top: 180vh;
     margin-bottom: 20vh;
     padding: 0 5%;
     box-sizing: border-box;
+    opacity: 0;
+    pointer-events: none;
 }
 
-.treatment-v2-slogan-group[data-group="3"].active {
-    /* 스크롤과 자연스럽게 연동 - 별도 transform 없음 */
+.treatment-v2-slogan-group[data-group="3"].pinned {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 0;
+    margin-bottom: 0;
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+.treatment-v2-slogan-group[data-group="3"].released {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin-top: 0;
+    margin-bottom: 20vh;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .treatment-v2-slogan-group .slogan-main {
