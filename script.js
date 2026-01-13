@@ -867,40 +867,42 @@ function setupTreatmentV2Scroll() {
                 group1.classList.add('active');
                 group1.classList.remove('exit-up');
                 group2.classList.remove('active', 'exit-up');
+                group3.classList.remove('active');
                 
                 const lineProgress = progress / 0.35;
                 group1Lines.forEach((line, idx) => {
                     const threshold = idx / group1Lines.length;
                     line.classList.toggle('visible', lineProgress > threshold);
                 });
-            } else if (progress < 0.70) {
+            } else if (progress < 0.65) {
                 group1.classList.remove('active');
                 group1.classList.add('exit-up');
                 group2.classList.add('active');
                 group2.classList.remove('exit-up');
+                group3.classList.remove('active');
                 group1Lines.forEach(line => line.classList.add('visible'));
             } else {
                 group1.classList.remove('active', 'exit-up');
                 group2.classList.remove('active');
                 group2.classList.add('exit-up');
-            }
-            
-            if (progress >= 0.65) {
                 group3.classList.add('active');
             }
         } else {
-            if (progress >= 0.70) {
+            if (progress >= 0.65) {
                 group2.classList.add('exit-up');
                 group2.classList.remove('active');
+                group3.classList.add('active');
             } else if (progress >= 0.35) {
                 group2.classList.add('active');
                 group2.classList.remove('exit-up');
                 group1.classList.add('exit-up');
                 group1.classList.remove('active');
+                group3.classList.remove('active');
             } else if (progress > 0) {
                 group1.classList.add('active');
                 group1.classList.remove('exit-up');
                 group2.classList.remove('active', 'exit-up');
+                group3.classList.remove('active');
                 
                 const lineProgress = progress / 0.35;
                 group1Lines.forEach((line, idx) => {
@@ -909,11 +911,8 @@ function setupTreatmentV2Scroll() {
                 });
             } else {
                 group1.classList.remove('active', 'exit-up');
-                group1Lines.forEach(line => line.classList.remove('visible'));
-            }
-            
-            if (progress < 0.60) {
                 group3.classList.remove('active');
+                group1Lines.forEach(line => line.classList.remove('visible'));
             }
         }
         
