@@ -488,7 +488,10 @@ function showContentView(id) {
                     ${data.details.map((det, idx) => `
                         <div class="treatment-detail-row ${idx % 2 === 0 ? 'text-left' : 'text-right'}">
                             <div class="treatment-detail-text">
+                                ${det.en ? `<p class="detail-en">${det.en}</p>` : ''}
                                 <h3 class="detail-title">${det.t}</h3>
+                                <div class="detail-divider"></div>
+                                ${det.quote ? `<p class="detail-quote">"${det.quote}"</p>` : ''}
                                 <p class="detail-desc">${det.d}</p>
                             </div>
                             <div class="treatment-detail-img">

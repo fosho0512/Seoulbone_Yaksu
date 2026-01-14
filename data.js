@@ -84,7 +84,13 @@ const siteData = {
                 { title: "Insight for Cause", name: "근본을 보는 통찰", desc: "통증은 몸이 보내는 신호일 뿐입니다. 단순한 불편함의 해소를 넘어, 불균형해진 신체 구조와 기능을 바로잡는 근본적인 치유를 지향합니다." }
             ],
             details: [ 
-                { t: "01. 정밀 영상 유도 주사 치료", d: `<strong>[Precision Image-Guided Injection]</strong><br><i>\"보면서 치료하는 정확함, 안전하고 빠른 통증 해결\"</i><br><br>모든 주사 치료는 초음파나 C-arm 실시간 영상을 통해 타겟 부위를 확인하며 정확하게 투여합니다.<br>• <b>초음파 유도하 주사:</b> 인대, 힘줄 손상 부위에 정확히 주사 (프롤로, DNA 등)<br>• <b>C-arm 중재술:</b> 척추 심부 신경 주변의 염증과 부종을 가라앉히는 정밀 시술`, img: "images/treatment_injection.jpg" },
+                { 
+                    en: "Precision Image-Guided Injection",
+                    t: "01. 정밀 영상 유도 주사 치료", 
+                    quote: "보면서 치료하는 정확함, 안전하고 빠른 통증 해결",
+                    d: `저희 병원의 모든 주사 치료와 시술은 '감'에 의존하지 않습니다.<br>반드시 초음파나 C-arm(실시간 투시 장비) 영상을 통해 병변 부위를 실시간으로 확인하며 정확하게 약물을 투여합니다. 이는 치료 효과를 극대화하고 부작용을 최소화하는 핵심 원칙입니다.<br><br><b>초음파 유도하 주사 (Ultrasound-Guided Injection):</b><br>진료실에서 즉시 근육, 인대, 힘줄의 손상을 확인하고, 미리 설정된 타겟에 정확히 주사하여 조직 재생과 염증 완화를 돕습니다. (예: 프롤로테라피, DNA 주사, 연골주사 등)<br><br><b>C-arm 중재술 (C-arm Intervention):</b><br>척추 심부나 관절 깊숙한 곳의 신경 주변에 발생하는 통증을 잡기 위해, 실시간 투시 영상을 보며 바늘을 접근시켜 신경 염증과 부종을 가라앉히는 비수술적 시술입니다. (C-arm 장비에 피폭 저감 장치 SELD 탑재)`, 
+                    img: "images/treatment_injection.jpg" 
+                },
                 { t: "02. 첨단 특수 물리·재생 치료", d: `<strong>[Advanced Modality & Regenerative Therapy]</strong><br><i>\"대학병원급 하이엔드 장비를 이용한 비수술적 재생 관리\"</i><br><br>• <b>체외충격파 (ESWT):</b> 혈관 재형성 유도 및 힘줄/조직 재생 촉진<br>• <b>고강도 레이저 (HILT):</b> 깊은 조직까지 에너지 전달, 통증 감소 및 회복 촉진<br>• <b>스크램블러 테라피:</b> 난치성 만성 통증 신호를 무통증 신호로 전환<br>• <b>자기장 치료:</b> 심부 근육 경직 이완 및 신경 세포 자극`, img: "images/treatment_modality.jpg" },
                 { t: "03. 도수 및 재활 운동 치료", d: `<strong>[Manual Therapy & Rehabilitation Exercise]</strong><br><i>\"무너진 신체 밸런스를 바로잡아 재발을 막는 근본 해결책\"</i><br><br>• <b>1:1 도수 치료:</b> 전문 치료사가 굳어진 관절을 풀고 척추/골반 정렬 교정<br>• <b>맞춤 재활 운동:</b> 약해진 근력 강화 및 가동 범위 회복, 재발 방지`, img: "images/treatment_manual.jpg" }
             ] 

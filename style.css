@@ -3083,14 +3083,42 @@ body::before {
     transform: translateY(0);
 }
 
+.treatment-detail-text .detail-en {
+    font-family: var(--font-heading);
+    font-size: clamp(13px, 1vw, 15px);
+    font-weight: 400;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+}
+
 .treatment-detail-text .detail-title {
     font-family: var(--font-heading);
     font-size: clamp(24px, 2.5vw, 36px);
     font-weight: 500;
     color: var(--text-color);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
     line-height: var(--lh-snug);
     letter-spacing: var(--ls-tight);
+}
+
+.treatment-detail-text .detail-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.6;
+    margin-bottom: 1.5rem;
+}
+
+.treatment-detail-text .detail-quote {
+    font-family: var(--font-body-kr);
+    font-size: clamp(15px, 1.2vw, 18px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    line-height: var(--lh-relaxed);
 }
 
 .treatment-detail-text .detail-desc {
