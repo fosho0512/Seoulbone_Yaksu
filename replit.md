@@ -33,10 +33,14 @@ The website adopts a luxury resort theme, characterized by gold accents, subtle 
 - **Header Management**: Header transparency and styling are dynamically adjusted based on scroll position and current page view (home vs. content).
 
 ### Feature Specifications
+- **Treatment Page**: Consolidated treatment page featuring a three-phase sticky slogan section with background zoom effect, followed by a details section using CSS Grid (50:50 layout) with fade-up animations. Uses IntersectionObserver for scroll-triggered animations without GSAP dependency.
 - **Diagnosis Page (V3)**: Rebuilt with a unique scroll structure where vertical scrolling drives horizontal content movement across three main sections: Sub Hero, Slogan, and Equipment. Features mutual exclusivity for slogan text and smooth easing for animations. Includes a mobile fallback to a vertical layout.
 - **Core Values Page**: Redesigned with scroll-triggered pinned slides, integrating GSAP ScrollTrigger for image and text track animations, complemented by progress dots.
 - **Sub-hero Sections**: All menu pages include unified sub-hero sections with wipe reveal animations, extending full-width using calculated margins.
 - **Menu Navigation**: Utilizes hash-based routing for content switching.
+
+## Recent Changes
+- **Jan 2026**: Consolidated 04 and 04-1 treatment pages into single unified treatment page. Removed legacy GSAP ScrollTrigger-based intro section (~140 lines), deleted 04-specific styles (~100 lines). Renamed all treatment_v2 references to treatment. Preserved shared typography styles (.slogan-main, .slogan-sub, .slogan-desc, .promise-item, etc.).
 
 ## External Dependencies
 -   **Google Fonts**: Playfair Display, Manrope, Noto Serif KR, Gowun Batang.
