@@ -3084,17 +3084,17 @@ body::before {
 }
 
 .treatment-detail-text .detail-en {
-    font-family: var(--font-heading);
+    font-family: var(--font-serif);
     font-size: clamp(13px, 1vw, 15px);
     font-weight: 400;
-    color: var(--gold);
+    color: var(--gold-accent);
     letter-spacing: 0.15em;
     text-transform: uppercase;
     margin-bottom: 0.8rem;
 }
 
 .treatment-detail-text .detail-title {
-    font-family: var(--font-heading);
+    font-family: var(--font-serif);
     font-size: clamp(24px, 2.5vw, 36px);
     font-weight: 500;
     color: var(--text-color);
@@ -3106,17 +3106,16 @@ body::before {
 .treatment-detail-text .detail-divider {
     width: 40px;
     height: 1px;
-    background: var(--gold);
-    opacity: 0.6;
+    background: var(--gold-accent);
     margin-bottom: 1.5rem;
 }
 
 .treatment-detail-text .detail-quote {
-    font-family: var(--font-body-kr);
+    font-family: var(--font-quote);
     font-size: clamp(15px, 1.2vw, 18px);
     font-weight: 400;
     font-style: italic;
-    color: var(--gold);
+    color: var(--gold-accent);
     margin-bottom: 2rem;
     line-height: var(--lh-relaxed);
 }
@@ -3137,7 +3136,7 @@ body::before {
 }
 
 .treatment-detail-text .detail-desc i {
-    color: var(--gold);
+    color: var(--gold-accent);
     font-style: italic;
     display: block;
     margin-bottom: 1.2rem;
