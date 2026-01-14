@@ -127,8 +127,8 @@ function showContentView(id) {
     cleanupValuesSlider();
     cleanupHorizontalScroll();
     cleanupDiagnosisScroll();
-    cleanupTreatmentV2Scroll();
-    cleanupTreatmentV2Details();
+    cleanupTreatmentScroll();
+    cleanupTreatmentDetails();
     
     // Reset Content & Scroll
     elems.contentBody.innerHTML = "";
@@ -432,11 +432,10 @@ function showContentView(id) {
         
         let heroImagePath = 'images/staff-hero.png';
         if (id === 'treatment') heroImagePath = 'images/treatment-hero.png';
-        else if (id === 'treatment_v2') heroImagePath = 'images/treatment-hero.png';
         else if (id === 'contact') heroImagePath = 'images/contact-hero.png';
         else if (id === 'facilities') heroImagePath = 'images/treatment-hero.png';
 
-        if (id === 'treatment_v2') {
+        if (id === 'treatment') {
             html = `
                 <div class="sub-hero" id="${id}-sub-hero">
                     <div class="sub-hero-image">
@@ -459,22 +458,22 @@ function showContentView(id) {
                         </svg>
                     </div>
                 </div>
-                <section class="treatment-v2-slogan-section">
-                    <div class="treatment-v2-slogan-stage">
-                        <div class="treatment-v2-slogan-bg">
+                <section class="treatment-slogan-section">
+                    <div class="treatment-slogan-stage">
+                        <div class="treatment-slogan-bg">
                             <img src="images/treatment-intro-bg.jpg" alt="Background">
                         </div>
-                        <div class="treatment-v2-slogan-container">
-                            <div class="treatment-v2-slogan-group" data-group="1">
+                        <div class="treatment-slogan-container">
+                            <div class="treatment-slogan-group" data-group="1">
                                 <h2 class="slogan-main slogan-line">${data.slogans[0].main}</h2>
                                 <p class="slogan-sub slogan-line">${data.slogans[0].sub || ''}</p>
                                 <p class="slogan-desc slogan-line">${data.slogans[0].desc}</p>
                             </div>
-                            <div class="treatment-v2-slogan-group" data-group="2">
+                            <div class="treatment-slogan-group" data-group="2">
                                 <h2 class="slogan-main">${data.slogans[1].main}</h2>
                                 <p class="slogan-desc">${data.slogans[1].desc}</p>
                             </div>
-                            <div class="treatment-v2-slogan-group treatment-v2-promises" data-group="3">
+                            <div class="treatment-slogan-group treatment-promises" data-group="3">
                                 ${data.promises.map(p => `
                                     <div class="promise-item">
                                         <h3 class="promise-title">${p.name} <span class="promise-en">${p.title}</span></h3>
@@ -485,90 +484,19 @@ function showContentView(id) {
                         </div>
                     </div>
                 </section>
-                <section class="treatment-v2-details-section">
+                <section class="treatment-details-section">
                     ${data.details.map((det, idx) => `
-                        <div class="treatment-v2-detail-row ${idx % 2 === 0 ? 'text-left' : 'text-right'}">
-                            <div class="treatment-v2-detail-text">
+                        <div class="treatment-detail-row ${idx % 2 === 0 ? 'text-left' : 'text-right'}">
+                            <div class="treatment-detail-text">
                                 <h3 class="detail-title">${det.t}</h3>
                                 <p class="detail-desc">${det.d}</p>
                             </div>
-                            <div class="treatment-v2-detail-img">
+                            <div class="treatment-detail-img">
                                 <img src="${det.img}" alt="${det.t}">
                             </div>
                         </div>
                     `).join('')}
                 </section>
-            `;
-        } else if (id === 'treatment') {
-            html = `
-                <div class="treatment-sticky-wrapper">
-                    <div class="sub-hero treatment-sub-hero-sticky" id="${id}-sub-hero">
-                        <div class="sub-hero-image">
-                            <img src="${heroImagePath}" alt="${data.title} Hero">
-                        </div>
-                        <div class="sub-hero-overlay"></div>
-                        <div class="sub-hero-text">
-                            <h2>${data.title}</h2>
-                        </div>
-                        <div class="scroll-indicator">
-                            <div class="scroll-indicator-circle">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M12 5v14M5 12l7 7 7-7"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="sub-hero-curve">
-                            <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-                                <path d="M0,100 L0,40 Q360,100 720,50 Q1080,0 1440,60 L1440,100 Z"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="treatment-content-overlap">
-                        <section class="treatment-intro-section">
-                            <div class="treatment-intro-bg">
-                                <img src="images/treatment-intro-bg.jpg" alt="Background">
-                            </div>
-                            <div class="slogan-text-area">
-                                <!-- 1번 그룹: 진단 철학 -->
-                                <div class="slogan-group slogan-group-1">
-                                    <h2 class="slogan-main">통증을 넘어, 근본적인 기능 회복을 위한<br>통합 치료 솔루션</h2>
-                                    <p class="slogan-sub">재활의학과와 정형외과의 전문성을 더해, 통증의 일시적 완화가 아닌 근본적인 원인 해결을 목표로 합니다.</p>
-                                    <p class="slogan-desc">대학병원급 최첨단 장비와 숙련된 노하우를 바탕으로, 환자 개개인의 상태에 최적화된 맞춤형 통합 치료 계획을 수립합니다.</p>
-                                </div>
-                                <!-- 2번 그룹: 병원의 약속 -->
-                                <div class="slogan-group slogan-group-2">
-                                    <h2 class="slogan-promise-main">서울본재활의학과의원이 지키는<br>3가지 약속</h2>
-                                    <p class="slogan-promise-desc">우리는 회복이라는 결과 앞에서 어떤 효율과도 타협하지 않습니다.</p>
-                                </div>
-                                <!-- 3·4·5번 그룹: 개별 약속 -->
-                                <div class="slogan-group slogan-group-345">
-                                    <div class="promise-item">
-                                        <h3 class="promise-title">엄격한 재료의 선정 <span class="promise-en">Strict Standard</span></h3>
-                                        <p class="promise-desc">내 가족에게 쓸 수 있는 것만이 환자분에게도 허락됩니다. 우리는 임상적으로 검증된 최상의 재료만을 고집하며, 안전성과 효능에 대한 확신 없이는 절대 사용하지 않습니다.</p>
-                                    </div>
-                                    <div class="promise-item">
-                                        <h3 class="promise-title">실시간 맞춤 처방 <span class="promise-en">Real-time Customization</span></h3>
-                                        <p class="promise-desc">기계적인 루틴(Routine) 진료를 지양합니다. 매 내원 시 달라지는 신체 상태를 정밀하게 파악하여, 지금 당신에게 가장 필요한 최적의 배합으로 치료합니다.</p>
-                                    </div>
-                                    <div class="promise-item">
-                                        <h3 class="promise-title">근본을 보는 통찰 <span class="promise-en">Insight for Cause</span></h3>
-                                        <p class="promise-desc">통증은 몸이 보내는 신호일 뿐입니다. 단순한 불편함의 해소를 넘어, 불균형해진 신체 구조와 기능을 바로잡는 근본적인 치유를 지향합니다.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <section class="treatment-grid-section">
-                            <div class="modal-grid">
-                                ${data.details.map(det => `
-                                    <div class="grid-item">
-                                        <div class="grid-img-wrapper"><img src="${det.img}" alt="${det.t}"></div>
-                                        <div class="grid-text-wrapper"><h4>${det.t}</h4><p>${det.d}</p></div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </section>
-                    </div>
-                </div>
             `;
         } else {
             html = `
@@ -650,18 +578,11 @@ function showContentView(id) {
         }, 100);
     }
     
-    // Treatment 페이지 인트로 줌인 효과 설정
+    // Treatment 페이지 스크롤 효과 설정
     if (id === 'treatment') {
         setTimeout(() => {
-            setupTreatmentIntroZoom();
-        }, 100);
-    }
-    
-    // Treatment V2 페이지 스크롤 효과 설정
-    if (id === 'treatment_v2') {
-        setTimeout(() => {
-            setupTreatmentV2Scroll();
-            setupTreatmentV2Details();
+            setupTreatmentScroll();
+            setupTreatmentDetails();
         }, 100);
     }
     
@@ -671,160 +592,16 @@ function showContentView(id) {
     }
 }
 
-// Treatment 인트로 슬로건 애니메이션 (GSAP ScrollTrigger)
-function setupTreatmentIntroZoom() {
-    const introSection = document.querySelector('.treatment-intro-section');
-    const subHeroSticky = document.querySelector('.treatment-sub-hero-sticky');
-    if (!introSection) return;
-    
-    // GSAP 및 ScrollTrigger 확인
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-        console.warn('GSAP or ScrollTrigger not loaded');
-        return;
-    }
-    
-    // 요소 선택
-    const group1 = introSection.querySelector('.slogan-group-1');
-    const group2 = introSection.querySelector('.slogan-group-2');
-    const group345 = introSection.querySelector('.slogan-group-345');
-    const bgImg = introSection.querySelector('.treatment-intro-bg img');
-    
-    if (!group1 || !group2 || !group345) return;
-    
-    const group1Main = group1.querySelector('.slogan-main');
-    const group1Sub = group1.querySelector('.slogan-sub');
-    const group1Desc = group1.querySelector('.slogan-desc');
-    const group2Main = group2.querySelector('.slogan-promise-main');
-    const group2Desc = group2.querySelector('.slogan-promise-desc');
-    const promiseItems = group345.querySelectorAll('.promise-item');
-    
-    // 공통 이징
-    const easeIn = 'power2.out';
-    const easeOut = 'power2.in';
-    
-    // 메인 타임라인 생성
-    const tl = gsap.timeline({
-        scrollTrigger: {
-            trigger: introSection,
-            start: 'top top',
-            end: '+=300%',
-            pin: true,
-            pinSpacing: true,
-            scrub: 1,
-            onEnter: () => {
-                document.body.classList.remove('sub-hero-passed');
-                if (subHeroSticky) subHeroSticky.style.visibility = 'hidden';
-            },
-            onLeave: () => {
-                document.body.classList.add('sub-hero-passed');
-                if (subHeroSticky) subHeroSticky.style.visibility = 'hidden';
-            },
-            onEnterBack: () => {
-                document.body.classList.remove('sub-hero-passed');
-                if (subHeroSticky) subHeroSticky.style.visibility = 'hidden';
-            },
-            onLeaveBack: () => {
-                if (subHeroSticky) subHeroSticky.style.visibility = 'visible';
-            }
-        }
-    });
-    
-    // 배경 줌아웃
-    tl.to(bgImg, {
-        scale: 1,
-        duration: 0.15,
-        ease: 'power2.out'
-    }, 0);
-    
-    // STEP 2: 1번 그룹 등장 (우→좌 순차)
-    tl.to(group1, { opacity: 1, duration: 0.01 }, 0);
-    tl.to(group1Main, {
-        opacity: 1,
-        x: 0,
-        duration: 0.12,
-        ease: easeIn
-    }, 0.02);
-    tl.to(group1Sub, {
-        opacity: 1,
-        x: 0,
-        duration: 0.12,
-        ease: easeIn
-    }, 0.06);
-    tl.to(group1Desc, {
-        opacity: 1,
-        x: 0,
-        duration: 0.12,
-        ease: easeIn
-    }, 0.10);
-    
-    // STEP 3: 1번 그룹 사라짐 (위로 이동 + 페이드아웃)
-    tl.to([group1Main, group1Sub, group1Desc], {
-        opacity: 0,
-        y: -48,
-        duration: 0.12,
-        ease: easeOut
-    }, 0.28);
-    tl.to(group1, { opacity: 0, duration: 0.01 }, 0.40);
-    
-    // STEP 4: 2번 그룹 등장 (아래→위 교차)
-    tl.to(group2, { opacity: 1, duration: 0.01 }, 0.32);
-    tl.to(group2Main, {
-        opacity: 1,
-        y: 0,
-        duration: 0.12,
-        ease: easeIn
-    }, 0.34);
-    tl.to(group2Desc, {
-        opacity: 1,
-        y: 0,
-        duration: 0.12,
-        ease: easeIn
-    }, 0.38);
-    
-    // STEP 5: 3·4·5 약속 등장 (순차 페이드업)
-    tl.to(group345, { opacity: 1, duration: 0.01 }, 0.48);
-    promiseItems.forEach((item, i) => {
-        tl.to(item, {
-            opacity: 1,
-            y: 0,
-            duration: 0.10,
-            ease: easeIn
-        }, 0.50 + (i * 0.04));
-    });
-    
-    // 2번 그룹 사라짐 (3·4·5 등장 시)
-    tl.to([group2Main, group2Desc], {
-        opacity: 0,
-        y: -48,
-        duration: 0.10,
-        ease: easeOut
-    }, 0.52);
-    tl.to(group2, { opacity: 0, duration: 0.01 }, 0.62);
-    
-    // STEP 6: 체류 구간 (약속들이 완전히 보인 상태 유지) - 0.65 ~ 0.85
-    // 이 구간에서는 아무 변화 없음
-    
-    // STEP 7: 고정 해제 전 페이드아웃
-    tl.to(promiseItems, {
-        opacity: 0,
-        y: -24,
-        duration: 0.10,
-        stagger: 0.02,
-        ease: easeOut
-    }, 0.88);
-    tl.to(group345, { opacity: 0, duration: 0.01 }, 0.98);
-}
+// Treatment 스크롤 효과 (통합 Sticky 구조)
+let treatmentScrollHandler = null;
 
-// Treatment V2 스크롤 효과 (통합 Sticky 구조)
-let treatmentV2ScrollHandler = null;
-
-function setupTreatmentV2Scroll() {
-    const sloganSection = document.querySelector('.treatment-v2-slogan-section');
+function setupTreatmentScroll() {
+    const sloganSection = document.querySelector('.treatment-slogan-section');
     if (!sloganSection) return;
     
-    const group1 = sloganSection.querySelector('.treatment-v2-slogan-group[data-group="1"]');
-    const group2 = sloganSection.querySelector('.treatment-v2-slogan-group[data-group="2"]');
-    const group3 = sloganSection.querySelector('.treatment-v2-slogan-group[data-group="3"]');
+    const group1 = sloganSection.querySelector('.treatment-slogan-group[data-group="1"]');
+    const group2 = sloganSection.querySelector('.treatment-slogan-group[data-group="2"]');
+    const group3 = sloganSection.querySelector('.treatment-slogan-group[data-group="3"]');
     
     if (!group1 || !group2 || !group3) return;
     
@@ -891,41 +668,41 @@ function setupTreatmentV2Scroll() {
         document.body.classList.remove('sub-hero-passed');
     };
     
-    treatmentV2ScrollHandler = handleScroll;
+    treatmentScrollHandler = handleScroll;
     window.addEventListener('scroll', handleScroll);
     
     handleScroll();
 }
 
-function cleanupTreatmentV2Scroll() {
-    if (treatmentV2ScrollHandler) {
-        window.removeEventListener('scroll', treatmentV2ScrollHandler);
-        treatmentV2ScrollHandler = null;
+function cleanupTreatmentScroll() {
+    if (treatmentScrollHandler) {
+        window.removeEventListener('scroll', treatmentScrollHandler);
+        treatmentScrollHandler = null;
     }
     
-    const sloganSection = document.querySelector('.treatment-v2-slogan-section');
+    const sloganSection = document.querySelector('.treatment-slogan-section');
     if (sloganSection) {
         sloganSection.classList.remove('zoom-active');
     }
     
-    const groups = document.querySelectorAll('.treatment-v2-slogan-group');
+    const groups = document.querySelectorAll('.treatment-slogan-group');
     groups.forEach(g => {
         g.classList.remove('active', 'exit-up');
     });
     
-    const lines = document.querySelectorAll('.treatment-v2-slogan-group .slogan-line');
+    const lines = document.querySelectorAll('.treatment-slogan-group .slogan-line');
     lines.forEach(line => line.classList.remove('visible'));
 }
 
-let treatmentV2DetailsObserver = null;
+let treatmentDetailsObserver = null;
 
-function setupTreatmentV2Details() {
-    const detailTexts = document.querySelectorAll('.treatment-v2-detail-text');
-    const detailImgs = document.querySelectorAll('.treatment-v2-detail-img');
+function setupTreatmentDetails() {
+    const detailTexts = document.querySelectorAll('.treatment-detail-text');
+    const detailImgs = document.querySelectorAll('.treatment-detail-img');
     
     if (detailTexts.length === 0) return;
     
-    treatmentV2DetailsObserver = new IntersectionObserver((entries) => {
+    treatmentDetailsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('fade-in');
@@ -936,17 +713,17 @@ function setupTreatmentV2Details() {
         rootMargin: '0px 0px -10% 0px'
     });
     
-    detailTexts.forEach(el => treatmentV2DetailsObserver.observe(el));
-    detailImgs.forEach(el => treatmentV2DetailsObserver.observe(el));
+    detailTexts.forEach(el => treatmentDetailsObserver.observe(el));
+    detailImgs.forEach(el => treatmentDetailsObserver.observe(el));
 }
 
-function cleanupTreatmentV2Details() {
-    if (treatmentV2DetailsObserver) {
-        treatmentV2DetailsObserver.disconnect();
-        treatmentV2DetailsObserver = null;
+function cleanupTreatmentDetails() {
+    if (treatmentDetailsObserver) {
+        treatmentDetailsObserver.disconnect();
+        treatmentDetailsObserver = null;
     }
     
-    const elements = document.querySelectorAll('.treatment-v2-detail-text, .treatment-v2-detail-img');
+    const elements = document.querySelectorAll('.treatment-detail-text, .treatment-detail-img');
     elements.forEach(el => el.classList.remove('fade-in'));
 }
 
@@ -985,8 +762,8 @@ function showHomeView(skipPushState = false) {
     cleanupValuesSlider();
     cleanupHorizontalScroll();
     cleanupDiagnosisScroll();
-    cleanupTreatmentV2Scroll();
-    cleanupTreatmentV2Details();
+    cleanupTreatmentScroll();
+    cleanupTreatmentDetails();
     elems.contentView.classList.remove('active');
     elems.homeView.classList.add('active');
     document.body.classList.remove('content-view-active');
