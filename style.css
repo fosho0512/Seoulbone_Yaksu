@@ -2890,7 +2890,7 @@ body::before {
 .treatment-slogan-group {
     position: absolute;
     top: 50%;
-    right: 0;
+    right: 10%;
     left: auto;
     transform: translateY(-50%);
     width: 45vw;
