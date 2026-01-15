@@ -2919,18 +2919,18 @@ body::before {
 
 .treatment-slogan-group[data-group="1"] .slogan-line {
     opacity: 0;
-    transform: translateX(40px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(48px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-.treatment-slogan-group[data-group="1"] .slogan-line.visible {
+.treatment-slogan-group[data-group="1"].active .slogan-line {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
 }
 
-.treatment-slogan-group[data-group="1"] .slogan-line:nth-child(1) { transition-delay: 0s; }
-.treatment-slogan-group[data-group="1"] .slogan-line:nth-child(2) { transition-delay: 0.15s; }
-.treatment-slogan-group[data-group="1"] .slogan-line:nth-child(3) { transition-delay: 0.3s; }
+.treatment-slogan-group[data-group="1"].active .slogan-line:nth-child(1) { transition-delay: 0s; }
+.treatment-slogan-group[data-group="1"].active .slogan-line:nth-child(2) { transition-delay: 0.3s; }
+.treatment-slogan-group[data-group="1"].active .slogan-line:nth-child(3) { transition-delay: 0.6s; }
 
 .treatment-slogan-group[data-group="2"] .slogan-main,
 .treatment-slogan-group[data-group="2"] .slogan-desc {
@@ -2953,8 +2953,8 @@ body::before {
 
 .treatment-slogan-group[data-group="3"] .promise-item {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(48px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
 .treatment-slogan-group[data-group="3"].active .promise-item {
@@ -2963,8 +2963,8 @@ body::before {
 }
 
 .treatment-slogan-group[data-group="3"].active .promise-item:nth-child(1) { transition-delay: 0s; }
-.treatment-slogan-group[data-group="3"].active .promise-item:nth-child(2) { transition-delay: 0.12s; }
-.treatment-slogan-group[data-group="3"].active .promise-item:nth-child(3) { transition-delay: 0.24s; }
+.treatment-slogan-group[data-group="3"].active .promise-item:nth-child(2) { transition-delay: 0.3s; }
+.treatment-slogan-group[data-group="3"].active .promise-item:nth-child(3) { transition-delay: 0.6s; }
 
 .treatment-slogan-group[data-group="3"] {
     position: absolute;
