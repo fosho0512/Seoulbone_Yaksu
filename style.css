@@ -2936,7 +2936,7 @@ body::before {
 .treatment-slogan-group[data-group="2"] .slogan-desc {
     opacity: 0;
     transform: translateY(48px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .treatment-slogan-group[data-group="2"].active .slogan-main {
@@ -2948,7 +2948,7 @@ body::before {
 .treatment-slogan-group[data-group="2"].active .slogan-desc {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 0.15s;
+    transition-delay: 0.3s;
 }
 
 .treatment-slogan-group[data-group="3"] .promise-item {
