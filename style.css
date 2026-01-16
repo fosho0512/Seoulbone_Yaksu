@@ -2893,8 +2893,8 @@ body::before {
     right: 10%;
     left: auto;
     transform: translateY(-50%);
-    width: 45vw;
-    max-width: 650px;
+    width: 50vw;
+    max-width: 720px;
     text-align: left;
     padding: 0 6%;
     box-sizing: border-box;
