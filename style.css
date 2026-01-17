@@ -510,7 +510,6 @@ body.menu-open .visual-text { opacity: 0; }
     font-size: var(--font-display-xl); 
     margin-bottom: 20px; 
     color: var(--sub-color); 
-    font-style: italic; 
     font-weight: 400;
     letter-spacing: 0.15em;
     line-height: var(--lh-tight);
