@@ -3013,7 +3013,7 @@ body::before {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 .treatment-promises .promise-item {
@@ -3199,7 +3199,7 @@ body::before {
     }
     
     .treatment-promises {
-        gap: 2rem;
+        gap: 1rem;
     }
     
     .treatment-promises .promise-title {
