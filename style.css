@@ -3018,6 +3018,7 @@ body::before {
 
 .treatment-promises .promise-item {
     max-width: 600px;
+    margin-bottom: 0;
 }
 
 .treatment-promises .promise-title {
