@@ -319,9 +319,26 @@ function showContentView(id) {
                 </div>
             </div>
             <div class="sub-hero-content">
-                <div class="content-intro">
-                    <p class="description">${data.desc}</p>
-                    <div class="divider"></div>
+                <div class="prp-intro-section">
+                    <h2 class="prp-main-slogan">${data.mainSlogan}</h2>
+                    <p class="prp-sub-desc">${data.subDesc}</p>
+                    <div class="prp-features-grid">
+                        <div class="prp-feature-card" data-index="0">
+                            <span class="prp-feature-label">${data.features[0].en}</span>
+                            <h3 class="prp-feature-title">${data.features[0].label}</h3>
+                            <p class="prp-feature-desc">${data.features[0].desc}</p>
+                        </div>
+                        <div class="prp-feature-card" data-index="1">
+                            <span class="prp-feature-label">${data.features[1].en}</span>
+                            <h3 class="prp-feature-title">${data.features[1].label}</h3>
+                            <p class="prp-feature-desc">${data.features[1].desc}</p>
+                        </div>
+                        <div class="prp-feature-card" data-index="2">
+                            <span class="prp-feature-label">${data.features[2].en}</span>
+                            <h3 class="prp-feature-title">${data.features[2].label}</h3>
+                            <p class="prp-feature-desc">${data.features[2].desc}</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="prp-full-content">
                     ${data.details.map(det => `
