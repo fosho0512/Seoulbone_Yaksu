@@ -2967,7 +2967,7 @@ body::before {
 
 .treatment-slogan-group[data-group="3"] {
     position: absolute;
-    top: 50%;
+    top: calc(50% + 40px);
     left: 50%;
     right: auto;
     transform: translate(-50%, -50%);
