@@ -129,6 +129,7 @@ function showContentView(id) {
     cleanupDiagnosisScroll();
     cleanupTreatmentScroll();
     cleanupTreatmentDetails();
+    cleanupPrpFadeUp();
     
     // Reset Content & Scroll
     elems.contentBody.innerHTML = "";
@@ -318,24 +319,49 @@ function showContentView(id) {
                     </svg>
                 </div>
             </div>
-            <div class="sub-hero-content">
-                <div class="content-intro">
-                    <p class="description">${data.desc}</p>
-                    <div class="divider"></div>
+            
+            <section class="prp-intro-section">
+                <div class="prp-intro-title fade-up">
+                    <h2>내 혈액 속 치유 성분으로<br>손상된 조직을 깨우다</h2>
                 </div>
-                <div class="prp-full-content">
-                    ${data.details.map(det => `
-                        <div class="prp-section">
-                            <div class="prp-section-image">
-                                <img src="${det.img}" alt="${det.t}">
-                            </div>
-                            <div class="prp-section-text">
-                                <h3>${det.t}</h3>
-                                <p>${det.d}</p>
-                            </div>
+                
+                <div class="prp-intro-content">
+                    <div class="prp-intro-text fade-up">
+                        <p>환자 본인의 혈액에서 치유와 재생을 담당하는<br>'성장인자'만을 고농도로 농축하여,<br>손상된 인대·힘줄·연골 부위에 직접 주사하는<br>최신 재생 치료법입니다.</p>
+                    </div>
+                    
+                    <div class="prp-intro-cards">
+                        <div class="prp-effect-card fade-up" style="--card-delay: 0.1s;">
+                            <span class="effect-label">effect 01</span>
+                            <h3 class="effect-title">안전성</h3>
+                            <p class="effect-desc">내 혈액을 사용하므로 거부 반응이나<br>부작용 위험이 극히 낮습니다.</p>
                         </div>
-                    `).join('')}
+                        <div class="prp-effect-card fade-up" style="--card-delay: 0.25s;">
+                            <span class="effect-label">effect 02</span>
+                            <h3 class="effect-title">근본 치료</h3>
+                            <p class="effect-desc">일시적 통증 완화가 아닌,<br>약해진 조직 자체를 튼튼하게 재생시킵니다.</p>
+                        </div>
+                        <div class="prp-effect-card fade-up" style="--card-delay: 0.4s;">
+                            <span class="effect-label">effect 03</span>
+                            <h3 class="effect-title">강력한 재생</h3>
+                            <p class="effect-desc">일반 혈액보다 3~5배 농축된 성장인자가<br>인체의 자연 치유력을 극대화합니다.</p>
+                        </div>
+                    </div>
                 </div>
+            </section>
+            
+            <div class="prp-full-content">
+                ${data.details.map(det => `
+                    <div class="prp-section">
+                        <div class="prp-section-image">
+                            <img src="${det.img}" alt="${det.t}">
+                        </div>
+                        <div class="prp-section-text">
+                            <h3>${det.t}</h3>
+                            <p>${det.d}</p>
+                        </div>
+                    </div>
+                `).join('')}
             </div>
         `;
     }
@@ -589,6 +615,13 @@ function showContentView(id) {
         }, 100);
     }
     
+    // PRP 페이지 fade-up 애니메이션 설정
+    if (id === 'prp') {
+        setTimeout(() => {
+            setupPrpFadeUp();
+        }, 100);
+    }
+    
     // Close menu if open
     if (document.body.classList.contains('menu-open')) {
         document.body.classList.remove('menu-open');
@@ -698,6 +731,39 @@ function cleanupTreatmentScroll() {
 }
 
 let treatmentDetailsObserver = null;
+let prpFadeUpObserver = null;
+
+function setupPrpFadeUp() {
+    const fadeUpElements = document.querySelectorAll('.prp-intro-section .fade-up');
+    if (fadeUpElements.length === 0) return;
+    
+    if (prpFadeUpObserver) {
+        prpFadeUpObserver.disconnect();
+    }
+    
+    prpFadeUpObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                prpFadeUpObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.2,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    fadeUpElements.forEach(el => {
+        prpFadeUpObserver.observe(el);
+    });
+}
+
+function cleanupPrpFadeUp() {
+    if (prpFadeUpObserver) {
+        prpFadeUpObserver.disconnect();
+        prpFadeUpObserver = null;
+    }
+}
 
 function setupTreatmentDetails() {
     const detailTexts = document.querySelectorAll('.treatment-detail-text');
