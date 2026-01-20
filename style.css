@@ -1541,7 +1541,7 @@ body.menu-open .visual-text { opacity: 0; }
 .prp-intro-title h2 {
     font-family: var(--font-serif);
     font-size: clamp(33px, 3.5vw, 50px);
-    font-weight: 400;
+    font-weight: 700;
     color: var(--text-color);
     line-height: var(--lh-snug);
     letter-spacing: var(--ls-tight);
@@ -1568,8 +1568,8 @@ body.menu-open .visual-text { opacity: 0; }
     font-family: var(--font-body);
     font-size: clamp(20px, 1.8vw, 28px);
     font-weight: 300;
-    color: #6B635B;
-    line-height: var(--lh-loose);
+    color: #000;
+    line-height: 1.6;
     letter-spacing: 0.02em;
 }
 
@@ -1581,7 +1581,7 @@ body.menu-open .visual-text { opacity: 0; }
 .prp-effect-card {
     width: 100%;
     max-width: 320px;
-    background: #fff;
+    background: #FAF7F2;
     border-radius: 16px;
     padding: 36px 32px;
     box-shadow: 0 4px 24px rgba(44, 41, 38, 0.06);
@@ -1638,7 +1638,7 @@ body.menu-open .visual-text { opacity: 0; }
 .effect-desc {
     font-size: clamp(16px, 1.2vw, 19px);
     font-weight: 300;
-    color: #7A7269;
+    color: #000;
     line-height: var(--lh-relaxed);
 }
 
