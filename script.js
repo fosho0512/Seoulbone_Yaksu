@@ -778,7 +778,8 @@ function cleanupPrpFadeUp() {
     }
 }
 
-let prpFinalScrollTrigger = null;
+let prpFinalScrollHandler = null;
+let prpFinalResizeHandler = null;
 
 function setupPrpFinalSection() {
     const section = document.querySelector('.prp-final-section');
@@ -791,49 +792,65 @@ function setupPrpFinalSection() {
     
     if (bgImages.length < 3 || textBlocks.length < 3) return;
     
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-        console.warn('GSAP or ScrollTrigger not available');
+    if (typeof gsap === 'undefined') {
+        console.warn('GSAP not available for PRP Final Section');
         return;
     }
     
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.set(bgImages[0], { opacity: 1, scale: 1 });
+    gsap.set(bgImages[1], { opacity: 0, scale: 0.95 });
+    gsap.set(bgImages[2], { opacity: 0, scale: 0.95 });
     
-    const tl = gsap.timeline({
-        scrollTrigger: {
-            trigger: section,
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: 0.5,
-            onUpdate: (self) => {
-                const progress = self.progress;
-                
-                if (progress < 0.33) {
-                    const p = progress / 0.33;
-                    gsap.set(bgImages[0], { opacity: 1 - p * 0.7, scale: 1 + p * 0.08 });
-                    gsap.set(bgImages[1], { opacity: p, scale: 0.95 + p * 0.05 });
-                    gsap.set(bgImages[2], { opacity: 0, scale: 0.95 });
-                } else if (progress < 0.66) {
-                    const p = (progress - 0.33) / 0.33;
-                    gsap.set(bgImages[0], { opacity: 0.3, scale: 1.08 });
-                    gsap.set(bgImages[1], { opacity: 1 - p * 0.7, scale: 1 + p * 0.08 });
-                    gsap.set(bgImages[2], { opacity: p, scale: 0.95 + p * 0.05 });
-                } else {
-                    const p = (progress - 0.66) / 0.34;
-                    gsap.set(bgImages[0], { opacity: 0, scale: 1.08 });
-                    gsap.set(bgImages[1], { opacity: 0.3, scale: 1.08 });
-                    gsap.set(bgImages[2], { opacity: 1, scale: 1 + p * 0.03 });
-                }
-            }
+    function updateBackgrounds() {
+        const viewportCenter = window.innerHeight / 2;
+        const activeWeights = [0, 0, 0];
+        
+        textBlocks.forEach((block, index) => {
+            const rect = block.getBoundingClientRect();
+            const blockCenter = rect.top + rect.height / 2;
+            const distanceFromCenter = Math.abs(blockCenter - viewportCenter);
+            const maxDistance = window.innerHeight * 0.8;
+            const weight = Math.max(0, 1 - distanceFromCenter / maxDistance);
+            activeWeights[index] = weight;
+        });
+        
+        const totalWeight = activeWeights.reduce((a, b) => a + b, 0);
+        if (totalWeight > 0) {
+            activeWeights.forEach((w, i) => activeWeights[i] = w / totalWeight);
+        } else {
+            activeWeights[0] = 1;
         }
-    });
+        
+        bgImages.forEach((img, index) => {
+            const weight = activeWeights[index];
+            const opacity = weight;
+            const scale = 0.95 + weight * 0.13;
+            gsap.to(img, { 
+                opacity: opacity, 
+                scale: scale, 
+                duration: 0.4, 
+                ease: 'power2.out',
+                overwrite: 'auto'
+            });
+        });
+    }
     
-    prpFinalScrollTrigger = tl.scrollTrigger;
+    prpFinalScrollHandler = updateBackgrounds;
+    prpFinalResizeHandler = updateBackgrounds;
+    window.addEventListener('scroll', prpFinalScrollHandler, { passive: true });
+    window.addEventListener('resize', prpFinalResizeHandler, { passive: true });
+    
+    updateBackgrounds();
 }
 
 function cleanupPrpFinalSection() {
-    if (prpFinalScrollTrigger) {
-        prpFinalScrollTrigger.kill();
-        prpFinalScrollTrigger = null;
+    if (prpFinalScrollHandler) {
+        window.removeEventListener('scroll', prpFinalScrollHandler);
+        prpFinalScrollHandler = null;
+    }
+    if (prpFinalResizeHandler) {
+        window.removeEventListener('resize', prpFinalResizeHandler);
+        prpFinalResizeHandler = null;
     }
 }
 
