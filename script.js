@@ -343,7 +343,7 @@ function showContentView(id) {
                     <div class="prp-effect-card prp-card-3 fade-up" style="--card-delay: 0.4s;">
                         <span class="effect-label">effect 03</span>
                         <h3 class="effect-title">강력한 재생</h3>
-                        <p class="effect-desc">일반 혈액보다 3~5배<br>농축된 성장인자가 인체의 자연 치유력을<br>극대화합니다.</p>
+                        <p class="effect-desc">일반 혈액보다 3~5배<br>농축된 성장인자가<br>인체의 자연 치유력을 극대화합니다.</p>
                     </div>
                 </div>
             </section>
