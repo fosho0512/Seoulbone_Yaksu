@@ -327,23 +327,23 @@ function showContentView(id) {
                 
                 <div class="prp-intro-content">
                     <div class="prp-intro-text fade-up">
-                        <p>환자 본인의 혈액에서 <span class="highlight">치유와 재생을 담당하는 '성장인자'</span>만을 고농도로 농축하여,<br>손상된 인대·힘줄·연골 부위에 직접 주사하는 최신 재생 치료법입니다.</p>
+                        <p>환자 본인의 혈액에서<br><span class="highlight">치유와 재생을 담당하는<br>'성장인자'</span>만을 고농도로 농축하여,<br>손상된 인대·힘줄·연골 부위에 직접<br>주사하는 최신 재생 치료법입니다.</p>
                     </div>
                     
                     <div class="prp-effect-card prp-card-1 fade-up" style="--card-delay: 0.1s;">
                         <span class="effect-label">effect 01</span>
                         <h3 class="effect-title">안전성</h3>
-                        <p class="effect-desc">내 혈액을 사용하므로 거부 반응이나<br>부작용 위험이 극히 낮습니다.</p>
+                        <p class="effect-desc">내 혈액을 사용하므로<br>거부 반응이나 부작용 위험이 극히 낮습니다.</p>
                     </div>
                     <div class="prp-effect-card prp-card-2 fade-up" style="--card-delay: 0.25s;">
                         <span class="effect-label">effect 02</span>
                         <h3 class="effect-title">근본 치료</h3>
-                        <p class="effect-desc">일시적 통증 완화가 아닌,<br>약해진 조직 자체를 튼튼하게 재생시킵니다.</p>
+                        <p class="effect-desc">일시적 통증 완화가 아닌,<br>약해진 조직 자체를<br>튼튼하게 재생시킵니다.</p>
                     </div>
                     <div class="prp-effect-card prp-card-3 fade-up" style="--card-delay: 0.4s;">
                         <span class="effect-label">effect 03</span>
                         <h3 class="effect-title">강력한 재생</h3>
-                        <p class="effect-desc">일반 혈액보다 3~5배 농축된 성장인자가<br>인체의 자연 치유력을 극대화합니다.</p>
+                        <p class="effect-desc">일반 혈액보다 3~5배<br>농축된 성장인자가 인체의 자연 치유력을<br>극대화합니다.</p>
                     </div>
                 </div>
             </section>
