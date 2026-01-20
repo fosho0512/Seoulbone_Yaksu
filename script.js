@@ -327,7 +327,7 @@ function showContentView(id) {
                 
                 <div class="prp-intro-content">
                     <div class="prp-intro-text fade-up">
-                        <p>환자 본인의 혈액에서 치유와 재생을 담당하는<br>'성장인자'만을 고농도로 농축하여,<br>손상된 인대·힘줄·연골 부위에 직접 주사하는<br>최신 재생 치료법입니다.</p>
+                        <p>환자 본인의 혈액에서<br><span class="highlight">치유와 재생을 담당하는 '성장인자'</span>만을<br>고농도로 농축하여,<br>손상된 인대·힘줄·연골 부위에 직접 주사하는<br>최신 재생 치료법입니다.</p>
                     </div>
                     
                     <div class="prp-intro-cards">
@@ -745,7 +745,8 @@ function setupPrpFadeUp() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                prpFadeUpObserver.unobserve(entry.target);
+            } else {
+                entry.target.classList.remove('visible');
             }
         });
     }, {
