@@ -349,20 +349,6 @@ function showContentView(id) {
                 </div>
             </section>
             
-            <div class="prp-full-content">
-                ${data.details.map(det => `
-                    <div class="prp-section">
-                        <div class="prp-section-image">
-                            <img src="${det.img}" alt="${det.t}">
-                        </div>
-                        <div class="prp-section-text">
-                            <h3>${det.t}</h3>
-                            <p>${det.d}</p>
-                        </div>
-                    </div>
-                `).join('')}
-            </div>
-            
             <!-- PRP Final Section: 치료대상/치료과정/시술후관리 -->
             <section class="prp-final-section">
                 <div class="prp-final-bg-layer">

@@ -1444,69 +1444,6 @@ body.menu-open .visual-text { opacity: 0; }
     font-size: var(--font-md);
 }
 
-.prp-full-content {
-    border-top: 1px solid var(--sub-color);
-    padding-top: 80px;
-    padding-bottom: 120px;
-}
-
-.prp-section {
-    display: flex;
-    gap: 60px;
-    margin-bottom: 60px;
-    padding: 40px;
-    background: #fff;
-    border: 1px solid var(--sub-color);
-    box-shadow: 0 5px 25px rgba(44, 41, 38, 0.04);
-    transition: all var(--transition-medium);
-}
-.prp-section:hover {
-    box-shadow: 0 15px 40px rgba(44, 41, 38, 0.08);
-}
-.prp-section:nth-child(even) {
-    flex-direction: row-reverse;
-}
-.prp-section-image {
-    flex: 0 0 320px;
-}
-.prp-section-image img {
-    width: 100%;
-    height: 240px;
-    object-fit: cover;
-}
-.prp-section-text {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-.prp-section-text h3 {
-    font-family: var(--font-serif);
-    font-size: var(--font-heading-md);
-    color: var(--gold-accent);
-    margin-bottom: 20px;
-    font-weight: 400;
-    line-height: var(--lh-snug);
-}
-.prp-section-text p {
-    font-size: var(--font-body);
-    line-height: var(--lh-relaxed);
-    color: #6B635B;
-    font-weight: 300;
-}
-.prp-section-text p b,
-.prp-section-text p strong {
-    font-weight: 500;
-    color: var(--text-color);
-}
-.prp-section-text p i {
-    display: block;
-    margin-bottom: 15px;
-    color: var(--accent-color);
-    font-family: var(--font-serif);
-    font-size: var(--font-body);
-}
-
 /* =========================================
    PRP INTRO SECTION (Premium Asymmetric Layout)
    ========================================= */
@@ -1995,15 +1932,13 @@ body.site-entered:not(.content-view-active) #global-header .util-btn.highlight {
 .modal-image-group img,
 .grid-img-wrapper img,
 .staff-top-image-full img,
-.prp-hero-image img,
-.prp-section-image img {
+.prp-hero-image img {
     transition: transform var(--transition-slow), filter var(--transition-medium);
 }
 .modal-image-group:hover img,
 .grid-item:hover .grid-img-wrapper img,
 .staff-top-image-full:hover img,
-.prp-hero-image:hover img,
-.prp-section:hover .prp-section-image img {
+.prp-hero-image:hover img {
     transform: scale(1.05);
     filter: brightness(1.05);
 }
@@ -2052,13 +1987,11 @@ body.site-entered:not(.content-view-active) #global-header .util-btn.highlight {
 
 /* Enhanced Card Shadows */
 .grid-item,
-.flip-card-inner,
-.prp-section {
+.flip-card-inner {
     box-shadow: 0 4px 20px rgba(44, 41, 38, 0.06);
     transition: all var(--transition-medium), box-shadow 0.4s ease;
 }
-.grid-item:hover,
-.prp-section:hover {
+.grid-item:hover {
     box-shadow: 0 20px 50px rgba(44, 41, 38, 0.12);
 }
 
@@ -2160,10 +2093,6 @@ body::before {
     .prp-hero { flex-direction: column; gap: 40px; margin-bottom: 60px; }
     .prp-hero-image img { height: 280px; }
     .prp-hero-text h2 { font-size: var(--font-heading-lg); }
-    .prp-section { flex-direction: column !important; gap: 25px; padding: 25px; }
-    .prp-section-image { flex: none; }
-    .prp-section-image img { height: 200px; }
-    .prp-section-text h3 { font-size: var(--font-heading-sm); }
 }
 
 

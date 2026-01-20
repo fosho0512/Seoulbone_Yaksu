@@ -111,13 +111,7 @@ const siteData = {
         prp: { 
             title: "Cell Therapy (PRP)", 
             desc: "<strong>\"내 혈액 속 치유 성분으로 손상된 조직을 깨우다\"</strong><br>환자 본인의 혈액에서 치유와 재생을 담당하는 '성장인자'만을 고농도로 농축하여,<br>손상된 인대·힘줄·연골 부위에 직접 주사하는 최신 재생 치료법입니다.<br><br><strong>[핵심 특징]</strong><br>• <b>안전성:</b> 내 혈액 사용으로 거부 반응/부작용 최소화<br>• <b>근본 치료:</b> 약해진 조직 자체를 튼튼하게 재생<br>• <b>강력한 재생:</b> 3~5배 농축된 성장인자로 자연 치유력 극대화", 
-            modalImg: "images/prp.jpg", 
-            details: [ 
-                { t: "치료 대상 (Indication)", d: `<i>\"잘 낫지 않고 반복되는 만성 통증에 효과적입니다\"</i><br>물리치료나 약물, 스테로이드에 반응이 없는 만성 환자분께 권장됩니다.<br><br>• <b>팔꿈치:</b> 테니스엘보, 골프엘보<br>• <b>무릎:</b> 초기/중기 관절염, 연골 손상<br>• <b>힘줄/인대:</b> 회전근개 건염, 아킬레스 건염, 손목/발목 건초염`, img: "images/prp_indication.jpg" },
-                { t: "치료 과정 (Process)", d: `<i>\"당일 검사부터 시술까지, 약 30분~1시간 소요\"</i><br><br><b>STEP 1. 채혈:</b> 환자의 팔에서 소량(20~30cc) 채혈<br><b>STEP 2. 농축:</b> 특수 키트로 고농도 PRP 분리 (약 15분)<br><b>STEP 3. 시술:</b> 초음파 유도하에 정밀 주사`, img: "images/prp_process.jpg" },
-                { t: "시술 후 관리 (Post Care)", d: `<i>\"치료 효과를 극대화하고 빠른 회복을 돕는 가이드\"</i><br><br>• <b>초기 반응:</b> 시술 후 2~3일간 뻐근함이나 화끈거림은 정상 치유 과정입니다.<br>• <b>휴식:</b> 약 1주일간 격렬한 운동이나 과사용을 피해주세요.`, img: "images/prp_care.jpg" },
-                { t: "효과 극대화 전략", d: `<i>\"PRP의 재생 효과를 돕는 병행 치료\"</i><br><br>• <b>재생 촉진:</b> 체외충격파(ESWT), 고강도레이저(HILT)<br>• <b>통증 관리:</b> 크라이오(냉각치료)로 급성 통증 감소<br>• <b>기능 회복:</b> 도수치료 병행 시 재발률 감소`, img: "images/prp_strategy.jpg" }
-            ] 
+            modalImg: "images/prp.jpg"
         },
         // 06. Contact/Location
         contact: { 
