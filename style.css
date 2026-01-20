@@ -1568,7 +1568,7 @@ body.menu-open .visual-text { opacity: 0; }
     font-family: var(--font-body);
     font-size: clamp(20px, 1.8vw, 28px);
     font-weight: 300;
-    color: #B18247;
+    color: #000;
     line-height: 1.6;
     letter-spacing: 0.02em;
 }
