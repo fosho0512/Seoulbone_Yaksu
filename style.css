@@ -1531,11 +1531,11 @@ body.menu-open .visual-text { opacity: 0; }
 }
 
 .prp-intro-title {
-    position: absolute;
-    top: 80px;
-    right: 8%;
+    position: relative;
     text-align: right;
     z-index: 2;
+    margin-bottom: 240px;
+    padding-top: 240px;
 }
 
 .prp-intro-title h2 {
@@ -1548,15 +1548,17 @@ body.menu-open .visual-text { opacity: 0; }
 }
 
 .prp-intro-content {
-    display: flex;
-    align-items: flex-start;
-    gap: 60px;
-    margin-top: 180px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+    min-height: 500px;
 }
 
 .prp-intro-text {
-    flex: 0 0 320px;
-    padding-top: 40px;
+    grid-column: 1;
+    width: 480px;
+    max-width: 100%;
 }
 
 .prp-intro-text p {
@@ -1574,14 +1576,14 @@ body.menu-open .visual-text { opacity: 0; }
 }
 
 .prp-intro-cards {
-    flex: 1;
-    display: flex;
-    gap: 24px;
-    justify-content: flex-end;
+    grid-column: 2 / 4;
+    position: relative;
+    min-height: 500px;
 }
 
 .prp-effect-card {
-    flex: 0 0 280px;
+    position: absolute;
+    width: 280px;
     background: #fff;
     border-radius: 16px;
     padding: 36px 32px;
@@ -1589,15 +1591,34 @@ body.menu-open .visual-text { opacity: 0; }
     transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.prp-effect-card:nth-child(1),
-.prp-effect-card:nth-child(2),
+.prp-effect-card:nth-child(1) {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+}
+
+.prp-effect-card:nth-child(2) {
+    right: 0;
+    top: 30%;
+}
+
 .prp-effect-card:nth-child(3) {
-    margin-top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 60%;
 }
 
 .prp-effect-card:hover {
-    transform: translateY(-8px);
     box-shadow: 0 12px 40px rgba(44, 41, 38, 0.1);
+}
+
+.prp-effect-card:nth-child(1):hover,
+.prp-effect-card:nth-child(3):hover {
+    transform: translateX(-50%) translateY(-8px);
+}
+
+.prp-effect-card:nth-child(2):hover {
+    transform: translateY(-8px);
 }
 
 .effect-label {
@@ -1609,7 +1630,7 @@ body.menu-open .visual-text { opacity: 0; }
     padding: 6px 14px;
     border-radius: 20px;
     letter-spacing: 0.05em;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .effect-title {
@@ -1617,7 +1638,7 @@ body.menu-open .visual-text { opacity: 0; }
     font-size: clamp(22px, 2vw, 32px);
     font-weight: 500;
     color: var(--text-color);
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     line-height: var(--lh-snug);
 }
 
