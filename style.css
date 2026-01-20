@@ -1655,6 +1655,95 @@ body.menu-open .visual-text { opacity: 0; }
     transition-delay: var(--card-delay, 0s);
 }
 
+/* =========================================
+   PRP FINAL SECTION (Parallax Scroll)
+   ========================================= */
+
+.prp-final-section {
+    position: relative;
+    height: 300vh;
+    overflow: visible;
+}
+
+.prp-final-bg-layer {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.prp-final-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    will-change: transform, opacity;
+}
+
+.prp-final-bg-img[data-index="0"] {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.prp-final-bg-img[data-index="1"],
+.prp-final-bg-img[data-index="2"] {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.prp-final-content-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.prp-final-text-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 0 12% 0 50%;
+    text-align: left;
+    pointer-events: auto;
+}
+
+.prp-final-sub {
+    font-family: var(--font-body);
+    font-size: clamp(12px, 1vw, 14px);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.prp-final-title {
+    font-family: var(--font-heading);
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 700;
+    color: #fff;
+    line-height: var(--lh-snug);
+    margin-bottom: 24px;
+}
+
+.prp-final-desc {
+    font-family: var(--font-body);
+    font-size: clamp(16px, 1.3vw, 20px);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.7;
+}
+
 @media (max-width: 1024px) {
     .prp-intro-section {
         padding: 80px 6% 100px;
@@ -1688,6 +1777,38 @@ body.menu-open .visual-text { opacity: 0; }
         flex: none;
         width: 100%;
         margin-top: 0 !important;
+    }
+    
+    /* PRP Final Section Mobile */
+    .prp-final-section {
+        height: auto;
+    }
+    
+    .prp-final-bg-layer {
+        position: relative;
+        height: auto;
+    }
+    
+    .prp-final-bg-img {
+        position: relative;
+        height: 60vh;
+        opacity: 1 !important;
+        transform: scale(1) !important;
+    }
+    
+    .prp-final-bg-img[data-index="1"],
+    .prp-final-bg-img[data-index="2"] {
+        display: none;
+    }
+    
+    .prp-final-content-layer {
+        position: relative;
+    }
+    
+    .prp-final-text-block {
+        min-height: auto;
+        padding: 60px 6%;
+        background: #1a1a1a;
     }
 }
 

@@ -130,6 +130,7 @@ function showContentView(id) {
     cleanupTreatmentScroll();
     cleanupTreatmentDetails();
     cleanupPrpFadeUp();
+    cleanupPrpFinalSection();
     
     // Reset Content & Scroll
     elems.contentBody.innerHTML = "";
@@ -361,6 +362,32 @@ function showContentView(id) {
                     </div>
                 `).join('')}
             </div>
+            
+            <!-- PRP Final Section: 치료대상/치료과정/시술후관리 -->
+            <section class="prp-final-section">
+                <div class="prp-final-bg-layer">
+                    <div class="prp-final-bg-img" data-index="0" style="background-image: url('images/prp-indication.png')"></div>
+                    <div class="prp-final-bg-img" data-index="1" style="background-image: url('images/prp-process.png')"></div>
+                    <div class="prp-final-bg-img" data-index="2" style="background-image: url('images/prp-postcare.png')"></div>
+                </div>
+                <div class="prp-final-content-layer">
+                    <div class="prp-final-text-block" data-index="0">
+                        <span class="prp-final-sub">Treatment Indication</span>
+                        <h2 class="prp-final-title">치료 대상</h2>
+                        <p class="prp-final-desc">만성 통증, 인대·힘줄 손상, 퇴행성 관절염,<br>스포츠 부상 등 다양한 근골격계 질환에<br>효과적으로 적용됩니다.</p>
+                    </div>
+                    <div class="prp-final-text-block" data-index="1">
+                        <span class="prp-final-sub">Treatment Process</span>
+                        <h2 class="prp-final-title">치료 과정</h2>
+                        <p class="prp-final-desc">채혈 후 원심분리기로 혈소판을 농축하고,<br>초음파 유도 하에 정확한 부위에<br>주사하여 재생을 촉진합니다.</p>
+                    </div>
+                    <div class="prp-final-text-block" data-index="2">
+                        <span class="prp-final-sub">Post-treatment Care</span>
+                        <h2 class="prp-final-title">시술 후 관리</h2>
+                        <p class="prp-final-desc">시술 후 2~3일간 무리한 활동을 피하고,<br>담당 의료진의 안내에 따라<br>재활 운동을 병행하면 효과가 극대화됩니다.</p>
+                    </div>
+                </div>
+            </section>
         `;
     }
     else if (id === 'values') {
@@ -617,6 +644,7 @@ function showContentView(id) {
     if (id === 'prp') {
         setTimeout(() => {
             setupPrpFadeUp();
+            setupPrpFinalSection();
         }, 100);
     }
     
@@ -761,6 +789,65 @@ function cleanupPrpFadeUp() {
     if (prpFadeUpObserver) {
         prpFadeUpObserver.disconnect();
         prpFadeUpObserver = null;
+    }
+}
+
+let prpFinalScrollTrigger = null;
+
+function setupPrpFinalSection() {
+    const section = document.querySelector('.prp-final-section');
+    if (!section) return;
+    
+    if (window.innerWidth <= 1024) return;
+    
+    const bgImages = section.querySelectorAll('.prp-final-bg-img');
+    const textBlocks = section.querySelectorAll('.prp-final-text-block');
+    
+    if (bgImages.length < 3 || textBlocks.length < 3) return;
+    
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        console.warn('GSAP or ScrollTrigger not available');
+        return;
+    }
+    
+    gsap.registerPlugin(ScrollTrigger);
+    
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 0.5,
+            onUpdate: (self) => {
+                const progress = self.progress;
+                
+                if (progress < 0.33) {
+                    const p = progress / 0.33;
+                    gsap.set(bgImages[0], { opacity: 1 - p * 0.7, scale: 1 + p * 0.08 });
+                    gsap.set(bgImages[1], { opacity: p, scale: 0.95 + p * 0.05 });
+                    gsap.set(bgImages[2], { opacity: 0, scale: 0.95 });
+                } else if (progress < 0.66) {
+                    const p = (progress - 0.33) / 0.33;
+                    gsap.set(bgImages[0], { opacity: 0.3, scale: 1.08 });
+                    gsap.set(bgImages[1], { opacity: 1 - p * 0.7, scale: 1 + p * 0.08 });
+                    gsap.set(bgImages[2], { opacity: p, scale: 0.95 + p * 0.05 });
+                } else {
+                    const p = (progress - 0.66) / 0.34;
+                    gsap.set(bgImages[0], { opacity: 0, scale: 1.08 });
+                    gsap.set(bgImages[1], { opacity: 0.3, scale: 1.08 });
+                    gsap.set(bgImages[2], { opacity: 1, scale: 1 + p * 0.03 });
+                }
+            }
+        }
+    });
+    
+    prpFinalScrollTrigger = tl.scrollTrigger;
+}
+
+function cleanupPrpFinalSection() {
+    if (prpFinalScrollTrigger) {
+        prpFinalScrollTrigger.kill();
+        prpFinalScrollTrigger = null;
     }
 }
 
