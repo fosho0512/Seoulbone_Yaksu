@@ -1574,7 +1574,7 @@ body.menu-open .visual-text { opacity: 0; }
 }
 
 .prp-intro-text .highlight {
-    color: var(--gold-accent);
+    color: #B18247;
     font-weight: 500;
 }
 
