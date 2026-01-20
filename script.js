@@ -319,30 +319,9 @@ function showContentView(id) {
                 </div>
             </div>
             <div class="sub-hero-content">
-                <div class="prp-intro-section">
-                    <div class="prp-intro-inner">
-                        <h2 class="prp-main-slogan">${data.mainSlogan}</h2>
-                        <div class="prp-intro-left">
-                            <p class="prp-sub-desc">${data.subDesc}</p>
-                        </div>
-                        <div class="prp-features-grid">
-                            <div class="prp-feature-card" data-index="0">
-                                <span class="prp-feature-label">effect01</span>
-                                <h3 class="prp-feature-title">${data.features[0].label}</h3>
-                                <p class="prp-feature-desc">${data.features[0].desc}</p>
-                            </div>
-                            <div class="prp-feature-card" data-index="1">
-                                <span class="prp-feature-label">effect02</span>
-                                <h3 class="prp-feature-title">${data.features[1].label}</h3>
-                                <p class="prp-feature-desc">${data.features[1].desc}</p>
-                            </div>
-                            <div class="prp-feature-card" data-index="2">
-                                <span class="prp-feature-label">effect03</span>
-                                <h3 class="prp-feature-title">${data.features[2].label}</h3>
-                                <p class="prp-feature-desc">${data.features[2].desc}</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="content-intro">
+                    <p class="description">${data.desc}</p>
+                    <div class="divider"></div>
                 </div>
                 <div class="prp-full-content">
                     ${data.details.map(det => `
@@ -933,12 +912,6 @@ function setupFadeInObserver() {
                 if (mutation.target.classList.contains('active')) {
                     setTimeout(() => {
                         const fadeElements = contentView.querySelectorAll('.grid-item, .flip-card, .prp-section, .bio-group');
-                        
-                        // PRP Intro Section 애니메이션
-                        const prpIntroSection = contentView.querySelector('.prp-intro-section');
-                        if (prpIntroSection) {
-                            initPRPIntroAnimations(prpIntroSection);
-                        }
                         fadeElements.forEach((el, index) => {
                             el.classList.add('fade-in-up');
                             // Blanc de Vie style: stagger 0.2s
@@ -967,58 +940,6 @@ function setupFadeInObserver() {
         
         mutationObserver.observe(contentView, { attributes: true, attributeFilter: ['class'] });
     }
-}
-
-// PRP Intro Section 순차 페이드업 애니메이션
-function initPRPIntroAnimations(section) {
-    const slogan = section.querySelector('.prp-main-slogan');
-    const subDesc = section.querySelector('.prp-sub-desc');
-    const cards = section.querySelectorAll('.prp-feature-card');
-    
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px 0px -5% 0px',
-        threshold: 0.1
-    };
-    
-    // 메인 슬로건 observer
-    if (slogan) {
-        const sloganObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                    sloganObserver.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        sloganObserver.observe(slogan);
-    }
-    
-    // 서브 설명 observer
-    if (subDesc) {
-        const descObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                    descObserver.unobserve(entry.target);
-                }
-            });
-        }, { ...observerOptions, rootMargin: '0px 0px -10% 0px' });
-        descObserver.observe(subDesc);
-    }
-    
-    // 카드들 순차 observer
-    cards.forEach((card, index) => {
-        const cardObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                    cardObserver.unobserve(entry.target);
-                }
-            });
-        }, { ...observerOptions, rootMargin: '0px 0px -8% 0px' });
-        cardObserver.observe(card);
-    });
 }
 
 // Philosophy Card Scroll Animation
