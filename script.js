@@ -358,19 +358,43 @@ function showContentView(id) {
                 </div>
                 <div class="prp-final-content-layer">
                     <div class="prp-final-text-block" data-index="0">
-                        <span class="prp-final-sub">Treatment Indication</span>
+                        <span class="prp-final-sub">Indication</span>
                         <h2 class="prp-final-title">치료 대상</h2>
-                        <p class="prp-final-desc">만성 통증, 인대·힘줄 손상, 퇴행성 관절염,<br>스포츠 부상 등 다양한 근골격계 질환에<br>효과적으로 적용됩니다.</p>
+                        <p class="prp-final-main">"잘 낫지 않고 반복되는 만성 통증에 효과적입니다"</p>
+                        <p class="prp-final-desc">일반적인 물리치료나 약물치료에 반응이 더디거나, 스테로이드 주사 후에도 재발하는 만성 근골격계 질환환자분들에게 권장됩니다.</p>
+                        <div class="prp-final-details">
+                            <h4>주요 적용 질환</h4>
+                            <ul>
+                                <li><strong>팔꿈치 통증:</strong>테니스엘보(외측상과염), 골프엘보(내측상과염)</li>
+                                <li><strong>무릎 통증:</strong>초기 및 중기 퇴행성 관절염, 연골 손상</li>
+                                <li><strong>힘줄/인대 질환:</strong>만성 회전근개 건염(어깨), 아킬레스 건염, 손목/발목 건초염 등</li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="prp-final-text-block" data-index="1">
-                        <span class="prp-final-sub">Treatment Process</span>
+                        <span class="prp-final-sub">Process</span>
                         <h2 class="prp-final-title">치료 과정</h2>
-                        <p class="prp-final-desc">채혈 후 원심분리기로 혈소판을 농축하고,<br>초음파 유도 하에 정확한 부위에<br>주사하여 재생을 촉진합니다.</p>
+                        <p class="prp-final-main">"당일 검사부터 시술까지, 약 30분~1시간 소요됩니다"</p>
+                        <p class="prp-final-desc">입원이나 복잡한 마취 없이 외래에서 간편하게 진행됩니다.</p>
+                        <div class="prp-final-details">
+                            <ul>
+                                <li><strong>STEP 1. 채혈 (Blood Draw)</strong>환자분의 팔에서 소량(약 20~30cc)의 혈액을 채취합니다.</li>
+                                <li><strong>STEP 2. 원심분리 및 농축 (Concentration)</strong>특수 키트와 장비를 이용해 혈액에서 고농도 PRP만을 분리해 냅니다. (약 15분 소요)</li>
+                                <li><strong>STEP 3. 정밀 주사 시술 (Injection)</strong>고해상도 초음파를 통해 손상 부위를 실시간으로 확인하며 정확하게 주사합니다.</li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="prp-final-text-block" data-index="2">
-                        <span class="prp-final-sub">Post-treatment Care</span>
+                        <span class="prp-final-sub">Post Care</span>
                         <h2 class="prp-final-title">시술 후 관리</h2>
-                        <p class="prp-final-desc">시술 후 2~3일간 무리한 활동을 피하고,<br>담당 의료진의 안내에 따라<br>재활 운동을 병행하면 효과가 극대화됩니다.</p>
+                        <p class="prp-final-main">"치료 효과를 극대화하고 빠른 회복을 돕는 핵심 가이드"</p>
+                        <p class="prp-final-desc">PRP는 인위적인 진통제가 아닌 '조직 재생' 치료이므로, 시술 후 올바른 관리와 시너지 치료가 결과에 큰 영향을 미칩니다.</p>
+                        <div class="prp-final-details">
+                            <ul>
+                                <li><strong>시술 초기 반응 (정상 과정):</strong>시술 후 2~3일간은 치유 과정에서 뻐근한 통증이나 화끈거림이 일시적으로 증가할 수 있습니다. 이는 조직이 반응하고 있다는 신호입니다.</li>
+                                <li><strong>휴식 및 활동 제한:</strong>시술 후 약 1주일 동안은 치료 부위에 무리가 가는 격렬한 운동이나 과도한 사용을 피하고 충분한 휴식을 취해주세요.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>

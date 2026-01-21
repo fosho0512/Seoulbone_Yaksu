@@ -1673,12 +1673,69 @@ body.menu-open .visual-text { opacity: 0; }
     margin-bottom: 24px;
 }
 
+.prp-final-main {
+    font-family: var(--font-heading-kr);
+    font-size: clamp(18px, 1.6vw, 24px);
+    font-weight: 500;
+    color: #fff;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+}
+
 .prp-final-desc {
     font-family: var(--font-body);
-    font-size: clamp(16px, 1.3vw, 20px);
+    font-size: clamp(15px, 1.2vw, 18px);
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.8);
     line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+.prp-final-details {
+    margin-top: 20px;
+}
+
+.prp-final-details h4 {
+    font-family: var(--font-heading-kr);
+    font-size: clamp(14px, 1.1vw, 17px);
+    font-weight: 600;
+    color: var(--gold-accent);
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+}
+
+.prp-final-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.prp-final-details li {
+    font-family: var(--font-body);
+    font-size: clamp(14px, 1.1vw, 16px);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+    margin-bottom: 10px;
+    padding-left: 16px;
+    position: relative;
+}
+
+.prp-final-details li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 4px;
+    height: 4px;
+    background: var(--gold-accent);
+    border-radius: 50%;
+}
+
+.prp-final-details li strong {
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 500;
 }
 
 @media (max-width: 1024px) {
