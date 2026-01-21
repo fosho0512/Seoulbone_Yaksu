@@ -853,17 +853,30 @@ function setupPrpFinalSection() {
         });
         
         if (activeIndex !== currentActiveIndex) {
+            const previousIndex = currentActiveIndex;
             currentActiveIndex = activeIndex;
             
             bgImages.forEach((img, index) => {
-                const isActive = index === activeIndex;
-                gsap.to(img, { 
-                    opacity: isActive ? 1 : 0, 
-                    scale: isActive ? 1.05 : 0.95, 
-                    duration: 1.5, 
-                    ease: 'power2.out',
-                    overwrite: 'auto'
-                });
+                if (index === activeIndex) {
+                    gsap.to(img, { 
+                        opacity: 1, 
+                        scale: 1.05, 
+                        duration: 1.5, 
+                        ease: 'power2.out',
+                        overwrite: 'auto'
+                    });
+                } else if (index === previousIndex) {
+                    gsap.to(img, { 
+                        opacity: 0, 
+                        scale: 0.95, 
+                        duration: 1.2, 
+                        delay: 0.3,
+                        ease: 'power2.out',
+                        overwrite: 'auto'
+                    });
+                } else {
+                    gsap.set(img, { opacity: 0, scale: 0.95 });
+                }
             });
         }
     }
