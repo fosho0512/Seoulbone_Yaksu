@@ -825,38 +825,33 @@ function setupPrpFinalSection() {
     gsap.set(bgImages[1], { opacity: 0, scale: 0.95 });
     gsap.set(bgImages[2], { opacity: 0, scale: 0.95 });
     
+    let currentActiveIndex = 0;
+    
     function updateBackgrounds() {
-        const viewportCenter = window.innerHeight / 2;
-        const activeWeights = [0, 0, 0];
+        const triggerPoint = window.innerHeight * 0.8;
+        let activeIndex = 0;
         
         textBlocks.forEach((block, index) => {
             const rect = block.getBoundingClientRect();
-            const blockCenter = rect.top + rect.height / 2;
-            const distanceFromCenter = Math.abs(blockCenter - viewportCenter);
-            const maxDistance = window.innerHeight * 0.8;
-            const weight = Math.max(0, 1 - distanceFromCenter / maxDistance);
-            activeWeights[index] = weight;
+            if (rect.top <= triggerPoint) {
+                activeIndex = index;
+            }
         });
         
-        const totalWeight = activeWeights.reduce((a, b) => a + b, 0);
-        if (totalWeight > 0) {
-            activeWeights.forEach((w, i) => activeWeights[i] = w / totalWeight);
-        } else {
-            activeWeights[0] = 1;
-        }
-        
-        bgImages.forEach((img, index) => {
-            const weight = activeWeights[index];
-            const opacity = weight;
-            const scale = 0.95 + weight * 0.13;
-            gsap.to(img, { 
-                opacity: opacity, 
-                scale: scale, 
-                duration: 0.4, 
-                ease: 'power2.out',
-                overwrite: 'auto'
+        if (activeIndex !== currentActiveIndex) {
+            currentActiveIndex = activeIndex;
+            
+            bgImages.forEach((img, index) => {
+                const isActive = index === activeIndex;
+                gsap.to(img, { 
+                    opacity: isActive ? 1 : 0, 
+                    scale: isActive ? 1.05 : 0.95, 
+                    duration: 0.8, 
+                    ease: 'power2.out',
+                    overwrite: 'auto'
+                });
             });
-        });
+        }
     }
     
     prpFinalScrollHandler = updateBackgrounds;
