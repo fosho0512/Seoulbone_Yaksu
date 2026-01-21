@@ -1478,7 +1478,7 @@ body.menu-open .visual-text { opacity: 0; }
 .prp-intro-title h2 {
     font-family: 'Pretendard', sans-serif;
     font-size: clamp(33px, 3.5vw, 50px);
-    font-weight: 700;
+    font-weight: 600;
     color: var(--text-color);
     line-height: var(--lh-snug);
     letter-spacing: var(--ls-tight);
