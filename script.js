@@ -355,6 +355,7 @@ function showContentView(id) {
                     <div class="prp-final-bg-img" data-index="0" style="background-image: url('images/prp-indication.png')"></div>
                     <div class="prp-final-bg-img" data-index="1" style="background-image: url('images/prp-process.png')"></div>
                     <div class="prp-final-bg-img" data-index="2" style="background-image: url('images/prp-postcare.png')"></div>
+                    <div class="prp-final-bg-img" data-index="3" style="background-image: url('images/prp-synergy.png')"></div>
                 </div>
                 <div class="prp-final-content-layer">
                     <div class="prp-final-text-block" data-index="0">
@@ -393,6 +394,18 @@ function showContentView(id) {
                             <ul>
                                 <li><strong>시술 초기 반응 (정상 과정):</strong>시술 후 2~3일간은 치유 과정에서 뻐근한 통증이나 화끈거림이 일시적으로 증가할 수 있습니다. 이는 조직이 반응하고 있다는 신호입니다.</li>
                                 <li><strong>휴식 및 활동 제한:</strong>시술 후 약 1주일 동안은 치료 부위에 무리가 가는 격렬한 운동이나 과도한 사용을 피하고 충분한 휴식을 취해주세요.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="prp-final-text-block" data-index="3">
+                        <span class="prp-final-sub">Synergy</span>
+                        <h2 class="prp-final-title">효과를 극대화하는 병행 치료 전략</h2>
+                        <p class="prp-final-desc">PRP의 재생 효과를 돕고 회복 기간을 단축하기 위해, 의료진의 판단하에 다음 치료를 병행하면 강력한 시너지 효과를 기대할 수 있습니다.</p>
+                        <div class="prp-final-details">
+                            <ul>
+                                <li><strong>재생 촉진:</strong>체외충격파(ESWT) 및 고강도레이저(HILT)를 통해 세포를 추가 자극하여 조직 재생 속도를 높입니다.</li>
+                                <li><strong>통증 관리:</strong>시술 직후 크라이오(Cryotherapy, 냉각치료)를 병행하면 급성기 통증과 부종을 효과적으로 감소시킵니다.</li>
+                                <li><strong>기능 회복:</strong>재생된 조직이 제 기능을 하도록 돕는 전문 물리치료/도수치료 병행 시 재발률이 현저히 낮아집니다.</li>
                             </ul>
                         </div>
                     </div>
@@ -814,7 +827,7 @@ function setupPrpFinalSection() {
     const bgImages = section.querySelectorAll('.prp-final-bg-img');
     const textBlocks = section.querySelectorAll('.prp-final-text-block');
     
-    if (bgImages.length < 3 || textBlocks.length < 3) return;
+    if (bgImages.length < 4 || textBlocks.length < 4) return;
     
     if (typeof gsap === 'undefined') {
         console.warn('GSAP not available for PRP Final Section');
@@ -824,6 +837,7 @@ function setupPrpFinalSection() {
     gsap.set(bgImages[0], { opacity: 1, scale: 1 });
     gsap.set(bgImages[1], { opacity: 0, scale: 0.95 });
     gsap.set(bgImages[2], { opacity: 0, scale: 0.95 });
+    gsap.set(bgImages[3], { opacity: 0, scale: 0.95 });
     
     let currentActiveIndex = 0;
     
@@ -846,7 +860,7 @@ function setupPrpFinalSection() {
                 gsap.to(img, { 
                     opacity: isActive ? 1 : 0, 
                     scale: isActive ? 1.05 : 0.95, 
-                    duration: 0.8, 
+                    duration: 1.5, 
                     ease: 'power2.out',
                     overwrite: 'auto'
                 });
