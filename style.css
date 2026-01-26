@@ -76,12 +76,13 @@ body {
     background-color: var(--bg-color); 
     color: var(--text-color); 
     font-family: var(--font-sans); 
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     font-weight: 300;
     letter-spacing: var(--ls-normal);
 }
-body.content-view-active {
-    overflow: auto;
+body:has(.intro-overlay:not(.hidden)) {
+    overflow: hidden;
 }
 ul { list-style: none; }
 button { border: none; background: none; cursor: pointer; font-family: inherit; }
