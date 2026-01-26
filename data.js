@@ -26,7 +26,7 @@ const siteData = {
                 { category: "논문", items: ["Can initial sarcopenia affect poststroke rehabilitation outcome? (Journal of Clinical Neuroscience, 2020)", "Survey of Botulinum Toxin Injections in Anticoagulated Patients (Ann Rehabil Med. 2016)", "Unilateral Pseudohypertrophy of Calf Muscles as a Clinical Manifestation of Lumbosacral Radiculopathy (2020)", "Number processing error as a clinical manifestation of hemispatial neglect following hypoxic brain injury (Brain & Neurorehabilitation 2020)", "YouTube as a learning tool for four shoulder tests (Prim Health Care Res Dev. 2018)", "Smartphone Application Versus Pedometer to Promote Physical Activity in Prostate Cancer Patients (Telemed J E Health. 2019)", "Effectiveness of hydrotherapy on balance and paretic knee strength in patients with stroke (Am J Phys Med Rehabil. 2020)"] }
             ],
             bottomQuote: {
-                main: "\"몸은 결코 거짓을 말하지 않습니다.<br>통증은 그 진실을 전하는 가장 정직한 신호입니다.\"",
+                main: "\"당신의 몸은 결코 거짓을 말하지 않습니다.<br>통증은 그 진실을 전하는 가장 정직한 신호입니다.\"",
                 sub: "우리는 보이는 증상 너머, 숨겨진 원인을 깊이 읽어냅니다.<br>현재의 신체 기능과 앞으로의 변화까지 세심하게 고려하여<br>가장 온전한 회복을 위해 정성을 다해 진료하겠습니다."
             },
             details: [] 
