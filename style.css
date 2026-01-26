@@ -2271,13 +2271,15 @@ body::before {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: var(--sub-color);
+    background: transparent;
+    border: 1.5px solid var(--sub-color);
     transition: all 0.4s ease;
     cursor: pointer;
 }
 
 .progress-dot.active {
     background: var(--gold-accent);
+    border-color: var(--gold-accent);
     transform: scale(1.3);
 }
 
