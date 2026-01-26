@@ -229,20 +229,21 @@ function showContentView(id) {
                                 </div>
                             </section>
                             
-                            <!-- 섹션 2: Slogan (Text 01 + Text 02) -->
+                            <!-- 섹션 2: Slogan -->
                             <section class="diag-panel diag-slogan">
                                 <div class="diag-slogan-bg">
                                     <img src="images/diagnosis-slogan.png" alt="Slogan Background">
                                 </div>
                                 <div class="diag-slogan-overlay"></div>
                                 <div class="diag-slogan-content">
-                                    <div class="diag-slogan-text" data-slogan="1">
-                                        <h3>정확한 진단이<br>완치의 시작입니다</h3>
-                                        <p>통증의 근본 원인을 찾아내는 것,<br>그것이 진정한 치료의 첫걸음입니다.</p>
+                                    <div class="diag-slogan-block" data-order="1">
+                                        <h3 class="diag-slogan-headline">정확한 진단이 완치의 시작입니다</h3>
+                                        <p class="diag-slogan-desc">통증의 근본 원인을 찾아내는 것,<br>그것이 진정한 치료의 첫걸음입니다.</p>
                                     </div>
-                                    <div class="diag-slogan-text" data-slogan="2">
-                                        <h3>최첨단 장비로<br>정밀하게 분석합니다</h3>
-                                        <p>서울본재활의학과는 첨단 진단 장비에<br>아낌없이 투자합니다.</p>
+                                    <div class="diag-slogan-divider" data-order="2"></div>
+                                    <div class="diag-slogan-block" data-order="3">
+                                        <h3 class="diag-slogan-headline">최첨단 장비로 정밀하게 분석합니다</h3>
+                                        <p class="diag-slogan-desc">서울본재활의학과는 첨단 진단 장비에<br>아낌없이 투자합니다.</p>
                                     </div>
                                 </div>
                                 <div class="scroll-indicator scroll-indicator-vertical" id="diag-indicator-slogan">
@@ -1277,8 +1278,6 @@ function setupDiagnosisScroll() {
     const area = document.querySelector('.diag-horizontal-area');
     const viewport = document.querySelector('.diag-viewport');
     const track = document.querySelector('.diag-track');
-    const sloganText1 = document.querySelector('.diag-slogan-text[data-slogan="1"]');
-    const sloganText2 = document.querySelector('.diag-slogan-text[data-slogan="2"]');
     const sloganPanel = document.querySelector('.diag-slogan');
     const indicatorSubhero = document.getElementById('diag-indicator-subhero');
     const indicatorSlogan = document.getElementById('diag-indicator-slogan');
@@ -1291,7 +1290,7 @@ function setupDiagnosisScroll() {
     // 모바일에서는 수평 스크롤 비활성화
     if (window.innerWidth <= 768) {
         track.style.transform = 'none';
-        if (sloganText1) sloganText1.classList.add('active');
+        if (sloganPanel) sloganPanel.classList.add('animate');
         return;
     }
     
@@ -1365,37 +1364,14 @@ function setupDiagnosisScroll() {
             
             track.style.transform = `translateX(${translateX}%)`;
             
-            // Slogan Text 상호 배타적 토글 (항상 하나만 active)
-            if (sloganText1 && sloganText2) {
-                // 기본: 둘 다 비활성화
-                let showText1 = false;
-                let showText2 = false;
-                
-                if (progress >= PHASE.SLOGAN_APPEAR && progress < PHASE.TEXT1_END) {
-                    showText1 = true;
-                } else if (progress >= PHASE.TEXT1_END && progress < 1.0) {
-                    showText2 = true;
-                }
-                
-                // 클래스 토글 (상호 배타)
-                if (showText1) {
-                    sloganText1.classList.add('active');
-                    sloganText2.classList.remove('active');
-                } else if (showText2) {
-                    sloganText1.classList.remove('active');
-                    sloganText2.classList.add('active');
-                } else {
-                    sloganText1.classList.remove('active');
-                    sloganText2.classList.remove('active');
-                }
-            }
-            
-            // 슬로건 배경 zoom-out 효과 (슬로건 진입 시)
+            // 슬로건 애니메이션 및 배경 zoom-out 효과
             if (sloganPanel) {
                 if (progress >= PHASE.SLOGAN_APPEAR) {
                     sloganPanel.classList.add('zoom-out');
+                    sloganPanel.classList.add('animate');
                 } else {
                     sloganPanel.classList.remove('zoom-out');
+                    sloganPanel.classList.remove('animate');
                 }
             }
             

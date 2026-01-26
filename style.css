@@ -2948,46 +2948,64 @@ body::before {
     z-index: 10;
     text-align: center;
     padding: 0 12%;
-    max-width: 900px;
+    max-width: 700px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
 }
 
-/* Slogan Text 블록 - 기본적으로 숨김 */
-.diag-slogan-text {
+/* Slogan Block - 순차 페이드업 애니메이션 */
+.diag-slogan-block {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) translateY(30px);
-    width: 100%;
-    max-width: 800px;
-    padding: 0 12%;
-    box-sizing: border-box;
+    transform: translateY(25px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.diag-slogan-text.active {
+.diag-slogan-block[data-order="1"] { transition-delay: 0s; }
+.diag-slogan-block[data-order="3"] { transition-delay: 0.6s; }
+
+.diag-slogan.animate .diag-slogan-block {
     opacity: 1;
-    transform: translate(-50%, -50%) translateY(0);
+    transform: translateY(0);
 }
 
-.diag-slogan-text h3 {
+.diag-slogan-headline {
     font-family: var(--font-serif);
-    font-size: var(--font-display-lg);
+    font-size: clamp(1.5rem, 3vw, 2rem);
     font-weight: 400;
     color: #fff;
-    line-height: var(--lh-snug);
-    margin-bottom: 24px;
+    line-height: 1.4;
+    margin: 0 0 16px 0;
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.02em;
 }
 
-.diag-slogan-text p {
+.diag-slogan-desc {
     font-family: var(--font-sans);
-    font-size: var(--font-body-lg);
-    color: rgba(255, 255, 255, 0.9);
-    line-height: var(--lh-relaxed);
+    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.8;
+    margin: 0;
+    font-weight: 300;
+}
+
+/* Divider - 골드 라인 */
+.diag-slogan-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--gold-accent);
+    margin: 40px 0;
+    opacity: 0;
+    transform: scaleX(0);
+    transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s;
+}
+
+.diag-slogan.animate .diag-slogan-divider {
+    opacity: 1;
+    transform: scaleX(1);
 }
 
 /* ============================================
@@ -3100,22 +3118,29 @@ body::before {
         transform: translateY(-50%);
     }
     
-    .diag-slogan-text {
-        position: relative;
-        left: auto;
-        top: auto;
-        transform: none;
-        opacity: 1;
+    .diag-slogan-content {
         padding: 0 6%;
+        max-width: 100%;
     }
     
-    .diag-slogan-text.active {
+    .diag-slogan-block {
+        opacity: 1;
         transform: none;
     }
     
-    /* 모바일에서는 Text 01만 표시 */
-    .diag-slogan-text:nth-child(2) {
-        display: none;
+    .diag-slogan-headline {
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+    }
+    
+    .diag-slogan-desc {
+        font-size: 0.9rem;
+    }
+    
+    .diag-slogan-divider {
+        opacity: 1;
+        transform: scaleX(1);
+        margin: 28px 0;
     }
     
     .diag-equipment {
