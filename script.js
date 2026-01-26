@@ -146,7 +146,7 @@ function showContentView(id) {
         html = `
             <div class="sub-hero" id="staff-sub-hero">
                 <div class="sub-hero-image">
-                    <img src="images/staff-hero.png" alt="Medical Staff Hero">
+                    <img src="images/staff-subhero.jpg" alt="Medical Staff Hero">
                 </div>
                 <div class="sub-hero-overlay"></div>
                 <div class="sub-hero-text">
