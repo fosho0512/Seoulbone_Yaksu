@@ -1146,100 +1146,24 @@ function setupFadeInObserver() {
 // Philosophy Card Scroll Animation
 function setupPhilosophyCardScroll(section) {
     const cardWrapper = section.querySelector('.philosophy-card-wrapper');
-    const card = section.querySelector('.philosophy-card');
-    const lines = section.querySelectorAll('.philosophy-line');
-    if (!cardWrapper || !card) return;
+    if (!cardWrapper) return;
     
-    const INITIAL_HEIGHT = 160;
-    const MAX_HEIGHT = 420;
-    const LINE_HEIGHT_STEP = 65;
-    
-    let scrollHandler = null;
-    let isFullyExpanded = false;
-    let shownLines = [];
-    
-    scrollHandler = function() {
-        const rect = cardWrapper.getBoundingClientRect();
-        const vh = window.innerHeight;
-        const cardTop = rect.top;
-        
-        const widthStartThreshold = vh * 0.80;
-        const widthEndThreshold = vh * 0.45;
-        const heightStartThreshold = vh * 0.45;
-        const heightEndThreshold = vh * 0.15;
-        
-        // Phase 1: Width expansion (80vh → 45vh)
-        if (cardTop <= widthStartThreshold && cardTop > widthEndThreshold) {
-            const progress = (widthStartThreshold - cardTop) / (widthStartThreshold - widthEndThreshold);
-            const width = 70 + (30 * progress);
-            cardWrapper.style.width = width + 'vw';
-            cardWrapper.style.maxWidth = 'none';
-            cardWrapper.style.marginLeft = 'calc(-' + (width / 2) + 'vw + 50%)';
-            cardWrapper.style.marginRight = 'calc(-' + (width / 2) + 'vw + 50%)';
-            card.style.height = INITIAL_HEIGHT + 'px';
-            cardWrapper.classList.remove('expanding');
-            cardWrapper.classList.remove('sticky');
-        }
-        // Phase 2: Height expansion + sticky (45vh → 15vh)
-        else if (cardTop <= widthEndThreshold && cardTop > heightEndThreshold) {
-            if (!isFullyExpanded) {
-                isFullyExpanded = true;
-                cardWrapper.style.width = '100vw';
-                cardWrapper.style.maxWidth = 'none';
-                cardWrapper.style.marginLeft = 'calc(-50vw + 50%)';
-                cardWrapper.style.marginRight = 'calc(-50vw + 50%)';
-                cardWrapper.classList.add('expanding');
-                cardWrapper.classList.add('sticky');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                cardWrapper.classList.add('expanded');
+            } else {
+                cardWrapper.classList.remove('expanded');
             }
-            
-            const heightProgress = (widthEndThreshold - cardTop) / (widthEndThreshold - heightEndThreshold);
-            const currentHeight = INITIAL_HEIGHT + ((MAX_HEIGHT - INITIAL_HEIGHT) * heightProgress);
-            card.style.height = Math.min(currentHeight, MAX_HEIGHT) + 'px';
-            
-            const availableSpace = currentHeight - INITIAL_HEIGHT;
-            const linesToShow = Math.floor(availableSpace / LINE_HEIGHT_STEP);
-            
-            lines.forEach((line, idx) => {
-                if (idx < linesToShow && !shownLines.includes(idx)) {
-                    shownLines.push(idx);
-                    setTimeout(() => {
-                        line.classList.add('visible');
-                    }, 100);
-                }
-            });
-        }
-        // Phase 3: Fully expanded
-        else if (cardTop <= heightEndThreshold) {
-            card.style.height = MAX_HEIGHT + 'px';
-            lines.forEach((line, idx) => {
-                if (!shownLines.includes(idx)) {
-                    shownLines.push(idx);
-                    setTimeout(() => {
-                        line.classList.add('visible');
-                    }, idx * 150);
-                }
-            });
-        }
-        // Reset: Above all thresholds
-        else {
-            cardWrapper.style.width = '';
-            cardWrapper.style.maxWidth = '';
-            cardWrapper.style.marginLeft = '';
-            cardWrapper.style.marginRight = '';
-            card.style.height = '';
-            cardWrapper.classList.remove('expanding');
-            cardWrapper.classList.remove('sticky');
-            isFullyExpanded = false;
-            shownLines = [];
-            lines.forEach(line => line.classList.remove('visible'));
-        }
-    };
+        });
+    }, {
+        rootMargin: '-20% 0px -80% 0px'
+    });
     
-    window.addEventListener('scroll', scrollHandler, { passive: true });
-    scrollHandler();
+    observer.observe(cardWrapper);
     
     section._philosophyCleanup = () => {
-        window.removeEventListener('scroll', scrollHandler);
+        observer.disconnect();
     };
 }
 
