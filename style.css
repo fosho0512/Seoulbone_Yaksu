@@ -1270,10 +1270,6 @@ body.menu-open .visual-text { opacity: 0; }
     font-weight: 400;
     font-style: italic;
 }
-.philosophy-line.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
 @keyframes philosophyFadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }

@@ -1148,22 +1148,24 @@ function setupPhilosophyCardScroll(section) {
     const cardWrapper = section.querySelector('.philosophy-card-wrapper');
     if (!cardWrapper) return;
     
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                cardWrapper.classList.add('expanded');
-            } else {
-                cardWrapper.classList.remove('expanded');
-            }
-        });
-    }, {
-        rootMargin: '-80% 0px -20% 0px'
-    });
+    const TRIGGER_POINT = 0.80;
     
-    observer.observe(cardWrapper);
+    function handleScroll() {
+        const rect = cardWrapper.getBoundingClientRect();
+        const triggerY = window.innerHeight * TRIGGER_POINT;
+        
+        if (rect.top <= triggerY) {
+            cardWrapper.classList.add('expanded');
+        } else {
+            cardWrapper.classList.remove('expanded');
+        }
+    }
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     
     section._philosophyCleanup = () => {
-        observer.disconnect();
+        window.removeEventListener('scroll', handleScroll);
     };
 }
 
