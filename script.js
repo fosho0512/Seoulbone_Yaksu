@@ -1157,7 +1157,7 @@ function setupPhilosophyCardScroll(section) {
             }
         });
     }, {
-        rootMargin: '-20% 0px -80% 0px'
+        rootMargin: '-80% 0px -20% 0px'
     });
     
     observer.observe(cardWrapper);
