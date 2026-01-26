@@ -14,7 +14,7 @@ const siteData = {
             title: "Medical Staff", 
             name: "장 용 준",
             position: "대표원장",
-            titles: ["재활의학과 전문의 · 의학박사", "석박사통합과정 졸업 (부전공 신경외과학)", "가톨릭대학교 재활의학교실 외래교수"],
+            titles: ["재활의학과 전문의 · 의학박사", "가톨릭대학교 재활의학교실 외래교수", "석박사통합과정 졸업 (부전공 신경외과학)"],
             modalImg: "images/staff.jpg", 
             signatureImg: "images/signature.png", 
             bio: [

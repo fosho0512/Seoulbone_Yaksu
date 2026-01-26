@@ -173,8 +173,8 @@ function showContentView(id) {
                 </div>
                 <div class="profile-info-scroll">
                     <div class="profile-header">
-                        <h2 class="profile-name">장 용 준 <span class="title-badge">대표원장</span></h2>
-                        <p class="profile-subtitle">재활의학과 전문의 · 의학박사<br>가톨릭대학교 재활의학교실 외래교수</p>
+                        <h2 class="profile-name">${data.name} <span class="title-badge">${data.position}</span></h2>
+                        <p class="profile-subtitle">${data.titles.join('<br>')}</p>
                     </div>
                     ${data.bio.map(group => `
                         <div class="bio-group">
