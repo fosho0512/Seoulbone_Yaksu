@@ -185,6 +185,7 @@ a { text-decoration: none; color: inherit; }
     color: rgba(255, 255, 255, 0.75);
     font-size: var(--font-ui);
     display: block;
+    margin-top: -4px;
 }
 
 /* Line Loader */
