@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostics | SEOUL BONE Pain Clinic</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Manrope:wght@300;400;500;600&family=Noto+Serif+KR:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="site-entered has-sub-hero">
+    <header id="global-header" class="visible">
+        <div id="scroll-progress" class="scroll-progress"></div>
+        <div class="header-left">
+            <button type="button" id="menu-toggle" class="menu-toggle-btn">
+                <div class="lines"><span></span><span></span><span></span></div>
+            </button>
+            <a href="../index.html" class="brand" id="brand-logo">SEOUL BONE<br><span class="loc">PAIN CLINIC</span></a>
+        </div>
+        <div class="header-right">
+            <button type="button" id="btn-contact" class="util-btn">Contact Us</button>
+            <a href="https://booking.naver.com/" target="_blank" class="util-btn highlight">Reservation</a>
+        </div>
+    </header>
+
+    <div id="drawer-menu" class="drawer-menu">
+        <button type="button" id="close-drawer" class="close-drawer-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <nav class="chenot-menu">
+            <ul id="menu-list">
+                <li class="menu-item"><a href="staff.html"><span class="num">01</span><span class="label">Medical Staff</span><span class="arrow">→</span></a></li>
+                <li class="menu-item"><a href="values.html"><span class="num">02</span><span class="label">Our Values</span><span class="arrow">→</span></a></li>
+                <li class="menu-item active"><a href="diagnosis.html"><span class="num">03</span><span class="label">Diagnostics</span><span class="arrow">→</span></a></li>
+                <li class="menu-item"><a href="treatment.html"><span class="num">04</span><span class="label">Treatments</span><span class="arrow">→</span></a></li>
+                <li class="menu-item"><a href="prp.html"><span class="num">05</span><span class="label">Cell Therapy(PRP)</span><span class="arrow">→</span></a></li>
+                <li class="menu-item"><a href="contact.html"><span class="num">06</span><span class="label">Visit Us</span><span class="arrow">→</span></a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main id="main-container" class="page-content">
+        <article class="diag-page">
+            <div class="diag-horizontal-area">
+                <div class="diag-viewport">
+                    <div class="diag-track">
+                        <section class="diag-panel diag-subhero">
+                            <div class="diag-subhero-bg">
+                                <img src="../images/diagnosis-hero.png" alt="Diagnostic Tools">
+                            </div>
+                            <div class="diag-subhero-overlay"></div>
+                            <div class="diag-subhero-text">
+                                <h2>Diagnostic Tools</h2>
+                            </div>
+                            <div class="scroll-indicator scroll-indicator-horizontal" id="diag-indicator-subhero">
+                                <div class="scroll-indicator-circle">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="diag-subhero-curve">
+                                <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+                                    <path d="M0,100 L0,40 Q360,100 720,50 Q1080,0 1440,60 L1440,100 Z" fill="var(--bg-color)"/>
+                                </svg>
+                            </div>
+                        </section>
+                        
+                        <section class="diag-panel diag-slogan">
+                            <div class="diag-slogan-bg">
+                                <img src="../images/diagnosis-slogan.png" alt="Slogan Background">
+                            </div>
+                            <div class="diag-slogan-overlay"></div>
+                            <div class="diag-slogan-content">
+                                <div class="diag-slogan-block" data-order="1">
+                                    <h3 class="diag-slogan-headline">정확한 진단이 완치의 시작입니다</h3>
+                                    <p class="diag-slogan-desc">통증의 근본 원인을 찾아내는 것,<br>그것이 진정한 치료의 첫걸음입니다.</p>
+                                </div>
+                                <div class="diag-slogan-divider" data-order="2"></div>
+                                <div class="diag-slogan-block" data-order="3">
+                                    <h3 class="diag-slogan-headline">최첨단 장비로 정밀하게 분석합니다</h3>
+                                    <p class="diag-slogan-desc">서울본재활의학과는 첨단 진단 장비에<br>아낌없이 투자합니다.</p>
+                                </div>
+                            </div>
+                            <div class="scroll-indicator scroll-indicator-vertical" id="diag-indicator-slogan">
+                                <div class="scroll-indicator-circle">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M12 5v14M5 12l7 7 7-7"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="equipment-header-trigger" id="equipment-header-trigger" aria-hidden="true"></div>
+            
+            <div class="equipment-narrative" id="equipment-narrative">
+            </div>
+        </article>
+    </main>
+
+    <div id="contact-modal" class="simple-modal">
+        <div class="simple-modal-content">
+            <button type="button" id="close-contact" class="close-simple-btn">✕</button>
+            <h2>Contact Us</h2>
+            <div class="info-group">
+                <p class="label">Address</p>
+                <p>서울 중구 다산로 123, 약수빌딩 4층<br>(약수역 X번 출구 앞)</p>
+            </div>
+            <div class="info-group">
+                <p class="label">Phone</p>
+                <p>02-1234-5678</p>
+            </div>
+            <div class="map-area">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marker-alt"></i> NAVER MAP AREA
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../data.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/diagnosis.js"></script>
+</body>
+</html>
