@@ -144,6 +144,12 @@ function setupDiagnosisScroll() {
                     indicatorSlogan.classList.remove('visible');
                 }
             }
+            
+            if (progress >= PHASE.TEXT2_END) {
+                document.body.classList.add('sub-hero-passed');
+            } else {
+                document.body.classList.remove('sub-hero-passed');
+            }
         }
     });
     
