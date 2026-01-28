@@ -145,10 +145,9 @@
         });
         
         function setupPhilosophyCard() {
-            const card = document.querySelector('.philosophy-card');
-            if (!card) return;
-            
             const wrapper = document.querySelector('.philosophy-card-wrapper');
+            if (!wrapper) return;
+            
             let isExpanded = false;
             
             const handleScroll = () => {
@@ -157,12 +156,12 @@
                 
                 if (rect.top <= triggerPoint && rect.bottom >= 0) {
                     if (!isExpanded) {
-                        card.classList.add('expanded');
+                        wrapper.classList.add('expanded');
                         isExpanded = true;
                     }
                 } else {
                     if (isExpanded) {
-                        card.classList.remove('expanded');
+                        wrapper.classList.remove('expanded');
                         isExpanded = false;
                     }
                 }
