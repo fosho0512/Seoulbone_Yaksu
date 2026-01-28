@@ -1933,15 +1933,20 @@ body.has-sub-hero.sub-hero-passed #global-header .util-btn {
     color: var(--text-color);
     border-color: var(--text-color);
 }
+body.has-sub-hero.sub-hero-passed #global-header .util-btn:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    border-color: var(--text-color);
+}
 body.has-sub-hero.sub-hero-passed #global-header .util-btn.highlight {
     background-color: var(--gold-accent);
     color: var(--bg-color);
     border-color: var(--gold-accent);
 }
 body.has-sub-hero.sub-hero-passed #global-header .util-btn.highlight:hover {
-    background-color: var(--text-color);
-    color: var(--bg-color);
-    border-color: var(--text-color);
+    background-color: var(--bg-color);
+    color: var(--gold-accent);
+    border-color: var(--gold-accent);
 }
 
 /* Premium Button Hover Effects */
