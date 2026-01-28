@@ -2,9 +2,7 @@
 
 let diagScrollTrigger = null;
 let equipmentScrollHandler = null;
-let equipmentHeaderObserver = null;
-let equipmentSentinel = null;
-let equipmentResizeObserver = null;
+let diagSloganObserver = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     renderEquipmentNarrative();
@@ -144,14 +142,19 @@ function setupDiagnosisScroll() {
                     indicatorSlogan.classList.remove('visible');
                 }
             }
-            
-            if (progress >= PHASE.TEXT2_END) {
-                document.body.classList.add('sub-hero-passed');
-            } else {
-                document.body.classList.remove('sub-hero-passed');
-            }
+        },
+        onLeave: () => {
+            setupDiagSloganObserver();
+        },
+        onEnterBack: () => {
+            cleanupDiagSloganObserver();
+            document.body.classList.remove('sub-hero-passed');
         }
     });
+    
+    if (diagScrollTrigger && diagScrollTrigger.progress >= 1) {
+        setupDiagSloganObserver();
+    }
     
     setupEquipmentNarrative();
 }
@@ -161,8 +164,6 @@ function setupEquipmentNarrative() {
     const images = document.querySelectorAll('.sticky-image img');
     
     if (steps.length === 0 || images.length === 0) return;
-    
-    setupEquipmentHeaderObserverLocal();
     
     function handleEquipmentScroll() {
         const viewportMiddle = window.innerHeight / 2;
@@ -191,69 +192,33 @@ function setupEquipmentNarrative() {
     handleEquipmentScroll();
 }
 
-function createEquipmentHeaderSentinel() {
-    const narrative = document.querySelector('.equipment-narrative');
-    const header = document.getElementById('global-header');
+function setupDiagSloganObserver() {
+    const sloganSection = document.querySelector('.diag-slogan');
+    if (!sloganSection || diagSloganObserver) return;
     
-    if (!narrative || !header) return null;
+    document.body.classList.add('sub-hero-passed');
     
-    if (equipmentSentinel) {
-        equipmentSentinel.remove();
-        equipmentSentinel = null;
-    }
+    const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 80;
     
-    const narrativeStyle = getComputedStyle(narrative);
-    const narrativePaddingTop = parseFloat(narrativeStyle.paddingTop) || 100;
-    
-    equipmentSentinel = document.createElement('div');
-    equipmentSentinel.id = 'equipment-content-sentinel';
-    equipmentSentinel.style.cssText = `
-        position: absolute;
-        top: ${narrativePaddingTop}px;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        pointer-events: none;
-    `;
-    
-    narrative.style.position = 'relative';
-    narrative.insertBefore(equipmentSentinel, narrative.firstChild);
-    
-    return equipmentSentinel;
-}
-
-function setupEquipmentHeaderObserverLocal() {
-    if (equipmentHeaderObserver) {
-        equipmentHeaderObserver.disconnect();
-        equipmentHeaderObserver = null;
-    }
-    
-    if (equipmentResizeObserver) {
-        equipmentResizeObserver.disconnect();
-        equipmentResizeObserver = null;
-    }
-    
-    const header = document.getElementById('global-header');
-    if (!header) return;
-    
-    const sentinel = createEquipmentHeaderSentinel();
-    if (!sentinel) return;
-    
-    const headerHeight = header.offsetHeight || 70;
-    
-    equipmentHeaderObserver = new IntersectionObserver((entries) => {
+    diagSloganObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (!entry.isIntersecting && entry.boundingClientRect.top < headerHeight) {
+            if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
                 document.body.classList.add('sub-hero-passed');
-            } else if (entry.isIntersecting || entry.boundingClientRect.top >= headerHeight) {
+            } else if (entry.isIntersecting) {
                 document.body.classList.remove('sub-hero-passed');
             }
         });
-    }, {
-        root: null,
-        rootMargin: `-${headerHeight}px 0px 0px 0px`,
-        threshold: [0]
+    }, { 
+        threshold: 0, 
+        rootMargin: `-${headerHeight}px 0px 0px 0px` 
     });
     
-    equipmentHeaderObserver.observe(sentinel);
+    diagSloganObserver.observe(sloganSection);
+}
+
+function cleanupDiagSloganObserver() {
+    if (diagSloganObserver) {
+        diagSloganObserver.disconnect();
+        diagSloganObserver = null;
+    }
 }

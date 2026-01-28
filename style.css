@@ -1869,20 +1869,10 @@ body.menu-open .visual-text { opacity: 0; }
 #global-header {
     transition: all var(--transition-medium);
 }
-#global-header.scrolled {
-    background-color: rgba(250, 250, 248, 0.98);
-    box-shadow: 0 4px 30px rgba(44, 41, 38, 0.08);
-    height: calc(var(--header-height) - 15px);
-    border-bottom-color: transparent;
-}
-#global-header.scrolled .brand {
-    font-size: var(--font-xs);
-}
-
 /* Sub Hero 페이지 헤더 - 투명 상태 (기본) */
 body.has-sub-hero #global-header {
-    background-color: transparent !important;
-    box-shadow: none !important;
+    background-color: transparent;
+    box-shadow: none;
     transition: background-color 0.5s cubic-bezier(0.22, 1, 0.36, 1),
                 box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
                 backdrop-filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -1925,8 +1915,8 @@ body.site-entered #main-container {
 
 /* Sub Hero 영역을 벗어난 후 헤더 스타일 - 부드러운 전환 */
 body.has-sub-hero.sub-hero-passed #global-header {
-    background-color: rgba(250, 250, 248, 0.98) !important;
-    box-shadow: 0 4px 30px rgba(44, 41, 38, 0.08) !important;
+    background-color: rgba(250, 250, 248, 0.98);
+    box-shadow: 0 4px 30px rgba(44, 41, 38, 0.08);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 }
@@ -1988,39 +1978,6 @@ body.has-sub-hero.sub-hero-passed #global-header .util-btn.highlight {
 .menu-item:hover a,
 .menu-item.active a {
     transform: translateX(5px);
-}
-
-/* 홈 화면에서도 헤더 투명 */
-body.site-entered:not(.content-view-active) #global-header {
-    background-color: transparent !important;
-    box-shadow: none !important;
-}
-
-body.site-entered:not(.content-view-active) #global-header .brand,
-body.site-entered:not(.content-view-active) #global-header .menu-toggle-btn {
-    color: #fff;
-    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
-}
-
-body.site-entered:not(.content-view-active) #global-header .menu-toggle-btn .lines span {
-    background-color: #fff;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-}
-
-body.site-entered:not(.content-view-active) #global-header .util-btn {
-    color: #fff;
-    border-color: rgba(255, 255, 255, 0.5);
-}
-
-body.site-entered:not(.content-view-active) #global-header .util-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: #fff;
-}
-
-body.site-entered:not(.content-view-active) #global-header .util-btn.highlight {
-    background: var(--gold-accent);
-    border-color: var(--gold-accent);
-    color: #fff;
 }
 
 /* Image Hover Zoom & Brightness */
@@ -2134,10 +2091,6 @@ body::before {
     .brand { font-size: var(--font-caption); }
     .modal-content { padding: 90px 25px; }
     .content-wrapper { padding: 40px 6% 80px; }
-    
-    /* 모바일에서도 서브히어로 페이지 패딩 제거 */
-    body.content-view-active.has-sub-hero #content-view { padding-top: 0; }
-    body.content-view-active.has-sub-hero .content-wrapper { padding: 0; }
     
     .modal-layout-top { flex-direction: column-reverse; gap: 40px; margin-bottom: 60px; }
     .modal-image-group img, .map-container { height: 280px; }
