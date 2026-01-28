@@ -76,6 +76,11 @@ The website adopts a luxury resort theme, characterized by gold accents, subtle 
 - **Philosophy Card**: Triggers at 80vh with CSS transitions for expansion effect
 
 ## Recent Changes
+- **Jan 2026**: **Header Opacity System Cleanup**
+  - Removed legacy CSS: `#global-header.scrolled`, `body.site-entered:not(.content-view-active)`, mobile `content-view-active` styles
+  - Removed `!important` declarations - CSS specificity now managed by declaration order
+  - Header transition: `body.has-sub-hero` (transparent) → `body.has-sub-hero.sub-hero-passed` (opaque)
+  - Diagnosis page: Refactored to use ScrollTrigger `onLeave/onEnterBack` + IntersectionObserver pattern
 - **Jan 2026**: **Clean URL Structure** - Changed from `/pages/*.html` to folder-based structure (`/staff/index.html`) for clean URLs without .html extension
 - **Jan 2026**: **Major Refactoring** - Converted from modal-layer (hash-based) system to standard page-based navigation
   - Created folder structure for each page (staff/, values/, diagnosis/, treatment/, prp/, contact/)
