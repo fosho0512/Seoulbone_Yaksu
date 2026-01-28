@@ -841,6 +841,119 @@ body.menu-open .visual-text { opacity: 0; }
     color: var(--text-color); 
 }
 
+/* =========================================
+   CONTACT LOCATION SECTION
+   ========================================= */
+.contact-location-section {
+    padding: 100px 8% 140px;
+    background: var(--bg-cream);
+}
+
+.location-title {
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: var(--gold-accent);
+    margin-bottom: 80px;
+}
+
+.location-content {
+    display: flex;
+    gap: 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+.location-map {
+    flex: 1;
+    min-height: 500px;
+    background: #f5f5f5;
+    border: 1px solid var(--sub-color);
+}
+
+.map-placeholder-area {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    color: #999;
+    font-size: var(--font-body-md);
+}
+
+.map-placeholder-area i {
+    font-size: 2.5rem;
+    color: var(--gold-accent);
+}
+
+.location-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.info-block {
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--sub-color);
+}
+
+.info-block:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.info-heading {
+    font-family: var(--font-serif);
+    font-size: var(--font-heading-sm);
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 30px;
+    letter-spacing: 0.05em;
+}
+
+.info-row {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 18px;
+    line-height: var(--lh-relaxed);
+}
+
+.info-row:last-child {
+    margin-bottom: 0;
+}
+
+.info-label {
+    flex: 0 0 80px;
+    font-family: var(--font-sans);
+    font-size: var(--font-body-sm);
+    font-weight: 500;
+    color: var(--gold-accent);
+    letter-spacing: 0.02em;
+}
+
+.info-value {
+    flex: 1;
+    font-family: var(--font-sans);
+    font-size: var(--font-body-sm);
+    font-weight: 300;
+    color: #5a5a5a;
+    line-height: var(--lh-relaxed);
+}
+
+.contact-phone .phone-number {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 400;
+    color: var(--text-color);
+    letter-spacing: 0.1em;
+}
+
 /* Sub Hero Section */
 .sub-hero {
     position: relative;
@@ -2109,6 +2222,19 @@ body::before {
     .modal-text-group h2 { font-size: var(--font-heading-lg); margin-bottom: 20px; }
     .modal-grid { grid-template-columns: 1fr; gap: 35px; }
     .grid-img-wrapper { height: 200px; }
+    
+    /* Contact Location Mobile */
+    .contact-location-section { padding: 60px 6% 80px; }
+    .location-title { font-size: 1.5rem; margin-bottom: 50px; letter-spacing: 0.15em; }
+    .location-content { flex-direction: column; gap: 50px; }
+    .location-map { min-height: 300px; }
+    .map-placeholder-area { height: 300px; }
+    .location-info { gap: 35px; }
+    .info-block { padding-bottom: 30px; }
+    .info-heading { font-size: var(--font-body-md); margin-bottom: 20px; }
+    .info-row { flex-direction: column; gap: 8px; margin-bottom: 20px; }
+    .info-label { flex: none; }
+    .contact-phone .phone-number { font-size: 1.3rem; }
 
     .sub-hero { 
         width: 100%;

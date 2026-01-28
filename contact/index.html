@@ -69,58 +69,65 @@
             </div>
         </div>
         
-        <div class="sub-hero-content">
-            <div class="modal-layout-top">
-                <div class="modal-text-group">
-                    <p class="description">환자 중심의 진료<br>서울본재활의학과는 환자분들의 건강 개선에<br>기여할 수 있도록 높은 진료를 제공합니다.</p>
+        <section class="contact-location-section">
+            <h2 class="location-title">LOCATION</h2>
+            
+            <div class="location-content">
+                <div class="location-map">
+                    <div class="map-placeholder-area">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>NAVER MAP</span>
+                    </div>
                 </div>
-                <div class="modal-image-group">
-                    <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3163.664609756667!2d127.00938361531086!3d37.55360667979986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca33a26d79a29%3A0x8e8335555c5c000!2z7JW97IiY7Jet!5e0!3m2!1sko!2skr!4v1646200000000!5m2!1sko!2skr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                
+                <div class="location-info">
+                    <div class="info-block">
+                        <h3 class="info-heading">오시는길</h3>
+                        <div class="info-row">
+                            <span class="info-label">주소</span>
+                            <span class="info-value">서울특별시 중구 동호로 179<br>JYJ빌딩 5층 서울본재활의학과의원</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">대중교통</span>
+                            <span class="info-value">지하철 3, 6호선 약수역 하차, 6번출구에서 도보 1분</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">자차이용</span>
+                            <span class="info-value">네비게이션 '서울본재활의학과의원 약수역점'<br>또는 'JYJ 빌딩' 입력</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-block">
+                        <h3 class="info-heading">진료시간</h3>
+                        <div class="info-row">
+                            <span class="info-label">평일</span>
+                            <span class="info-value">오전 9:00 - 오후 7:00</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">수·토요일</span>
+                            <span class="info-value">오전 9:00 - 오후 1:00</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">점심시간</span>
+                            <span class="info-value">오후 1:00 - 오후 2:00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-block">
+                        <h3 class="info-heading">상담 & 문의</h3>
+                        <div class="info-row contact-phone">
+                            <span class="info-value phone-number">02.2237.4275</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-grid" id="contact-grid">
-            </div>
-        </div>
+        </section>
     </main>
-
-    <div id="contact-modal" class="simple-modal">
-        <div class="simple-modal-content">
-            <button type="button" id="close-contact" class="close-simple-btn">✕</button>
-            <h2>Contact Us</h2>
-            <div class="info-group">
-                <p class="label">Address</p>
-                <p>서울 중구 다산로 123, 약수빌딩 4층<br>(약수역 X번 출구 앞)</p>
-            </div>
-            <div class="info-group">
-                <p class="label">Phone</p>
-                <p>02-1234-5678</p>
-            </div>
-            <div class="map-area">
-                <div class="map-placeholder">
-                    <i class="fas fa-map-marker-alt"></i> NAVER MAP AREA
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script src="../data.js"></script>
     <script src="../js/common.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const data = siteData.content.contact;
-            const contactGrid = document.getElementById('contact-grid');
-            
-            if (data && contactGrid) {
-                contactGrid.innerHTML = data.details.map(det => `
-                    <div class="grid-item">
-                        <div class="grid-img-wrapper"><img src="../${det.img}" alt="${det.t}"></div>
-                        <div class="grid-text-wrapper"><h4>${det.t}</h4><p>${det.d}</p></div>
-                    </div>
-                `).join('');
-            }
-            
             setupSubHeroScrollEffect();
         });
     </script>
