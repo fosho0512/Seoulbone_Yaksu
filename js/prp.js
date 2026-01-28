@@ -22,6 +22,8 @@ function setupPrpFadeUp() {
                 setTimeout(() => {
                     entry.target.classList.add('visible');
                 }, delay * 1000);
+            } else {
+                entry.target.classList.remove('visible');
             }
         });
     }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
