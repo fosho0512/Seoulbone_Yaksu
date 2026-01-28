@@ -391,17 +391,24 @@ body.menu-open .drawer-menu { transform: translateX(0); }
 
 /* Menu Item Styles */
 .menu-item { 
-    display: flex; 
-    align-items: center; 
-    padding: 28px 0; 
     border-bottom: 1px solid var(--sub-color); 
-    cursor: pointer; 
     transition: all var(--transition-fast); 
     opacity: 0.5; 
     overflow: hidden; 
 }
+.menu-item a {
+    display: flex; 
+    align-items: center; 
+    padding: 28px 0; 
+    cursor: pointer;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+}
 .menu-item:hover, .menu-item.active { 
     opacity: 1; 
+}
+.menu-item:hover a, .menu-item.active a { 
     padding-left: 15px; 
 }
 .menu-item .num { 
@@ -1968,8 +1975,8 @@ body.content-view-active.has-sub-hero.sub-hero-passed #global-header .menu-toggl
 .menu-item.active::after {
     width: 100%;
 }
-.menu-item:hover,
-.menu-item.active {
+.menu-item:hover a,
+.menu-item.active a {
     transform: translateX(5px);
 }
 
