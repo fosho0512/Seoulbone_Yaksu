@@ -17,13 +17,18 @@ This project delivers a premium static website for the Seoul Bone Pain Clinic (r
 ├── index.html          # Home page with intro animation
 ├── data.js             # Centralized site data (staff, services, etc.)
 ├── style.css           # Global styles
-├── pages/              # Individual page files
-│   ├── staff.html      # Medical Staff page
-│   ├── values.html     # Core Values page (GSAP slides)
-│   ├── diagnosis.html  # Diagnostics page (horizontal scroll)
-│   ├── treatment.html  # Treatments page (sticky slogan)
-│   ├── prp.html        # Cell Therapy PRP page
-│   └── contact.html    # Contact & Location page
+├── staff/              # Medical Staff page
+│   └── index.html
+├── values/             # Core Values page (GSAP slides)
+│   └── index.html
+├── diagnosis/          # Diagnostics page (horizontal scroll)
+│   └── index.html
+├── treatment/          # Treatments page (sticky slogan)
+│   └── index.html
+├── prp/                # Cell Therapy PRP page
+│   └── index.html
+├── contact/            # Contact & Location page
+│   └── index.html
 ├── js/                 # Page-specific JavaScript
 │   ├── common.js       # Shared functions (header, menu, scroll)
 │   ├── home.js         # Home page logic (intro, banner)
@@ -37,12 +42,12 @@ This project delivers a premium static website for the Seoul Bone Pain Clinic (r
 ## System Architecture
 
 ### Page Navigation (Refactored Jan 2026)
-**Standard page-based navigation** - Each menu item links to a separate HTML file instead of the previous modal-layer (hash-based) system. Benefits:
+**Folder-based clean URL navigation** - Each page is organized as a folder with index.html, enabling clean URLs without .html extension. Benefits:
 - Better SEO optimization
 - Clean browser history
 - Easier maintenance
-- Standard URL structure
-- **Hash redirect support**: Old URLs like `/#staff` automatically redirect to `pages/staff.html`
+- Clean URL structure (e.g., `/staff/` instead of `/staff.html`)
+- **Hash redirect support**: Old URLs like `/#staff` automatically redirect to `/staff/`
 
 ### UI/UX Decisions
 The website adopts a luxury resort theme, characterized by gold accents, subtle animations, and sophisticated typography.
@@ -71,8 +76,9 @@ The website adopts a luxury resort theme, characterized by gold accents, subtle 
 - **Philosophy Card**: Triggers at 80vh with CSS transitions for expansion effect
 
 ## Recent Changes
+- **Jan 2026**: **Clean URL Structure** - Changed from `/pages/*.html` to folder-based structure (`/staff/index.html`) for clean URLs without .html extension
 - **Jan 2026**: **Major Refactoring** - Converted from modal-layer (hash-based) system to standard page-based navigation
-  - Created separate HTML files for each page in `/pages/` directory
+  - Created folder structure for each page (staff/, values/, diagnosis/, treatment/, prp/, contact/)
   - Split JavaScript into page-specific modules in `/js/` directory
   - Added hash redirect support for backward compatibility
   - Removed legacy `showContentView()` modal logic

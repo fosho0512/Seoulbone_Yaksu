@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visit Us | SEOUL BONE Pain Clinic</title>
+    <title>Treatments | SEOUL BONE Pain Clinic</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +20,7 @@
             <button type="button" id="menu-toggle" class="menu-toggle-btn">
                 <div class="lines"><span></span><span></span><span></span></div>
             </button>
-            <a href="../index.html" class="brand" id="brand-logo">SEOUL BONE<br><span class="loc">PAIN CLINIC</span></a>
+            <a href="../" class="brand" id="brand-logo">SEOUL BONE<br><span class="loc">PAIN CLINIC</span></a>
         </div>
         <div class="header-right">
             <button type="button" id="btn-contact" class="util-btn">Contact Us</button>
@@ -36,24 +36,24 @@
         </button>
         <nav class="chenot-menu">
             <ul id="menu-list">
-                <li class="menu-item"><a href="staff.html"><span class="num">01</span><span class="label">Medical Staff</span><span class="arrow">→</span></a></li>
-                <li class="menu-item"><a href="values.html"><span class="num">02</span><span class="label">Our Values</span><span class="arrow">→</span></a></li>
-                <li class="menu-item"><a href="diagnosis.html"><span class="num">03</span><span class="label">Diagnostics</span><span class="arrow">→</span></a></li>
-                <li class="menu-item"><a href="treatment.html"><span class="num">04</span><span class="label">Treatments</span><span class="arrow">→</span></a></li>
-                <li class="menu-item"><a href="prp.html"><span class="num">05</span><span class="label">Cell Therapy(PRP)</span><span class="arrow">→</span></a></li>
-                <li class="menu-item active"><a href="contact.html"><span class="num">06</span><span class="label">Visit Us</span><span class="arrow">→</span></a></li>
+                <li class="menu-item"><a href="../staff/"><span class="num">01</span><span class="label">Medical Staff</span><span class="arrow">→</span></a></li>
+                <li class="menu-item"><a href="../values/"><span class="num">02</span><span class="label">Our Values</span><span class="arrow">→</span></a></li>
+                <li class="menu-item"><a href="../diagnosis/"><span class="num">03</span><span class="label">Diagnostics</span><span class="arrow">→</span></a></li>
+                <li class="menu-item active"><a href="../treatment/"><span class="num">04</span><span class="label">Treatments</span><span class="arrow">→</span></a></li>
+                <li class="menu-item"><a href="../prp/"><span class="num">05</span><span class="label">Cell Therapy(PRP)</span><span class="arrow">→</span></a></li>
+                <li class="menu-item"><a href="../contact/"><span class="num">06</span><span class="label">Visit Us</span><span class="arrow">→</span></a></li>
             </ul>
         </nav>
     </div>
 
     <main id="main-container" class="page-content">
-        <div class="sub-hero" id="contact-sub-hero">
+        <div class="sub-hero" id="treatment-sub-hero">
             <div class="sub-hero-image">
-                <img src="../images/contact-hero.png" alt="Contact Hero">
+                <img src="../images/treatment-hero.png" alt="Treatments Hero">
             </div>
             <div class="sub-hero-overlay"></div>
             <div class="sub-hero-text">
-                <h2>Contact & Location</h2>
+                <h2>Integrated Solutions</h2>
             </div>
             <div class="scroll-indicator">
                 <div class="scroll-indicator-circle">
@@ -69,20 +69,11 @@
             </div>
         </div>
         
-        <div class="sub-hero-content">
-            <div class="modal-layout-top">
-                <div class="modal-text-group">
-                    <p class="description">환자 중심의 진료<br>서울본재활의학과는 환자분들의 건강 개선에<br>기여할 수 있도록 높은 진료를 제공합니다.</p>
-                </div>
-                <div class="modal-image-group">
-                    <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3163.664609756667!2d127.00938361531086!3d37.55360667979986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca33a26d79a29%3A0x8e8335555c5c000!2z7JW97IiY7Jet!5e0!3m2!1sko!2skr!4v1646200000000!5m2!1sko!2skr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-grid" id="contact-grid">
-            </div>
-        </div>
+        <section class="treatment-slogan-section" id="treatment-slogan-section">
+        </section>
+        
+        <section class="treatment-details-section" id="treatment-details-section">
+        </section>
     </main>
 
     <div id="contact-modal" class="simple-modal">
@@ -107,22 +98,6 @@
 
     <script src="../data.js"></script>
     <script src="../js/common.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const data = siteData.content.contact;
-            const contactGrid = document.getElementById('contact-grid');
-            
-            if (data && contactGrid) {
-                contactGrid.innerHTML = data.details.map(det => `
-                    <div class="grid-item">
-                        <div class="grid-img-wrapper"><img src="../${det.img}" alt="${det.t}"></div>
-                        <div class="grid-text-wrapper"><h4>${det.t}</h4><p>${det.d}</p></div>
-                    </div>
-                `).join('');
-            }
-            
-            setupSubHeroScrollEffect();
-        });
-    </script>
+    <script src="../js/treatment.js"></script>
 </body>
 </html>

@@ -28,12 +28,12 @@ function handleHashRedirect() {
     if (!hash) return;
     
     const redirectMap = {
-        'staff': 'pages/staff.html',
-        'values': 'pages/values.html',
-        'diagnosis': 'pages/diagnosis.html',
-        'treatment': 'pages/treatment.html',
-        'prp': 'pages/prp.html',
-        'contact': 'pages/contact.html'
+        'staff': 'staff/',
+        'values': 'values/',
+        'diagnosis': 'diagnosis/',
+        'treatment': 'treatment/',
+        'prp': 'prp/',
+        'contact': 'contact/'
     };
     
     if (redirectMap[hash]) {

@@ -95,12 +95,12 @@ function getCommonHeaderHTML() {
 
 function getDrawerMenuHTML(activePage) {
     const menuItems = [
-        { id: 'staff', num: '01', label: 'Medical Staff', href: 'staff.html' },
-        { id: 'values', num: '02', label: 'Our Values', href: 'values.html' },
-        { id: 'diagnosis', num: '03', label: 'Diagnostics', href: 'diagnosis.html' },
-        { id: 'treatment', num: '04', label: 'Treatments', href: 'treatment.html' },
-        { id: 'prp', num: '05', label: 'Cell Therapy(PRP)', href: 'prp.html' },
-        { id: 'contact', num: '06', label: 'Visit Us', href: 'contact.html' }
+        { id: 'staff', num: '01', label: 'Medical Staff', href: '../staff/' },
+        { id: 'values', num: '02', label: 'Our Values', href: '../values/' },
+        { id: 'diagnosis', num: '03', label: 'Diagnostics', href: '../diagnosis/' },
+        { id: 'treatment', num: '04', label: 'Treatments', href: '../treatment/' },
+        { id: 'prp', num: '05', label: 'Cell Therapy(PRP)', href: '../prp/' },
+        { id: 'contact', num: '06', label: 'Visit Us', href: '../contact/' }
     ];
     
     return `
