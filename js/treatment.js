@@ -5,7 +5,6 @@ let treatmentDetailsObserver = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     renderTreatmentContent();
-    setupSubHeroScrollEffect();
     setTimeout(() => {
         setupTreatmentScroll();
         setupTreatmentDetails();

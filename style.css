@@ -3460,7 +3460,8 @@ body::before {
                 transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s;
 }
 
-.treatment-detail-img.fade-in {
+.treatment-detail-img.fade-in,
+.treatment-detail-row.visible .treatment-detail-img {
     opacity: 1;
     transform: translateY(0);
 }
