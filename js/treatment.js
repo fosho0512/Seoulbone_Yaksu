@@ -105,6 +105,8 @@ function setupTreatmentScroll() {
             return;
         }
         
+        document.body.classList.remove('sub-hero-passed');
+        
         const scrolledInSection = -sectionRect.top;
         const scrollableHeight = sectionHeight - viewportHeight;
         const scrollProgress = Math.min(Math.max(scrolledInSection / scrollableHeight, 0), 1);
@@ -126,8 +128,6 @@ function setupTreatmentScroll() {
                     line.classList.remove('visible');
                 }
             });
-            
-            document.body.classList.remove('sub-hero-passed');
         } else if (scrollProgress < 0.66) {
             group1.classList.remove('active');
             group1.classList.add('exit-up');
@@ -136,7 +136,6 @@ function setupTreatmentScroll() {
             group3.classList.remove('active');
             
             group1Lines.forEach(line => line.classList.add('visible'));
-            document.body.classList.remove('sub-hero-passed');
         } else {
             group1.classList.remove('active');
             group1.classList.add('exit-up');
@@ -145,7 +144,6 @@ function setupTreatmentScroll() {
             group3.classList.add('active');
             
             group1Lines.forEach(line => line.classList.add('visible'));
-            document.body.classList.add('sub-hero-passed');
         }
     };
     

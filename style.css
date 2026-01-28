@@ -1938,6 +1938,11 @@ body.has-sub-hero.sub-hero-passed #global-header .util-btn.highlight {
     color: var(--bg-color);
     border-color: var(--gold-accent);
 }
+body.has-sub-hero.sub-hero-passed #global-header .util-btn.highlight:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    border-color: var(--text-color);
+}
 
 /* Premium Button Hover Effects */
 .util-btn {

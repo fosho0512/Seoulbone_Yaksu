@@ -64,6 +64,7 @@ function setupHomeEventListeners() {
 function enterSite() {
     homeElems.introOverlay.classList.add('hidden');
     document.body.classList.add('site-entered');
+    document.body.classList.add('has-sub-hero');
     
     const header = document.getElementById('global-header');
     const visualH3 = document.querySelector('.visual-text h3');
@@ -82,6 +83,32 @@ function enterSite() {
     }, 900);
     
     setTimeout(showBanner, 3500);
+    
+    setupHomeHeaderObserver();
+}
+
+function setupHomeHeaderObserver() {
+    const visualSection = document.getElementById('visual-section');
+    if (!visualSection) return;
+    
+    const header = document.getElementById('global-header');
+    const headerHeight = header ? header.offsetHeight : 70;
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting && entry.boundingClientRect.top < headerHeight) {
+                document.body.classList.add('sub-hero-passed');
+            } else {
+                document.body.classList.remove('sub-hero-passed');
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: `-${headerHeight}px 0px 0px 0px`,
+        threshold: 0
+    });
+    
+    observer.observe(visualSection);
 }
 
 function showBanner() {
