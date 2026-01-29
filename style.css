@@ -2022,6 +2022,103 @@ body.menu-open .visual-text { opacity: 0; }
     .footer-copyright { text-align: left; align-self: flex-start; margin-top: 20px; }
 }
 
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-legal-link {
+    font-family: var(--font-sans);
+    font-size: var(--font-caption);
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+    cursor: pointer;
+}
+
+.footer-legal-link:hover {
+    color: var(--gold-accent);
+}
+
+@media (max-width: 768px) {
+    .footer-bottom { flex-direction: column; align-items: flex-start; gap: 15px; }
+}
+
+/* =========================================
+   NON-INSURANCE MODAL
+   ========================================= */
+#non-insurance-modal .simple-modal-content {
+    max-width: 680px;
+    padding: 50px 40px;
+    text-align: left;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+#non-insurance-modal h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.non-insurance-notice {
+    text-align: center;
+    font-family: var(--font-sans);
+    font-size: var(--font-caption);
+    color: #888;
+    margin-bottom: 40px;
+    line-height: var(--lh-relaxed);
+}
+
+.non-insurance-category {
+    margin-bottom: 35px;
+}
+
+.non-insurance-category:last-child {
+    margin-bottom: 0;
+}
+
+.non-insurance-category h3 {
+    font-family: var(--font-serif);
+    font-size: var(--font-body-md);
+    font-weight: 500;
+    color: var(--gold-accent);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--sub-color);
+}
+
+.non-insurance-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    font-family: var(--font-sans);
+    font-size: var(--font-body-sm);
+}
+
+.non-insurance-row:last-child {
+    border-bottom: none;
+}
+
+.non-insurance-item {
+    color: var(--text-color);
+    font-weight: 400;
+}
+
+.non-insurance-price {
+    color: #666;
+    font-weight: 300;
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    #non-insurance-modal .simple-modal-content { padding: 40px 25px; max-width: 95%; }
+    .non-insurance-row { flex-direction: column; gap: 5px; padding: 10px 0; }
+    .non-insurance-price { text-align: left; }
+}
+
 /* =========================================
    PREMIUM EFFECTS
    ========================================= */

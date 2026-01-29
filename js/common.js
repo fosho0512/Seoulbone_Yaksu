@@ -6,7 +6,9 @@ const commonElems = {
     brandLogo: null,
     contactBtn: null,
     contactModal: null,
-    closeContactBtn: null
+    closeContactBtn: null,
+    nonInsuranceBtn: null,
+    nonInsuranceModal: null
 };
 
 function initCommon() {
@@ -16,6 +18,8 @@ function initCommon() {
     commonElems.contactBtn = document.getElementById('btn-contact');
     commonElems.contactModal = document.getElementById('contact-modal');
     commonElems.closeContactBtn = document.getElementById('close-contact');
+    commonElems.nonInsuranceBtn = document.getElementById('btn-non-insurance');
+    commonElems.nonInsuranceModal = document.getElementById('non-insurance-modal');
     
     setupCommonEventListeners();
     setupScrollProgress();
@@ -25,6 +29,19 @@ function setupCommonEventListeners() {
     if(commonElems.menuToggle) commonElems.menuToggle.addEventListener('click', toggleMenu);
     if(commonElems.contactBtn) commonElems.contactBtn.addEventListener('click', () => commonElems.contactModal.classList.add('open'));
     if(commonElems.closeContactBtn) commonElems.closeContactBtn.addEventListener('click', () => commonElems.contactModal.classList.remove('open'));
+    
+    if(commonElems.nonInsuranceBtn && commonElems.nonInsuranceModal) {
+        commonElems.nonInsuranceBtn.addEventListener('click', () => commonElems.nonInsuranceModal.classList.add('open'));
+    }
+    const closeNonInsuranceBtn = document.querySelector('.close-non-insurance');
+    if(closeNonInsuranceBtn && commonElems.nonInsuranceModal) {
+        closeNonInsuranceBtn.addEventListener('click', () => commonElems.nonInsuranceModal.classList.remove('open'));
+    }
+    if(commonElems.nonInsuranceModal) {
+        commonElems.nonInsuranceModal.addEventListener('click', (e) => {
+            if(e.target === commonElems.nonInsuranceModal) commonElems.nonInsuranceModal.classList.remove('open');
+        });
+    }
     
     const closeDrawerBtn = document.getElementById('close-drawer');
     if(closeDrawerBtn) closeDrawerBtn.addEventListener('click', toggleMenu);
@@ -43,6 +60,7 @@ function toggleMenu() {
 function closeAll() {
     document.body.classList.remove('menu-open');
     if(commonElems.contactModal) commonElems.contactModal.classList.remove('open');
+    if(commonElems.nonInsuranceModal) commonElems.nonInsuranceModal.classList.remove('open');
     if(commonElems.menuLabel) commonElems.menuLabel.textContent = "MENU";
 }
 
