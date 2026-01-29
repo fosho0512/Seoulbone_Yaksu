@@ -2027,6 +2027,8 @@ body.menu-open .visual-text { opacity: 0; }
     justify-content: space-between;
     align-items: center;
     gap: 20px;
+    margin-top: auto;
+    padding-top: 40px;
 }
 
 .footer-legal-link {
@@ -2049,6 +2051,10 @@ body.menu-open .visual-text { opacity: 0; }
 /* =========================================
    NON-INSURANCE MODAL
    ========================================= */
+#non-insurance-modal {
+    z-index: calc(var(--z-header) + 10);
+}
+
 #non-insurance-modal .simple-modal-content {
     max-width: 680px;
     padding: 50px 40px;
