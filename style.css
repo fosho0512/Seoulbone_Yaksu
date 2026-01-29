@@ -517,13 +517,13 @@ body.site-entered .visual-section::before {
 }
 body.menu-open .visual-text { opacity: 0; }
 .visual-text h3 { 
-    font-family: var(--font-serif); 
+    font-family: var(--font-sans); 
     font-size: var(--font-display-xl); 
-    margin-bottom: 40px; 
+    margin-bottom: 35px; 
     color: #ffffff; 
-    font-weight: 300;
-    letter-spacing: 0.08em;
-    line-height: var(--lh-tight);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
     white-space: nowrap;
     opacity: 0;
     transform: translateY(25px);
@@ -538,22 +538,20 @@ body.menu-open .visual-text { opacity: 0; }
 }
 .visual-text p.clinic-name { 
     font-family: var(--font-sans);
-    font-size: var(--font-body-sm); 
+    font-size: 13px; 
     opacity: 0; 
     font-weight: 400; 
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold-accent);
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: rgba(255,255,255,0.55);
     line-height: var(--lh-normal);
-    transform: translateY(15px);
-    transition: opacity 1.2s cubic-bezier(0.25, 0.1, 0.25, 1),
-                transform 1.2s cubic-bezier(0.25, 0.1, 0.25, 1),
-                letter-spacing 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transform: translateY(12px);
+    transition: opacity 1s cubic-bezier(0.25, 0.1, 0.25, 1),
+                transform 1s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 .visual-text p.clinic-name.fade-up {
-    opacity: 0.9;
+    opacity: 1;
     transform: translateY(0);
-    letter-spacing: 0.25em;
 }
 
 
