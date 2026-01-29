@@ -1950,6 +1950,79 @@ body.menu-open .visual-text { opacity: 0; }
 }
 
 /* =========================================
+   SITE FOOTER
+   ========================================= */
+.site-footer {
+    background: #1a1a1a;
+    padding: 60px 8% 50px;
+    border-top: 1px solid rgba(180, 155, 100, 0.2);
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.footer-brand {
+    font-family: var(--font-serif);
+    font-size: var(--font-body-md);
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: 0.02em;
+    margin-bottom: 25px;
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-info-row {
+    display: flex;
+    gap: 15px;
+    font-family: var(--font-sans);
+    font-size: var(--font-caption);
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 300;
+    line-height: var(--lh-relaxed);
+}
+
+.footer-info-row .label {
+    color: var(--gold-accent);
+    flex: 0 0 70px;
+}
+
+.footer-phone {
+    font-family: var(--font-display);
+    font-size: var(--font-body-md);
+    color: #fff;
+    letter-spacing: 0.08em;
+}
+
+.footer-copyright {
+    font-family: var(--font-sans);
+    font-size: var(--font-caption);
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 300;
+    text-align: right;
+    align-self: flex-end;
+}
+
+@media (max-width: 768px) {
+    .site-footer { padding: 50px 6% 40px; }
+    .footer-content { flex-direction: column; gap: 30px; }
+    .footer-brand { font-size: var(--font-body-sm); margin-bottom: 20px; }
+    .footer-info-row { flex-direction: column; gap: 4px; }
+    .footer-info-row .label { flex: none; }
+    .footer-copyright { text-align: left; align-self: flex-start; margin-top: 20px; }
+}
+
+/* =========================================
    PREMIUM EFFECTS
    ========================================= */
 
