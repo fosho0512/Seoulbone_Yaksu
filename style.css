@@ -2388,8 +2388,8 @@ body::before {
         width: 100%;
         box-sizing: border-box;
     }
-    .visual-text h3 { font-size: var(--font-display-md); white-space: normal; margin-bottom: 30px; }
-    .visual-text p.clinic-name { font-size: var(--font-caption); letter-spacing: 0.2em; }
+    .visual-text h3 { font-size: var(--font-display-md); white-space: normal; margin-bottom: 25px; }
+    .visual-text p.clinic-name { font-size: 12px; }
     .intro-logo { font-size: var(--font-heading-lg); letter-spacing: var(--ls-wider); }
     .intro-logo .loc { font-size: var(--font-body); }
     .brand { font-size: var(--font-caption); }
