@@ -517,13 +517,13 @@ body.site-entered .visual-section::before {
 }
 body.menu-open .visual-text { opacity: 0; }
 .visual-text h3 { 
-    font-family: var(--font-sans); 
+    font-family: var(--font-serif); 
     font-size: var(--font-display-xl); 
-    margin-bottom: 35px; 
-    color: #ffffff; 
+    margin-bottom: 20px; 
+    color: var(--sub-color); 
     font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1.25;
+    letter-spacing: 0.15em;
+    line-height: var(--lh-tight);
     white-space: nowrap;
     opacity: 0;
     transform: translateY(25px);
@@ -536,22 +536,21 @@ body.menu-open .visual-text { opacity: 0; }
     transform: translateY(0);
     letter-spacing: 0.02em;
 }
-.visual-text p.clinic-name { 
-    font-family: var(--font-sans);
-    font-size: 13px; 
+.visual-text p { 
+    font-size: var(--font-body-lg); 
     opacity: 0; 
-    font-weight: 400; 
-    letter-spacing: 0.02em;
-    text-transform: none;
-    color: rgba(255,255,255,0.55);
+    font-weight: 300; 
+    letter-spacing: 0.12em;
     line-height: var(--lh-normal);
-    transform: translateY(12px);
+    transform: translateY(20px);
     transition: opacity 1s cubic-bezier(0.25, 0.1, 0.25, 1),
-                transform 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+                transform 1s cubic-bezier(0.25, 0.1, 0.25, 1),
+                letter-spacing 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
-.visual-text p.clinic-name.fade-up {
-    opacity: 1;
+.visual-text p.fade-up {
+    opacity: 0.85;
     transform: translateY(0);
+    letter-spacing: 0.03em;
 }
 
 
@@ -2388,8 +2387,7 @@ body::before {
         width: 100%;
         box-sizing: border-box;
     }
-    .visual-text h3 { font-size: var(--font-display-md); white-space: normal; margin-bottom: 25px; }
-    .visual-text p.clinic-name { font-size: 12px; }
+    .visual-text h3 { font-size: var(--font-display-md); white-space: normal; }
     .intro-logo { font-size: var(--font-heading-lg); letter-spacing: var(--ls-wider); }
     .intro-logo .loc { font-size: var(--font-body); }
     .brand { font-size: var(--font-caption); }
