@@ -435,7 +435,8 @@ body.menu-open .drawer-menu { transform: translateX(0); }
     transition: all var(--transition-fast); 
     color: var(--gold-accent); 
     flex-shrink: 0; 
-    margin-left: 15px; 
+    margin-left: 15px;
+    margin-right: 20px;
 }
 .menu-item:hover .arrow, .menu-item.active .arrow { 
     opacity: 1; 
