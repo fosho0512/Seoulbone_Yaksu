@@ -76,6 +76,12 @@ The website adopts a luxury resort theme, characterized by gold accents, subtle 
 - **Philosophy Card**: Triggers at 80vh with CSS transitions for expansion effect
 
 ## Recent Changes
+- **Jan 2026**: **Mobile Optimization Complete**
+  - PRP page: Added 768px media query - 3-column grid converted to single column flex, sticky text released, font sizes adjusted
+  - Values page: Improved slide container height (45vh), progress dots repositioned to right side, layer min-heights reduced for mobile
+  - Treatment page: Reduced slogan section min-height from 250vh to 180vh for better mobile scroll experience
+  - Touch targets: All interactive buttons (menu toggle, drawer close) now meet 44px minimum for accessibility
+  - Diagnosis page: Already had proper mobile CSS, verified working correctly
 - **Jan 2026**: **Header Opacity System Complete**
   - Main page: Added `has-sub-hero` class + `setupHomeHeaderObserver()` for visual-section scroll detection
   - Contact Us button: Added hover style for `sub-hero-passed` state (dark text on dark background)
