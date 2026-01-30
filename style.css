@@ -2522,6 +2522,20 @@ body::before {
     .staff-top-image-full { height: 320px; margin-bottom: 50px; }
     .staff-bio-2col-container { grid-template-columns: 1fr; gap: 40px; } 
     .staff-header-spacer { display: none; }
+    .staff-profile-layout {
+        flex-direction: column;
+        gap: 40px;
+        padding: 60px 6%;
+    }
+    .profile-sticky-wrapper {
+        position: relative;
+        top: 0;
+    }
+    .profile-image-wrapper {
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+    }
     .brand-philosophy-section { 
         padding: 50px 20px 100px; 
         min-height: 100vh;
