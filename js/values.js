@@ -33,11 +33,36 @@ function renderValuesSlides() {
         return `<span class="values-layer-item${i === 0 ? ' active' : ''}" data-slide="${i}">${subtitle}</span>`;
     }).join('');
     
-    const imageTrackHtml = data.details.map((det, i) => `
+    const imageTrackHtml = data.details.map((det, i) => {
+        const title = det.t.replace(/^\d+\.\s*/, '') || det.t;
+        const subtitleMatch = det.d.match(/<strong>\[([^\]]+)\]<\/strong>/);
+        const subtitle = subtitleMatch ? subtitleMatch[1] : '';
+        const pointsHtml = det.d
+            .replace(/<strong>\[[^\]]+\]<\/strong><br><br>/, '')
+            .split(/<br><br>/)
+            .filter(p => p.trim())
+            .map(point => {
+                const titleMatch = point.match(/<b>([^<]+)<\/b>/);
+                const pointTitle = titleMatch ? titleMatch[1] : '';
+                const desc = point.replace(/<b>[^<]+<\/b><br>/, '').trim();
+                if (!pointTitle && !desc) return '';
+                return `<div class="mobile-point-item"><h4>${pointTitle}</h4><p>${desc}</p></div>`;
+            })
+            .filter(html => html)
+            .join('');
+        
+        return `
         <div class="values-image-item${i === 0 ? ' active' : ''}" data-index="${i}">
             <img src="../${det.img}" alt="${det.t}">
+            <div class="mobile-values-content">
+                <span class="mobile-values-num">0${i + 1}</span>
+                <h3 class="mobile-values-title">${title}</h3>
+                ${subtitle ? `<span class="mobile-values-subtitle">${subtitle}</span>` : ''}
+                ${pointsHtml ? `<div class="mobile-values-points">${pointsHtml}</div>` : ''}
+            </div>
         </div>
-    `).join('');
+    `;
+    }).join('');
     
     const numLayerHtml = data.details.map((_, i) => 
         `<span class="values-layer-item${i === 0 ? ' active' : ''}" data-slide="${i}">0${i + 1}</span>`
@@ -90,6 +115,13 @@ function renderValuesSlides() {
 }
 
 function setupValuesSlider() {
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        setupMobileValuesLayout();
+        return;
+    }
+    
     const wrapper = document.querySelector('.values-slides-wrapper');
     const container = document.querySelector('.values-slides-container');
     const imageItems = document.querySelectorAll('.values-image-item');
@@ -151,4 +183,22 @@ function setupValuesSlider() {
             window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
         });
     });
+}
+
+function setupMobileValuesLayout() {
+    if (valuesScrollTrigger) {
+        valuesScrollTrigger.kill();
+        valuesScrollTrigger = null;
+    }
+    
+    document.body.classList.add('values-mobile-mode');
+    
+    const allLayerItems = document.querySelectorAll('.values-layer-item');
+    const allImageItems = document.querySelectorAll('.values-image-item');
+    
+    allLayerItems.forEach(item => item.classList.add('active'));
+    allImageItems.forEach(item => item.classList.add('active'));
+    
+    const progressBar = document.querySelector('.values-slide-progress');
+    if (progressBar) progressBar.style.display = 'none';
 }
