@@ -2967,6 +2967,7 @@ body.values-mobile-mode .values-image-item {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    clip-path: none;
 }
 
 body.values-mobile-mode .values-image-item img {
