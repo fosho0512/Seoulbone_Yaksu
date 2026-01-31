@@ -3,6 +3,7 @@
 let diagScrollTrigger = null;
 let equipmentScrollHandler = null;
 let diagSloganObserver = null;
+let mobileSubHeroObserver = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     renderEquipmentNarrative();
@@ -72,6 +73,7 @@ function setupDiagnosisScroll() {
     if (window.innerWidth <= 768) {
         track.style.transform = 'none';
         if (sloganPanel) sloganPanel.classList.add('animate');
+        setupMobileSubHeroObserver();
         return;
     }
     
@@ -221,4 +223,26 @@ function cleanupDiagSloganObserver() {
         diagSloganObserver.disconnect();
         diagSloganObserver = null;
     }
+}
+
+function setupMobileSubHeroObserver() {
+    const subHero = document.querySelector('.diag-subhero');
+    if (!subHero || mobileSubHeroObserver) return;
+    
+    const headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 80;
+    
+    mobileSubHeroObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
+                document.body.classList.add('sub-hero-passed');
+            } else if (entry.isIntersecting) {
+                document.body.classList.remove('sub-hero-passed');
+            }
+        });
+    }, { 
+        threshold: 0, 
+        rootMargin: `-${headerHeight}px 0px 0px 0px` 
+    });
+    
+    mobileSubHeroObserver.observe(subHero);
 }
