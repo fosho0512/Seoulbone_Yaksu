@@ -76,6 +76,17 @@ The website adopts a luxury resort theme, characterized by gold accents, subtle 
 - **Philosophy Card**: Triggers at 80vh with CSS transitions for expansion effect
 
 ## Recent Changes
+- **Jan 2026**: **Values Page Mobile Overhaul**
+  - Converted from GSAP scroll slider to vertical card list layout on mobile
+  - Mobile detection: `window.innerWidth <= 768` triggers `setupMobileValuesLayout()`
+  - GSAP ScrollTrigger disabled on mobile (`.kill()` called to prevent memory leaks)
+  - Each value card displays: number, title, subtitle, and detail points
+  - PC version unchanged: GSAP slider works as before
+  - CSS: `body.values-mobile-mode` class controls mobile-specific styles
+- **Jan 2026**: **Staff Page Text Animation Added**
+  - Added fade-in-up animation to profile-header and bio-group elements
+  - IntersectionObserver triggers `.visible` class on scroll
+  - Sequential transition delays for staggered effect
 - **Jan 2026**: **Mobile Optimization Complete**
   - PRP page: Added 768px media query - 3-column grid converted to single column flex, sticky text released, font sizes adjusted
   - Values page: Improved slide container height (45vh), progress dots repositioned to right side, layer min-heights reduced for mobile
