@@ -74,9 +74,11 @@
             
             <div class="location-content">
                 <div class="location-map">
-                    <div class="map-placeholder-area">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>NAVER MAP</span>
+                    <div id="naver-map" class="naver-map-container">
+                        <div class="map-loading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>지도를 불러오는 중...</span>
+                        </div>
                     </div>
                 </div>
                 
@@ -191,7 +193,90 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             setupSubHeroScrollEffect();
+            initNaverMap();
         });
+        
+        async function initNaverMap() {
+            const mapContainer = document.getElementById('naver-map');
+            if (!mapContainer) return;
+            
+            try {
+                const response = await fetch('/api/get-map-key');
+                const data = await response.json();
+                
+                if (data.error || !data.clientId) {
+                    showMapError('API 키를 불러올 수 없습니다.');
+                    return;
+                }
+                
+                const script = document.createElement('script');
+                script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${data.clientId}`;
+                script.onload = function() {
+                    createMap();
+                };
+                script.onerror = function() {
+                    showMapError('지도를 불러올 수 없습니다.');
+                };
+                document.head.appendChild(script);
+                
+            } catch (error) {
+                console.error('Map init error:', error);
+                showMapError('지도를 불러올 수 없습니다.');
+            }
+        }
+        
+        function createMap() {
+            const mapContainer = document.getElementById('naver-map');
+            const loading = mapContainer.querySelector('.map-loading');
+            if (loading) loading.remove();
+            
+            const clinicLocation = new naver.maps.LatLng(37.5551, 127.0109);
+            
+            const map = new naver.maps.Map('naver-map', {
+                center: clinicLocation,
+                zoom: 17,
+                mapTypeControl: false,
+                scaleControl: false,
+                logoControl: true,
+                mapDataControl: false
+            });
+            
+            const marker = new naver.maps.Marker({
+                position: clinicLocation,
+                map: map,
+                title: '서울본재활의학과의원 약수역점'
+            });
+            
+            const infoWindow = new naver.maps.InfoWindow({
+                content: `
+                    <div style="padding: 15px; min-width: 200px; font-family: 'Pretendard', sans-serif;">
+                        <h4 style="margin: 0 0 8px; font-size: 14px; font-weight: 600; color: #1a1a1a;">서울본재활의학과의원</h4>
+                        <p style="margin: 0; font-size: 13px; color: #666; line-height: 1.5;">서울 중구 동호로 179<br>JYJ빌딩 5층</p>
+                    </div>
+                `
+            });
+            
+            naver.maps.Event.addListener(marker, 'click', function() {
+                if (infoWindow.getMap()) {
+                    infoWindow.close();
+                } else {
+                    infoWindow.open(map, marker);
+                }
+            });
+            
+            infoWindow.open(map, marker);
+        }
+        
+        function showMapError(message) {
+            const mapContainer = document.getElementById('naver-map');
+            mapContainer.innerHTML = `
+                <div class="map-error">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>${message}</span>
+                    <p>주소: 서울 중구 동호로 179 JYJ빌딩 5층</p>
+                </div>
+            `;
+        }
     </script>
 </body>
 </html>
