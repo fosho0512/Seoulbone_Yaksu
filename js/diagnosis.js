@@ -95,21 +95,22 @@ function setupDiagnosisScroll() {
         onUpdate: (self) => {
             const progress = self.progress;
             
-            const translateX = -50 * progress;
+            const moveProgress = Math.min(progress / 0.8, 1);
+            const translateX = -50 * moveProgress;
             track.style.transform = `translateX(${translateX}%)`;
             
             if (sloganPanel) {
-                const sloganVisible = progress >= 0.5;
+                const sloganVisible = moveProgress >= 0.6;
                 sloganPanel.classList.toggle('zoom-out', sloganVisible);
                 sloganPanel.classList.toggle('animate', sloganVisible);
             }
             
             if (indicatorSubhero) {
-                indicatorSubhero.classList.toggle('hidden', progress >= 0.3);
+                indicatorSubhero.classList.toggle('hidden', moveProgress >= 0.4);
             }
             
             if (indicatorSlogan) {
-                indicatorSlogan.classList.toggle('visible', progress >= 0.6 && progress < 0.95);
+                indicatorSlogan.classList.toggle('visible', moveProgress >= 0.7 && progress < 0.95);
             }
         },
         onLeave: () => {
