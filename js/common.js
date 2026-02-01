@@ -1,5 +1,7 @@
 /* [SEOUL BONE PAIN CLINIC] Common Script */
 
+let lenis = null;
+
 const commonElems = {
     menuToggle: null,
     menuLabel: null,
@@ -21,8 +23,41 @@ function initCommon() {
     commonElems.nonInsuranceBtn = document.getElementById('btn-non-insurance');
     commonElems.nonInsuranceModal = document.getElementById('non-insurance-modal');
     
+    initLenis();
     setupCommonEventListeners();
     setupScrollProgress();
+}
+
+function initLenis() {
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile || typeof Lenis === 'undefined') return;
+    
+    lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        touchMultiplier: 2,
+        infinite: false
+    });
+    
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+    } else {
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+    }
+    
+    window.lenis = lenis;
 }
 
 function setupCommonEventListeners() {
@@ -68,12 +103,20 @@ function setupScrollProgress() {
     const progressBar = document.getElementById('scroll-progress');
     if (!progressBar) return;
     
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.scrollY;
+    function updateProgress() {
+        const scrollTop = window.lenis ? window.lenis.scroll : window.scrollY;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
         const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
         progressBar.style.width = scrollPercent + '%';
-    });
+    }
+    
+    if (window.lenis) {
+        window.lenis.on('scroll', updateProgress);
+    } else {
+        window.addEventListener('scroll', updateProgress);
+    }
+    
+    updateProgress();
 }
 
 function setupSubHeroScrollEffect() {

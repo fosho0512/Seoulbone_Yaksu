@@ -185,11 +185,20 @@ function setupEquipmentNarrative() {
     }
     
     if (equipmentScrollHandler) {
-        window.removeEventListener('scroll', equipmentScrollHandler);
+        if (window.lenis) {
+            window.lenis.off('scroll', equipmentScrollHandler);
+        } else {
+            window.removeEventListener('scroll', equipmentScrollHandler);
+        }
     }
     
     equipmentScrollHandler = handleEquipmentScroll;
-    window.addEventListener('scroll', handleEquipmentScroll, { passive: true });
+    
+    if (window.lenis) {
+        window.lenis.on('scroll', handleEquipmentScroll);
+    } else {
+        window.addEventListener('scroll', handleEquipmentScroll, { passive: true });
+    }
     
     handleEquipmentScroll();
 }

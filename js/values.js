@@ -180,7 +180,11 @@ function setupValuesSlider() {
             const wrapperRect = wrapper.getBoundingClientRect();
             const scrollTarget = wrapper.offsetTop + (wrapperRect.height * targetProgress);
             
-            window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+            if (window.lenis) {
+                window.lenis.scrollTo(scrollTarget, { duration: 1.2 });
+            } else {
+                window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+            }
         });
     });
 }

@@ -76,6 +76,13 @@ The website adopts a luxury resort theme, characterized by gold accents, subtle 
 - **Philosophy Card**: Triggers at 80vh with CSS transitions for expansion effect
 
 ## Recent Changes
+- **Feb 2026**: **Lenis Smooth Scroll Integrated**
+  - Added Lenis v1.1.18 to all 7 HTML pages via unpkg CDN
+  - `js/common.js`: Added `initLenis()` with GSAP ticker + ScrollTrigger integration
+  - Mobile excluded: Lenis disabled for window.innerWidth <= 768
+  - `js/values.js`: Progress dot click uses `window.lenis.scrollTo()` with fallback
+  - `style.css`: Added Lenis CSS rules (section 0) for smooth scroll behavior
+  - `window.lenis` globally exposed for cross-module access
 - **Jan 2026**: **Values Page Mobile Overhaul**
   - Converted from GSAP scroll slider to vertical card list layout on mobile
   - Mobile detection: `window.innerWidth <= 768` triggers `setupMobileValuesLayout()`
@@ -115,4 +122,4 @@ The website adopts a luxury resort theme, characterized by gold accents, subtle 
 - **Pretendard Font**: Loaded via CDN
 - **Font Awesome**: For icons
 - **GSAP ScrollTrigger**: For Values and Diagnosis page animations
-- **Lenis Library** (planned): For smooth scroll inertia (PC only)
+- **Lenis Library**: Smooth scroll inertia (PC only, 768px+) - v1.1.18 via unpkg CDN

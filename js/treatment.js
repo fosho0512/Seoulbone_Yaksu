@@ -147,11 +147,21 @@ function setupTreatmentScroll() {
     };
     
     if (treatmentScrollHandler) {
-        window.removeEventListener('scroll', treatmentScrollHandler);
+        if (window.lenis) {
+            window.lenis.off('scroll', treatmentScrollHandler);
+        } else {
+            window.removeEventListener('scroll', treatmentScrollHandler);
+        }
     }
     
     treatmentScrollHandler = handleScroll;
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    if (window.lenis) {
+        window.lenis.on('scroll', handleScroll);
+    } else {
+        window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+    
     handleScroll();
 }
 
