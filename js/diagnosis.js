@@ -92,11 +92,11 @@ function setupDiagnosisScroll() {
     }
     
     const PHASE = {
-        SUBHERO_END: 0.10,
-        SLIDE_END: 0.40,
-        TEXT1_END: 0.60,
-        TEXT2_END: 0.85,
-        SLOGAN_APPEAR: 0.355
+        SUBHERO_END: 0.18,
+        SLIDE_END: 0.45,
+        TEXT1_END: 0.65,
+        TEXT2_END: 0.88,
+        SLOGAN_APPEAR: 0.40
     };
     
     diagScrollTrigger = ScrollTrigger.create({
