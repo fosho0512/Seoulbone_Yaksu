@@ -76,6 +76,12 @@ The website adopts a luxury resort theme, characterized by gold accents, subtle 
 - **Philosophy Card**: Triggers at 80vh with CSS transitions for expansion effect
 
 ## Recent Changes
+- **Feb 2026**: **Image Optimization Complete**
+  - Converted all 44 images from PNG/JPG to WebP format (85% quality)
+  - Size reduction examples: treatment.jpg 18MB → 277KB (98.5% reduction)
+  - Added `loading="lazy"` to all `<img>` tags (HTML and dynamic JS)
+  - Diagnosis horizontal scroll scrub value increased 0.5 → 2.0 for smoother transitions
+  - Lenis duration 1.8, wheelMultiplier 0.8 for premium scroll experience
 - **Feb 2026**: **Lenis Smooth Scroll Integrated**
   - Added Lenis v1.1.18 to all 7 HTML pages via unpkg CDN
   - `js/common.js`: Added `initLenis()` with GSAP ticker + ScrollTrigger integration
