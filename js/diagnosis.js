@@ -21,7 +21,7 @@ function renderEquipmentNarrative() {
     narrative.innerHTML = `
         <div class="sticky-image-wrapper">
             <div class="sticky-image" id="equipment-image">
-                ${data.details.map((det, i) => `<img src="../${det.img}" alt="Equipment" class="${i === 0 ? 'active' : ''}">`).join('')}
+                ${data.details.map((det, i) => `<img src="../${det.img}" alt="Equipment" class="${i === 0 ? 'active' : ''}" loading="lazy">`).join('')}
             </div>
         </div>
         <div class="equipment-steps">
@@ -103,7 +103,7 @@ function setupDiagnosisScroll() {
         trigger: area,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: 0.5,
+        scrub: 2.0,
         onUpdate: (self) => {
             const progress = self.progress;
             
