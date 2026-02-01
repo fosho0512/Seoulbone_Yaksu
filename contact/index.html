@@ -200,17 +200,11 @@
             const mapContainer = document.getElementById('naver-map');
             if (!mapContainer) return;
             
-            try {
-                const response = await fetch('/api/get-map-key');
-                const data = await response.json();
-                
-                if (data.error || !data.clientId) {
-                    showMapError('API 키를 불러올 수 없습니다.');
-                    return;
-                }
+            // 테스트용 하드코딩 - 나중에 API 방식으로 복구 필요
+                const clientId = 'dmjrpw59ki';
                 
                 const script = document.createElement('script');
-                script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${data.clientId}`;
+                script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${clientId}`;
                 script.onload = function() {
                     createMap();
                 };
@@ -218,11 +212,6 @@
                     showMapError('지도를 불러올 수 없습니다.');
                 };
                 document.head.appendChild(script);
-                
-            } catch (error) {
-                console.error('Map init error:', error);
-                showMapError('지도를 불러올 수 없습니다.');
-            }
         }
         
         function createMap() {
