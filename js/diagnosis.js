@@ -91,7 +91,7 @@ function setupDiagnosisScroll() {
         trigger: area,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: 3,
+        scrub: 1.5,
         onUpdate: (self) => {
             const progress = self.progress;
             
