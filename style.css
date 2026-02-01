@@ -3365,8 +3365,8 @@ body.values-mobile-mode .mobile-point-item p {
 /* 수평 스크롤 구간 - Sub Hero + Slogan을 담는 스크롤 영역 */
 .diag-horizontal-area {
     position: relative;
-    /* 스크롤 거리: 1vh = Sub Hero 고정 + 2vh = 가로 이동 + 1.5vh = Slogan dwell */
-    height: 450vh;
+    /* 스크롤 거리: 가로 이동을 천천히 하기 위해 높이 증가 (휠 대비 ~25% 이동) */
+    height: 800vh;
     width: 100%;
     background: var(--bg-color);
 }

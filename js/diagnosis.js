@@ -87,62 +87,29 @@ function setupDiagnosisScroll() {
         diagScrollTrigger = null;
     }
     
-    function easeInOutCubic(t) {
-        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    }
-    
-    const PHASE = {
-        SUBHERO_END: 0.18,
-        SLIDE_END: 0.45,
-        TEXT1_END: 0.65,
-        TEXT2_END: 0.88,
-        SLOGAN_APPEAR: 0.40
-    };
-    
     diagScrollTrigger = ScrollTrigger.create({
         trigger: area,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: 2.0,
+        scrub: 3,
         onUpdate: (self) => {
             const progress = self.progress;
             
-            let translateX = 0;
-            if (progress < PHASE.SUBHERO_END) {
-                translateX = 0;
-            } else if (progress < PHASE.SLIDE_END) {
-                const moveProgress = (progress - PHASE.SUBHERO_END) / (PHASE.SLIDE_END - PHASE.SUBHERO_END);
-                translateX = -50 * easeInOutCubic(moveProgress);
-            } else {
-                translateX = -50;
-            }
-            
+            const translateX = -50 * progress;
             track.style.transform = `translateX(${translateX}%)`;
             
             if (sloganPanel) {
-                if (progress >= PHASE.SLOGAN_APPEAR) {
-                    sloganPanel.classList.add('zoom-out');
-                    sloganPanel.classList.add('animate');
-                } else {
-                    sloganPanel.classList.remove('zoom-out');
-                    sloganPanel.classList.remove('animate');
-                }
+                const sloganVisible = progress >= 0.5;
+                sloganPanel.classList.toggle('zoom-out', sloganVisible);
+                sloganPanel.classList.toggle('animate', sloganVisible);
             }
             
             if (indicatorSubhero) {
-                if (progress < PHASE.SLOGAN_APPEAR) {
-                    indicatorSubhero.classList.remove('hidden');
-                } else {
-                    indicatorSubhero.classList.add('hidden');
-                }
+                indicatorSubhero.classList.toggle('hidden', progress >= 0.3);
             }
             
             if (indicatorSlogan) {
-                if (progress >= PHASE.SLOGAN_APPEAR && progress < PHASE.TEXT2_END) {
-                    indicatorSlogan.classList.add('visible');
-                } else {
-                    indicatorSlogan.classList.remove('visible');
-                }
+                indicatorSlogan.classList.toggle('visible', progress >= 0.6 && progress < 0.95);
             }
         },
         onLeave: () => {
