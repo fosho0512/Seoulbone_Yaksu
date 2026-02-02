@@ -661,7 +661,6 @@ body.menu-open .visual-text { opacity: 0; }
     backdrop-filter: blur(8px); 
 }
 .simple-modal.open { opacity: 1; visibility: visible; }
-body.modal-open { overflow: hidden; }
 .simple-modal-content { 
     background: var(--bg-color); 
     padding: 60px; 
