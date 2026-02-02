@@ -2041,6 +2041,10 @@ body.menu-open .visual-text { opacity: 0; }
         font-size: 0.9rem;
     }
     
+    .br-pc {
+        display: none;
+    }
+    
     .prp-final-bg-img {
         height: 50vh;
     }
