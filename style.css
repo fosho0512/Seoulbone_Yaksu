@@ -1849,6 +1849,7 @@ body.menu-open .visual-text { opacity: 0; }
     color: #fff;
     line-height: var(--lh-snug);
     margin-bottom: 24px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
 }
 
 .prp-final-main {
@@ -1859,15 +1860,17 @@ body.menu-open .visual-text { opacity: 0; }
     line-height: 1.6;
     margin-bottom: 16px;
     letter-spacing: -0.02em;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.25);
 }
 
 .prp-final-desc {
     font-family: var(--font-body);
     font-size: clamp(15px, 1.2vw, 18px);
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.85);
     line-height: 1.7;
     margin-bottom: 24px;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.2);
 }
 
 .prp-final-details {
