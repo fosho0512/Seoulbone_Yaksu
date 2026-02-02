@@ -1919,25 +1919,30 @@ body.menu-open .visual-text { opacity: 0; }
     }
     
     .prp-intro-content {
+        display: flex;
         flex-direction: column;
         margin-top: 0;
         gap: 50px;
     }
     
     .prp-intro-text {
-        flex: none;
-        padding-top: 0;
+        position: relative;
+        top: 0;
     }
     
-    .prp-intro-cards {
-        flex-direction: column;
+    .prp-effect-cards {
         gap: 20px;
     }
     
     .prp-effect-card {
-        flex: none;
-        width: 100%;
-        margin-top: 0 !important;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 28px 24px;
+    }
+    
+    .effect-title {
+        min-width: auto;
     }
     
     /* PRP Final Section Mobile */
@@ -2010,31 +2015,26 @@ body.menu-open .visual-text { opacity: 0; }
     .prp-intro-text {
         position: relative;
         top: 0;
-        grid-column: auto;
-        grid-row: auto;
     }
     
     .prp-intro-text p {
         font-size: clamp(16px, 4.5vw, 20px);
     }
     
-    .prp-effect-card {
-        max-width: 100%;
-        padding: 28px 24px;
-        grid-column: auto;
-        grid-row: auto;
+    .prp-effect-cards {
+        gap: 16px;
     }
     
-    .prp-card-1,
-    .prp-card-2,
-    .prp-card-3 {
-        grid-column: auto;
-        grid-row: auto;
-        justify-self: stretch;
+    .prp-effect-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 24px 20px;
     }
     
     .effect-title {
         font-size: 1.1rem;
+        min-width: auto;
     }
     
     .effect-desc {
