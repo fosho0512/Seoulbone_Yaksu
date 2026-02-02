@@ -146,7 +146,7 @@ function showContentView(id) {
         html = `
             <div class="sub-hero" id="staff-sub-hero">
                 <div class="sub-hero-image">
-                    <img src="images/staff-subhero.jpg" alt="Medical Staff Hero">
+                    <img src="images/staff-subhero.webp" alt="Medical Staff Hero" loading="lazy">
                 </div>
                 <div class="sub-hero-overlay"></div>
                 <div class="sub-hero-text">
@@ -168,7 +168,7 @@ function showContentView(id) {
             <div class="staff-profile-layout">
                 <div class="profile-sticky-wrapper">
                     <div class="profile-image-wrapper">
-                        <img src="images/staff-profile.jpg" alt="Medical Staff Profile">
+                        <img src="images/staff-profile.webp" alt="Medical Staff Profile" loading="lazy">
                     </div>
                 </div>
                 <div class="profile-info-scroll">
@@ -209,7 +209,7 @@ function showContentView(id) {
                             <!-- 섹션 1: Sub Hero -->
                             <section class="diag-panel diag-subhero">
                                 <div class="diag-subhero-bg">
-                                    <img src="${data.heroImg || 'images/diagnosis-hero.png'}" alt="${data.title}">
+                                    <img src="${data.heroImg || 'images/diagnosis-hero.webp'}" alt="${data.title}" loading="lazy">
                                 </div>
                                 <div class="diag-subhero-overlay"></div>
                                 <div class="diag-subhero-text">
@@ -232,7 +232,7 @@ function showContentView(id) {
                             <!-- 섹션 2: Slogan -->
                             <section class="diag-panel diag-slogan">
                                 <div class="diag-slogan-bg">
-                                    <img src="images/diagnosis-slogan.png" alt="Slogan Background">
+                                    <img src="images/diagnosis-slogan.webp" alt="Slogan Background" loading="lazy">
                                 </div>
                                 <div class="diag-slogan-overlay"></div>
                                 <div class="diag-slogan-content">
@@ -309,7 +309,7 @@ function showContentView(id) {
         html = `
             <div class="sub-hero" id="prp-sub-hero">
                 <div class="sub-hero-image">
-                    <img src="images/cell-therapy-hero.png" alt="${data.title} Hero">
+                    <img src="images/cell-therapy-hero.webp" alt="${data.title} Hero" loading="lazy">
                 </div>
                 <div class="sub-hero-overlay"></div>
                 <div class="sub-hero-text">
@@ -353,10 +353,10 @@ function showContentView(id) {
             <!-- PRP Final Section: 치료대상/치료과정/시술후관리 -->
             <section class="prp-final-section">
                 <div class="prp-final-bg-layer">
-                    <div class="prp-final-bg-img" data-index="0" style="background-image: url('images/prp-indication.png')"></div>
-                    <div class="prp-final-bg-img" data-index="1" style="background-image: url('images/prp-process.png')"></div>
-                    <div class="prp-final-bg-img" data-index="2" style="background-image: url('images/prp-postcare.png')"></div>
-                    <div class="prp-final-bg-img" data-index="3" style="background-image: url('images/prp-synergy.png')"></div>
+                    <div class="prp-final-bg-img" data-index="0" style="background-image: url('images/prp-indication.webp')"></div>
+                    <div class="prp-final-bg-img" data-index="1" style="background-image: url('images/prp-process.webp')"></div>
+                    <div class="prp-final-bg-img" data-index="2" style="background-image: url('images/prp-postcare.webp')"></div>
+                    <div class="prp-final-bg-img" data-index="3" style="background-image: url('images/prp-synergy.webp')"></div>
                 </div>
                 <div class="prp-final-content-layer">
                     <div class="prp-final-text-block" data-index="0">
@@ -505,10 +505,10 @@ function showContentView(id) {
             ? `<div class="map-container">${data.mapEmbed}</div>` 
             : `<img src="${data.modalImg}" alt="${data.title}">`;
         
-        let heroImagePath = 'images/staff-hero.png';
-        if (id === 'treatment') heroImagePath = 'images/treatment-hero.png';
-        else if (id === 'contact') heroImagePath = 'images/contact-hero.png';
-        else if (id === 'facilities') heroImagePath = 'images/treatment-hero.png';
+        let heroImagePath = 'images/staff-hero.webp';
+        if (id === 'treatment') heroImagePath = 'images/treatment-hero.webp';
+        else if (id === 'contact') heroImagePath = 'images/contact-hero.webp';
+        else if (id === 'facilities') heroImagePath = 'images/treatment-hero.webp';
 
         if (id === 'treatment') {
             html = `
