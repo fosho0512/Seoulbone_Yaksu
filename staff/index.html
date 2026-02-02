@@ -148,6 +148,7 @@
         });
         
         function setupPhilosophyCard() {
+            const section = document.querySelector('.brand-philosophy-section');
             const wrapper = document.querySelector('.philosophy-card-wrapper');
             if (!wrapper) return;
             
@@ -159,6 +160,7 @@
                 
                 if (rect.top <= triggerPoint && rect.bottom >= 0) {
                     if (!isExpanded) {
+                        if (section) section.classList.add('animate');
                         wrapper.classList.add('expanded');
                         isExpanded = true;
                     }
