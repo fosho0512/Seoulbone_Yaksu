@@ -22,7 +22,7 @@ function renderTreatmentContent() {
         sloganSection.innerHTML = `
             <div class="treatment-slogan-stage">
                 <div class="treatment-slogan-bg">
-                    <img src="../images/treatment-intro-bg.jpg" alt="Background">
+                    <img src="../images/treatment-intro-bg.webp" alt="Background" loading="lazy">
                 </div>
                 <div class="treatment-slogan-container">
                     <div class="treatment-slogan-group" data-group="1">
