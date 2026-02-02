@@ -66,15 +66,27 @@ function setupCommonEventListeners() {
     if(commonElems.closeContactBtn) commonElems.closeContactBtn.addEventListener('click', () => commonElems.contactModal.classList.remove('open'));
     
     if(commonElems.nonInsuranceBtn && commonElems.nonInsuranceModal) {
-        commonElems.nonInsuranceBtn.addEventListener('click', () => commonElems.nonInsuranceModal.classList.add('open'));
+        commonElems.nonInsuranceBtn.addEventListener('click', () => {
+            commonElems.nonInsuranceModal.classList.add('open');
+            document.body.classList.add('modal-open');
+            if (window.lenis) window.lenis.stop();
+        });
     }
     const closeNonInsuranceBtn = document.querySelector('.close-non-insurance');
     if(closeNonInsuranceBtn && commonElems.nonInsuranceModal) {
-        closeNonInsuranceBtn.addEventListener('click', () => commonElems.nonInsuranceModal.classList.remove('open'));
+        closeNonInsuranceBtn.addEventListener('click', () => {
+            commonElems.nonInsuranceModal.classList.remove('open');
+            document.body.classList.remove('modal-open');
+            if (window.lenis) window.lenis.start();
+        });
     }
     if(commonElems.nonInsuranceModal) {
         commonElems.nonInsuranceModal.addEventListener('click', (e) => {
-            if(e.target === commonElems.nonInsuranceModal) commonElems.nonInsuranceModal.classList.remove('open');
+            if(e.target === commonElems.nonInsuranceModal) {
+                commonElems.nonInsuranceModal.classList.remove('open');
+                document.body.classList.remove('modal-open');
+                if (window.lenis) window.lenis.start();
+            }
         });
     }
     
