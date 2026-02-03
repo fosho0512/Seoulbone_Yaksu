@@ -2524,10 +2524,17 @@ body::before {
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .drawer-menu { width: 100%; }
-    #global-header { padding: 0 25px; height: 65px; }
+    #global-header { padding: 0 25px; height: 65px; position: relative; }
     :root { --header-height: 65px; }
+    .header-left { position: static; }
     .header-right { display: none; }
-    .menu-toggle-btn { min-height: 44px; min-width: 44px; padding: 10px; }
+    .brand {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .menu-toggle-btn { min-height: 44px; min-width: 44px; padding: 10px; position: relative; z-index: 1; }
     .menu-toggle-btn .label { display: none; }
     .close-btn { right: 25px; top: 25px; min-height: 44px; min-width: 44px; }
     .close-drawer-btn { width: 44px; height: 44px; top: 20px; right: 20px; }

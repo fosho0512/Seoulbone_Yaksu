@@ -22,7 +22,12 @@
             <button type="button" id="menu-toggle" class="menu-toggle-btn">
                 <div class="lines"><span></span><span></span><span></span></div>
             </button>
-            <a href="../" class="brand" id="brand-logo"><img src="../images/logo.png" alt="서울본재활의학과의원 Seoul Bone Pain Clinic" class="brand-logo-img"></a>
+            <a href="../" class="brand" id="brand-logo">
+                <picture>
+                    <source media="(max-width: 768px)" srcset="../images/logo-mobile.png">
+                    <img src="../images/logo.png" alt="서울본재활의학과의원 Seoul Bone Pain Clinic" class="brand-logo-img">
+                </picture>
+            </a>
         </div>
         <div class="header-right">
             <button type="button" id="btn-contact" class="util-btn">Contact Us</button>
