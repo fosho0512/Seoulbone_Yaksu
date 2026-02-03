@@ -2527,7 +2527,7 @@ body::before {
     #global-header { padding: 0 25px; height: 65px; }
     :root { --header-height: 65px; }
     .header-right { display: none; }
-    .header-left { width: 100%; justify-content: space-between; }
+    .header-left { width: 100%; justify-content: space-between; flex-direction: row-reverse; }
     .menu-toggle-btn { min-height: 44px; min-width: 44px; padding: 10px; }
     .menu-toggle-btn .label { display: none; }
     .close-btn { right: 25px; top: 25px; min-height: 44px; min-width: 44px; }
