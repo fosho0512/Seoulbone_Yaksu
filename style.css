@@ -1095,9 +1095,9 @@ body.menu-open .visual-text { opacity: 0; }
 
 .panel-content {
     position: absolute;
-    bottom: 40px;
-    left: 30px;
-    right: 30px;
+    bottom: 50px;
+    left: 40px;
+    right: 40px;
     color: var(--text-light);
     opacity: 0;
     transform: translateY(20px);
@@ -1124,24 +1124,37 @@ body.menu-open .visual-text { opacity: 0; }
     font-size: var(--font-body-sm);
     font-weight: 300;
     color: var(--gold-accent);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .panel-name {
     font-family: var(--font-serif-kr);
-    font-size: var(--font-heading-sm);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
     font-weight: 400;
-    margin-bottom: 8px;
-    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+    letter-spacing: 0.08em;
+    position: relative;
+    display: inline-block;
+}
+
+.panel-name::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 1px;
+    background: var(--gold-accent);
 }
 
 .panel-address {
     font-family: var(--font-sans);
     font-size: var(--font-body-sm);
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 15px;
 }
 
 /* Sub Hero Section */
