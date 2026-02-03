@@ -1004,6 +1004,7 @@ body.menu-open .visual-text { opacity: 0; }
 /* Network Section */
 .network-section {
     padding: 120px var(--spacing-side);
+    padding-bottom: 160px;
     background: var(--bg-dark);
 }
 
@@ -1143,7 +1144,7 @@ body.menu-open .visual-text { opacity: 0; }
     font-family: var(--font-display);
     font-size: var(--font-body-sm);
     font-weight: 300;
-    color: var(--gold-accent);
+    color: #fff;
     letter-spacing: 0.15em;
     display: block;
     margin-bottom: 15px;
@@ -1157,6 +1158,7 @@ body.menu-open .visual-text { opacity: 0; }
     letter-spacing: 0.08em;
     position: relative;
     display: inline-block;
+    color: #fff;
 }
 
 .panel-name::after {
@@ -1173,7 +1175,7 @@ body.menu-open .visual-text { opacity: 0; }
     font-family: var(--font-sans);
     font-size: var(--font-body-sm);
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.7);
+    color: #fff;
     margin-top: 15px;
 }
 
