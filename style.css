@@ -936,12 +936,11 @@ body.menu-open .visual-text { opacity: 0; }
     flex: 1 1 50%;
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 30px;
 }
 
 .info-block {
-    padding-bottom: 40px;
-    border-bottom: 1px solid var(--sub-color);
+    padding-bottom: 25px;
 }
 
 .info-block:last-child {
@@ -954,7 +953,7 @@ body.menu-open .visual-text { opacity: 0; }
     font-size: var(--font-heading-sm);
     font-weight: 500;
     color: var(--text-color);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     letter-spacing: 0.05em;
 }
 
@@ -987,12 +986,18 @@ body.menu-open .visual-text { opacity: 0; }
     line-height: var(--lh-relaxed);
 }
 
-.contact-phone .phone-number {
-    font-family: var(--font-display);
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
-    font-weight: 400;
-    color: var(--text-color);
-    letter-spacing: 0.1em;
+.parking-notice {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid var(--gold-accent);
+}
+
+.parking-notice p {
+    font-family: var(--font-sans);
+    font-size: var(--font-body-sm);
+    font-weight: 300;
+    color: #888;
+    text-align: center;
 }
 
 /* Sub Hero Section */
