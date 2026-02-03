@@ -1001,6 +1001,149 @@ body.menu-open .visual-text { opacity: 0; }
     text-align: center;
 }
 
+/* Network Section */
+.network-section {
+    padding: 120px var(--spacing-side);
+    background: var(--bg-dark);
+}
+
+.network-title {
+    font-family: var(--font-serif-kr);
+    font-size: var(--font-heading-lg);
+    font-weight: 400;
+    color: var(--text-light);
+    text-align: center;
+    margin-bottom: 10px;
+    letter-spacing: 0.1em;
+}
+
+.network-subtitle {
+    font-family: var(--font-display);
+    font-size: var(--font-body-sm);
+    font-weight: 300;
+    color: var(--gold-accent);
+    text-align: center;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 60px;
+}
+
+.network-gallery {
+    display: flex;
+    height: 500px;
+    overflow: hidden;
+}
+
+.network-panel {
+    position: relative;
+    flex: 0 0 15%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: flex 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.network-panel.active {
+    flex: 0 0 40%;
+}
+
+.network-gallery:hover .network-panel {
+    flex: 0 0 15%;
+}
+
+.network-gallery:hover .network-panel:hover {
+    flex: 0 0 40%;
+}
+
+.panel-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.network-panel.active .panel-image {
+    transform: scale(1.05);
+}
+
+.network-gallery:hover .network-panel .panel-image {
+    transform: scale(1);
+}
+
+.network-gallery:hover .network-panel:hover .panel-image {
+    transform: scale(1.05);
+}
+
+.panel-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.network-panel.active .panel-overlay {
+    opacity: 0;
+}
+
+.network-gallery:hover .network-panel .panel-overlay {
+    opacity: 0.6;
+}
+
+.network-gallery:hover .network-panel:hover .panel-overlay {
+    opacity: 0;
+}
+
+.panel-content {
+    position: absolute;
+    bottom: 40px;
+    left: 30px;
+    right: 30px;
+    color: var(--text-light);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
+}
+
+.network-panel.active .panel-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.network-gallery:hover .network-panel .panel-content {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.network-gallery:hover .network-panel:hover .panel-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.panel-number {
+    font-family: var(--font-display);
+    font-size: var(--font-body-sm);
+    font-weight: 300;
+    color: var(--gold-accent);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.panel-name {
+    font-family: var(--font-serif-kr);
+    font-size: var(--font-heading-sm);
+    font-weight: 400;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+}
+
+.panel-address {
+    font-family: var(--font-sans);
+    font-size: var(--font-body-sm);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.8);
+}
+
 /* Sub Hero Section */
 .sub-hero {
     position: relative;
@@ -2568,6 +2711,32 @@ body::before {
     .info-row { flex-direction: column; gap: 8px; margin-bottom: 20px; }
     .info-label { flex: none; }
     .contact-phone .phone-number { font-size: 1.3rem; }
+
+    .network-section { padding: 80px var(--spacing-side); }
+    .network-title { font-size: var(--font-heading-md); }
+    .network-subtitle { margin-bottom: 40px; }
+    .network-gallery { 
+        flex-direction: column; 
+        height: auto; 
+    }
+    .network-panel { 
+        flex: none; 
+        height: 200px; 
+    }
+    .network-panel.active,
+    .network-panel:hover { 
+        flex: none; 
+        height: 300px; 
+    }
+    .panel-content { 
+        opacity: 1; 
+        transform: translateY(0); 
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+    }
+    .panel-overlay { opacity: 0.3; }
+    .network-panel.active .panel-overlay { opacity: 0; }
 
     .sub-hero { 
         width: 100%;
