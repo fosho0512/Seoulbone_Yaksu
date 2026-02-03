@@ -301,14 +301,15 @@ a { text-decoration: none; color: inherit; }
 .header-left { gap: 20px; }
 .header-right { gap: 20px; }
 .brand { 
-    font-size: var(--font-ui); 
-    font-weight: 500; 
-    letter-spacing: var(--ls-wider); 
-    text-transform: uppercase; 
+    display: flex;
+    align-items: center;
     cursor: pointer; 
-    color: var(--text-color); 
 }
-.brand .loc { color: var(--gold-accent); font-weight: 600; }
+.brand-logo-img {
+    height: 36px;
+    width: auto;
+    display: block;
+}
 .menu-toggle-btn { 
     cursor: pointer; 
     display: flex; 
@@ -2542,7 +2543,7 @@ body::before {
     .visual-text h3 { font-size: var(--font-display-md); white-space: normal; }
     .intro-logo { font-size: var(--font-heading-lg); letter-spacing: var(--ls-wider); }
     .intro-logo .loc { font-size: var(--font-body); }
-    .brand { font-size: var(--font-caption); }
+    .brand-logo-img { height: 28px; }
     .modal-content { padding: 90px 25px; }
     .content-wrapper { padding: 40px 6% 80px; }
     
