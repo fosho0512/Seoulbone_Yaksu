@@ -2527,12 +2527,6 @@ body::before {
     #global-header { padding: 0 25px; height: 65px; }
     :root { --header-height: 65px; }
     .header-right { display: none; }
-    .brand {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
     .menu-toggle-btn { min-height: 44px; min-width: 44px; padding: 10px; }
     .menu-toggle-btn .label { display: none; }
     .close-btn { right: 25px; top: 25px; min-height: 44px; min-width: 44px; }
