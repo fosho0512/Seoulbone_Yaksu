@@ -306,7 +306,7 @@ a { text-decoration: none; color: inherit; }
     cursor: pointer; 
 }
 .brand-logo-img {
-    height: 36px;
+    height: 18px;
     width: auto;
     display: block;
 }
@@ -2543,7 +2543,7 @@ body::before {
     .visual-text h3 { font-size: var(--font-display-md); white-space: normal; }
     .intro-logo { font-size: var(--font-heading-lg); letter-spacing: var(--ls-wider); }
     .intro-logo .loc { font-size: var(--font-body); }
-    .brand-logo-img { height: 28px; }
+    .brand-logo-img { height: 14px; }
     .modal-content { padding: 90px 25px; }
     .content-wrapper { padding: 40px 6% 80px; }
     
