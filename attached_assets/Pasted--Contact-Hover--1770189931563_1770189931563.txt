@@ -1,0 +1,384 @@
+# 🐛 Contact 페이지 서울본 네트워크 섹션 Hover 문제 분석
+
+## 🔍 문제 현상
+
+**증상:**
+- 마우스를 여러 패널에 계속 호버하다 보면 오른쪽에 흰색 여백이 생김
+- 마치 보이지 않는 6번째 이미지가 있는 것처럼 보임
+- 화면 너비가 일정하게 유지되지 않고 변동됨
+
+---
+
+## ⚠️ 문제 원인 분석
+
+### 현재 CSS 코드 (라인 1041-1071)
+
+```css
+.network-panel {
+    position: relative;
+    flex: 0 0 15%;          /* ❌ 문제 1 */
+    overflow: hidden;
+    cursor: pointer;
+    transition: flex 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.network-panel.active {
+    flex: 0 0 40%;          /* ❌ 문제 2 */
+}
+
+.network-gallery:hover .network-panel {
+    flex: 0 0 15%;
+}
+
+.network-gallery:hover .network-panel.active {
+    flex: 0 0 40%;
+}
+
+.network-gallery:has(.network-panel:hover) .network-panel {
+    flex: 0 0 15%;
+}
+
+.network-gallery:has(.network-panel:hover) .network-panel.active {
+    flex: 0 0 15%;          /* ❌ 문제 3 */
+}
+
+.network-gallery:has(.network-panel:hover) .network-panel:hover {
+    flex: 0 0 40%;
+}
+```
+
+### 🔴 핵심 문제
+
+**1. 수학적 오류:**
+- 패널 5개 구조: 1개 active (40%) + 4개 normal (15% × 4)
+- **계산:** 40% + 15% + 15% + 15% + 15% = **100%** ✓
+
+하지만 **hover 상태에서:**
+- hover된 패널: 40%
+- 나머지 4개: 15% × 4 = 60%
+- **총합:** 40% + 60% = **100%** ✓
+
+**그런데 왜 문제가 발생할까요?**
+
+### 🎯 실제 원인: Transition Timing 불일치
+
+문제는 **여러 개의 CSS 규칙이 동시에 적용되면서 transition이 겹칠 때** 발생합니다.
+
+#### 시나리오:
+
+1. **초기 상태:** Panel 1이 active (40%), 나머지 4개 15%
+2. **Panel 2에 hover:** 
+   - Panel 1: 40% → 15% (transition 0.75초)
+   - Panel 2: 15% → 40% (transition 0.75초)
+   - Panel 3, 4, 5: 15% 유지
+
+3. **빠르게 Panel 3으로 hover 이동:**
+   - Panel 2: 40% → 15% (새로운 transition 시작)
+   - Panel 3: 15% → 40% (새로운 transition 시작)
+   - **문제:** Panel 2의 이전 transition이 완료되지 않은 상태에서 새 transition 시작
+
+4. **결과:**
+   - 여러 패널이 동시에 transition 중
+   - 각 패널의 실제 크기가 중간값 (예: 27.5%, 18%, 20% 등)
+   - **총합이 100%를 초과하거나 미달**
+   - 브라우저가 레이아웃을 재계산하면서 **오른쪽에 빈 공간 생성**
+
+### 📊 구체적 예시:
+
+```
+초기: [40%][15%][15%][15%][15%] = 100%
+
+Panel 2 hover 시작 (0.2초 경과):
+[30%][25%][15%][15%][15%] = 100% (transition 중)
+
+Panel 3으로 재빠르게 이동 (0.3초 경과):
+[20%][23%][28%][15%][15%] = 101% ❌ (오버플로우!)
+
+또는:
+[18%][20%][25%][15%][15%] = 93% ❌ (언더플로우!)
+```
+
+### 🔍 추가 문제점
+
+**문제점 1: `flex: 0 0 15%` 사용**
+- `flex-grow: 0` → 늘어나지 않음
+- `flex-shrink: 0` → 줄어들지 않음  
+- `flex-basis: 15%` → 고정 15%
+
+→ **총합이 100% 초과 시 오버플로우 발생!**
+
+**문제점 2: .active 클래스와 :hover 혼용**
+- JavaScript로 .active 추가/제거
+- CSS :hover 상태
+- 두 가지가 충돌하며 예측 불가능한 동작
+
+---
+
+## 🔧 해결 방안
+
+### 방안 1: flex-shrink 활성화 (권장) ✅
+
+**개념:** 총합이 100% 초과 시 자동으로 비율 조정
+
+```css
+.network-panel {
+    position: relative;
+    flex: 0 1 15%;          /* ✅ flex-shrink: 1 (줄어들 수 있음) */
+    overflow: hidden;
+    cursor: pointer;
+    transition: flex 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.network-panel.active {
+    flex: 0 1 40%;          /* ✅ flex-shrink: 1 */
+}
+
+/* hover 상태도 동일하게 */
+.network-gallery:hover .network-panel {
+    flex: 0 1 15%;
+}
+
+.network-gallery:hover .network-panel.active {
+    flex: 0 1 40%;
+}
+
+.network-gallery:has(.network-panel:hover) .network-panel {
+    flex: 0 1 15%;
+}
+
+.network-gallery:has(.network-panel:hover) .network-panel.active {
+    flex: 0 1 15%;
+}
+
+.network-gallery:has(.network-panel:hover) .network-panel:hover {
+    flex: 0 1 40%;
+}
+```
+
+**장점:**
+- 코드 수정 최소
+- 브라우저가 자동으로 비율 조정
+- transition 충돌 시에도 100% 유지
+
+---
+
+### 방안 2: Transition 속도 단축 (보조) ✅
+
+**개념:** transition을 빠르게 만들어 충돌 가능성 감소
+
+```css
+.network-panel {
+    transition: flex 0.4s cubic-bezier(0.4, 0, 0.2, 1);  /* ✅ 0.75s → 0.4s */
+}
+```
+
+**장점:**
+- 더 빠른 반응성
+- transition 겹칠 시간 감소
+- 사용자 경험 개선
+
+---
+
+### 방안 3: 명시적 너비 제한 (추가 안전장치)
+
+```css
+.network-gallery {
+    display: flex;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    background: var(--bg-dark);
+    max-width: 100%;        /* ✅ 추가 */
+}
+
+.network-panel {
+    position: relative;
+    flex: 0 1 15%;
+    min-width: 0;           /* ✅ 추가 - flexbox 최소폭 제한 해제 */
+    overflow: hidden;
+    cursor: pointer;
+    transition: flex 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+```
+
+---
+
+### 방안 4: JavaScript로 정확한 제어 (최선의 방법)
+
+**개념:** CSS만으로 불완전할 수 있으므로 JS로 보조
+
+```javascript
+// script.js 또는 contact.js에 추가
+
+const networkGallery = document.querySelector('.network-gallery');
+const networkPanels = document.querySelectorAll('.network-panel');
+
+if (networkGallery && networkPanels.length > 0) {
+    // 각 패널에 마우스 진입 시
+    networkPanels.forEach((panel, index) => {
+        panel.addEventListener('mouseenter', () => {
+            // 모든 패널의 active 클래스 제거
+            networkPanels.forEach(p => p.classList.remove('active'));
+            
+            // 현재 패널에 active 추가
+            panel.classList.add('active');
+        });
+    });
+    
+    // 갤러리 밖으로 마우스 나갈 때 첫 번째 패널 active
+    networkGallery.addEventListener('mouseleave', () => {
+        networkPanels.forEach(p => p.classList.remove('active'));
+        if (networkPanels[0]) {
+            networkPanels[0].classList.add('active');
+        }
+    });
+}
+```
+
+**CSS도 단순화:**
+
+```css
+.network-panel {
+    flex: 0 1 15%;
+    transition: flex 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.network-panel.active {
+    flex: 0 1 40%;
+}
+
+/* :hover 관련 규칙 모두 제거하고 JS로 대체 */
+```
+
+---
+
+## 📝 최종 권장 수정 (종합 솔루션)
+
+### CSS 수정 (style.css 라인 1041-1071 대체)
+
+```css
+.network-panel {
+    position: relative;
+    flex: 0 1 15%;                    /* flex-shrink 활성화 */
+    min-width: 0;                     /* flexbox 최소폭 제한 해제 */
+    overflow: hidden;
+    cursor: pointer;
+    transition: flex 0.4s cubic-bezier(0.4, 0, 0.2, 1);  /* 속도 단축 */
+}
+
+.network-panel.active {
+    flex: 0 1 40%;
+}
+
+/* :has() 기반 hover 효과 유지하되 flex-shrink 적용 */
+.network-gallery:has(.network-panel:hover) .network-panel {
+    flex: 0 1 15%;
+}
+
+.network-gallery:has(.network-panel:hover) .network-panel.active {
+    flex: 0 1 15%;
+}
+
+.network-gallery:has(.network-panel:hover) .network-panel:hover {
+    flex: 0 1 40%;
+}
+
+/* 아래 규칙들은 제거 (중복) */
+/* .network-gallery:hover .network-panel { ... } */
+/* .network-gallery:hover .network-panel.active { ... } */
+```
+
+### JavaScript 추가 (선택사항 - 더 안정적)
+
+contact 페이지 스크립트에 추가:
+
+```javascript
+document.addEventListener('DOMContentLoaded', function() {
+    const networkGallery = document.querySelector('.network-gallery');
+    const networkPanels = document.querySelectorAll('.network-panel');
+    
+    if (networkGallery && networkPanels.length > 0) {
+        networkPanels.forEach(panel => {
+            panel.addEventListener('mouseenter', function() {
+                networkPanels.forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        networkGallery.addEventListener('mouseleave', function() {
+            networkPanels.forEach(p => p.classList.remove('active'));
+            if (networkPanels[0]) networkPanels[0].classList.add('active');
+        });
+    }
+});
+```
+
+---
+
+## 🧪 테스트 시나리오
+
+수정 후 다음 항목 테스트:
+
+1. **빠른 호버 이동:**
+   - [ ] Panel 1 → 2 → 3 → 4 → 5 빠르게 이동
+   - [ ] 오른쪽 빈 공간 생기지 않음
+   - [ ] 총 너비가 항상 100% 유지
+
+2. **반복 호버:**
+   - [ ] 같은 패널에 여러 번 호버
+   - [ ] 레이아웃 깨지지 않음
+
+3. **랜덤 호버:**
+   - [ ] 무작위로 5-10회 호버 이동
+   - [ ] 흰색 여백 나타나지 않음
+
+4. **다양한 화면 크기:**
+   - [ ] 1920px: 정상 작동
+   - [ ] 2560px: 정상 작동
+   - [ ] 1366px: 정상 작동
+
+---
+
+## 📊 수정 전후 비교
+
+### 수정 전
+
+| 상황 | flex 설정 | 문제 |
+|------|----------|------|
+| 빠른 호버 | `flex: 0 0 15%` | transition 충돌 시 총합 ≠ 100% |
+| Panel 3개 transition 중 | 각각 다른 % | 오버플로우 또는 언더플로우 |
+| 결과 | - | 오른쪽 빈 공간 발생 ❌ |
+
+### 수정 후
+
+| 상황 | flex 설정 | 해결 |
+|------|----------|------|
+| 빠른 호버 | `flex: 0 1 15%` | 자동 비율 조정 |
+| Panel 3개 transition 중 | flex-shrink로 조정 | 총합 항상 100% |
+| 결과 | - | 레이아웃 안정 ✓ |
+
+---
+
+## 🎯 결론
+
+**문제 원인:**
+- `flex: 0 0 15%`의 `flex-shrink: 0` → 줄어들 수 없음
+- 빠른 hover 이동 시 여러 transition 겹침
+- 총합이 100% 초과하면 오버플로우 발생
+
+**해결책:**
+1. `flex-shrink: 1` 활성화 → `flex: 0 1 15%`
+2. transition 속도 단축 → `0.4s`
+3. 중복 CSS 규칙 정리
+4. (선택) JavaScript로 정확한 제어
+
+**예상 결과:**
+- 오른쪽 빈 공간 완전 제거
+- 부드러운 hover 효과 유지
+- 안정적인 레이아웃
+
+---
+
+**작성일:** 2026-02-02
+**문제:** 네트워크 갤러리 hover 시 오른쪽 여백 발생
+**해결:** flex-shrink 활성화 + transition 최적화
