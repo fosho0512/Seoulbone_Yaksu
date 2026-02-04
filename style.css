@@ -2765,10 +2765,6 @@ body::before {
         flex: none; 
         height: 300px; 
     }
-    .network-panel.collapsed {
-        flex: none;
-        height: 200px;
-    }
     .panel-content { 
         opacity: 1; 
         transform: translateY(0); 
