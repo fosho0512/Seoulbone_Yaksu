@@ -62,8 +62,13 @@ function initLenis() {
 
 function setupCommonEventListeners() {
     if(commonElems.menuToggle) commonElems.menuToggle.addEventListener('click', toggleMenu);
-    if(commonElems.contactBtn) commonElems.contactBtn.addEventListener('click', () => commonElems.contactModal.classList.add('open'));
+    if(commonElems.contactBtn) commonElems.contactBtn.addEventListener('click', openContactModal);
     if(commonElems.closeContactBtn) commonElems.closeContactBtn.addEventListener('click', () => commonElems.contactModal.classList.remove('open'));
+    if(commonElems.contactModal) {
+        commonElems.contactModal.addEventListener('click', (e) => {
+            if(e.target === commonElems.contactModal) commonElems.contactModal.classList.remove('open');
+        });
+    }
     
     if(commonElems.nonInsuranceBtn && commonElems.nonInsuranceModal) {
         commonElems.nonInsuranceBtn.addEventListener('click', () => commonElems.nonInsuranceModal.classList.add('open'));
@@ -201,12 +206,84 @@ function getContactModalHTML() {
                 <p>02.2237.4275</p>
             </div>
             <div class="map-area">
-                <a href="https://map.naver.com/p/entry/place/1100410052" target="_blank" class="map-link">
-                    <img src="images/contact-map.webp" alt="서울본재활의학과 위치" class="contact-map-img" loading="lazy">
-                </a>
+                <div id="contact-modal-map" class="contact-modal-map"></div>
             </div>
         </div>
     </div>
+    `;
+}
+
+let contactModalMapInitialized = false;
+let naverMapsLoaded = false;
+
+function openContactModal() {
+    if(!commonElems.contactModal) return;
+    commonElems.contactModal.classList.add('open');
+    if(!contactModalMapInitialized) {
+        initContactModalMap();
+    }
+}
+
+async function initContactModalMap() {
+    const mapContainer = document.getElementById('contact-modal-map');
+    if(!mapContainer) return;
+    
+    mapContainer.innerHTML = '<div class="map-loading"><i class="fas fa-spinner fa-spin"></i></div>';
+    
+    if(naverMapsLoaded && typeof naver !== 'undefined' && naver.maps) {
+        createContactModalMap(mapContainer);
+        return;
+    }
+    
+    try {
+        const response = await fetch('/.netlify/functions/get-map-key');
+        const data = await response.json();
+        if(!data.clientId) {
+            showContactMapError(mapContainer);
+            return;
+        }
+        
+        const script = document.createElement('script');
+        script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${data.clientId}`;
+        script.onload = () => {
+            naverMapsLoaded = true;
+            createContactModalMap(mapContainer);
+        };
+        script.onerror = () => showContactMapError(mapContainer);
+        document.head.appendChild(script);
+    } catch(error) {
+        console.error('Contact modal map init error:', error);
+        showContactMapError(mapContainer);
+    }
+}
+
+function createContactModalMap(container) {
+    container.innerHTML = '';
+    const clinicLocation = new naver.maps.LatLng(37.554213, 127.010812);
+    
+    const map = new naver.maps.Map(container, {
+        center: clinicLocation,
+        zoom: 17,
+        mapTypeControl: false,
+        scaleControl: false,
+        mapDataControl: false
+    });
+    
+    const marker = new naver.maps.Marker({
+        position: clinicLocation,
+        map: map,
+        title: '서울본재활의학과의원'
+    });
+    
+    contactModalMapInitialized = true;
+}
+
+function showContactMapError(container) {
+    container.innerHTML = `
+        <a href="https://map.naver.com/p/entry/place/1100410052" target="_blank" class="map-error-link">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>지도 보기</span>
+        </a>
     `;
 }
 

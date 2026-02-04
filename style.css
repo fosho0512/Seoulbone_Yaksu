@@ -713,19 +713,40 @@ body.menu-open .visual-text { opacity: 0; }
     color: var(--text-color);
     overflow: hidden;
 }
-.map-link {
-    display: block;
+.contact-modal-map {
     width: 100%;
     height: 100%;
 }
-.contact-map-img {
+.contact-modal-map .map-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
+    color: var(--gold-accent);
+    font-size: var(--font-xl);
 }
-.map-link:hover .contact-map-img {
-    transform: scale(1.02);
+.map-error-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    color: var(--gold-accent);
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+}
+.map-error-link:hover {
+    opacity: 0.7;
+}
+.map-error-link i {
+    font-size: var(--font-xl);
+}
+.map-error-link span {
+    font-size: var(--font-sm);
+    letter-spacing: var(--ls-wide);
 }
 
 /* Page View System */
