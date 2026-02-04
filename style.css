@@ -1003,7 +1003,7 @@ body.menu-open .visual-text { opacity: 0; }
 
 /* Network Section */
 .network-section {
-    padding: 120px var(--spacing-side);
+    padding: 60px var(--spacing-side);
     padding-bottom: 160px;
     background: var(--bg-dark);
 }
@@ -1037,11 +1037,6 @@ body.menu-open .visual-text { opacity: 0; }
     background: var(--bg-dark);
 }
 
-.network-gallery::after {
-    content: '';
-    flex: 1 0 0;
-    pointer-events: none;
-}
 
 .network-panel {
     position: relative;
