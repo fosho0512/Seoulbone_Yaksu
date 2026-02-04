@@ -1040,34 +1040,27 @@ body.menu-open .visual-text { opacity: 0; }
 
 .network-panel {
     position: relative;
-    flex: 0 0 15%;
+    flex: 0 1 15%;
+    min-width: 0;
     overflow: hidden;
     cursor: pointer;
-    transition: flex 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: flex 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .network-panel.active {
-    flex: 0 0 40%;
-}
-
-.network-gallery:hover .network-panel {
-    flex: 0 0 15%;
-}
-
-.network-gallery:hover .network-panel.active {
-    flex: 0 0 40%;
+    flex: 0 1 40%;
 }
 
 .network-gallery:has(.network-panel:hover) .network-panel {
-    flex: 0 0 15%;
+    flex: 0 1 15%;
 }
 
 .network-gallery:has(.network-panel:hover) .network-panel.active {
-    flex: 0 0 15%;
+    flex: 0 1 15%;
 }
 
 .network-gallery:has(.network-panel:hover) .network-panel:hover {
-    flex: 0 0 40%;
+    flex: 0 1 40%;
 }
 
 .panel-image {
