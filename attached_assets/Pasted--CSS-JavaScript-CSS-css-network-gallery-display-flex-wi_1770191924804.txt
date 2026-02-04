@@ -1,0 +1,155 @@
+개념: CSS는 최소화하고 JavaScript로 정밀 제어
+CSS (매우 단순화)
+css.network-gallery {
+    display: flex;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    background: var(--bg-dark);
+}
+
+.network-panel {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    cursor: pointer;
+    transition: flex 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.network-panel.expanded {
+    flex: 2.67;              /* 40% ÷ 15% = 2.67배 */
+}
+
+.network-panel.collapsed {
+    flex: 1;
+}
+
+/* 나머지 스타일 동일 */
+.panel-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 1.2s ease;
+}
+
+.network-panel.expanded .panel-image {
+    transform: scale(1.05);
+}
+
+.panel-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.4s ease;
+}
+
+.panel-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 25%, rgba(0, 0, 0, 0) 40%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.network-panel.expanded .panel-overlay {
+    opacity: 0;
+}
+
+.network-panel.expanded .panel-gradient {
+    opacity: 1;
+}
+
+.panel-content {
+    position: absolute;
+    bottom: 50px;
+    left: 40px;
+    right: 40px;
+    color: var(--text-light);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.network-panel.expanded .panel-content {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s;
+}
+JavaScript (정확한 제어)
+javascript// contact 페이지 스크립트에 추가
+
+document.addEventListener('DOMContentLoaded', function() {
+    const networkGallery = document.querySelector('.network-gallery');
+    const networkPanels = document.querySelectorAll('.network-panel');
+    
+    if (!networkGallery || networkPanels.length === 0) return;
+    
+    let isHovering = false;
+    let activePanel = null;
+    
+    // 초기 상태: 첫 번째 패널 확장
+    function setInitialState() {
+        networkPanels.forEach((panel, index) => {
+            panel.classList.remove('expanded', 'collapsed');
+            if (index === 0) {
+                panel.classList.add('expanded');
+            }
+        });
+    }
+    
+    // 모든 패널 초기화
+    function resetAllPanels() {
+        networkPanels.forEach(panel => {
+            panel.classList.remove('expanded', 'collapsed');
+        });
+    }
+    
+    // 특정 패널 확장
+    function expandPanel(targetPanel) {
+        if (activePanel === targetPanel) return;
+        
+        activePanel = targetPanel;
+        
+        networkPanels.forEach(panel => {
+            panel.classList.remove('expanded', 'collapsed');
+            
+            if (panel === targetPanel) {
+                panel.classList.add('expanded');
+            } else {
+                panel.classList.add('collapsed');
+            }
+        });
+    }
+    
+    // 각 패널에 이벤트 추가
+    networkPanels.forEach(panel => {
+        panel.addEventListener('mouseenter', function() {
+            isHovering = true;
+            expandPanel(this);
+        });
+    });
+    
+    // 갤러리 밖으로 나갈 때
+    networkGallery.addEventListener('mouseleave', function() {
+        isHovering = false;
+        activePanel = null;
+        
+        // 짧은 딜레이 후 초기 상태로
+        setTimeout(() => {
+            if (!isHovering) {
+                setInitialState();
+            }
+        }, 100);
+    });
+    
+    // 초기 상태 설정
+    setInitialState();
+});
+이 방법의 장점:
+
+완벽한 제어 - CSS 충돌 없음
+transition 오차 없음 - 명확한 클래스 전환
+디버깅 쉬움 - 콘솔에서 상태 확인 가능
+확장성 - 기능 추가 용이
