@@ -142,7 +142,7 @@
             <p class="network-subtitle">Seoul Bone Network</p>
             
             <div class="network-gallery">
-                <div class="network-panel active" data-index="0">
+                <div class="network-panel" data-index="0">
                     <div class="panel-image" style="background-image: url('../images/network_01.webp');"></div>
                     <div class="panel-overlay"></div>
                     <div class="panel-gradient"></div>
@@ -347,6 +347,62 @@
                 </div>
             `;
         }
+        
+        // Network Gallery - JavaScript 제어
+        (function() {
+            const networkGallery = document.querySelector('.network-gallery');
+            const networkPanels = document.querySelectorAll('.network-panel');
+            
+            if (!networkGallery || networkPanels.length === 0) return;
+            
+            let isHovering = false;
+            let activePanel = null;
+            
+            function setInitialState() {
+                networkPanels.forEach((panel, index) => {
+                    panel.classList.remove('expanded', 'collapsed');
+                    if (index === 0) {
+                        panel.classList.add('expanded');
+                    }
+                });
+            }
+            
+            function expandPanel(targetPanel) {
+                if (activePanel === targetPanel) return;
+                
+                activePanel = targetPanel;
+                
+                networkPanels.forEach(panel => {
+                    panel.classList.remove('expanded', 'collapsed');
+                    
+                    if (panel === targetPanel) {
+                        panel.classList.add('expanded');
+                    } else {
+                        panel.classList.add('collapsed');
+                    }
+                });
+            }
+            
+            networkPanels.forEach(panel => {
+                panel.addEventListener('mouseenter', function() {
+                    isHovering = true;
+                    expandPanel(this);
+                });
+            });
+            
+            networkGallery.addEventListener('mouseleave', function() {
+                isHovering = false;
+                activePanel = null;
+                
+                setTimeout(() => {
+                    if (!isHovering) {
+                        setInitialState();
+                    }
+                }, 100);
+            });
+            
+            setInitialState();
+        })();
     </script>
 </body>
 </html>
