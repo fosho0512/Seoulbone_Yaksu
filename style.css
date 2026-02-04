@@ -989,8 +989,8 @@ body.menu-open .visual-text { opacity: 0; }
 
 .parking-notice {
     margin-top: 40px;
-    padding-top: 30px;
-    border-top: 1px solid var(--gold-accent);
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--gold-accent);
 }
 
 .parking-notice p {
@@ -1051,8 +1051,16 @@ body.menu-open .visual-text { opacity: 0; }
     flex: 0 0 15%;
 }
 
+.network-gallery:hover .network-panel:last-child {
+    flex: 1 0 15%;
+}
+
 .network-gallery:hover .network-panel:hover {
     flex: 0 0 40%;
+}
+
+.network-gallery:hover .network-panel:hover ~ .network-panel:last-child {
+    flex: 0 0 15%;
 }
 
 .panel-image {
