@@ -3527,6 +3527,7 @@ body.values-mobile-mode .mobile-point-item p {
         min-height: auto;
         padding: 40px 0;
         opacity: 1;
+        transition: none;
     }
     
     .equipment-step::before {
@@ -3541,19 +3542,19 @@ body.values-mobile-mode .mobile-point-item p {
     }
     
     .equipment-step[data-index="0"]::before {
-        background-image: url('../images/diagnosis_xray.webp');
+        background-image: url('images/diagnosis_xray.webp');
     }
     
     .equipment-step[data-index="1"]::before {
-        background-image: url('../images/diagnosis_ultra.webp');
+        background-image: url('images/diagnosis_ultra.webp');
     }
     
     .equipment-step[data-index="2"]::before {
-        background-image: url('../images/diagnosis_carm.webp');
+        background-image: url('images/diagnosis_carm.webp');
     }
     
     .equipment-step[data-index="3"]::before {
-        background-image: url('../images/diagnosis_emg.webp');
+        background-image: url('images/diagnosis_emg.webp');
     }
     
     .equipment-title {
