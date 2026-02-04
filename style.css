@@ -80,7 +80,7 @@ html.lenis, html.lenis body {
     --z-intro: 9999;
     --z-header: 2200; 
     --z-drawer: 2100; 
-    --z-modal: 2000;
+    --z-modal: 3000;
     --z-banner: 1500;
     --z-visual: 100;
 
@@ -710,7 +710,22 @@ body.menu-open .visual-text { opacity: 0; }
     display: flex; 
     justify-content: center; 
     align-items: center; 
-    color: var(--text-color); 
+    color: var(--text-color);
+    overflow: hidden;
+}
+.map-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.contact-map-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.map-link:hover .contact-map-img {
+    transform: scale(1.02);
 }
 
 /* Page View System */
