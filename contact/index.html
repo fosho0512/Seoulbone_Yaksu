@@ -366,12 +366,20 @@
             `;
         }
         
-        // Network Gallery - JavaScript 제어
+        // Network Gallery - JavaScript 제어 (PC only)
         (function() {
             const networkGallery = document.querySelector('.network-gallery');
             const networkPanels = document.querySelectorAll('.network-panel');
             
             if (!networkGallery || networkPanels.length === 0) return;
+            
+            // 모바일에서는 호버 효과 비활성화 (모든 패널 동일하게 표시)
+            if (window.innerWidth <= 768) {
+                networkPanels.forEach(panel => {
+                    panel.classList.remove('expanded', 'collapsed');
+                });
+                return;
+            }
             
             let isHovering = false;
             let activePanel = null;
