@@ -1049,18 +1049,12 @@ body.menu-open .visual-text { opacity: 0; }
     line-height: var(--lh-relaxed);
 }
 
-.parking-notice {
-    margin-top: 40px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid var(--gold-accent);
-}
-
-.parking-notice p {
-    font-family: var(--font-sans);
-    font-size: var(--font-body-sm);
-    font-weight: 300;
-    color: #888;
-    text-align: center;
+.parking-note {
+    display: block;
+    margin-top: 8px;
+    font-size: var(--font-body-xs);
+    color: #999;
+    font-weight: 400;
 }
 
 /* Network Section */
