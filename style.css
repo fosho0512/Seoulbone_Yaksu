@@ -628,7 +628,7 @@ body.menu-open .visual-text { opacity: 0; }
 }
 .image-popup .popup-container {
     position: relative;
-    max-width: 480px;
+    max-width: 380px;
     width: 90%;
     background: #fff;
     border-radius: 12px;

@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     setupHomeEventListeners();
+    initImagePopup();
 });
 
 function handleHashRedirect() {
@@ -61,8 +62,6 @@ function enterSite() {
     }, 900);
     
     setupHomeHeaderObserver();
-    
-    setTimeout(initImagePopup, 2000);
 }
 
 function setupHomeHeaderObserver() {
