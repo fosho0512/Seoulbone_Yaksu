@@ -1060,9 +1060,20 @@ body.menu-open .visual-text { opacity: 0; }
 
 /* Network Section */
 .network-section {
-    padding: 120px var(--spacing-side);
+    padding: 80px var(--spacing-side);
     padding-bottom: 160px;
     background: var(--bg-dark);
+}
+
+.network-section::before {
+    content: '';
+    display: block;
+    width: 70%;
+    max-width: 800px;
+    height: 1px;
+    margin: 0 auto 80px;
+    background: var(--gold-accent);
+    opacity: 0.6;
 }
 
 .network-title {
@@ -2772,7 +2783,8 @@ body::before {
     .info-label { flex: none; }
     .contact-phone .phone-number { font-size: 1.3rem; }
 
-    .network-section { padding: 100px var(--spacing-side); padding-bottom: 120px; }
+    .network-section { padding: 60px var(--spacing-side); padding-bottom: 120px; }
+    .network-section::before { margin-bottom: 60px; }
     .network-title { font-size: 1.5rem; letter-spacing: 0.15em; }
     .network-subtitle { margin-bottom: 40px; }
     .network-gallery { 
