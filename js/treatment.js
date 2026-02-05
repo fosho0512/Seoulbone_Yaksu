@@ -5,6 +5,7 @@ let treatmentDetailsObserver = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     renderTreatmentContent();
+    setupSubHeroScrollEffect();
     setTimeout(() => {
         setupTreatmentScroll();
         setupTreatmentDetails();
@@ -90,7 +91,6 @@ function setupTreatmentScroll() {
             group2.classList.remove('active', 'exit-up');
             group3.classList.remove('active');
             group1Lines.forEach(line => line.classList.add('visible'));
-            document.body.classList.add('sub-hero-passed');
             return;
         }
         
@@ -100,11 +100,8 @@ function setupTreatmentScroll() {
             group2.classList.remove('active', 'exit-up');
             group3.classList.remove('active');
             group1Lines.forEach(line => line.classList.remove('visible'));
-            document.body.classList.remove('sub-hero-passed');
             return;
         }
-        
-        document.body.classList.remove('sub-hero-passed');
         
         const scrolledInSection = -sectionRect.top;
         const scrollableHeight = sectionHeight - viewportHeight;

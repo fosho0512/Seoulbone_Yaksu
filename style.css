@@ -930,8 +930,9 @@ body.menu-open .visual-text { opacity: 0; }
    CONTACT LOCATION SECTION
    ========================================= */
 .contact-location-section {
-    padding: 100px 8% 40px;
+    padding: 100px 8% 60px;
     background: var(--bg-cream);
+    border-bottom: 1px solid var(--gold-accent);
 }
 
 .location-title {
@@ -1050,8 +1051,7 @@ body.menu-open .visual-text { opacity: 0; }
 }
 
 .parking-note {
-    display: block;
-    margin-top: 8px;
+    margin-top: 15px;
     font-size: var(--font-body-xs);
     color: #999;
     font-weight: 400;
@@ -1065,13 +1065,13 @@ body.menu-open .visual-text { opacity: 0; }
 }
 
 .network-title {
-    font-family: var(--font-serif-kr);
-    font-size: var(--font-heading-lg);
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 400;
     color: var(--text-light);
     text-align: center;
     margin-bottom: 10px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.2em;
 }
 
 .network-subtitle {
@@ -2772,7 +2772,7 @@ body::before {
     .contact-phone .phone-number { font-size: 1.3rem; }
 
     .network-section { padding: 80px var(--spacing-side); }
-    .network-title { font-size: var(--font-heading-md); }
+    .network-title { font-size: 1.5rem; letter-spacing: 0.15em; }
     .network-subtitle { margin-bottom: 40px; }
     .network-gallery { 
         flex-direction: column; 
