@@ -19,7 +19,7 @@ const siteData = {
             signatureImg: "images/signature.webp", 
             bio: [
                 { category: "학력", items: ["가톨릭대학교 의과대학 졸업", "가톨릭대학교 의과대학 재활의학 석·박사 통합과정 졸업"] },
-                { category: "경력", items: ["가톨릭중앙의료원 수련의", "가톨릭중앙의료원 재활의학과 전공의", "가톨릭중앙의료원 재활의학과 지도전문의", "가톨릭대학교 부천성모병원 재활의학과 외래교수", "가톨릭대학교 서울성모병원 재활의학과 외래교수", "미국 도수치료학회 과정 수료 (Emory Rehabilitation Center)", "독일 체외충격파치료 과정 수료<br>(Medizinische Gesellschaft für Myofasziale Schmerzen)", "스페인 슈로스 척추측만증 운동치료 과정 수료", "대한정주의학회 정맥주사영양요법(IVNT) 인증의", "대한재활의학회 장애인보조기구처방검수 전문화 과정 수료", "일본 오사카 의대 부속병원 재활의학과", "前)가톨릭의과대학 재활의학교실 초음파중재술 워크샵 강사", "前)대한해부학회 KAA International Anatomy Symposium 초청 강사", "前)헬스조선 의학기사 자문의"] },
+                { category: "경력", items: ["가톨릭중앙의료원 수련의", "가톨릭중앙의료원 재활의학과 전공의", "가톨릭중앙의료원 재활의학과 지도전문의", "가톨릭대학교 부천성모병원 재활의학과 외래교수", "가톨릭대학교 서울성모병원 재활의학과 외래교수", "미국 도수치료학회 과정 수료 (Emory Rehabilitation Center)", "독일 체외충격파치료 과정 수료 (Medizinische Gesellschaft für Myofasziale Schmerzen)", "스페인 슈로스 척추측만증 운동치료 과정 수료", "대한정주의학회 정맥주사영양요법(IVNT) 인증의", "대한재활의학회 장애인보조기구처방검수 전문화 과정 수료", "일본 오사카 의대 부속병원 재활의학과", "前)가톨릭의과대학 재활의학교실 초음파중재술 워크샵 강사", "前)대한해부학회 KAA International Anatomy Symposium 초청 강사", "前)헬스조선 의학기사 자문의"] },
                 { category: "학회활동", items: ["대한의사협회 정회원", "대한재활의학회 정회원", "대한도수의학회 정회원", "CYRIAX 정형의학연구회 정회원", "대한충격파치료학회 정회원", "대한임상통증학회 정회원", "대한노인재활의학회 정회원", "대한정주의학회 정회원", "American Congress of Rehabilitation Medicine Member", "American Academy of Manipulative Therapy Member", "European Society of Physical and Rehabilitation Medicine Member"] },
                 { category: "수상", items: ["가톨릭대학교 재활의학교실 최우수전공의상", "가톨릭대학교 재활의학교실 우수연구상", "대한재활의학회 추계학술대회 우수포스터연재상"] },
                 { category: "저서", items: ["초음파 유도하 근골격계 주사치료 (대한의학)"] },
