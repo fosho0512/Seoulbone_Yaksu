@@ -153,7 +153,7 @@ function getCommonHeaderHTML() {
         </div>
         <div class="header-right">
             <button type="button" id="btn-contact" class="util-btn">Contact Us</button>
-            <a href="https://booking.naver.com/" target="_blank" class="util-btn highlight">Reservation</a>
+            <a href="https://m.booking.naver.com/booking/13/bizes/711319/items/4464380" target="_blank" class="util-btn highlight">Reservation</a>
         </div>
     </header>
     `;
