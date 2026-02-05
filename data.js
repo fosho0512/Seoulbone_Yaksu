@@ -1,13 +1,6 @@
 /* [SEOUL BONE 홈페이지 내용 및 이미지 관리 파일] */
 
 const siteData = {
-    banner: {
-        show: true,
-        badge: "EVENT",
-        text: "개원 3주년 기념 — 우리동네 안심병원 3년 연속 선정 감사 이벤트",
-        linkText: "자세히 보기 →",
-        linkUrl: "https://blog.naver.com/"
-    },
     content: {
         // 01. Medical Staff
         staff: { 

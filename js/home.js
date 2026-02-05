@@ -2,12 +2,7 @@
 
 const homeElems = {
     introOverlay: document.getElementById('intro-overlay'),
-    enterBtn: document.getElementById('enter-btn'),
-    promoBanner: document.getElementById('promo-banner'),
-    closeBannerBtn: document.getElementById('close-banner'),
-    bannerBadge: document.getElementById('banner-badge'),
-    bannerMsg: document.getElementById('banner-msg'),
-    bannerLink: document.getElementById('banner-link')
+    enterBtn: document.getElementById('enter-btn')
 };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -19,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 2000);
     }
     
-    setupBanner();
     setupHomeEventListeners();
 });
 
@@ -41,24 +35,8 @@ function handleHashRedirect() {
     }
 }
 
-function setupBanner() {
-    const config = typeof siteData !== 'undefined' ? siteData.banner : null;
-    if (config && config.show && homeElems.promoBanner) {
-        homeElems.promoBanner.style.display = "flex";
-        if (homeElems.bannerBadge) homeElems.bannerBadge.textContent = config.badge;
-        if (homeElems.bannerMsg) homeElems.bannerMsg.innerHTML = `<strong>${config.text}</strong>`;
-        if (homeElems.bannerLink) {
-            homeElems.bannerLink.textContent = config.linkText;
-            homeElems.bannerLink.href = config.linkUrl;
-        }
-    } else {
-        if(homeElems.promoBanner) homeElems.promoBanner.style.display = "none";
-    }
-}
-
 function setupHomeEventListeners() {
     if(homeElems.enterBtn) homeElems.enterBtn.addEventListener('click', enterSite);
-    if(homeElems.closeBannerBtn) homeElems.closeBannerBtn.addEventListener('click', closeBanner);
 }
 
 function enterSite() {
@@ -81,8 +59,6 @@ function enterSite() {
     setTimeout(() => {
         if (visualP) visualP.classList.add('fade-up');
     }, 900);
-    
-    setTimeout(showBanner, 3500);
     
     setupHomeHeaderObserver();
 }
@@ -109,15 +85,4 @@ function setupHomeHeaderObserver() {
     });
     
     observer.observe(visualSection);
-}
-
-function showBanner() {
-    const config = typeof siteData !== 'undefined' ? siteData.banner : null;
-    if(document.body.classList.contains('site-entered') && homeElems.promoBanner && config && config.show) {
-        homeElems.promoBanner.classList.add('show');
-    }
-}
-
-function closeBanner() {
-    if(homeElems.promoBanner) homeElems.promoBanner.classList.remove('show');
 }
