@@ -1051,15 +1051,17 @@ body.menu-open .visual-text { opacity: 0; }
 }
 
 .parking-note {
-    margin-top: 15px;
-    font-size: var(--font-body-xs);
-    color: #999;
-    font-weight: 400;
+    margin-top: 20px;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: #aaa;
+    letter-spacing: 0.02em;
 }
 
 /* Network Section */
 .network-section {
-    padding: 60px var(--spacing-side);
+    padding: 120px var(--spacing-side);
     padding-bottom: 160px;
     background: var(--bg-dark);
 }
