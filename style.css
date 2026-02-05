@@ -932,7 +932,6 @@ body.menu-open .visual-text { opacity: 0; }
 .contact-location-section {
     padding: 100px 8% 60px;
     background: var(--bg-cream);
-    border-bottom: 1px solid var(--gold-accent);
 }
 
 .location-title {
@@ -1061,9 +1060,22 @@ body.menu-open .visual-text { opacity: 0; }
 
 /* Network Section */
 .network-section {
+    position: relative;
     padding: 120px var(--spacing-side);
     padding-bottom: 160px;
     background: var(--bg-dark);
+}
+
+.network-section::before {
+    content: '';
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    height: 1px;
+    background: var(--gold-accent);
 }
 
 .network-title {
