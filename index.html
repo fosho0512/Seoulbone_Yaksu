@@ -48,7 +48,7 @@
         </div>
 
         <div class="header-right">
-            <a href="contact/" class="util-btn">Contact Us</a>
+            <button type="button" id="btn-contact" class="util-btn">Contact Us</button>
             <a href="https://booking.naver.com/" target="_blank" class="util-btn highlight">Reservation</a>
         </div>
     </header>
@@ -91,6 +91,24 @@
             </div>
         </section>
     </main>
+
+    <div id="contact-modal" class="simple-modal">
+        <div class="simple-modal-content">
+            <button type="button" id="close-contact" class="close-simple-btn">✕</button>
+            <h2>Contact Us</h2>
+            <div class="info-group">
+                <p class="label">주소</p>
+                <p>서울특별시 중구 동호로 179<br>JYJ빌딩 5층 서울본재활의학과의원</p>
+            </div>
+            <div class="info-group">
+                <p class="label">전화</p>
+                <p>02.2237.4275</p>
+            </div>
+            <div class="map-area">
+                <div id="contact-modal-map" class="contact-modal-map"></div>
+            </div>
+        </div>
+    </div>
 
     <script src="data.js"></script>
     <script src="js/common.js"></script>

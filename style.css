@@ -728,6 +728,30 @@ body.menu-open .visual-text { opacity: 0; }
     margin-bottom: 8px; 
     letter-spacing: var(--ls-widest);
 }
+.map-area { 
+    margin-top: 40px; 
+    width: 100%; 
+    height: 220px; 
+    background: var(--sub-color); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    color: var(--text-color);
+    overflow: hidden;
+}
+.contact-modal-map {
+    width: 100%;
+    height: 100%;
+}
+.contact-modal-map .map-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: var(--gold-accent);
+    font-size: var(--font-xl);
+}
 .map-error-link {
     display: flex;
     flex-direction: column;
