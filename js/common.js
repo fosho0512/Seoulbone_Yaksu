@@ -6,9 +6,6 @@ const commonElems = {
     menuToggle: null,
     menuLabel: null,
     brandLogo: null,
-    contactBtn: null,
-    contactModal: null,
-    closeContactBtn: null,
     nonInsuranceBtn: null,
     nonInsuranceModal: null
 };
@@ -17,9 +14,6 @@ function initCommon() {
     commonElems.menuToggle = document.getElementById('menu-toggle');
     commonElems.menuLabel = document.querySelector('#menu-toggle .label');
     commonElems.brandLogo = document.getElementById('brand-logo');
-    commonElems.contactBtn = document.getElementById('btn-contact');
-    commonElems.contactModal = document.getElementById('contact-modal');
-    commonElems.closeContactBtn = document.getElementById('close-contact');
     commonElems.nonInsuranceBtn = document.getElementById('btn-non-insurance');
     commonElems.nonInsuranceModal = document.getElementById('non-insurance-modal');
     
@@ -62,13 +56,6 @@ function initLenis() {
 
 function setupCommonEventListeners() {
     if(commonElems.menuToggle) commonElems.menuToggle.addEventListener('click', toggleMenu);
-    if(commonElems.contactBtn) commonElems.contactBtn.addEventListener('click', openContactModal);
-    if(commonElems.closeContactBtn) commonElems.closeContactBtn.addEventListener('click', () => commonElems.contactModal.classList.remove('open'));
-    if(commonElems.contactModal) {
-        commonElems.contactModal.addEventListener('click', (e) => {
-            if(e.target === commonElems.contactModal) commonElems.contactModal.classList.remove('open');
-        });
-    }
     
     if(commonElems.nonInsuranceBtn && commonElems.nonInsuranceModal) {
         commonElems.nonInsuranceBtn.addEventListener('click', () => commonElems.nonInsuranceModal.classList.add('open'));
@@ -99,7 +86,6 @@ function toggleMenu() {
 
 function closeAll() {
     document.body.classList.remove('menu-open');
-    if(commonElems.contactModal) commonElems.contactModal.classList.remove('open');
     if(commonElems.nonInsuranceModal) commonElems.nonInsuranceModal.classList.remove('open');
     if(commonElems.menuLabel) commonElems.menuLabel.textContent = "MENU";
 }
@@ -188,102 +174,6 @@ function getDrawerMenuHTML(activePage) {
             </ul>
         </nav>
     </div>
-    `;
-}
-
-function getContactModalHTML() {
-    return `
-    <div id="contact-modal" class="simple-modal">
-        <div class="simple-modal-content">
-            <button type="button" id="close-contact" class="close-simple-btn">✕</button>
-            <h2>Contact Us</h2>
-            <div class="info-group">
-                <p class="label">주소</p>
-                <p>서울특별시 중구 동호로 179<br>JYJ빌딩 5층 서울본재활의학과의원</p>
-            </div>
-            <div class="info-group">
-                <p class="label">전화</p>
-                <p>02.2237.4275</p>
-            </div>
-            <div class="map-area">
-                <div id="contact-modal-map" class="contact-modal-map"></div>
-            </div>
-        </div>
-    </div>
-    `;
-}
-
-let contactModalMapInitialized = false;
-let naverMapsLoaded = false;
-
-function openContactModal() {
-    if(!commonElems.contactModal) return;
-    commonElems.contactModal.classList.add('open');
-    if(!contactModalMapInitialized) {
-        initContactModalMap();
-    }
-}
-
-async function initContactModalMap() {
-    const mapContainer = document.getElementById('contact-modal-map');
-    if(!mapContainer) return;
-    
-    mapContainer.innerHTML = '<div class="map-loading"><i class="fas fa-spinner fa-spin"></i></div>';
-    
-    if(naverMapsLoaded && typeof naver !== 'undefined' && naver.maps) {
-        createContactModalMap(mapContainer);
-        return;
-    }
-    
-    try {
-        const response = await fetch('/.netlify/functions/get-map-key');
-        const data = await response.json();
-        if(!data.clientId) {
-            showContactMapError(mapContainer);
-            return;
-        }
-        
-        const script = document.createElement('script');
-        script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${data.clientId}`;
-        script.onload = () => {
-            naverMapsLoaded = true;
-            createContactModalMap(mapContainer);
-        };
-        script.onerror = () => showContactMapError(mapContainer);
-        document.head.appendChild(script);
-    } catch(error) {
-        console.error('Contact modal map init error:', error);
-        showContactMapError(mapContainer);
-    }
-}
-
-function createContactModalMap(container) {
-    container.innerHTML = '';
-    const clinicLocation = new naver.maps.LatLng(37.554213, 127.010812);
-    
-    const map = new naver.maps.Map(container, {
-        center: clinicLocation,
-        zoom: 17,
-        mapTypeControl: false,
-        scaleControl: false,
-        mapDataControl: false
-    });
-    
-    const marker = new naver.maps.Marker({
-        position: clinicLocation,
-        map: map,
-        title: '서울본재활의학과의원'
-    });
-    
-    contactModalMapInitialized = true;
-}
-
-function showContactMapError(container) {
-    container.innerHTML = `
-        <a href="https://map.naver.com/p/entry/place/1100410052" target="_blank" class="map-error-link">
-            <i class="fas fa-map-marker-alt"></i>
-            <span>지도 보기</span>
-        </a>
     `;
 }
 
