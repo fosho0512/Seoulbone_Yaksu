@@ -305,10 +305,36 @@ a { text-decoration: none; color: inherit; }
     align-items: center;
     cursor: pointer; 
 }
+.logo-wrapper {
+    position: relative;
+    height: 24px;
+}
 .brand-logo-img {
     height: 24px;
     width: auto;
     display: block;
+    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.brand-logo-img.logo-light {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+.brand-logo-img.logo-dark {
+    opacity: 1;
+}
+body.has-sub-hero .brand-logo-img.logo-light {
+    opacity: 1;
+}
+body.has-sub-hero .brand-logo-img.logo-dark {
+    opacity: 0;
+}
+body.has-sub-hero.sub-hero-passed .brand-logo-img.logo-light {
+    opacity: 0;
+}
+body.has-sub-hero.sub-hero-passed .brand-logo-img.logo-dark {
+    opacity: 1;
 }
 .menu-toggle-btn { 
     cursor: pointer; 
@@ -2727,6 +2753,7 @@ body::before {
     .visual-text h3 { font-size: var(--font-display-md); white-space: normal; }
     .intro-logo { font-size: var(--font-heading-lg); letter-spacing: var(--ls-wider); }
     .intro-logo .loc { font-size: var(--font-body); }
+    .logo-wrapper { height: 20px; }
     .brand-logo-img { height: 20px; }
     .modal-content { padding: 90px 25px; }
     .content-wrapper { padding: 40px 6% 80px; }
