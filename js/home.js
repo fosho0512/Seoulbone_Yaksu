@@ -97,7 +97,7 @@ function initImagePopup() {
     const popupLink = document.getElementById('popup-link');
     const closeBtn = document.getElementById('close-popup');
     const overlay = popup.querySelector('.popup-overlay');
-    const todayCheck = document.getElementById('popup-today-check');
+    const todayBtn = document.getElementById('popup-today-btn');
     
     if (!popup || !config.popups || config.popups.length === 0) return;
     
@@ -132,14 +132,17 @@ function initImagePopup() {
     img.src = firstPopup.image;
     
     function closePopup() {
-        if (todayCheck && todayCheck.checked) {
-            setPopupSeenToday();
-        }
+        popup.classList.remove('show');
+    }
+    
+    function closePopupToday() {
+        setPopupSeenToday();
         popup.classList.remove('show');
     }
     
     if (closeBtn) closeBtn.addEventListener('click', closePopup);
     if (overlay) overlay.addEventListener('click', closePopup);
+    if (todayBtn) todayBtn.addEventListener('click', closePopupToday);
 }
 
 function isWithinSchedule(schedule) {
