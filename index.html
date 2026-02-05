@@ -102,6 +102,27 @@
         </div>
     </div>
 
+    <div id="image-popup" class="image-popup">
+        <div class="popup-overlay"></div>
+        <div class="popup-container">
+            <button type="button" id="close-popup" class="close-popup-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+            <a id="popup-link" href="#" target="_blank">
+                <img id="popup-image" src="" alt="이벤트 팝업">
+            </a>
+            <div class="popup-footer">
+                <label class="popup-today-close">
+                    <input type="checkbox" id="popup-today-check">
+                    <span>오늘 하루 보지 않기</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <script src="popup-config.js"></script>
     <script src="data.js"></script>
     <script src="js/common.js"></script>
     <script src="js/home.js"></script>

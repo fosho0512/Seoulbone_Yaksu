@@ -15,6 +15,7 @@ This project delivers a premium static website for the Seoul Bone Pain Clinic (r
 ```
 /
 ├── index.html          # Home page with intro animation
+├── popup-config.js     # Popup settings (easy to edit)
 ├── data.js             # Centralized site data (staff, services, etc.)
 ├── style.css           # Global styles
 ├── staff/              # Medical Staff page
@@ -31,12 +32,13 @@ This project delivers a premium static website for the Seoul Bone Pain Clinic (r
 │   └── index.html
 ├── js/                 # Page-specific JavaScript
 │   ├── common.js       # Shared functions (header, menu, scroll)
-│   ├── home.js         # Home page logic (intro, banner)
+│   ├── home.js         # Home page logic (intro, popup)
 │   ├── diagnosis.js    # Diagnosis page scroll effects
 │   ├── values.js       # Values page GSAP slider
 │   ├── treatment.js    # Treatment page sticky scroll
 │   └── prp.js          # PRP page animations
 └── images/             # Image assets
+    └── popup/          # Popup images folder
 ```
 
 ## System Architecture
@@ -76,6 +78,14 @@ The website adopts a luxury resort theme, characterized by gold accents, subtle 
 - **Philosophy Card**: Triggers at 80vh with CSS transitions for expansion effect
 
 ## Recent Changes
+- **Feb 2026**: **Image Popup System Added**
+  - New `popup-config.js` file for easy popup management (no code knowledge required)
+  - Settings: enabled, schedule (start/end dates), position, showOncePerDay
+  - Multiple popups support with order priority
+  - Images stored in `images/popup/` folder
+  - "오늘 하루 보지 않기" (don't show today) checkbox with localStorage
+  - Positions: center, bottom-right, bottom-left
+- **Feb 2026**: **Promo Banner Removed** - Removed old EVENT banner system (data.js, HTML, CSS, JS)
 - **Feb 2026**: **Image Optimization Complete**
   - Converted all 44 images from PNG/JPG to WebP format (85% quality)
   - Size reduction examples: treatment.jpg 18MB → 277KB (98.5% reduction)

@@ -602,6 +602,107 @@ body.menu-open .visual-text { opacity: 0; }
 }
 
 
+/* Image Popup */
+.image-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+.image-popup.show {
+    display: flex;
+}
+.image-popup .popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+}
+.image-popup .popup-container {
+    position: relative;
+    max-width: 480px;
+    width: 90%;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+    animation: popupFadeIn 0.3s ease-out;
+}
+@keyframes popupFadeIn {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.image-popup .close-popup-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.image-popup .close-popup-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: #333;
+}
+.image-popup .close-popup-btn:hover {
+    background: #fff;
+    transform: scale(1.1);
+}
+.image-popup #popup-link {
+    display: block;
+}
+.image-popup #popup-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.image-popup .popup-footer {
+    padding: 14px 18px;
+    background: #f8f8f8;
+    border-top: 1px solid #eee;
+}
+.image-popup .popup-today-close {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #666;
+}
+.image-popup .popup-today-close input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--gold-accent);
+}
+.image-popup.position-bottom-right .popup-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    max-width: 360px;
+}
+.image-popup.position-bottom-left .popup-container {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    max-width: 360px;
+}
+
 /* Modals */
 .simple-modal, .modal { transition: all var(--transition-fast); }
 .simple-modal { 
