@@ -17,6 +17,16 @@ html.lenis, html.lenis body {
     pointer-events: none;
 }
 
+/* Mobile-only line break */
+.mobile-br {
+    display: none;
+}
+@media (max-width: 768px) {
+    .mobile-br {
+        display: inline;
+    }
+}
+
 /* =========================================
    1. Base & Reset (Premium Resort Theme)
    ========================================= */
