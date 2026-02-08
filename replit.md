@@ -78,6 +78,13 @@ The website adopts a luxury resort theme, characterized by gold accents, subtle 
 - **Philosophy Card**: Triggers at 80vh with CSS transitions for expansion effect
 
 ## Recent Changes
+- **Feb 2026**: **SEO 최적화 완료**
+  - 파비콘 생성 및 전체 7개 페이지 적용 (favicon.ico, 32px, apple-touch-icon)
+  - 메타 태그 설정: title, description, keywords, canonical URL
+  - Open Graph 태그: og:title, og:description, og:url, og:image (페이지별 URL 개별 설정)
+  - robots.txt, sitemap.xml 생성
+  - llms.txt 생성 (AI 검색엔진 최적화)
+  - 도메인: seoulbonerehab.com
 - **Feb 2026**: **Image Popup System Added**
   - New `popup-config.js` file for easy popup management (no code knowledge required)
   - Settings: enabled, schedule (start/end dates), position, showOncePerDay
