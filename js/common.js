@@ -2,6 +2,26 @@
 
 let lenis = null;
 
+const siteLanguage = (function() {
+    return /^\/en(\/|$)/.test(window.location.pathname) ? 'en' : 'ko';
+})();
+
+const siteBasePath = (function() {
+    const depth = window.location.pathname.replace(/\/+$/, '').split('/').filter(Boolean).length;
+    if (depth === 0) return './';
+    return '../'.repeat(depth);
+})();
+
+function getLanguageSwitchUrl() {
+    const path = window.location.pathname;
+    if (siteLanguage === 'ko') {
+        if (path === '/' || path === '/index.html') return '/en/';
+        return '/en' + path;
+    } else {
+        return path.replace(/^\/en(\/|$)/, '/');
+    }
+}
+
 const commonElems = {
     menuToggle: null,
     menuLabel: null,
@@ -23,9 +43,23 @@ function initCommon() {
     commonElems.nonInsuranceBtn = document.getElementById('btn-non-insurance');
     commonElems.nonInsuranceModal = document.getElementById('non-insurance-modal');
     
+    injectLanguageSwitcher();
     initLenis();
     setupCommonEventListeners();
     setupScrollProgress();
+}
+
+function injectLanguageSwitcher() {
+    const headerRight = document.querySelector('.header-right');
+    if (!headerRight) return;
+    const switchUrl = getLanguageSwitchUrl();
+    const switcher = document.createElement('a');
+    switcher.href = switchUrl;
+    switcher.className = 'lang-switch';
+    switcher.innerHTML = siteLanguage === 'ko'
+        ? '<span class="lang-active">KO</span><span class="lang-divider">|</span><span class="lang-inactive">EN</span>'
+        : '<span class="lang-inactive">KO</span><span class="lang-divider">|</span><span class="lang-active">EN</span>';
+    headerRight.appendChild(switcher);
 }
 
 function initLenis() {
@@ -279,10 +313,11 @@ function createContactModalMap(container) {
 }
 
 function showContactMapError(container) {
+    const label = siteLanguage === 'en' ? 'View Map' : '지도 보기';
     container.innerHTML = `
         <a href="https://map.naver.com/p/entry/place/1100410052" target="_blank" class="map-error-link">
             <i class="fas fa-map-marker-alt"></i>
-            <span>지도 보기</span>
+            <span>${label}</span>
         </a>
     `;
 }

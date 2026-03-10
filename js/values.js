@@ -53,7 +53,7 @@ function renderValuesSlides() {
         
         return `
         <div class="values-image-item${i === 0 ? ' active' : ''}" data-index="${i}">
-            <img src="../${det.img}" alt="${det.t}">
+            <img src="${siteBasePath}${det.img}" alt="${det.t}">
             <div class="mobile-values-content">
                 <span class="mobile-values-num">0${i + 1}</span>
                 <h3 class="mobile-values-title">${title}</h3>

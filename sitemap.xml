@@ -1,37 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
         <loc>https://seoulbonerehab.com/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://seoulbonerehab.com/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://seoulbonerehab.com/en/" />
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://seoulbonerehab.com/en/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://seoulbonerehab.com/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://seoulbonerehab.com/en/" />
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://seoulbonerehab.com/staff/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://seoulbonerehab.com/staff/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://seoulbonerehab.com/en/staff/" />
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://seoulbonerehab.com/en/staff/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://seoulbonerehab.com/staff/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://seoulbonerehab.com/en/staff/" />
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://seoulbonerehab.com/values/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://seoulbonerehab.com/values/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://seoulbonerehab.com/en/values/" />
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://seoulbonerehab.com/en/values/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://seoulbonerehab.com/values/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://seoulbonerehab.com/en/values/" />
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://seoulbonerehab.com/diagnosis/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://seoulbonerehab.com/diagnosis/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://seoulbonerehab.com/en/diagnosis/" />
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://seoulbonerehab.com/en/diagnosis/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://seoulbonerehab.com/diagnosis/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://seoulbonerehab.com/en/diagnosis/" />
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://seoulbonerehab.com/treatment/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://seoulbonerehab.com/treatment/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://seoulbonerehab.com/en/treatment/" />
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://seoulbonerehab.com/en/treatment/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://seoulbonerehab.com/treatment/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://seoulbonerehab.com/en/treatment/" />
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://seoulbonerehab.com/prp/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://seoulbonerehab.com/prp/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://seoulbonerehab.com/en/prp/" />
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://seoulbonerehab.com/en/prp/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://seoulbonerehab.com/prp/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://seoulbonerehab.com/en/prp/" />
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://seoulbonerehab.com/contact/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://seoulbonerehab.com/contact/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://seoulbonerehab.com/en/contact/" />
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://seoulbonerehab.com/en/contact/</loc>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://seoulbonerehab.com/contact/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://seoulbonerehab.com/en/contact/" />
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>

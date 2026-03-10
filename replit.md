@@ -16,28 +16,43 @@ This project delivers a premium static website for the Seoul Bone Pain Clinic (r
 /
 ├── index.html          # Home page with intro animation
 ├── popup-config.js     # Popup settings (easy to edit)
-├── data.js             # Centralized site data (staff, services, etc.)
-├── style.css           # Global styles
-├── staff/              # Medical Staff page
+├── data.js             # Centralized site data (Korean, staff, services, etc.)
+├── data-en.js          # English site data (mirrors data.js structure)
+├── style.css           # Global styles (shared KO/EN)
+├── staff/              # Medical Staff page (KO)
 │   └── index.html
-├── values/             # Core Values page (GSAP slides)
+├── values/             # Core Values page (KO, GSAP slides)
 │   └── index.html
-├── diagnosis/          # Diagnostics page (horizontal scroll)
+├── diagnosis/          # Diagnostics page (KO, horizontal scroll)
 │   └── index.html
-├── treatment/          # Treatments page (sticky slogan)
+├── treatment/          # Treatments page (KO, sticky slogan)
 │   └── index.html
-├── prp/                # Cell Therapy PRP page
+├── prp/                # Cell Therapy PRP page (KO)
 │   └── index.html
-├── contact/            # Contact & Location page
+├── contact/            # Contact & Location page (KO)
 │   └── index.html
-├── js/                 # Page-specific JavaScript
-│   ├── common.js       # Shared functions (header, menu, scroll)
+├── en/                 # English pages (mirrors KO structure)
+│   ├── index.html      # English home page
+│   ├── staff/
+│   │   └── index.html  # English staff (no philosophy card)
+│   ├── values/
+│   │   └── index.html
+│   ├── diagnosis/
+│   │   └── index.html
+│   ├── treatment/
+│   │   └── index.html
+│   ├── prp/
+│   │   └── index.html
+│   └── contact/
+│       └── index.html
+├── js/                 # Page-specific JavaScript (shared KO/EN)
+│   ├── common.js       # Shared functions (header, menu, scroll, language detection)
 │   ├── home.js         # Home page logic (intro, popup)
 │   ├── diagnosis.js    # Diagnosis page scroll effects
 │   ├── values.js       # Values page GSAP slider
 │   ├── treatment.js    # Treatment page sticky scroll
 │   └── prp.js          # PRP page animations
-└── images/             # Image assets
+└── images/             # Image assets (shared KO/EN)
     └── popup/          # Popup images folder
 ```
 
@@ -60,7 +75,10 @@ The website adopts a luxury resort theme, characterized by gold accents, subtle 
 
 ### Technical Implementations
 - **Core Technologies**: Static HTML, CSS, and JavaScript. No build system required.
-- **Data Architecture**: All content managed through `data.js` for consistency (staff info, service descriptions, etc.)
+- **Data Architecture**: Content managed through `data.js` (Korean) and `data-en.js` (English) for consistency
+  - **Multilingual**: `js/common.js` detects language from URL path (`/en/` → English), sets `siteLanguage` and `siteBasePath`
+  - **Language Switcher**: KO|EN toggle injected into header via `injectLanguageSwitcher()`
+  - **hreflang**: All 14 pages have bidirectional hreflang tags; sitemap.xml uses xhtml:link for hreflang
 - **Premium Effects**:
     - Gold gradient text and accent lines
     - Enhanced hover effects (scale, translateY, box-shadow)
@@ -78,6 +96,15 @@ The website adopts a luxury resort theme, characterized by gold accents, subtle 
 - **Philosophy Card**: Triggers at 80vh with CSS transitions for expansion effect
 
 ## Recent Changes
+- **Mar 2026**: **English Pages Added (Multilingual Support)**
+  - Created `/en/` directory with 7 English pages mirroring Korean structure
+  - `data-en.js`: English data file with all content from user-provided CSV
+  - `js/common.js`: Added `siteLanguage` (auto-detect from URL), `siteBasePath` (relative path calc), `injectLanguageSwitcher()` (KO|EN toggle)
+  - JS files (`values.js`, `diagnosis.js`, `treatment.js`): Updated image paths to use `siteBasePath` for KO/EN compatibility
+  - English staff page: Philosophy card removed (not in CSV data)
+  - hreflang tags added to all 14 pages (7 KO + 7 EN)
+  - `sitemap.xml`: Updated with 14 URLs + xhtml:link hreflang annotations
+  - `style.css`: Added `.lang-switch` button styles
 - **Feb 2026**: **SEO 최적화 완료**
   - 파비콘 생성 및 전체 7개 페이지 적용 (favicon.ico, 32px, apple-touch-icon)
   - 메타 태그 설정: title, description, keywords, canonical URL

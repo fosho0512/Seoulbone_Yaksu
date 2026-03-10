@@ -23,7 +23,7 @@ function renderTreatmentContent() {
         sloganSection.innerHTML = `
             <div class="treatment-slogan-stage">
                 <div class="treatment-slogan-bg">
-                    <img src="../images/treatment-intro-bg.webp" alt="Background" loading="lazy">
+                    <img src="${siteBasePath}images/treatment-intro-bg.webp" alt="Background" loading="lazy">
                 </div>
                 <div class="treatment-slogan-container">
                     <div class="treatment-slogan-group" data-group="1">
@@ -59,7 +59,7 @@ function renderTreatmentContent() {
                     <p class="detail-desc">${det.d}</p>
                 </div>
                 <div class="treatment-detail-img">
-                    <img src="../${det.img}" alt="${det.t}">
+                    <img src="${siteBasePath}${det.img}" alt="${det.t}">
                 </div>
             </div>
         `).join('');
