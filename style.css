@@ -3171,6 +3171,10 @@ body::before {
     background: var(--gold-accent);
 }
 
+html[lang="en"] .values-title-layer {
+    min-height: 180px;
+}
+
 /* 영어 부제 레이어 - 왼쪽 트랙 하단 */
 .values-subtitle-layer {
     min-height: 60px;
