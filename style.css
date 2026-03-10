@@ -601,7 +601,7 @@ body.menu-open .visual-text { opacity: 0; }
     font-weight: 400;
     letter-spacing: 0.15em;
     line-height: var(--lh-tight);
-    white-space: nowrap;
+    text-wrap: balance;
     opacity: 0;
     transform: translateY(25px);
     transition: opacity 1.2s cubic-bezier(0.25, 0.1, 0.25, 1),
@@ -2816,7 +2816,7 @@ body::before {
         width: 100%;
         box-sizing: border-box;
     }
-    .visual-text h3 { font-size: var(--font-display-md); white-space: normal; }
+    .visual-text h3 { font-size: var(--font-display-md); }
     .intro-logo { font-size: var(--font-heading-lg); letter-spacing: var(--ls-wider); }
     .intro-logo .loc { font-size: var(--font-body); }
     .logo-wrapper { height: 20px; }
