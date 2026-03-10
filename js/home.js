@@ -47,6 +47,7 @@ function enterSite() {
     
     const header = document.getElementById('global-header');
     const visualH3 = document.querySelector('.visual-text h3');
+    const visualH4 = document.querySelector('.visual-text h4');
     const visualP = document.querySelector('.visual-text p');
     
     setTimeout(() => {
@@ -58,8 +59,12 @@ function enterSite() {
     }, 400);
     
     setTimeout(() => {
+        if (visualH4) visualH4.classList.add('fade-in');
+    }, 700);
+    
+    setTimeout(() => {
         if (visualP) visualP.classList.add('fade-up');
-    }, 900);
+    }, 1100);
     
     setupHomeHeaderObserver();
 }

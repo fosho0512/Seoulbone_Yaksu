@@ -613,6 +613,24 @@ body.menu-open .visual-text { opacity: 0; }
     transform: translateY(0);
     letter-spacing: 0.02em;
 }
+.visual-text h4 {
+    font-family: var(--font-serif);
+    font-size: var(--font-heading-lg);
+    color: var(--gold-accent);
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 1s cubic-bezier(0.25, 0.1, 0.25, 1),
+                transform 1s cubic-bezier(0.25, 0.1, 0.25, 1),
+                letter-spacing 1.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.visual-text h4.fade-in {
+    opacity: 0.9;
+    transform: translateY(0);
+    letter-spacing: 0.08em;
+}
 .visual-text p { 
     font-size: var(--font-body-lg); 
     opacity: 0; 
@@ -2817,6 +2835,7 @@ body::before {
         box-sizing: border-box;
     }
     .visual-text h3 { font-size: var(--font-display-md); }
+    .visual-text h4 { font-size: var(--font-heading-md); margin-bottom: 18px; }
     .intro-logo { font-size: var(--font-heading-lg); letter-spacing: var(--ls-wider); }
     .intro-logo .loc { font-size: var(--font-body); }
     .logo-wrapper { height: 20px; }
