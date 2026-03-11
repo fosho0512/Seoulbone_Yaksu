@@ -601,7 +601,7 @@ body.menu-open .visual-text { opacity: 0; }
     font-weight: 400;
     letter-spacing: 0.15em;
     line-height: var(--lh-tight);
-    text-wrap: balance;
+    white-space: nowrap;
     opacity: 0;
     transform: translateY(25px);
     transition: opacity 1.2s cubic-bezier(0.25, 0.1, 0.25, 1),
@@ -3169,6 +3169,11 @@ body::before {
     width: 60px;
     height: 1px;
     background: var(--gold-accent);
+}
+
+html[lang="en"] .visual-text h3 {
+    white-space: normal;
+    text-wrap: balance;
 }
 
 html[lang="en"] .values-title-layer {

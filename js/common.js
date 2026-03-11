@@ -15,9 +15,10 @@ const siteBasePath = (function() {
 function getLanguageSwitchUrl() {
     const path = window.location.pathname;
     if (siteLanguage === 'ko') {
-        if (path === '/' || path === '/index.html') return '/en/';
+        if (path === '/' || path === '/index.html') return '/en/#main';
         return '/en' + path;
     } else {
+        if (/^\/en\/?$/.test(path) || path === '/en/index.html') return '/#main';
         return path.replace(/^\/en(\/|$)/, '/');
     }
 }
@@ -183,7 +184,7 @@ function getCommonHeaderHTML() {
             <button type="button" id="menu-toggle" class="menu-toggle-btn">
                 <div class="lines"><span></span><span></span><span></span></div>
             </button>
-            <a href="index.html" class="brand" id="brand-logo">SEOUL BONE<br><span class="loc">PAIN CLINIC</span></a>
+            <a href="${siteLanguage === 'en' ? '/en/#main' : '/#main'}" class="brand" id="brand-logo">SEOUL BONE<br><span class="loc">PAIN CLINIC</span></a>
         </div>
         <div class="header-right">
             <button type="button" id="btn-contact" class="util-btn">Contact Us</button>

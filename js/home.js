@@ -8,7 +8,24 @@ const homeElems = {
 document.addEventListener('DOMContentLoaded', function() {
     handleHashRedirect();
     
-    if (homeElems.introOverlay) {
+    const shouldSkipIntro = sessionStorage.getItem('introSeen') || window.location.hash === '#main';
+    
+    if (shouldSkipIntro && homeElems.introOverlay) {
+        homeElems.introOverlay.classList.add('hidden');
+        document.body.classList.add('site-entered');
+        document.body.classList.add('has-sub-hero');
+        document.getElementById('global-header')?.classList.add('visible');
+        const h3 = document.querySelector('.visual-text h3');
+        const h4 = document.querySelector('.visual-text h4');
+        const p = document.querySelector('.visual-text p');
+        if (h3) h3.classList.add('fade-in');
+        if (h4) h4.classList.add('fade-in');
+        if (p) p.classList.add('fade-up');
+        setupHomeHeaderObserver();
+        if (window.location.hash === '#main') {
+            history.replaceState(null, '', window.location.pathname);
+        }
+    } else if (homeElems.introOverlay) {
         setTimeout(() => {
             homeElems.introOverlay.classList.remove('loading');
         }, 2000);
@@ -41,6 +58,7 @@ function setupHomeEventListeners() {
 }
 
 function enterSite() {
+    sessionStorage.setItem('introSeen', '1');
     homeElems.introOverlay.classList.add('hidden');
     document.body.classList.add('site-entered');
     document.body.classList.add('has-sub-hero');
