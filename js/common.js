@@ -51,8 +51,8 @@ function initCommon() {
 }
 
 function injectLanguageSwitcher() {
-    const headerRight = document.querySelector('.header-right');
-    if (!headerRight) return;
+    const header = document.getElementById('global-header');
+    if (!header) return;
     const switchUrl = getLanguageSwitchUrl();
     const switcher = document.createElement('a');
     switcher.href = switchUrl;
@@ -60,7 +60,7 @@ function injectLanguageSwitcher() {
     switcher.innerHTML = siteLanguage === 'ko'
         ? '<span class="lang-active">KO</span><span class="lang-divider">|</span><span class="lang-inactive">EN</span>'
         : '<span class="lang-inactive">KO</span><span class="lang-divider">|</span><span class="lang-active">EN</span>';
-    headerRight.appendChild(switcher);
+    header.appendChild(switcher);
 }
 
 function initLenis() {
