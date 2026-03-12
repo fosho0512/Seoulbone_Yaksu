@@ -2819,9 +2819,10 @@ body::before {
     .drawer-menu { width: 100%; }
     #global-header { padding: 0 25px; height: 65px; }
     :root { --header-height: 65px; }
-    .header-right { display: none; }
+    .header-right { position: absolute; right: 70px; top: 50%; transform: translateY(-50%); background: none; padding: 0; gap: 0; }
+    .header-right .util-btn,
+    .header-right .highlight { display: none; }
     .header-left { width: 100%; justify-content: space-between; flex-direction: row-reverse; }
-    .lang-switch { position: absolute; right: 70px; top: 50%; transform: translateY(-50%); }
     .menu-toggle-btn { min-height: 44px; min-width: 44px; padding: 10px; }
     .menu-toggle-btn .label { display: none; }
     .close-btn { right: 25px; top: 25px; min-height: 44px; min-width: 44px; }
