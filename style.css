@@ -3129,22 +3129,25 @@ body::before {
     pointer-events: auto;
 }
 
-/* 번호 레이어 - stagger delay 0ms, 고정 높이 */
-.values-num-layer {
-    min-height: 60px;
-    margin-bottom: 12px;
+/* 오른쪽 통합 레이어 - 번호 + 포인트를 하나의 흐름으로 */
+.values-right-layer {
+    min-height: 260px;
 }
 
-.values-num-layer .values-layer-item {
+.values-right-layer .values-layer-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition-delay: 50ms;
+}
+
+.values-right-layer .values-num {
     font-family: var(--font-serif);
     font-size: var(--font-4xl);
     color: var(--gold-accent);
-    opacity: 0;
-    transition-delay: 0ms;
-}
-
-.values-num-layer .values-layer-item.active {
     opacity: 0.4;
+    margin-bottom: 20px;
+    line-height: 1;
 }
 
 /* 왼쪽 통합 레이어 - 제목 + 구분선 + 부제를 하나의 흐름으로 */
@@ -3194,24 +3197,15 @@ html[lang="en"] .values-left-layer {
     min-height: 220px;
 }
 
-/* 포인트들 레이어 - stagger delay 150ms, 고정 높이 */
-.values-points-layer {
-    min-height: 200px;
-}
-
-.values-points-layer .values-layer-item {
-    transition-delay: 150ms;
-}
-
-.values-points-layer .point-item {
+.values-right-layer .point-item {
     margin-bottom: 20px;
 }
 
-.values-points-layer .point-item:last-child {
+.values-right-layer .point-item:last-child {
     margin-bottom: 0;
 }
 
-.values-points-layer h4 {
+.values-right-layer h4 {
     font-family: var(--font-sans);
     font-size: var(--font-body);
     font-weight: 600;
@@ -3219,7 +3213,7 @@ html[lang="en"] .values-left-layer {
     margin-bottom: 6px;
 }
 
-.values-points-layer p {
+.values-right-layer p {
     font-family: var(--font-sans);
     font-size: var(--font-body-sm);
     color: var(--accent-color);
@@ -3303,11 +3297,11 @@ html[lang="en"] .values-left-layer {
         margin-top: 12px;
     }
     
-    .values-points-layer {
+    .values-right-layer {
         min-height: auto;
     }
     
-    .values-points-layer .point-item {
+    .values-right-layer .point-item {
         margin-bottom: 12px;
         font-size: var(--font-body-sm);
     }

@@ -63,11 +63,7 @@ function renderValuesSlides() {
     `;
     }).join('');
     
-    const numLayerHtml = data.details.map((_, i) => 
-        `<span class="values-layer-item${i === 0 ? ' active' : ''}" data-slide="${i}">0${i + 1}</span>`
-    ).join('');
-    
-    const pointsLayerHtml = data.details.map((det, i) => {
+    const rightLayerHtml = data.details.map((det, i) => {
         const pointsHtml = det.d
             .replace(/<strong>\[[^\]]+\]<\/strong><br><br>/, '')
             .split(/<br><br>/)
@@ -78,7 +74,11 @@ function renderValuesSlides() {
                 const desc = point.replace(/<b>[^<]+<\/b><br>/, '').trim();
                 return `<div class="point-item"><h4>${title}</h4><p>${desc}</p></div>`;
             }).join('');
-        return `<div class="values-layer-item${i === 0 ? ' active' : ''}" data-slide="${i}">${pointsHtml}</div>`;
+        return `
+        <div class="values-layer-item${i === 0 ? ' active' : ''}" data-slide="${i}">
+            <span class="values-num">0${i + 1}</span>
+            <div class="values-points-content">${pointsHtml}</div>
+        </div>`;
     }).join('');
     
     wrapper.innerHTML = `
@@ -98,11 +98,8 @@ function renderValuesSlides() {
             </div>
             
             <div class="values-right-track">
-                <div class="values-layer values-num-layer">
-                    ${numLayerHtml}
-                </div>
-                <div class="values-layer values-points-layer">
-                    ${pointsLayerHtml}
+                <div class="values-layer values-right-layer">
+                    ${rightLayerHtml}
                 </div>
             </div>
         </div>
@@ -122,8 +119,7 @@ function setupValuesSlider() {
     const container = document.querySelector('.values-slides-container');
     const imageItems = document.querySelectorAll('.values-image-item');
     const titleItems = document.querySelectorAll('.values-left-layer .values-layer-item');
-    const numItems = document.querySelectorAll('.values-num-layer .values-layer-item');
-    const pointsItems = document.querySelectorAll('.values-points-layer .values-layer-item');
+    const rightItems = document.querySelectorAll('.values-right-layer .values-layer-item');
     const progressDots = document.querySelectorAll('.values-slide-progress .progress-dot');
     
     if (!wrapper || !container || imageItems.length === 0) {
@@ -143,7 +139,7 @@ function setupValuesSlider() {
         if (index === currentSlide) return;
         currentSlide = index;
         
-        [imageItems, titleItems, numItems, pointsItems].forEach(items => {
+        [imageItems, titleItems, rightItems].forEach(items => {
             items.forEach((item, i) => {
                 item.classList.toggle('active', i === index);
             });
