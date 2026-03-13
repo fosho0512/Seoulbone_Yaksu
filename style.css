@@ -3147,17 +3147,19 @@ body::before {
     opacity: 0.4;
 }
 
-/* 제목 레이어 - 왼쪽 트랙용 큰 제목 */
-.values-title-layer {
-    min-height: 140px;
-    margin-bottom: 20px;
+/* 왼쪽 통합 레이어 - 제목 + 구분선 + 부제를 하나의 흐름으로 */
+.values-left-layer {
+    min-height: 160px;
 }
 
-.values-title-layer .values-layer-item {
+.values-left-layer .values-layer-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     transition-delay: 50ms;
 }
 
-.values-title-layer h3 {
+.values-left-layer h3 {
     font-family: var(--font-serif);
     font-size: clamp(1.8rem, 3vw, 2.5rem);
     color: var(--text-color);
@@ -3167,10 +3169,20 @@ body::before {
     letter-spacing: var(--ls-tight);
 }
 
-.values-title-layer .values-divider {
+.values-left-layer .values-divider {
     width: 60px;
     height: 1px;
     background: var(--gold-accent);
+    flex-shrink: 0;
+}
+
+.values-left-layer .values-subtitle {
+    font-family: var(--font-sans);
+    font-size: var(--font-body);
+    color: var(--accent-color);
+    letter-spacing: var(--ls-normal);
+    line-height: var(--lh-relaxed);
+    margin-top: 20px;
 }
 
 html[lang="en"] .visual-text h3 {
@@ -3178,22 +3190,8 @@ html[lang="en"] .visual-text h3 {
     text-wrap: balance;
 }
 
-html[lang="en"] .values-title-layer {
-    min-height: 180px;
-}
-
-/* 영어 부제 레이어 - 왼쪽 트랙 하단 */
-.values-subtitle-layer {
-    min-height: 60px;
-}
-
-.values-subtitle-layer .values-layer-item {
-    font-family: var(--font-sans);
-    font-size: var(--font-body);
-    color: var(--accent-color);
-    letter-spacing: var(--ls-normal);
-    line-height: var(--lh-relaxed);
-    transition-delay: 100ms;
+html[lang="en"] .values-left-layer {
+    min-height: 220px;
 }
 
 /* 포인트들 레이어 - stagger delay 150ms, 고정 높이 */
@@ -3292,18 +3290,17 @@ html[lang="en"] .values-title-layer {
         margin-bottom: 8px;
     }
     
-    .values-title-layer {
-        min-height: 80px;
-        margin-bottom: 12px;
+    .values-left-layer {
+        min-height: 100px;
     }
     
-    .values-title-layer h3 {
+    .values-left-layer h3 {
         font-size: clamp(1.3rem, 5vw, 1.8rem);
         margin-bottom: 12px;
     }
     
-    .values-subtitle-layer {
-        min-height: 40px;
+    .values-left-layer .values-subtitle {
+        margin-top: 12px;
     }
     
     .values-points-layer {

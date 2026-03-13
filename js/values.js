@@ -20,17 +20,16 @@ function renderValuesSlides() {
         `<div class="progress-dot${i === 0 ? ' active' : ''}" data-index="${i}"></div>`
     ).join('');
     
-    const titleLayerHtml = data.details.map((det, i) => `
+    const leftLayerHtml = data.details.map((det, i) => {
+        const subtitleMatch = det.d.match(/<strong>\[([^\]]+)\]<\/strong>/);
+        const subtitle = subtitleMatch ? subtitleMatch[1] : '';
+        return `
         <div class="values-layer-item${i === 0 ? ' active' : ''}" data-slide="${i}">
             <h3>${det.t.replace(/^\d+\.\s*/, '')}</h3>
             <div class="values-divider"></div>
+            ${subtitle ? `<span class="values-subtitle">${subtitle}</span>` : ''}
         </div>
-    `).join('');
-    
-    const subtitleLayerHtml = data.details.map((det, i) => {
-        const subtitleMatch = det.d.match(/<strong>\[([^\]]+)\]<\/strong>/);
-        const subtitle = subtitleMatch ? subtitleMatch[1] : '';
-        return `<span class="values-layer-item${i === 0 ? ' active' : ''}" data-slide="${i}">${subtitle}</span>`;
+    `;
     }).join('');
     
     const imageTrackHtml = data.details.map((det, i) => {
@@ -89,11 +88,8 @@ function renderValuesSlides() {
             </div>
             
             <div class="values-left-track">
-                <div class="values-layer values-title-layer">
-                    ${titleLayerHtml}
-                </div>
-                <div class="values-layer values-subtitle-layer">
-                    ${subtitleLayerHtml}
+                <div class="values-layer values-left-layer">
+                    ${leftLayerHtml}
                 </div>
             </div>
             
@@ -125,8 +121,7 @@ function setupValuesSlider() {
     const wrapper = document.querySelector('.values-slides-wrapper');
     const container = document.querySelector('.values-slides-container');
     const imageItems = document.querySelectorAll('.values-image-item');
-    const titleItems = document.querySelectorAll('.values-title-layer .values-layer-item');
-    const subtitleItems = document.querySelectorAll('.values-subtitle-layer .values-layer-item');
+    const titleItems = document.querySelectorAll('.values-left-layer .values-layer-item');
     const numItems = document.querySelectorAll('.values-num-layer .values-layer-item');
     const pointsItems = document.querySelectorAll('.values-points-layer .values-layer-item');
     const progressDots = document.querySelectorAll('.values-slide-progress .progress-dot');
@@ -148,7 +143,7 @@ function setupValuesSlider() {
         if (index === currentSlide) return;
         currentSlide = index;
         
-        [imageItems, titleItems, subtitleItems, numItems, pointsItems].forEach(items => {
+        [imageItems, titleItems, numItems, pointsItems].forEach(items => {
             items.forEach((item, i) => {
                 item.classList.toggle('active', i === index);
             });
