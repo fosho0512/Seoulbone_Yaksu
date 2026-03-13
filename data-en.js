@@ -97,7 +97,7 @@ const siteData = {
         // 05. Cell Therapy (PRP)
         prp: { 
             title: "Cell Therapy (PRP)", 
-            desc: "<strong>\"Awakening the Body's Own Healing Power from Within\"</strong><br>PRP (Platelet-Rich Plasma) therapy is a cutting-edge regenerative treatment that concentrates the growth factors responsible for healing and tissue repair from the patient's own blood,<br>then delivers them directly to the site of damaged ligaments, tendons, or cartilage.<br><br><strong>[Key Benefits]</strong><br>• <b>Safety:</b> Derived entirely from the patient's own blood, carrying exceptionally low risk of adverse reactions<br>• <b>Root-Cause Treatment:</b> Actively regenerates and strengthens weakened tissue itself<br>• <b>Powerful Regeneration:</b> Growth factors concentrated 3–5× above normal blood levels amplify the body's innate healing capacity", 
+            desc: "<strong>\"Awakening the Body's Own Healing Power from Within\"</strong><br>PRP (Platelet-Rich Plasma) therapy is a cutting-edge regenerative treatment that concentrates the growth factors responsible for healing and tissue repair from the patient's own blood,<br>then delivers them directly to the site of damaged ligaments, tendons, or cartilage.<br><br><strong>[Key Benefits]</strong><br>• <b>Safety:</b> Derived entirely from the patient's own blood, carrying exceptionally low risk of adverse reactions<br>• <b>Root-Cause Treatment:</b> Actively regenerates and strengthens weakened tissue itself<br>• <b>Powerful Regen:</b> Growth factors concentrated 3–5× above normal blood levels amplify the body's innate healing capacity", 
             modalImg: "images/prp.webp"
         },
         // 06. Contact/Location
