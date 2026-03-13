@@ -3101,7 +3101,6 @@ body::before {
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     padding: 60px 80px 60px 50px;
     overflow: hidden;
 }
@@ -3129,16 +3128,31 @@ body::before {
     pointer-events: auto;
 }
 
-/* 오른쪽 통합 레이어 - 번호 + 포인트를 하나의 흐름으로 */
+/* 오른쪽 통합 레이어 - 번호 + 포인트를 하나의 흐름으로, 상하 중앙 정렬 */
 .values-right-layer {
-    min-height: 260px;
+    flex: 1;
+    position: relative;
 }
 
 .values-right-layer .values-layer-item {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(calc(-50% + 15px));
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     transition-delay: 50ms;
+}
+
+.values-right-layer .values-layer-item.active {
+    opacity: 1;
+    transform: translateY(-50%);
+    pointer-events: auto;
 }
 
 .values-right-layer .values-num {
