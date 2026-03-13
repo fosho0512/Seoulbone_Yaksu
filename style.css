@@ -3877,6 +3877,26 @@ body.values-mobile-mode .mobile-point-item p {
     background: rgba(44, 41, 38, 0.55);
 }
 
+html[lang="en"] .diag-slogan-overlay {
+    background: radial-gradient(ellipse 75% 65% at 50% 50%,
+        rgba(15, 12, 10, 0.82) 0%,
+        rgba(30, 26, 22, 0.62) 50%,
+        rgba(44, 41, 38, 0.35) 100%);
+}
+
+html[lang="en"] .diag-slogan-headline {
+    text-shadow:
+        0 1px 8px rgba(0, 0, 0, 0.95),
+        0 4px 24px rgba(0, 0, 0, 0.75),
+        0 8px 48px rgba(0, 0, 0, 0.5);
+}
+
+html[lang="en"] .diag-slogan-desc {
+    text-shadow:
+        0 1px 6px rgba(0, 0, 0, 0.90),
+        0 3px 16px rgba(0, 0, 0, 0.65);
+}
+
 /* Diag Slogan 스크롤 인디케이터 */
 .diag-slogan .scroll-indicator-vertical {
     position: absolute;
