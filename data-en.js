@@ -11,7 +11,7 @@ const siteData = {
             modalImg: "images/staff.webp", 
             signatureImg: "images/signature.webp", 
             bio: [
-                { category: "Education", items: ["Graduate of College of Medicine, The Catholic University of Korea", "Combined M.S.-Ph.D. Program in Physical Medicine and Rehabilitation\nCollege of Medicine, The Catholic University of Korea"] },
+                { category: "Education", items: ["Graduate of College of Medicine, The Catholic University of Korea", "Combined M.S.-Ph.D. Program in Physical Medicine and Rehabilitation, College of Medicine, The Catholic University of Korea"] },
                 { category: "Clinical & Academic Experience", items: ["Intern, St. Mary's Hospital, The Catholic Medical Center", "Resident, St. Mary's Hospital, The Catholic Medical Center", "Attending Physician & Clinical Supervisor, St. Mary's Hospital, The Catholic Medical Center"] },
                 { category: "Society Memberships", items: ["Member of Korean Medical Association (KMA)", "Member of Korean Academy of Rehabilitation Medicine (KARM)", "Member of American Congress of Rehabilitation Medicine (ACRM)", "Member of American Academy of Manipulative Therapy (AAMT)", "Member of European Society of Physical and Rehabilitation Medicine (ESPRM)"] }
             ],
