@@ -67,8 +67,8 @@ const siteData = {
             ],
             promises: [
                 { title: "Strict Standard", name: "Uncompromising Material Selection", desc: "We only use materials and treatments that we would confidently use on our own family.<br>We insist on rigorously verified, best-in-class materials — and never administer any treatment without full confidence in its safety and efficacy." },
-                { title: "Real-time Customization", name: "Adaptive Personalized Treatment", desc: "We reject mechanical, routine protocols.<br>At every visit, we precisely reassess your changing physical condition and tailor each treatment to exactly what your body needs at that moment." },
-                { title: "Insight for Cause", name: "Treating the Origin, Not the Symptom", desc: "Pain is merely a signal from your body.<br>We look beyond surface-level discomfort to restore balance to underlying structural and functional imbalances — pursuing true, lasting healing." }
+                { title: "Real-time Customization", name: "Adaptive Personalized Treatment", desc: "At every visit, we precisely reassess your changing physical condition and tailor each treatment to exactly what your body needs at that moment." },
+                { title: "Insight for Cause", name: "Treating the Origin, Not the Symptom", desc: "We look beyond surface-level discomfort to restore balance to underlying structural and functional imbalances — pursuing true, lasting healing." }
             ],
             details: [ 
                 { 
