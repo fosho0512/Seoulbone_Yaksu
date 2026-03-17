@@ -43,6 +43,9 @@ html.lenis, html.lenis body {
     --font-serif: 'Playfair Display', 'Noto Serif KR', serif; 
     --font-sans: 'Manrope', 'Pretendard', sans-serif;
     --font-quote: 'Gowun Batang', serif;
+    --font-heading: 'Playfair Display', 'Noto Serif KR', serif;
+    --font-heading-kr: 'Gowun Batang', 'Noto Serif KR', serif;
+    --font-display: 'Playfair Display', serif;
 
     /* [Typography Scale - 1.2 Modular Ratio] */
     --font-2xs: 0.694rem;          /* 11px - Fine print */
@@ -1950,7 +1953,7 @@ body.menu-open .visual-text { opacity: 0; }
 }
 
 .prp-intro-title h2 {
-    font-family: 'Pretendard', sans-serif;
+    font-family: var(--font-serif);
     font-size: clamp(33px, 3.5vw, 50px);
     font-weight: 600;
     color: var(--text-color);
