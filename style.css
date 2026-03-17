@@ -2042,8 +2042,7 @@ html[lang="en"] .prp-intro-text p {
 }
 
 html[lang="en"] .effect-title {
-    width: auto;
-    min-width: 200px;
+    width: 280px;
 }
 
 .effect-desc {
