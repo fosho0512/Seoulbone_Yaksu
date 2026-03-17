@@ -3174,14 +3174,21 @@ body::before {
 
 /* 왼쪽 통합 레이어 - 제목 + 구분선 + 부제를 하나의 흐름으로 */
 .values-left-layer {
-    min-height: 160px;
+    flex: 1;
+    position: relative;
 }
 
 .values-left-layer .values-layer-item {
+    top: 50%;
+    transform: translateY(calc(-50% + 15px));
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     transition-delay: 50ms;
+}
+
+.values-left-layer .values-layer-item.active {
+    transform: translateY(-50%);
 }
 
 .values-left-layer h3 {
@@ -3215,9 +3222,6 @@ html[lang="en"] .visual-text h3 {
     text-wrap: balance;
 }
 
-html[lang="en"] .values-left-layer {
-    min-height: 220px;
-}
 
 .values-right-layer .point-item {
     margin-bottom: 20px;
