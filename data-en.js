@@ -7,7 +7,7 @@ const siteData = {
             title: "Medical Staff", 
             name: "Jang, Yongjun",
             position: "M.D., Ph.D.",
-            titles: ["Board-Certified Physiatrist and Doctor of Philosophy <span style=\"white-space:nowrap\">(M.D., Ph.D.)</span>", "Adjunct Assistant Professor, Department of PMR, The Catholic University of Korea"],
+            titles: ["Board-Certified Physiatrist and Doctor of Philosophy <span style=\"white-space:nowrap\">(M.D., Ph.D.)</span>"],
             modalImg: "images/staff.webp", 
             signatureImg: "images/signature.webp", 
             bio: [
