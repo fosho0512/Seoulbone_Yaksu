@@ -4543,3 +4543,49 @@ html[lang="en"] .diag-slogan-desc {
         order: 1;
     }
 }
+
+/* ── Telegram Section (English pages only) ─────────────────── */
+html[lang="en"] .telegram-group {
+    margin-top: 5px;
+}
+html[lang="en"] .telegram-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 10px;
+}
+html[lang="en"] .telegram-icon-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+}
+html[lang="en"] .telegram-icon {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    transition: transform 0.25s ease;
+}
+html[lang="en"] .telegram-icon-link:hover .telegram-icon {
+    transform: scale(1.1);
+}
+html[lang="en"] .telegram-cta {
+    font-family: var(--font-sans);
+    font-size: var(--font-caption);
+    color: var(--gold-accent);
+    letter-spacing: 0.04em;
+}
+html[lang="en"] .telegram-qr {
+    width: 88px;
+    height: 88px;
+    object-fit: contain;
+}
+html[lang="en"] .telegram-info-row {
+    align-items: center;
+}
+html[lang="en"] .telegram-info-row .telegram-row {
+    margin-top: 0;
+    justify-content: flex-start;
+}
