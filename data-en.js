@@ -107,7 +107,7 @@ const siteData = {
             mapEmbed: `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3163.664609756667!2d127.00938361531086!3d37.55360667979986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca33a26d79a29%3A0x8e8335555c5c000!2z7JW97IiY7Jet!5e0!3m2!1sko!2skr!4v1646200000000!5m2!1sko!2skr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>`,
             modalImg: "images/contact.webp", 
             details: [ 
-                {t:"Clinic Hours", d:"Weekdays 09:00 AM – 07:00 PM / Sat 09:00 AM – 01:00 PM", img:"images/contact_hours.webp"}, 
+                {t:"Clinic Hours", d:"Weekdays 09:00 AM – 06:30 PM / Wed & Sat 09:00 AM – 12:30 PM (Closed on Sundays & Holidays)", img:"images/contact_hours.webp"}, 
                 {t:"Lunch Break", d:"01:00 PM – 02:00 PM (No lunch break on Saturdays)", img:"images/contact_hours.webp"}, 
                 {t:"Location", d:"Yaksu Station, Exit 6 (1 min walk)", img:"images/contact_loc.webp"}, 
                 {t:"Parking", d:"Mechanical parking available in building", img:"images/contact_parking.webp"} 

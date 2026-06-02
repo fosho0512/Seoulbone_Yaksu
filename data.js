@@ -113,7 +113,7 @@ const siteData = {
             mapEmbed: `<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3163.664609756667!2d127.00938361531086!3d37.55360667979986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca33a26d79a29%3A0x8e8335555c5c000!2z7JW97IiY7Jet!5e0!3m2!1sko!2skr!4v1646200000000!5m2!1sko!2skr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>`,
             modalImg: "images/contact.webp", 
             details: [ 
-                {t:"Operating Hours", d:"평일 09:00 - 19:00 / 토 09:00 - 13:00", img:"images/contact_hours.webp"}, 
+                {t:"Operating Hours", d:"평일 09:00 - 18:30 / 수·토 09:00 - 12:30 (일요일·공휴일 휴진)", img:"images/contact_hours.webp"}, 
                 {t:"Lunch Time", d:"오후 1:00 - 2:00 (토요일 점심시간 없음)", img:"images/contact_hours.webp"}, 
                 {t:"Location", d:"서울 약수역점 (약수역 출구 바로 앞)", img:"images/contact_loc.webp"}, 
                 {t:"Parking", d:"건물 내 기계식 주차 가능", img:"images/contact_parking.webp"} 
