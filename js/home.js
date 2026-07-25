@@ -15,10 +15,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.classList.add('site-entered');
         document.body.classList.add('has-sub-hero');
         document.getElementById('global-header')?.classList.add('visible');
-        const h3 = document.querySelector('.visual-text h3');
+        const h1 = document.querySelector('.visual-text h1') || document.querySelector('.visual-text h3');
         const h4 = document.querySelector('.visual-text h4');
         const p = document.querySelector('.visual-text p');
-        if (h3) h3.classList.add('fade-in');
+        if (h1) h1.classList.add('fade-in');
         if (h4) h4.classList.add('fade-in');
         if (p) p.classList.add('fade-up');
         setupHomeHeaderObserver();
@@ -64,7 +64,7 @@ function enterSite() {
     document.body.classList.add('has-sub-hero');
     
     const header = document.getElementById('global-header');
-    const visualH3 = document.querySelector('.visual-text h3');
+    const visualH1 = document.querySelector('.visual-text h1') || document.querySelector('.visual-text h3');
     const visualH4 = document.querySelector('.visual-text h4');
     const visualP = document.querySelector('.visual-text p');
     
@@ -73,7 +73,7 @@ function enterSite() {
     }, 300);
     
     setTimeout(() => {
-        if (visualH3) visualH3.classList.add('fade-in');
+        if (visualH1) visualH1.classList.add('fade-in');
     }, 400);
     
     setTimeout(() => {

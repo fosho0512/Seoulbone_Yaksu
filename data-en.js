@@ -7,7 +7,7 @@ const siteData = {
             title: "Medical Staff", 
             name: "Jang, Yongjun",
             position: "M.D., Ph.D.",
-            titles: ["Board-Certified Physiatrist and Doctor of Philosophy <span style=\"white-space:nowrap\">(M.D., Ph.D.)</span>"],
+            titles: ["English-Speaking Doctor & Board-Certified Physiatrist", "Doctor of Philosophy <span style=\"white-space:nowrap\">(M.D., Ph.D.)</span>"],
             modalImg: "images/staff.webp", 
             signatureImg: "images/signature.webp", 
             bio: [
@@ -21,7 +21,7 @@ const siteData = {
         // 02. Core Values
         values: { 
             title: "Core Values", 
-            desc: "With integrated expertise and a global perspective,<br>we identify the root cause of pain<br>and pursue a comprehensive, fundamental approach.", 
+            desc: "With integrated expertise and a global perspective,<br>our English-speaking doctor identifies the root cause of pain<br>at our premier pain clinic in Seoul.", 
             slogan: {
                 main: "Excellence in Every Detail",
                 sub: "We uphold uncompromising principles<br>for every patient's complete recovery."
@@ -29,7 +29,7 @@ const siteData = {
             sloganBg: "images/values.webp",
             modalImg: "images/values.webp", 
             details: [ 
-                {t:"01. Integrated Expertise &<br>Global Perspective", d:"<b>Integrated Medical Insight</b><br>As a Board-Certified Physiatrist with a dual-major Ph.D. in Physical Medicine & Rehabilitation and Neurosurgery, our physician identifies the true root cause of each condition through a comprehensive, multi-disciplinary perspective.<br><br><b>Global Standard</b><br>We adopt advanced, evidence-based treatment systems validated by world-leading medical institutions.<br><br><b>Dedicated Primary Physician</b><br>We believe in quality over quantity. Our board-certified physician personally oversees every stage of your care — from initial diagnosis to the final phase of treatment. With no rotation of doctors, continuity of care is guaranteed, and even the subtlest changes in your condition are never overlooked.", img:"images/values_01.webp"}, 
+                {t:"01. Integrated Expertise &<br>Global Perspective", d:"<b>Integrated Medical Insight</b><br>As a Board-Certified Physiatrist (English-Speaking Doctor) with a dual-major Ph.D. in Physical Medicine & Rehabilitation and Neurosurgery, our physician identifies the true root cause of each condition through a comprehensive, multi-disciplinary perspective.<br><br><b>Global Standard</b><br>We adopt advanced, evidence-based treatment systems validated by world-leading medical institutions.<br><br><b>Dedicated Primary Physician</b><br>We believe in quality over quantity. Our board-certified physician personally oversees every stage of your care — from initial diagnosis to the final phase of treatment. With no rotation of doctors, continuity of care is guaranteed, and even the subtlest changes in your condition are never overlooked.", img:"images/values_01.webp"}, 
                 {t:"02. Fundamental Approach", d:"<b>Beyond Pain</b><br>We don't simply chase pain — we investigate it. By comprehensively analyzing the muscles, nerves, and functional movement patterns underlying each patient's condition.<br><br><b>Personalized Care</b><br>Every treatment plan is individually tailored to each patient's unique medical condition, lifestyle, and goals.", img:"images/values_02.webp"}, 
                 {t:"03. Principles", d:"<b>Safety & Cleanliness</b><br>Patient safety and rigorous hygiene standards are our foremost priorities. We maintain a clean, comfortable healing environment.<br><b>※ Designated as 'Safe Hospital' by Jung-gu Public Health Center for three consecutive years.</b><br><br><b>Advanced Technology</b><br>We invest in university hospital-grade, state-of-the-art equipment to maximize diagnostic accuracy and treatment efficacy.<br><br><b>Transparent Policy</b><br>We strictly avoid over-treatment and maintain full price transparency across all services — because trust starts with honesty.", img:"images/values_03.webp"}, 
                 {t:"04. Personalized Care", d:"<b>Clear Explanation</b><br>We explain your condition and the underlying cause of your pain in plain, patient-friendly language — clearly and without jargon.<br><br><b>Shared Decision Making</b><br>Treatment decisions are never one-sided. We openly present the pros and cons of all available options and collaborate with each patient to determine the best path forward.<br><br><b>Treatment Roadmap</b><br>Beyond treating today's symptoms, we share a clear long-term treatment roadmap and goals — so you always know where you are on your journey to recovery.", img:"images/values_04.webp"} 
@@ -51,14 +51,14 @@ const siteData = {
         // 04. Integrated Treatment Solutions
         treatment: { 
             title: "Integrated Solutions", 
-            desc: "<strong>Integrated Treatment Solutions for Functional Recovery Beyond Pain Relief</strong><br>Combining the expertise of Physical Medicine & Rehabilitation with Orthopedics, our goal is the resolution of the underlying cause.", 
+            desc: "<strong>Integrated Pain Clinic & Physical Therapy Solutions in Seoul</strong><br>Combining Physical Medicine & Rehabilitation with Orthopedics expertise for comprehensive sports injury and pain care.", 
             modalImg: "images/treatment.webp",
             heroImg: "images/treatment-hero.webp",
             slogans: [
                 {
-                    main: "Integrated Treatment Solutions<br>for Functional Recovery<br>Beyond Pain Relief",
-                    sub: "Combining the expertise of Physical Medicine & Rehabilitation with Orthopedics, our goal is not temporary symptom relief but the resolution of the underlying cause.",
-                    desc: "Leveraging university hospital-grade equipment and proven clinical expertise, we design a fully personalized, integrated treatment plan for every patient."
+                    main: "Integrated Pain Clinic &<br>Physical Therapy Solutions<br>Beyond Pain Relief",
+                    sub: "Combining the expertise of Physical Medicine & Rehabilitation with Orthopedics, our sports injury & pain clinic in Seoul pursues fundamental recovery.",
+                    desc: "Leveraging university hospital-grade equipment and proven clinical expertise, our English-speaking doctor designs a fully personalized, integrated treatment plan for every patient."
                 },
                 {
                     main: "Three Core Commitments<br>of Seoul Bone Pain Clinic",
@@ -86,10 +86,10 @@ const siteData = {
                     img: "images/treatment_modality.webp" 
                 },
                 { 
-                    en: "Manual Therapy & Therapeutic Exercise",
-                    t: "03. Manual Therapy & Therapeutic Exercise", 
+                    en: "Manual & Physical Therapy",
+                    t: "03. Manual & Physical Therapy (Sports Injury Care)", 
                     quote: "Restoring physical balance to prevent recurrence — the fundamental solution",
-                    d: `The disappearance of pain does not mean treatment is complete. Under precise prescription from our rehabilitation specialist, our expert therapists work to restore function, correct dysfunctional posture and movement patterns, and prevent recurrence.<br><br><b>One-on-One Manual Therapy:</b><br>Our certified manual therapists use skilled hands-on techniques to mobilize restricted joints, restore spinal and pelvic alignment, and address the structural contributors to pain.<br><br><b>Individualized Therapeutic Exercise:</b><br>A clinically essential component of recovery — strengthening weakened muscles, restoring joint range of motion, and safely guiding patients back to daily activities and sports performance.`, 
+                    d: `The disappearance of pain does not mean treatment is complete. Under precise prescription from our English-speaking physiatrist, our physical therapy and sports injury clinic program restores joint function, corrects posture, and prevents recurrence.<br><br><b>One-on-One Manual & Physical Therapy:</b><br>Our certified manual therapists use skilled hands-on techniques to mobilize restricted joints, restore spinal and pelvic alignment, and address the structural contributors to pain.<br><br><b>Individualized Therapeutic Exercise & Sports Injury Rehabilitation:</b><br>A clinically essential component of recovery — strengthening weakened muscles, restoring joint range of motion, and safely guiding patients back to daily activities and sports performance.`, 
                     img: "images/treatment_manual.webp" 
                 }
             ] 
