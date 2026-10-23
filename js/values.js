@@ -52,7 +52,7 @@ function renderValuesSlides() {
         
         return `
         <div class="values-image-item${i === 0 ? ' active' : ''}" data-index="${i}">
-            <img src="${siteBasePath}${det.img}" alt="${det.t}">
+            <img src="${siteBasePath}${det.img}" alt="${det.t}" loading="lazy" decoding="async">
             <div class="mobile-values-content">
                 <span class="mobile-values-num">0${i + 1}</span>
                 <h3 class="mobile-values-title">${title}</h3>
@@ -133,11 +133,11 @@ function setupValuesSlider() {
     }
     
     const totalSlides = imageItems.length;
-    let currentSlide = 0;
+    const mediaSwitch = siteMedia.createSwitcher(totalSlides,
+        i => siteMedia.prepare(imageItems[i]), updateSlide);
+    mediaSwitch.show(0);
     
     function updateSlide(index) {
-        if (index === currentSlide) return;
-        currentSlide = index;
         
         [imageItems, titleItems, rightItems].forEach(items => {
             items.forEach((item, i) => {
@@ -161,7 +161,7 @@ function setupValuesSlider() {
                 Math.floor(progress * totalSlides),
                 totalSlides - 1
             );
-            updateSlide(slideIndex);
+            mediaSwitch.show(slideIndex);
         }
     });
     
@@ -193,6 +193,7 @@ function setupMobileValuesLayout() {
     
     allLayerItems.forEach(item => item.classList.add('active'));
     allImageItems.forEach(item => item.classList.add('active'));
+    siteMedia.warmNear(allImageItems);
     
     const progressBar = document.querySelector('.values-slide-progress');
     if (progressBar) progressBar.style.display = 'none';

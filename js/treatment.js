@@ -5,6 +5,7 @@ let treatmentDetailsObserver = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     renderTreatmentContent();
+    siteMedia.warmNear(document.querySelectorAll('.treatment-slogan-bg'));
     setupSubHeroScrollEffect();
     setTimeout(() => {
         setupTreatmentScroll();
@@ -59,7 +60,7 @@ function renderTreatmentContent() {
                     <p class="detail-desc">${det.d}</p>
                 </div>
                 <div class="treatment-detail-img">
-                    <img src="${siteBasePath}${det.img}" alt="${det.t}">
+                    <img src="${siteBasePath}${det.img}" alt="${det.t}" loading="lazy" decoding="async">
                 </div>
             </div>
         `).join('');
@@ -166,15 +167,5 @@ function setupTreatmentDetails() {
     const detailRows = document.querySelectorAll('.treatment-detail-row');
     if (detailRows.length === 0) return;
     
-    treatmentDetailsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
-    
-    detailRows.forEach(row => {
-        treatmentDetailsObserver.observe(row);
-    });
+    treatmentDetailsObserver = siteMedia.observeReveal(detailRows);
 }

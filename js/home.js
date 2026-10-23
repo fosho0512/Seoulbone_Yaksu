@@ -5,12 +5,13 @@ const homeElems = {
     enterBtn: document.getElementById('enter-btn')
 };
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     handleHashRedirect();
     
     const shouldSkipIntro = sessionStorage.getItem('introSeen') || window.location.hash === '#main';
     
     if (shouldSkipIntro && homeElems.introOverlay) {
+        await siteMedia.prepare(document.getElementById('visual-section'));
         homeElems.introOverlay.classList.add('hidden');
         document.body.classList.add('site-entered');
         document.body.classList.add('has-sub-hero');
@@ -57,7 +58,8 @@ function setupHomeEventListeners() {
     if(homeElems.enterBtn) homeElems.enterBtn.addEventListener('click', enterSite);
 }
 
-function enterSite() {
+async function enterSite() {
+    await siteMedia.prepare(document.getElementById('visual-section'));
     sessionStorage.setItem('introSeen', '1');
     homeElems.introOverlay.classList.add('hidden');
     document.body.classList.add('site-entered');

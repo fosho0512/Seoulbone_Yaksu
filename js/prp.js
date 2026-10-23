@@ -42,6 +42,12 @@ function setupPrpFinalSection() {
     
     if (bgImages.length === 0 || textBlocks.length === 0) return;
     
+    const mediaSwitch = siteMedia.createSwitcher(bgImages.length,
+        i => siteMedia.prepare(bgImages[i]), index => {
+            bgImages.forEach((bg, i) => bg.classList.toggle('active', i === index));
+        });
+    mediaSwitch.show(0);
+
     prpFinalObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -51,9 +57,7 @@ function setupPrpFinalSection() {
                     block.classList.toggle('active', i === index);
                 });
                 
-                bgImages.forEach((bg, i) => {
-                    bg.classList.toggle('active', i === index);
-                });
+                mediaSwitch.show(index);
             }
         });
     }, { threshold: 0.5, rootMargin: '-20% 0px -20% 0px' });

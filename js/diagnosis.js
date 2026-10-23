@@ -40,7 +40,7 @@ function renderEquipmentNarrative() {
     narrative.innerHTML = `
         <div class="sticky-image-wrapper">
             <div class="sticky-image" id="equipment-image">
-                ${data.details.map((det, i) => `<img src="${siteBasePath}${det.img}" alt="Equipment" class="${i === 0 ? 'active' : ''}" loading="lazy">`).join('')}
+                ${data.details.map((det, i) => `<img src="${siteBasePath}${det.img}" alt="Equipment" class="${i === 0 ? 'active' : ''}" loading="lazy" decoding="async">`).join('')}
             </div>
         </div>
         <div class="equipment-steps">
@@ -62,6 +62,8 @@ function setupDiagnosisScroll() {
         return;
     }
     
+    if (sloganPanel) siteMedia.prepare(sloganPanel);
+
     if (window.innerWidth <= 768) {
         track.style.transform = 'none';
         if (sloganPanel) sloganPanel.classList.add('animate');
@@ -127,6 +129,13 @@ function setupEquipmentNarrative() {
     
     if (steps.length === 0 || images.length === 0) return;
     
+    const mediaSwitch = siteMedia.createSwitcher(images.length,
+        i => siteMedia.image(images[i]), index => {
+            steps.forEach((step, i) => step.classList.toggle('active', i === index));
+            images.forEach((img, i) => img.classList.toggle('active', i === index));
+        });
+    mediaSwitch.show(0);
+
     function handleEquipmentScroll() {
         const viewportMiddle = window.innerHeight / 2;
         
@@ -134,12 +143,7 @@ function setupEquipmentNarrative() {
             const rect = step.getBoundingClientRect();
             
             if (rect.top < viewportMiddle && rect.bottom > viewportMiddle) {
-                steps.forEach(s => s.classList.remove('active'));
-                step.classList.add('active');
-                
-                images.forEach((img, i) => {
-                    img.classList.toggle('active', i === index);
-                });
+                mediaSwitch.show(index);
             }
         });
     }
